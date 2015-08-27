@@ -6,10 +6,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -18,7 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- build:css(.) styles/vendor.css -->
 
+    <!-- endbuild -->
   </head>
   <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl">
     <!--[if lte IE 8]>
@@ -83,7 +81,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
      <div ui-view state="{{$state.current.name}}"></div>
 
     </div>

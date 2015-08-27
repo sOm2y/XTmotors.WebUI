@@ -1,24 +1,64 @@
-<div class="jumbotron">
-  <h1>This is {{car}} page</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    <h1>{{"Team_Title" | translate}}</h1>
-     <p>{{"Team_Informational_Message" | translate}}</p>
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>{{"id" | translate}}</th>
+        <th>{{"brand" | translate}}</th>
+        <th>{{"model" | translate}}</th>
+        <th>{{"year" | translate}}</th>
+        <th>{{"odometer" | translate}}</th>
+        <th>{{"sale price" | translate}}</th>
+        <th>{{"vehicle status" | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>000-001</td>
+        <td>BMW</td>
+        <td>335i</td>
+        <td>2013</td>
+        <td>4,000 Km</td>
+        <td>$ 23,000</td>
+        <td><span class="label label-info">Shipping</span></td>
+      </tr>
+      <tr>
+         <td>000-001</td>
+        <td>BMW</td>
+        <td>335i</td>
+        <td>2013</td>
+        <td>4,000 Km</td>
+        <td>$ 23,000</td>
+        <td><span class="label label-danger">Shipping</span></td>
+      </tr>
+     <tr>
+        <td>000-001</td>
+        <td>BMW</td>
+        <td>335i</td>
+        <td>2013</td>
+        <td>4,000 Km</td>
+        <td>$ 23,000</td>
+        <td><span class="label label-primary">Shipping</span></td>
+      </tr> 
+        <tr>
+        <td>000-001</td>
+        <td>BMW</td>
+        <td>335i</td>
+        <td>2013</td>
+        <td>4,000 Km</td>
+        <td>$ 23,000</td>
+        <td><span class="label label-warning">Shipping</span></td>
+      </tr> 
+        <tr>
+        <td>000-001</td>
+        <td>BMW</td>
+        <td>335i</td>
+        <td>2013</td>
+        <td>4,000 Km</td>
+        <td>$ 23,000</td>
+        <td><span class="label label-success">Shipping</span></td>
+      </tr> 
+    </tbody>  
+  </table>
 </div>
