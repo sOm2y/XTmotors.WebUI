@@ -4,61 +4,27 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>{{"id" | translate}}</th>
-        <th>{{"brand" | translate}}</th>
-        <th>{{"model" | translate}}</th>
-        <th>{{"year" | translate}}</th>
-        <th>{{"odometer" | translate}}</th>
-        <th>{{"sale price" | translate}}</th>
-        <th>{{"vehicle status" | translate}}</th>
+        <th><a ng-click="orderByField = 'id';reverseSort = !reverseSort" href="">{{"id" | translate}} <span ng-class="orderByField == 'id' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'brand';reverseSort = !reverseSort" href="">{{"brand" | translate}} <span ng-class="orderByField == 'brand' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'model';reverseSort = !reverseSort" href="">{{"model" | translate}} <span ng-class="orderByField == 'model' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'year';reverseSort = !reverseSort" href="">{{"year" | translate}} <span ng-class="orderByField == 'year' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'odometer';reverseSort = !reverseSort" href="">{{"odometer" | translate}} <span ng-class="orderByField == 'odometer' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'salePrice';reverseSort = !reverseSort"href="">{{"sale price" | translate}} <span ng-class="orderByField == 'salePrice' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
+        <th><a ng-click="orderByField = 'status';reverseSort = !reverseSort" href=""> </span>{{"vehicle status" | translate}}  <span ng-class="orderByField == 'status' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
       </tr>
     </thead>
     <tbody>
+      <tr ng-repeat="car in cars | orderBy:orderByField:reverseSort"> 
+        <td>{{car.id}}</td>
+        <td>{{car.brand}}</td>
+        <td>{{car.model}}</td>
+        <td>{{car.year}}</td>
+        <td>{{car.odometer}} Km</td>
+        <td>${{car.salePrice}}</td>
+        <td><span class="label label-info">{{car.status}}</span></td></tr>
       <tr>
-        <td>000-001</td>
-        <td>BMW</td>
-        <td>335i</td>
-        <td>2013</td>
-        <td>4,000 Km</td>
-        <td>$ 23,000</td>
-        <td><span class="label label-info">Shipping</span></td>
-      </tr>
-      <tr>
-         <td>000-001</td>
-        <td>BMW</td>
-        <td>335i</td>
-        <td>2013</td>
-        <td>4,000 Km</td>
-        <td>$ 23,000</td>
-        <td><span class="label label-danger">Shipping</span></td>
-      </tr>
-     <tr>
-        <td>000-001</td>
-        <td>BMW</td>
-        <td>335i</td>
-        <td>2013</td>
-        <td>4,000 Km</td>
-        <td>$ 23,000</td>
-        <td><span class="label label-primary">Shipping</span></td>
-      </tr> 
-        <tr>
-        <td>000-001</td>
-        <td>BMW</td>
-        <td>335i</td>
-        <td>2013</td>
-        <td>4,000 Km</td>
-        <td>$ 23,000</td>
-        <td><span class="label label-warning">Shipping</span></td>
-      </tr> 
-        <tr>
-        <td>000-001</td>
-        <td>BMW</td>
-        <td>335i</td>
-        <td>2013</td>
-        <td>4,000 Km</td>
-        <td>$ 23,000</td>
-        <td><span class="label label-success">Shipping</span></td>
-      </tr> 
+       
+    
     </tbody>  
   </table>
 </div>
