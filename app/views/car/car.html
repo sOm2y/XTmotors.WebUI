@@ -19,8 +19,8 @@
         <td>{{car.brand}}</td>
         <td>{{car.model}}</td>
         <td>{{car.year}}</td>
-        <td>{{car.odometer}} Km</td>
-        <td>${{car.salePrice}}</td>
+        <td>{{car.odometer | number }} Km</td>
+        <td>{{car.salePrice | currency}}</td>
         <td><span class="label label-info">{{car.status}}</span></td></tr>
       <tr>
        
