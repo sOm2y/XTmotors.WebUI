@@ -23,6 +23,7 @@ angular
 
     //XTmotors app
     'app.controllers',
+    'app.directives',
 
     //modules
     'car',
