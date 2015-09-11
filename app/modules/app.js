@@ -20,6 +20,8 @@ angular
     'jm.i18next',
     'ui.router',
     'pascalprecht.translate',
+    'ui.bootstrap',
+    'nvd3',
 
     //XTmotors app
     'app.controllers',
