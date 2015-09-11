@@ -4,6 +4,6 @@
 	"model":"Model",
 	"year":"Year",
 	"odometer":"Odometer",
-	"sale price":"Sale Price",
-	"vehicle status":"Vehicle Status"
+	"salePrice":"Sale Price",
+	"status":"Vehicle Status"
 }
