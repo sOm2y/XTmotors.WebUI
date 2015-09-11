@@ -25,8 +25,26 @@ angular.module('app.controllers',[])
   			{id:'000-111',brand:'Vovlo',model:'M3',year:'2005',odometer:'23000',salePrice:'73000',status:'shipping'},
   			{id:'000-112',brand:'Toyota',model:'M3',year:'2008',odometer:'23000',salePrice:'73000',status:'shipping'},
   			{id:'000-113',brand:'Lexus',model:'M3',year:'2006',odometer:'23000',salePrice:'73000',status:'shipping'},
-  			{id:'000-114',brand:'Honda',model:'M3',year:'2011',odometer:'23000',salePrice:'73000',status:'shipping'},
+  			{id:'000-114',brand:'Honda',model:'M3',year:'2011',odometer:'23000',salePrice:'73000',status:'in store'},
   			{id:'000-115',brand:'Nissian',model:'M3',year:'2004',odometer:'23000',salePrice:'73000',status:'shipping'},
-  			{id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'shipping'}
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+        {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
+  			{id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'}
   		];
 	}]);
