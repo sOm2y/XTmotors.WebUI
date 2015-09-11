@@ -6,15 +6,19 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.tmp) styles/main.css -->
+    <!-- build:css(.tmp) styles/main.css -->  
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/app/app.css">
     <!-- endbuild -->
     <!-- material bootstrap -->
+    <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- build:css(.) styles/vendor.css -->
 
     <!-- endbuild -->
   </head>
@@ -71,11 +75,7 @@
                        <li ui-sref-active="active"><a ui-sref="consignment" >Consignments</a></li>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="listGalleryView=!listGalleryView" ng-show="$state.current.name === 'car'"><a href=""><i ng-class="listGalleryView?'fa-th':'fa-list'" class="fa fa-2x"></i></a></li>
-                
-                <li><a ></a></li>
-            </ul>
+            <car-filter></car-filter>
         </div>
     </div>
 
@@ -89,6 +89,7 @@
         <p>Made with <span class="glyphicon glyphicon-heart"></span> By the <strong>Shyin</strong> team</p>
       </div>
     </div>
+    <button class="btn btn-fab btn-raised btn-material-red home--button-add"><i class="mdi-content-add"></i></button>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -107,7 +108,11 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/build/nv.d3.js"></script>
+    <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -115,6 +120,7 @@
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/i18next/i18next.js"></script>
