@@ -38,7 +38,6 @@ module.exports = function(config) {
       'bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
-      'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
       'bower_components/lodash/lodash.js',
       'bower_components/i18next/i18next.js',
       'bower_components/ng-i18next/dist/ng-i18next.js',
