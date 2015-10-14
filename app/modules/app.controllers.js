@@ -8,8 +8,17 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$scope', function ($scope) {
+	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal', function ($scope, $rootScope, $state, $stateParams, loginModal) {
+    $rootScope.logout = function(){
+      delete $rootScope.currentUser;
+      loginModal().then(function () {
+        // $rootScope.removeAlerts();
+        return $state.go($state.current, {}, {reload: true});
+      });   
+    };
 		$scope.listGalleryView = false;
+
+    //dummy data for cars
 		$scope.cars=[
   			{id:'000-100',brand:'BMW',model:'M3',year:'2012',odometer:'23000',salePrice:'73000',status:'shipping'},
   			{id:'000-101',brand:'Mazda',model:'Mazda 2',year:'2013',odometer:'23000',salePrice:'73000',status:'shipping'},
@@ -47,4 +56,17 @@ angular.module('app.controllers',[])
         {id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'},
   			{id:'000-116',brand:'Mazda',model:'M3',year:'2003',odometer:'23000',salePrice:'73000',status:'arrived'}
   		];
-	}]);
+
+
+
+
+      
+	}])
+.controller('LoginModalCtrl', function ($scope) {
+
+   $scope.submit = function (email, password) {
+      var user = {'email':email,'password':password};
+      $scope.$close(user);
+  };
+
+});

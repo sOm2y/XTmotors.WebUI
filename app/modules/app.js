@@ -26,6 +26,7 @@ angular
     //XTmotors app
     'app.controllers',
     'app.directives',
+    'app.services',
 
     //modules
     'car',
@@ -47,10 +48,26 @@ angular
     });
        $translateProvider.preferredLanguage('en-AU');
     }])
-  .run(['$rootScope', '$state', '$stateParams',
-    function($rootScope, $state, $stateParams){
+  .run(['$rootScope', '$state', '$stateParams','loginModal',
+    function($rootScope, $state, $stateParams,loginModal){
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
+
+      $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        var requireLogin = toState.data.requireLogin;
+
+        if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+          event.preventDefault();
+
+          loginModal()
+            .then(function () {
+              return $state.go(toState.name, toParams);
+            })
+            .catch(function () {
+              return $state.go('car');
+            });
+          }
+        });
 
   }]);
 
