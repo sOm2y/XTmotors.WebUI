@@ -18,6 +18,9 @@ angular.module('storage',
             .state('storage', {
                 url: "/storage",
                 templateUrl: "views/storage/storage.html",
-                controller: 'StorageCtrl'
+                controller: 'StorageCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);
