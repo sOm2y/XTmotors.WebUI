@@ -9,18 +9,19 @@
     <!-- build:css(.tmp) styles/main.css -->  
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/app/app.css">
+    <link rel="stylesheet" href="styles/app/loginModal.css">
+    <link rel="stylesheet" href="styles/app/spinner.css">
     <!-- endbuild -->
     <!-- material bootstrap -->
     <!-- build:css(.) styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css">
+    <!-- endbuild -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <!-- endbuild -->
   </head>
   <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl">
     <!--[if lte IE 8]>
@@ -35,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0)">XTmotors Group Ltd</a>
+            <a class="navbar-brand" href="javascript:void(0)"><img width="140" src="images/xtmotors_logo_fixed_2.png" alt=""></a>
         </div>
         <div class="navbar-collapse collapse navbar-inverse-collapse">
             <form-search-car> </form-search-car>
@@ -51,7 +52,7 @@
                     </ul>
                 </li>
                 <li>  <a href=""><i class="fa fa-cog fa-lg"></i></a></li>
-                <li>  <a href="">Log out</a></li>
+                <li>  <a href="" ng-click="logout()" >Log out</a></li>
             
             </ul>
         </div>
@@ -79,17 +80,17 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-     <div ui-view state="{{$state.current.name}}"></div>
+    <cube-grid-spinner ng-show="isLoading"></cube-grid-spinner>
+     <div ui-view state="{{$state.current.name}}" ng-hide="isLoading"></div>
 
-    </div>
-
+    
+<!-- 
     <div class="footer">
       <div class="container">
         <p>Made with <span class="glyphicon glyphicon-heart"></span> By the <strong>Shyin</strong> team</p>
       </div>
-    </div>
-    <button class="btn btn-fab btn-raised btn-material-red home--button-add"><i class="mdi-content-add"></i></button>
+    </div> -->
+    <button class="btn btn-fab btn-raised btn-material-red home--button-add" ui-sref="car-details"><i class="mdi-content-add"></i></button>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -121,7 +122,6 @@
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/i18next/i18next.js"></script>
     <script src="bower_components/ng-i18next/dist/ng-i18next.js"></script>
@@ -142,6 +142,7 @@
         <script src="modules/app.js"></script>
         <script src="modules/app.controllers.js"></script>
         <script src="modules/app.directives.js"></script>
+        <script src="modules/app.services.js"></script>
         <script src="modules/car/car.js"></script>
         <script src="modules/car/car.controllers.js"></script>
         <script src="modules/consignment/consignment.js"></script>
