@@ -1,0 +1,48 @@
+<div class="container">
+	<img width="300" src="images/xtmotors_logo_fixed_2.png" alt="">
+	<div id="form-container" class="row">
+	<div class="col-xs-12" id="login-form-wrapper" hidden="" style="display: block; opacity: 1;">
+	<p id="login-error" hidden="" style="display: none;">
+	 
+	</p>
+	<form id="login-form" class="ng-pristine ng-valid" >
+	<input id="user-email" name="email" type="email" class="form-control login-input" placeholder="email">
+	<input name="password" type="password" class="login-form form-control login-input" placeholder="password" id="login-password">
+	<div class="row login-form">
+	<div class="col-xs-6">
+	<div class="row login-options">
+	<div class="checkbox login-input-checkbox" id="remember-me">
+	<label>
+	<input name="remember" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>
+	Remember Me?
+	</label>
+	</div>
+	</div>
+	<div id="forgot-password-container" class="row login-options">
+	<a id="forgot-password">Forgot your password?</a>
+	</div>
+	</div>
+	<div class="col-xs-6">
+	<button type="submit" class="btn btn-primary btn-raised pull-right splash-button-success" ng-click="submit()">Login<div class="ripple-wrapper"></div></button>
+	</div>
+	</div>
+	</form>
+	</div>
+	<div class="col-xs-12" id="password-reset-form-wrapper" hidden="" style="opacity: 0; display: none;">
+	<p id="password-reset-message">
+	Enter your email address and we'll send you an email with instructions on how to reset your password
+	</p>
+	<form id="password-reset-form" class="ng-pristine ng-valid">
+	<input id="reset-email" name="email" type="email" class="form-control login-input" placeholder="email">
+	<div class="row reset-form">
+	<div class="col-xs-6">
+	<button id="password-reset-cancel" class="btn btn-raised splash-button-success">Cancel<div class="ripple-wrapper"></div></button>
+	</div>
+	<div class="col-xs-6">
+	<button type="submit" class="btn btn-raised pull-right splash-button-warning">Reset Password<div class="ripple-wrapper"></div></button>
+	</div>
+	</div>
+	</form>
+	</div>
+	</div>
+</div>
