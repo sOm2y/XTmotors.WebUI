@@ -18,6 +18,9 @@ angular.module('employee',
             .state('employee', {
                 url: "/employee",
                 templateUrl: "views/employee/employee.html",
-                controller: 'EmployeeCtrl'
+                controller: 'EmployeeCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);

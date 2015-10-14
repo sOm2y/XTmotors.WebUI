@@ -18,6 +18,9 @@ angular.module('settlement',
             .state('settlement', {
                 url: "/settlement",
                 templateUrl: "views/settlement/settlement.html",
-                controller: 'SettlementCtrl'
+                controller: 'SettlementCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);

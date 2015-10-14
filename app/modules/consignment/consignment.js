@@ -18,6 +18,9 @@ angular.module('consignment',
             .state('consignment', {
                 url: "/consignment",
                 templateUrl: "views/consignment/consignment.html",
-                controller: 'ConsignmentCtrl'
+                controller: 'ConsignmentCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);

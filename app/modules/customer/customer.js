@@ -18,6 +18,9 @@ angular.module('customer',
             .state('customer', {
                 url: "/customer",
                 templateUrl: "views/customer/customer.html",
-                controller: 'CustomerCtrl'
+                controller: 'CustomerCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);

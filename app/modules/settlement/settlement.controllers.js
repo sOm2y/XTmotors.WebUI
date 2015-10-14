@@ -123,7 +123,7 @@ angular.module('settlement.controllers',[])
             },
             {
                 key: "Seven",
-                y: .5
+                y: 0.5
             }
         ];
 
