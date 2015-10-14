@@ -8,13 +8,14 @@
  * Main controller of the application.
  */
 angular.module('car.controllers',[])
-	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader',function ($scope,$translate, $translatePartialLoader) {
+	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader',function ($scope, $translate, $translatePartialLoader) {
 		$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
 
     $translatePartialLoader.addPart('car');
   	$translate.refresh();
+
     $scope.totalItems = $scope.cars.length;
-    $scope.itemsPerPage = 20;
+    $scope.itemsPerPage = 10;
     $scope.currentPage = 1;
   
     $scope.pageCount = function () {
@@ -29,4 +30,12 @@ angular.module('car.controllers',[])
     });
 
   	
-	}]);
+	}])
+  .controller('CarDetailsCtrl', ['$scope','$translate','$translatePartialLoader',function ($scope, $translate, $translatePartialLoader) {
+    $translatePartialLoader.addPart('car-details');
+    $translate.refresh();
+
+ 
+
+    
+  }]);

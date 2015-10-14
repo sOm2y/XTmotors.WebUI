@@ -18,6 +18,18 @@ angular.module('car',
             .state('car', {
                 url: "/car",
                 templateUrl: "views/car/car.html",
-                controller: 'CarCtrl'
-            });
+                controller: 'CarCtrl',
+                data: {
+                    requireLogin: true
+                }
+            })
+            .state('car-details', {
+                url: "/car-details",
+                templateUrl: "views/car/car-details.html",
+                controller: 'CarDetailsCtrl',
+                data: {
+                    requireLogin: true
+                }
+            })
+            ;
     }]);
