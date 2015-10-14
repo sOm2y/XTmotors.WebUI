@@ -1,0 +1,9 @@
+{
+	"id":"ID",
+	"brand":"Brand",
+	"model":"Model",
+	"year":"Year",
+	"odometer":"Odometer",
+	"salePrice":"Sale Price",
+	"status":"Vehicle Status"
+}
