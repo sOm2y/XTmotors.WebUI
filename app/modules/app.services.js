@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app.services', [])
-  .service('loginModal', function ($modal, $rootScope) {
+  .service('loginModal', ['$modal', '$rootScope', function ($modal, $rootScope) {
 
     function assignCurrentUser (user) {
       $rootScope.currentUser = user;
@@ -16,4 +16,33 @@ angular.module('app.services', [])
       return instance.result.then(assignCurrentUser);
     };
 
-  });
+  }])
+  .factory('alertService', [ '$rootScope', function($rootScope) {
+    var alertService = {};
+
+    // create an array of alerts available globally
+    $rootScope.alerts = [];
+
+    alertService.add = function(type, msg, code) {
+
+      $rootScope.alerts.push({'type': type, 'msg': msg, 'code': code});
+    };
+
+
+    // alertService.add = function(alert){
+
+  
+    //   $rootScope._.assign(alert, {
+    //     dismissTimeout: alert.type === 'success' ? 3000 : 5000
+    //   });
+
+    //   $rootScope.alerts.push(alert);
+    // };
+
+
+    alertService.closeAlert = function(index) {
+      $rootScope.alerts.splice(index, 1);
+    };
+
+    return alertService;
+  }]);

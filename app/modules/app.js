@@ -48,8 +48,21 @@ angular
     });
        $translateProvider.preferredLanguage('en-AU');
     }])
+  .config(['$stateProvider', function ($stateProvider) {
+        $stateProvider
+            .state('appSetting', {
+                url: "/setting",
+                templateUrl: "views/app/appSetting.html",
+                controller: 'StorageCtrl',
+                data: {
+                    requireLogin: true
+                }
+            });
+    }])
+  .constant('_', window._)
   .run(['$rootScope', '$state', '$stateParams','loginModal',
     function($rootScope, $state, $stateParams,loginModal){
+      $rootScope._ = window._;
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
 

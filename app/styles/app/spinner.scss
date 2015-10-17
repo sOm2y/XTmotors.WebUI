@@ -19,6 +19,10 @@ $spinkit-size: 40px !default;
 $spinkit-spinner-color: #3f51b5 !default;
 
 .sk-cube-grid {
+  position: fixed;
+  z-index: 99999;
+  top:40%;
+  left: 48%;
   $delayRange: 0.4s;
 
   width: $spinkit-size;

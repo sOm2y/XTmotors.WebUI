@@ -51,7 +51,7 @@
                         <li class="list-group-item"><a href="javascript:void(0)">ID: 000-124 <strong>Arriving in 3 days</strong></a></li>      
                     </ul>
                 </li>
-                <li>  <a href=""><i class="fa fa-cog fa-lg"></i></a></li>
+                <li  ui-sref-active="active">  <a href="" ui-sref="appSetting"><i class="fa fa-cog fa-lg"></i></a></li>
                 <li>  <a href="" ng-click="logout()" >Log out</a></li>
             
             </ul>
@@ -81,7 +81,7 @@
     </div>
 
     <cube-grid-spinner ng-show="isLoading"></cube-grid-spinner>
-     <div ui-view state="{{$state.current.name}}" ng-hide="isLoading"></div>
+    <div ui-view state="{{$state.current.name}}" ng-hide="isLoading"></div>
 
     
 <!-- 
@@ -91,6 +91,13 @@
       </div>
     </div> -->
     <button class="btn btn-fab btn-raised btn-material-red home--button-add" ui-sref="car-details"><i class="mdi-content-add"></i></button>
+
+
+    <div class="alert-container" style="position: fixed; width: 400px; bottom: 0px;">
+           <alert  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg+alert.type}}</alert>
+    </div>
+  
+
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

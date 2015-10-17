@@ -8,7 +8,18 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal', function ($scope, $rootScope, $state, $stateParams, loginModal) {
+	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal','$location','alertService', function ($scope, $rootScope, $state, $stateParams, loginModal,$location,alertService) {
+
+    $rootScope.changeView = function(view) {
+      $location.path(view);
+    };
+    // root binding for alertService
+    $rootScope.closeAlert = alertService.closeAlert; 
+    $rootScope.$on('$stateChangeStart', function() {        
+        alertService.add('success','state change', '200');
+        alertService.add('warning','state change', '400');
+    });
+
     $rootScope.logout = function(){
       delete $rootScope.currentUser;
       loginModal().then(function () {

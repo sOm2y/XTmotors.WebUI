@@ -25,7 +25,7 @@ angular.module('car',
             })
             .state('car-details', {
                 url: "/car-details",
-                templateUrl: "views/car/car-details.html",
+                templateUrl: "views/car/carDetails.html",
                 controller: 'CarDetailsCtrl',
                 data: {
                     requireLogin: true
