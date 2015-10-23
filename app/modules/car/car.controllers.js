@@ -9,9 +9,9 @@
  */
 angular.module('car.controllers',[])
 	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q',function ($scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q) {
-		xtmotorsAPIService.get({})
-      .$promise.then(function(data) {
-        $scope.data = data;
+		xtmotorsAPIService.get({section:'car'})
+      .$promise.then(function(cars) {
+        $scope.cars = cars;
       }, function(error) {
         console.log(error);
     });
@@ -33,7 +33,7 @@ angular.module('car.controllers',[])
       var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
         end = begin + $scope.itemsPerPage;
 
-      $scope.filteredFriends = $scope.cars.slice(begin, end);
+      $scope.filteredCars = $scope.cars.slice(begin, end);
     });
 
   	

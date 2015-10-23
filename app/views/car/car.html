@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="car in filteredFriends | orderBy:orderByField:reverseSort | filter:searchKeyword"> 
+        <tr ng-repeat="car in filteredCars | orderBy:orderByField:reverseSort | filter:searchKeyword"> 
           <td><a href="">{{car.id}}</a></td>
           <td>{{car.brand}}</td>
           <td>{{car.model}}</td>
