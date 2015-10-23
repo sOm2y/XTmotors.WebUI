@@ -2,7 +2,7 @@
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource', function($resource) {
         var apiUrl = 'locahost';
-        return $resource(apiUrl+'/:section/:id');
+        return $resource(apiUrl+'/api/:section/:id');
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
             //   'save':   {method:'POST'},
