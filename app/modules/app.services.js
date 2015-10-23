@@ -1,5 +1,15 @@
 'use strict';
 angular.module('app.services', [])
+  .factory('xtmotorsAPIService', ['$resource', function($resource) {
+        var apiUrl = 'locahost';
+        return $resource(apiUrl+'/:section/:id');
+            //   DEFAULT RESOURCE FUNTIONS
+            //   'get':    {method:'GET'},
+            //   'save':   {method:'POST'},
+            //   'query':  {method:'GET', isArray:true},
+            //   'remove': {method:'DELETE'},
+            //   'delete': {method:'DELETE'}
+  }])
   .service('loginModal', ['$modal', '$rootScope', function ($modal, $rootScope) {
 
     function assignCurrentUser (user) {

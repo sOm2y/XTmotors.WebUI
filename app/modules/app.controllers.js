@@ -8,7 +8,14 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal','$location','alertService', function ($scope, $rootScope, $state, $stateParams, loginModal,$location,alertService) {
+	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', function ($scope, $rootScope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q) {
+    xtmotorsAPIService.get({})
+    .$promise.then(function(data) {
+      $scope.data = data;
+    }, function(error) {
+      console.log(error);
+    });
+
 
     $rootScope.changeView = function(view) {
       $location.path(view);

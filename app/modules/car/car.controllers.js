@@ -8,8 +8,15 @@
  * Main controller of the application.
  */
 angular.module('car.controllers',[])
-	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader',function ($scope, $translate, $translatePartialLoader) {
-		$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
+	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q',function ($scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q) {
+		xtmotorsAPIService.get({})
+      .$promise.then(function(data) {
+        $scope.data = data;
+      }, function(error) {
+        console.log(error);
+    });
+
+    $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
 
     $translatePartialLoader.addPart('car');
   	$translate.refresh();
@@ -32,10 +39,7 @@ angular.module('car.controllers',[])
   	
 	}])
   .controller('CarDetailsCtrl', ['$scope','$translate','$translatePartialLoader',function ($scope, $translate, $translatePartialLoader) {
-    $translatePartialLoader.addPart('car-details');
+    $translatePartialLoader.addPart('carDetails');
     $translate.refresh();
-
- 
-
     
   }]);
