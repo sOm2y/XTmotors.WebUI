@@ -10,7 +10,7 @@
 angular.module('employee.controllers',[])
 	.controller('EmployeeCtrl', [ '$scope','xtmotorsAPIService','$q', function ($scope, xtmotorsAPIService, $q ) {
 		// $scope.employee = 'employee'; 
-		xtmotorsAPIService.get({section:'Employee'})
+		xtmotorsAPIService.query({section:'Employee'})
 		.$promise.then(function(employees){
 			$scope.employees = employees;
 		},function(error){
