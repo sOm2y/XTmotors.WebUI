@@ -1,8 +1,8 @@
 'use strict';
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource', function($resource) {
-        var apiUrl = 'locahost';
-        return $resource(apiUrl+'/api/:section/:id');
+        var apiUrl = 'http://localhost:56296/';
+        return $resource(apiUrl+'api/:section/:id');
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
             //   'save':   {method:'POST'},

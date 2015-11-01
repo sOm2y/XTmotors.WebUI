@@ -9,7 +9,7 @@
  */
 angular.module('car.controllers',[])
 	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q',function ($scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q) {
-		xtmotorsAPIService.get({section:'car'})
+		xtmotorsAPIService.get({section:'Car'})
       .$promise.then(function(cars) {
         $scope.cars = cars;
       }, function(error) {

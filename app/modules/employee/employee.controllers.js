@@ -8,9 +8,9 @@
  * Main controller of the application.
  */
 angular.module('employee.controllers',[])
-	.controller('EmployeeCtrl', 'xtmotorsAPIService', '$q',['$scope', function ($scope, xtmotorsAPIService, $q) {
+	.controller('EmployeeCtrl', [ '$scope','xtmotorsAPIService','$q', function ($scope, xtmotorsAPIService, $q ) {
 		// $scope.employee = 'employee'; 
-		xtmotorsAPIService.get({section:'employee'})
+		xtmotorsAPIService.get({section:'Employee'})
 		.$promise.then(function(employees){
 			$scope.employees = employees;
 		},function(error){
