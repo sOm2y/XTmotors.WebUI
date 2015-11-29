@@ -10,7 +10,7 @@
 angular.module('consignment',
     [
         'consignment.controllers',
-        // 'consignment.directives',
+        'consignment.directives',
         // 'consignment.services'
     ])
     .config(['$stateProvider', function ($stateProvider) {
