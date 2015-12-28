@@ -5,7 +5,7 @@
  * @description
  * # xtmotorwebuiApp
  *
- * Main controller of the application.
+ * consignment controller of the application.
  */
 angular.module('consignment.controllers',[])
 	.controller('ConsignmentCtrl', ['$scope', function ($scope) {

@@ -2,10 +2,9 @@
 
 /**
  * @ngdoc function
- * @name xtmotorwebuiApp.controller:MainCtrl
+ * @name xtmotorwebuiApp: car config
  * @description
- * # MainCtrl
- * Controller of the xtmotorwebuiApp
+ * # car config of the xtmotorwebuiApp
  */
 angular.module('car',
     [

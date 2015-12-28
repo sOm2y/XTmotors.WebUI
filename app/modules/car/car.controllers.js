@@ -5,7 +5,7 @@
  * @description
  * # xtmotorwebuiApp
  *
- * Main controller of the application.
+ * car controller of the application.
  */
 angular.module('car.controllers',[])
 	.controller('CarCtrl', ['$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q',function ($scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q) {

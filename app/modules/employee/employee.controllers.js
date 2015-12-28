@@ -5,7 +5,7 @@
  * @description
  * # xtmotorwebuiApp
  *
- * Main controller of the application.
+ * employee controller of the application.
  */
 angular.module('employee.controllers',[])
 	.controller('EmployeeCtrl', [ '$scope','xtmotorsAPIService','$q', function ($scope, xtmotorsAPIService, $q ) {

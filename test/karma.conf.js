@@ -26,6 +26,8 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/Chart.js/Chart.js',
+      'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/d3/d3.js',
       'bower_components/nvd3/build/nv.d3.js',

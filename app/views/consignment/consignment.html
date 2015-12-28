@@ -23,6 +23,8 @@
                 <span ng-class="orderByField == name.title && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'">
                 </a>
             </th> -->
+                        
+          </tr>
           <tr>
             <th><a ng-click="orderByField = 'CarId';reverseSort = !reverseSort" href="">{{"id" | translate}} 
             <span ng-class="orderByField == 'CarId' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
@@ -46,8 +48,7 @@
             <span ng-class="orderByField == 'Status' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
             </th>
           </tr>
-            
-          </tr>
+
         </thead>
         <tbody>
           <tr ng-repeat="car in filteredCars | orderBy:orderByField:reverseSort | filter:searchKeyword"> 
