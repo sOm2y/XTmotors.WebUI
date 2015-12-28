@@ -8,4 +8,37 @@
 .modal-content {
   height: 100% !important;
   border-radius: 0;
+  background: url('../../images/xtmotors_bg_bmw.jpg') no-repeat center center;
+  background-size: cover;
+  .version-no{
+  	position: absolute;
+  	bottom: 15px;
+  	right: 25px;
+  	color: white;
+  }
+  .container{
+  	z-index: 3;
+  	padding-top: 12%;
+  	img{
+  		padding-bottom: 50px;
+  	}
+  	#login-form {
+  		input{
+  			background: rgba(255,255,255,0.4);
+  			height: 50px;
+  			margin-bottom: 20px;
+  			padding-left: 10px;
+  			color: #fff;
+  			&:focus{
+  				color: white;
+  			}
+  		}
+  		.row.login-options{
+  			padding-left: 15px;
+  			color: white;
+  		}
+  	}
+
+  }
+  
 }
