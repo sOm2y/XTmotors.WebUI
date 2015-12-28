@@ -21,7 +21,7 @@ angular
     'ui.router',
     'pascalprecht.translate',
     'ui.bootstrap',
-    'nvd3',
+    'chart.js',
 
     //XTmotors app
     'app.controllers',
@@ -65,22 +65,6 @@ angular
       $rootScope._ = window._;
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
-
-      $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        var requireLogin = toState.data.requireLogin;
-
-        if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
-          event.preventDefault();
-
-          loginModal()
-            .then(function () {
-              return $state.go(toState.name, toParams);
-            })
-            .catch(function () {
-              return $state.go('car');
-            });
-          }
-        });
 
   }]);
 
