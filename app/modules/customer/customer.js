@@ -22,5 +22,17 @@ angular.module('customer',
                 data: {
                     requireLogin: true
                 }
+            })
+            .state('customer.details',{
+                url:"/details",
+                views:{
+                    "customer-details-view":{
+                        templateUrl:"views/customer/customer.details.html",
+                        controller: 'CustomerDetailsCtrl',
+                    }
+                },
+                data:{
+                    requireLogin: true
+                }
             });
     }]);

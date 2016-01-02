@@ -8,7 +8,7 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', function ($scope, $rootScope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q) {
+	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
@@ -46,6 +46,23 @@ angular.module('app.controllers',[])
         // $rootScope.removeAlerts();
         return $state.go($state.current, {}, {reload: true});
       });   
+    };
+
+
+    $rootScope.checkCurrentPage = function(){
+      switch($state.current.name){
+        case 'customer': 
+          $state.go('customer.details',{}, {reload: true});
+          break;
+        case 'employee':
+          $state.go('employee.details',{}, {reload: true});
+          break;
+        case 'car':
+          $state.go('car.details',{}, {reload: true});
+          break;
+        default:
+          $state.go('car.details',{}, {reload: true});
+      }
     };
 		$scope.listGalleryView = false;
 

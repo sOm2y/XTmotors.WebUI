@@ -22,5 +22,17 @@ angular.module('employee',
                 data: {
                     requireLogin: true
                 }
+            })
+            .state('employee.details',{
+                url:"/details",
+                views:{
+                    "employee-details-view":{
+                        templateUrl:"views/employee/employee.details.html",
+                        controller: 'EmployeeDetailsCtrl'
+                    }
+                },
+                data:{
+                    requireLogin: true
+                }
             });
     }]);

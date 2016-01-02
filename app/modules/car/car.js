@@ -22,13 +22,16 @@ angular.module('car',
                     requireLogin: true
                 }
             })
-            .state('car-details', {
-                url: "/car-details",
-                templateUrl: "views/car/carDetails.html",
-                controller: 'CarDetailsCtrl',
+            .state('car.details', {
+                url: "/details",
+                views: {
+                    "car-details-view": { 
+                        templateUrl: "views/car/car.details.html",
+                        controller: 'CarDetailsCtrl'
+                    }
+                },
                 data: {
                     requireLogin: true
                 }
-            })
-            ;
+            });
     }]);

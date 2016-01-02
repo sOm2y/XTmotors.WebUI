@@ -16,4 +16,7 @@ angular.module('customer.controllers',[])
 		},function(error){
 			console.log(error);
 		});
+	}])
+	.controller('CustomerDetailsCtrl', ['$scope', function ($scope) {
+		
 	}]);

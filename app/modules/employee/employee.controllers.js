@@ -16,4 +16,7 @@ angular.module('employee.controllers',[])
 		},function(error){
 			console.log(error);
 		});
+	}])
+	.controller('EmployeeDetailsCtrl', ['$scope', function ($scope) {
+		
 	}]);
