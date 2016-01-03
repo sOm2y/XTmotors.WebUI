@@ -90,15 +90,12 @@
         <p>Made with <span class="glyphicon glyphicon-heart"></span> By the <strong>Shyin</strong> team</p>
       </div>
     </div> -->
-    <button class="btn btn-fab btn-raised btn-material-red home--button-add" ng-click="checkCurrentPage()"><i class="mdi-content-add"></i></button>
-
+    <button class="btn btn-fab btn-raised btn-material-red home--button-add" ng-class="{'disabled':buttonDisable}" ng-click="checkCurrentPage()"><i class="mdi-content-add"></i></button>
 
     <div class="alert-container" style="position: fixed; width: 400px; bottom: 0px;">
            <alert  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg+alert.type}}</alert>
     </div>
   
-
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -120,9 +117,6 @@
     <script src="bower_components/Chart.js/Chart.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/nvd3/build/nv.d3.js"></script>
-    <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>

@@ -13,7 +13,7 @@ angular.module('app.controllers',[])
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
         var requireLogin = toState.data.requireLogin;
-
+         $rootScope.buttonDisable = false;
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
           event.preventDefault();
 
@@ -53,15 +53,29 @@ angular.module('app.controllers',[])
       switch($state.current.name){
         case 'customer': 
           $state.go('customer.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
           break;
         case 'employee':
           $state.go('employee.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
           break;
         case 'car':
           $state.go('car.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
+          break;
+        case 'customer.details':
+          $rootScope.buttonDisable = true;
+          break;
+        case 'employee.details':
+          $rootScope.buttonDisable = true;
+          break;
+        case 'car.details':
+          $rootScope.buttonDisable = true;
           break;
         default:
           $state.go('car.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
+          break;
       }
     };
 		$scope.listGalleryView = false;
