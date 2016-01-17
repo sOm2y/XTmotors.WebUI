@@ -22,6 +22,8 @@ angular
     'pascalprecht.translate',
     'ui.bootstrap',
     'chart.js',
+    'ngMaterial',
+    'ngMdIcons',
 
     //XTmotors app
     'app.controllers',
@@ -59,6 +61,22 @@ angular
                 }
             });
     }])
+    .config(function($mdThemingProvider) {
+    var customBlueMap =     $mdThemingProvider.extendPalette('light-blue', {
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': ['50'],
+      '50': 'ffffff'
+    });
+    $mdThemingProvider.definePalette('customBlue', customBlueMap);
+    $mdThemingProvider.theme('default')
+      .primaryPalette('customBlue', {
+        'default': '500',
+        'hue-1': '50'
+      })
+      .accentPalette('pink');
+    $mdThemingProvider.theme('input', 'default')
+          .primaryPalette('grey');
+  })
   .constant('_', window._)
   .run(['$rootScope', '$state', '$stateParams','loginModal',
     function($rootScope, $state, $stateParams,loginModal){

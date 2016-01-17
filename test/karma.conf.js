@@ -29,6 +29,9 @@ module.exports = function(config) {
       'bower_components/Chart.js/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/angular-cookies/angular-cookies.js',
+      'bower_components/angular-aria/angular-aria.js',
+      'bower_components/angular-messages/angular-messages.js',
+      'bower_components/angular-material/angular-material.js',
       'bower_components/d3/d3.js',
       'bower_components/nvd3/build/nv.d3.js',
       'bower_components/angular-nvd3/dist/angular-nvd3.js',
@@ -41,7 +44,7 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/lodash/lodash.js',
-      'bower_components/i18next/i18next.js',
+      'bower_components/i18next/bin/index.js',
       'bower_components/ng-i18next/dist/ng-i18next.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
