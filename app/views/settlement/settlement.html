@@ -1,13 +1,8 @@
-<div class="container-fluid">
-	<div class="jumbotron">
-	  <h1>This is {{settlement}} page</h1>
-	  <div class="row">
-	    <div class="col-md-6">  
-	  		<canvas id="polar-area" class="chart chart-polar-area"
-			  chart-data="data" chart-labels="labels">
-			</canvas> 
-	    </div>
-	
-	  </div>
-  </div>
-</div>
+<md-card flex-gt-sm="90" flex-gt-md="80" ui-view="car-details-view">
+    <md-card-content layout="row">
+		<canvas id="pie" class="chart chart-pie" 
+		  chart-data="data" chart-labels="labels">
+		</canvas> 
+		<canvas id="bar" class="chart chart-bar ng-isolate-scope" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+	</md-card-content>
+</md-card>
