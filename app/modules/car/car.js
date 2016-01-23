@@ -24,6 +24,7 @@ angular.module('car',
             })
             .state('car.details', {
                 url: "/details",
+                params: {myParam: null},
                 views: {
                     "car-details-view": { 
                         templateUrl: "views/car/car.details.html",
