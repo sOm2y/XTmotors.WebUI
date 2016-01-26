@@ -224,8 +224,13 @@ angular.module('app.controllers',[])
 }])
 .controller('DemoCtrl', ['$scope', function ($scope) {
   
-     var self = this;
-        // ******************************
+    var self = this;
+      // list of `state` value/display objects
+    self.states        = loadAll();
+    self.selectedItem  = null;
+    self.searchText    = null;
+    self.querySearch   = querySearch;
+    // ******************************
     // Internal methods
     // ******************************
     /**
@@ -257,11 +262,7 @@ angular.module('app.controllers',[])
         return (state.value.indexOf(lowercaseQuery) === 0);
       };
     }
-    // list of `state` value/display objects
-    self.states        = loadAll();
-    self.selectedItem  = null;
-    self.searchText    = null;
-    self.querySearch   = querySearch;
+   
  
 }])
 .controller('ListBottomSheetCtrl',['$scope','$mdBottomSheet',function($scope, $mdBottomSheet) {

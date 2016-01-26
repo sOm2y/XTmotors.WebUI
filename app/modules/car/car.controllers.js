@@ -45,7 +45,7 @@ angular.module('car.controllers',[])
   .controller('CarDetailsCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','$stateParams', function ($rootScope,$scope, $translate, $translatePartialLoader,$stateParams) {
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();
-    if($stateParams.myParam) $scope.editCar = $stateParams.myParam;
-    _.pull($rootScope.cars, $scope.editCar);
+    if($stateParams.myParam){$scope.editCar = $stateParams.myParam;}
+    // _.pull($rootScope.cars, $scope.editCar);
     $scope.carCopy = angular.copy($scope.editCar);
   }]);
