@@ -13,6 +13,7 @@ angular.module('app.controllers',[])
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
+        $scope.isLoading = false;
         var requireLogin = toState.data.requireLogin;
          $rootScope.buttonDisable = false;
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
@@ -79,7 +80,7 @@ angular.module('app.controllers',[])
       }else{
         return $state.go($state.current, {}, {reload: true});
       }
-    };
+    }
 
 
     $rootScope.checkCurrentPage = function(){
@@ -213,36 +214,18 @@ angular.module('app.controllers',[])
     };
 
 	}])
-.controller('LoginModalCtrl', function ($scope) {
+.controller('LoginModalCtrl',['$scope',function ($scope) {
 
    	$scope.submit = function (email, password) {
 	    var user = {'email':email,'password':password};
 	    $scope.$close(user);
   	};
 
-})
-.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
-  $scope.items = [
-    { name: 'Share', icon: 'social:ic_share_24px' },
-    { name: 'Upload', icon: 'file:ic_cloud_upload_24px' },
-    { name: 'Copy', icon: 'content:ic_content_copy_24px' },
-    { name: 'Print this page', icon: 'action:ic_print_24px' },
-  ];
+}])
+.controller('DemoCtrl', ['$scope', function ($scope) {
   
-  $scope.listItemClick = function($index) {
-    var clickedItem = $scope.items[$index];
-    $mdBottomSheet.hide(clickedItem);
-  };
-})
-.controller('DemoCtrl', DemoCtrl);
-  function DemoCtrl ($timeout, $q) {
-    var self = this;
-    // list of `state` value/display objects
-    self.states        = loadAll();
-    self.selectedItem  = null;
-    self.searchText    = null;
-    self.querySearch   = querySearch;
-    // ******************************
+     var self = this;
+        // ******************************
     // Internal methods
     // ******************************
     /**
@@ -257,9 +240,7 @@ angular.module('app.controllers',[])
      * Build `states` list of key/value pairs
      */
     function loadAll() {
-      var allStates = 'Ali Conners, Alex, Scott, Jennifer, \
-              Sandra Adams, Brian Holt, \
-              Trevor Hansen';
+      var allStates = 'Ali Conners, Alex, Scott, Jennifer, \ Sandra Adams, Brian Holt, \ Trevor Hansen';
       return allStates.split(/, +/g).map( function (state) {
         return {
           value: state.toLowerCase(),
@@ -276,16 +257,23 @@ angular.module('app.controllers',[])
         return (state.value.indexOf(lowercaseQuery) === 0);
       };
     }
+    // list of `state` value/display objects
+    self.states        = loadAll();
+    self.selectedItem  = null;
+    self.searchText    = null;
+    self.querySearch   = querySearch;
+ 
+}])
+.controller('ListBottomSheetCtrl',['$scope','$mdBottomSheet',function($scope, $mdBottomSheet) {
+  $scope.items = [
+    { name: 'Share', icon: 'social:ic_share_24px' },
+    { name: 'Upload', icon: 'file:ic_cloud_upload_24px' },
+    { name: 'Copy', icon: 'content:ic_content_copy_24px' },
+    { name: 'Print this page', icon: 'action:ic_print_24px' },
+  ];
+  
+  $scope.listItemClick = function($index) {
+    var clickedItem = $scope.items[$index];
+    $mdBottomSheet.hide(clickedItem);
   };
-
-function DialogController($scope, $mdDialog) {
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-  $scope.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };
-}
+}]);

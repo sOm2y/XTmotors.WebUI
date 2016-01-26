@@ -24,7 +24,6 @@ angular
     'chart.js',
     'ngMaterial',
     'ngMdIcons',
-
     //XTmotors app
     'app.controllers',
     'app.directives',
@@ -61,7 +60,7 @@ angular
                 }
             });
     }])
-    .config(function($mdThemingProvider,$mdIconProvider) {
+    .config(['$mdThemingProvider','$mdIconProvider',function($mdThemingProvider,$mdIconProvider) {
       var customBlueMap =     $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',
         'contrastDarkColors': ['50'],
@@ -73,7 +72,7 @@ angular
           'default': '500',
           'hue-1': '50'
         })
-        .accentPalette('pink')
+        .accentPalette('pink');
       $mdThemingProvider.theme('input', 'default')
         .primaryPalette('grey');
 
@@ -100,7 +99,7 @@ angular
       .iconSet('avatars', 'https://raw.githubusercontent.com/angular/material/master/docs/app/icons/avatar-icons.svg', 24)
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
-  })
+  }])
   .constant('_', window._)
   .run(['$rootScope', '$state', '$stateParams','loginModal',
     function($rootScope, $state, $stateParams,loginModal){
