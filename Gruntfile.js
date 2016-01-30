@@ -490,6 +490,28 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
+  grunt.registerMultiTask('azureDeploy', 'Deploys the current build to an Azure Website.', function() {
+        var sourceFolder = appConfig.dist;
+        var deploymentManager = new azureDeploy.AzureWebSiteDeploymentManager(
+            this.data.xtmotors,
+            this.data.yinyue34,
+            this.data.tcyy90114
+        );
+
+        grunt.log.writeln('Starting deployment...');
+
+        var done = this.async();
+
+        deploymentManager.deploy(sourceFolder)
+        .then(function() {
+            grunt.log.writeln('Deployment to Azure Website finished successfully.');
+            done();
+        })
+        .catch(function() {
+            grunt.log.writeln('Deployment to azure website finished with errors.');
+            done(false);
+        })
+  }
 
   grunt.registerTask('default', [
     'newer:jshint',
