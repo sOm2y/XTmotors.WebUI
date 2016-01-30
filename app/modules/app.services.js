@@ -1,7 +1,7 @@
 'use strict';
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource', function($resource) {
-        var apiUrl = 'http://localhost:56296/';
+        var apiUrl = 'http://xtmotorapi.azurewebsites.net/';
         return $resource(apiUrl+'api/:section/:id');
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
