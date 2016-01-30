@@ -24,6 +24,8 @@ angular
     'chart.js',
     'ngMaterial',
     'ngMdIcons',
+    'md.data.table',
+    
     //XTmotors app
     'app.controllers',
     'app.directives',
