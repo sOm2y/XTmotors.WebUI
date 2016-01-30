@@ -12,7 +12,7 @@ angular.module('app.directives', [])
 		    restrict: 'E',
 		    templateUrl: 'views/app/cubeGridSpinner.html',
 		    link:function(scope, elem, attrs){
-		    	scope.isLoading = true;
+		    	// rootScope.isLoading = false;
 		    	//adding fake async loading
 		    	// $rootScope.$on('$stateChangeStart', function() {    		
 		    	// 		scope.isLoading = true;

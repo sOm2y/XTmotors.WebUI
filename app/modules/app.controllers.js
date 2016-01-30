@@ -13,51 +13,52 @@ angular.module('app.controllers',[])
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
-        $scope.isLoading = false;
+        $rootScope.isLoading = true;
         var requireLogin = toState.data.requireLogin;
          $rootScope.buttonDisable = false;
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
           event.preventDefault();
+          $rootScope.isLoading = false;
           loginModal()
             .then(function () {
-              directCarDetails();
+               return $state.go('car');
             })
             .catch(function () {
               return $state.go('car');
             });
         }
     });
-    xtmotorsAPIService.get({section:''})
-      .$promise.then(function(data) {
-        $scope.data = data;
-      }, function(error) {
-        console.log(error);
-      });
-      $rootScope.cars=[
-        {CarId:'999-999',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-        {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'}
-      ];
+    // xtmotorsAPIService.get({section:''})
+    //   .$promise.then(function(data) {
+    //     $scope.data = data;
+    //   }, function(error) {
+    //     console.log(error);
+    //   });
+      // $rootScope.cars=[
+      //   {CarId:'999-999',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
+      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'}
+      // ];
 
     $rootScope.changeView = function(view) {
       $location.path(view);
@@ -162,44 +163,7 @@ angular.module('app.controllers',[])
     }
   ];
   
-  // Mock activity
-  $scope.activity = [
-      {
-        what: 'Brunch this weekend?',
-        who: 'Ali Conners',
-        avatar: 'svg-1',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-      {
-        what: 'Summer BBQ',
-        who: 'to Alex, Scott, Jennifer',
-        avatar: 'svg-2',
-        when: '3:08PM',
-        notes: "Wish I could come out but I'm out of town this weekend"
-      },
-      {
-        what: 'Oui Oui',
-        who: 'Sandra Adams',
-        avatar: 'svg-3',
-        when: '3:08PM',
-        notes: "Do you have Paris recommendations? Have you ever been?"
-      },
-      {
-        what: 'Birthday Gift',
-        who: 'Trevor Hansen',
-        avatar: 'svg-4',
-        when: '3:08PM',
-        notes: "Have any ideas of what we should get Heidi for her birthday?"
-      },
-      {
-        what: 'Recipe to try',
-        who: 'Brian Holt',
-        avatar: 'svg-5',
-        when: '3:08PM',
-        notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-      },
-    ];      
+    
     // Bottomsheet & Modal Dialogs
     $scope.alert = '';
     $scope.showListBottomSheet = function($event) {
@@ -222,7 +186,7 @@ angular.module('app.controllers',[])
   	};
 
 }])
-.controller('DemoCtrl', ['$scope', function ($scope) {
+.controller('DemoCtrl', ['$scope', 'xtmotorsAPIService',function ($scope,xtmotorsAPIService) {
   
     var self = this;
       // list of `state` value/display objects
@@ -238,20 +202,25 @@ angular.module('app.controllers',[])
      * remote dataservice call.
      */
     function querySearch (query) {
-      var results = query ? self.states.filter( createFilterFor(query) ) : [];
+      var results = query ?  createFilterFor(query) : [];
       return results;
     }
     /**
      * Build `states` list of key/value pairs
      */
+    
     function loadAll() {
-      var allStates = 'Ali Conners, Alex, Scott, Jennifer, \ Sandra Adams, Brian Holt, \ Trevor Hansen';
-      return allStates.split(/, +/g).map( function (state) {
-        return {
-          value: state.toLowerCase(),
-          display: state
-        };
+      xtmotorsAPIService.query({section:'Car/CarBriefView'})
+      .$promise.then(function(cars) {
+         var allStates = cars;
+          return allStates.map( function (state) {
+            return {
+              value: state.CarId.toLowerCase(),
+              display: state
+            };
+          });
       });
+     
     }
     /**
      * Create filter function for a query string
