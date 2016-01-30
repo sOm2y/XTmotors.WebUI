@@ -1,22 +1,14 @@
             <md-card flex-gt-sm="90" flex-gt-md="70" ui-view="car-details-view">
                     <md-card-content>
-                      <div class="table-responsive">
+                     <!--  <div class="table-responsive">
                       <table class="table table-striped table-hover">
                         <thead>
-                       
-                          <!-- TODO: repeat header -->
-                          <!--   <th ng-repeat="name in tableHeaderName">
-                                <a ng-click="orderByField = name.title; reverseSort = !reverseSort" href="">
-                                {{name.title | translate}}
-                                <span ng-class="orderByField == name.title && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'">
-                                </a>
-                            </th> -->
                           <tr>
                             <th><a ng-click="orderByField = 'CarId';reverseSort = !reverseSort" href="">{{"id" | translate}} 
                             <span ng-class="orderByField == 'CarId' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
                             </th>
-                            <th><a ng-click="orderByField = 'Brand';reverseSort = !reverseSort" href="">{{"brand" | translate}}
-                            <span ng-class="orderByField == 'Brand' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+                            <th><a ng-click="orderByField = 'Maker';reverseSort = !reverseSort" href="">{{"brand" | translate}}
+                            <span ng-class="orderByField == 'Maker' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
                             </th>
                             <th><a ng-click="orderByField = 'Model';reverseSort = !reverseSort" href="">{{"model" | translate}} 
                             <span ng-class="orderByField == 'Model' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
@@ -31,25 +23,64 @@
                             <span ng-class="orderByField == 'SalePrice' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
                             </th>
                             <th style="text-align:center;"><a ng-click="orderByField = 'Status';reverseSort = !reverseSort" href=""> </span>{{"status" | translate}}  
-                            <span ng-class="orderByField == 'Status' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
-                            </th>
+                            <span ng-class="orderByField == 'Status' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="car in filteredCars | orderBy:orderByField:reverseSort | filter:searchKeyword"> 
+                          <tr ng-repeat="car in paginatedCars"> 
                             <td><a href="" ng-click="editCar(car)">{{car.CarId}}</a></td>
-                            <td>{{car.Brand}}</td>
+                            <td>{{car.Maker}}</td>
                             <td>{{car.Model}}</td>
                             <td>{{car.Year}}</td>
                             <td>{{car.Odometer | number }} Km</td>
                             <td>{{car.SalePrice | currency}}</td>
-                            <td style="text-align:center;"><span class="label label-info">{{car.Status}}</span></td></tr>
-                          <tr>
+                            <td style="text-align:center;"><span class="label label-info">{{car.Status}}</span></td>
+                            </tr>
+                          
                         </tbody>  
                       </table>
                     </div>
                       <div class="row" style="text-align:center;"> 
-                        <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
-                      </div>
+                        <pagination 
+                            ng-change="pageChanged()"
+                            total-items="totalCars" 
+                            items-per-page="carsPerPage" 
+                            ng-model="pagination.currentPage" 
+                            max-size="totalPages" 
+                            class="pagination-sm" 
+                            boundary-links="true">
+                        </pagination>
+                      </div> -->
+                      <!-- exact table from live demo -->
+
+                        <md-table-container>
+                          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+                            <thead md-head md-order="query.order" md-on-reorder>
+                              <tr md-row>
+                                <th md-column md-order-by="CarId"><span>Car ID</span></th>
+                                <th md-column md-order-by="Maker"><span>Maker/Brand</span></th>
+                                <th md-column md-order-by="Model" md-desc><span>Model</span></th>
+                                <th md-column md-numeric md-order-by="Year"><span>Manufactory Year</span></th>
+                                <th md-column md-numeric md-order-by="Odometer"><span>Odometer</span></th>
+                                <th md-column md-numeric md-order-by="SalePrice"><span>Sale Price</span></th>
+                                <th md-column md-order-by="Status"><span>Car Status</span></th>
+                              </tr>
+                            </thead>
+                            <tbody md-body>
+                              <tr md-row md-select="dessert" md-on-select md-auto-select="options.autoSelect" ng-repeat="dessert in cars | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                <td md-cell>{{dessert.CarId}}</md-cell>
+                                <td md-cell>{{dessert.Maker}}</md-cell>
+                                <td md-cell>{{dessert.Model}}</td>
+                                <td md-cell>{{dessert.Year}}</td>
+                                <td md-cell>{{dessert.Odometer| number }}&nbsp;Km</td>
+                                <td md-cell>{{dessert.SalePrice | currency}}</td>
+                                <td md-cell>{{dessert.Status}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </md-table-container>
+
+                         <md-table-pagination  md-limit="query.limit" md-page="query.page" md-total="{{cars.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
+
                     </md-card-content>
                   </md-card>
