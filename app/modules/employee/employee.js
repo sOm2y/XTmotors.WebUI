@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @ngdoc function
  * @name xtmotorwebuiApp.controller:MainCtrl
