@@ -6,11 +6,11 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
 
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/modules/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:concat:app','newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -259,7 +259,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat,uglify'],
+              js: ['concat:dist,uglify'],
               css: ['cssmin']
             },
             post: {}
@@ -308,7 +308,19 @@ module.exports = function (grunt) {
       }
     },
     concat: {
-      dist: {}
+      app:{
+        src: [
+          '<%= yeoman.app %>/modules/{,*/}*.js'
+        ],
+        dest: '<%= yeoman.app %>/scripts/scripts.js'
+      },
+      dist:{
+        src: [
+          '<%= yeoman.dist %>/scripts/scripts.js'
+        ],
+        dest: '<%= yeoman.dist %>/scripts/scripts.js'
+      }
+     
     },
 
     imagemin: {
@@ -490,32 +502,12 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
-  grunt.registerMultiTask('azureDeploy', 'Deploys the current build to an Azure Website.', function() {
-        var sourceFolder = appConfig.dist;
-        var deploymentManager = new azureDeploy.AzureWebSiteDeploymentManager(
-            this.data.xtmotors,
-            this.data.yinyue34,
-            this.data.tcyy90114
-        );
 
-        grunt.log.writeln('Starting deployment...');
-
-        var done = this.async();
-
-        deploymentManager.deploy(sourceFolder)
-        .then(function() {
-            grunt.log.writeln('Deployment to Azure Website finished successfully.');
-            done();
-        })
-        .catch(function() {
-            grunt.log.writeln('Deployment to azure website finished with errors.');
-            done(false);
-        })
-  }
 
   grunt.registerTask('default', [
     'newer:jshint',
     // 'test',
+    // 'azureDeploy',
     'build'
   ]);
 };
