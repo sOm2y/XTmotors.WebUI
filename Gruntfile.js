@@ -259,7 +259,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat:dist,uglify'],
+              js: ['concat:dist,uglify,concat:libs'],
               css: ['cssmin']
             },
             post: {}
@@ -313,6 +313,12 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/modules/{,*/}*.js'
         ],
         dest: '<%= yeoman.app %>/scripts/scripts.js'
+      },
+      libs:{
+        src: [
+          'bower_components/{,*/}*.js'
+        ],
+        dest: '<%= yeoman.dist %>/scripts/vendor.js'
       },
       dist:{
         src: [
@@ -495,7 +501,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
