@@ -9,10 +9,10 @@
  */
 angular.module('customer.controllers',[])
 	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q', function ($rootScope,$scope,xtmotorsAPIService,$q) {
-		if(!$scope.customers){
+			$rootScope.isLoading = true;
 			xtmotorsAPIService.query({section:'Customer'})
 			.$promise.then(function(customer){
-				$scope.customers = customer;
+				$rootScope.customers = customer;
 
 				$scope.totalCustomers = $scope.customers.length;
 		        $scope.totalPages     = 10;
@@ -38,9 +38,10 @@ angular.module('customer.controllers',[])
 			.finally(function(){
 		       $rootScope.isLoading = false;
 		    });
-		}
+		
 		
 	}])
-	.controller('CustomerDetailsCtrl', ['$scope', function ($scope) {
+	.controller('CustomerDetailsCtrl', ['$rootScope','$scope', function ($rootScope,$scope) {
+		
 		
 	}]);
