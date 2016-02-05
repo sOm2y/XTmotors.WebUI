@@ -8,34 +8,58 @@
  * employee controller of the application.
  */
 angular.module('employee.controllers',[])
-	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q', function ($rootScope,$scope, xtmotorsAPIService, $q ) {
+	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state) {
 		// $scope.employee = 'employee'; 
+		// var _ = _ || {};
 		$rootScope.isLoading = true;
-		xtmotorsAPIService.query({section:'Employee'})
-		.$promise.then(function(employees){
-			$scope.employees = employees;
-			$scope.totalEmployees = $scope.employees.length;
-		    $scope.totalPages = 10;
-		   	$scope.pagination = {
-		        currentPage:  1
-		    };        
-		    $scope.employeesPerPage = 20;
-			$scope.paginatedEmployees = $scope.employees.slice(0, $scope.employeesPerPage);
+		xtmotorsCRUDService.get('Employee',$scope);
+		
+		$scope.employeePagination = function(){
+			if($scope.itemList){
+				$scope.totalEmployees = _.size($scope.itemList);
+			    $scope.totalPages = 10;
+			   	$scope.pagination = {
+			        currentPage:  1
+			    };        
+			    $scope.employeesPerPage = 20;
+				$scope.paginatedEmployees = $scope.itemList.slice(0, $scope.employeesPerPage);
 
-		    $scope.pageChanged = function(){
-		         // $scope.currentPage = 1;
-		        var begin = (($scope.pagination.currentPage - 1) * $scope.employeesPerPage),
-		            end   = begin + $scope.employeesPerPage;
+			    $scope.pageChanged = function(){
+			         // $scope.currentPage = 1;
+			        var begin = (($scope.pagination.currentPage - 1) * $scope.employeesPerPage),
+			            end   = begin + $scope.employeesPerPage;
 
-		        $scope.paginatedEmployees = $scope.employees.slice(begin, end);
+			        $scope.paginatedEmployees = $scope.itemList.slice(begin, end);
 
-		    };
-		},function(error){
-			console.log(error);
-		}).finally(function(){
-	       $rootScope.isLoading = false;
-	    });
+			    };
+			    $rootScope.isLoading = false;
+			}
+		};
+	    $scope.createItem = function(){
+            if(!$scope.item){
+                $scope.newItem = true;
+                $scope.item = {};
+            }
+        };
+	   	$scope.editEmployee = function(employee){
+			_.pull($scope.itemList,employee);
+			$scope.itemCopy = angular.copy(employee);
+			$scope.item = employee;
+			$state.go('employee.details');
+		};
+		$scope.backToEmployee = function(){
+			xtmotorsCRUDService.cancelEdit($scope);
+			$state.go('employee');
+		};
+		$scope.saveEmployee= function(employee){
+            // var formValid = xtmotorsAPIService.validateForm($scope);
+            // if(formValid){
+            xtmotorsCRUDService.update('Employee', $scope, employee);
+            // }
+        };
+
 	}])
-	.controller('EmployeeDetailsCtrl', ['$scope', function ($scope) {
+	.controller('EmployeeDetailsCtrl', ['$rootScope','$scope','$state',function ($rootScope,$scope,$state) {
+		$rootScope.isLoading = false;
 		
 	}]);

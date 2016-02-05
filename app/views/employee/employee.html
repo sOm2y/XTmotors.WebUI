@@ -1,24 +1,26 @@
-<md-card flex-gt-sm="90" flex-gt-md="70" ui-view="employee-details-view">
-    <md-card-content>
-      <md-list-item class="md-3-line" ng-repeat="employee in paginatedEmployees">
-        <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
-        <div class="md-list-item-text" layout="column">
-          <h3>{{employee.FirstName}}&nbsp;{{employee.LastName}}</h3>
-          <h4>{{employee.EmailAddress}}</h4>
-          <p>{{employee.Mobile}}</p>
+<div class="" ui-view="employee-details-view">
+  <md-card flex-gt-sm="90" flex-gt-md="70">
+      <md-card-content>
+        <md-list-item class="md-3-line" ng-repeat="employee in paginatedEmployees">
+          <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+          <div class="md-list-item-text" layout="column">
+            <h3 ng-click="editEmployee(employee)">{{employee.FirstName}}&nbsp;{{employee.LastName}}</h3>
+            <h4>{{employee.EmailAddress}}</h4>
+            <p>{{employee.Mobile}}</p>
+          </div>
+          <md-divider ></md-divider>
+      </md-list-item>
+      <div layout="row" layout-align="center">
+          <pagination
+            ng-change="pageChanged()"
+            total-items="totalEmployees" 
+            items-per-page="employeesPerPage" 
+            ng-model="pagination.currentPage" 
+            max-size="totalPages" 
+            class="pagination-sm" 
+            boundary-links="true">
+          </pagination>   
         </div>
-        <md-divider ></md-divider>
-    </md-list-item>
-    <div layout="row" layout-align="center">
-        <pagination
-          ng-change="pageChanged()"
-          total-items="totalEmployees" 
-          items-per-page="employeesPerPage" 
-          ng-model="pagination.currentPage" 
-          max-size="totalPages" 
-          class="pagination-sm" 
-          boundary-links="true">
-        </pagination>   
-      </div>
-    </md-card-content>
-</md-card>
+      </md-card-content>
+  </md-card>
+</div>
