@@ -10,10 +10,12 @@
 angular.module('app.controllers',[])
 	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog', 
     function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog) {
+    $rootScope._ = _;
+    
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
-        $rootScope.isLoading = true;
+        // $rootScope.isLoading = true;
         var requireLogin = toState.data.requireLogin;
          $rootScope.buttonDisable = false;
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
@@ -28,38 +30,7 @@ angular.module('app.controllers',[])
             });
         }
     });
-    // xtmotorsAPIService.get({section:''})
-    //   .$promise.then(function(data) {
-    //     $scope.data = data;
-    //   }, function(error) {
-    //     console.log(error);
-    //   });
-      // $rootScope.cars=[
-      //   {CarId:'999-999',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'},
-      //   {CarId:'000-116',Brand:'Mazda',Model:'M3',Year:'2003',Odometer:'23000',SalePrice:'73000',Status:'arrived'}
-      // ];
-
+ 
     $rootScope.changeView = function(view) {
       $location.path(view);
     };
@@ -131,7 +102,7 @@ angular.module('app.controllers',[])
   $scope.menu = [
     {
       link : 'car',
-      title: 'Cars',
+      title: 'Car',
       icon: 'action:ic_dashboard_24px' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
     },
     {

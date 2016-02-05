@@ -25,7 +25,7 @@ angular
     'ngMaterial',
     'ngMdIcons',
     'md.data.table',
-    
+
     //XTmotors app
     'app.controllers',
     'app.directives',
@@ -102,10 +102,9 @@ angular
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
   }])
-  .constant('_', window._)
   .run(['$rootScope', '$state', '$stateParams','loginModal',
     function($rootScope, $state, $stateParams,loginModal){
-      $rootScope._ = window._;
+   
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
 
