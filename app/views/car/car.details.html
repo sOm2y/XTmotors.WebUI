@@ -1,392 +1,244 @@
-<div class="row">
-  <div class="col-sm-6">
-    <div class="panel panel-primary">
-      <!-- Default panel contents -->
-      <div class="panel-heading">Basic Information</div>
-      <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-6">
-             <div class="form-group">
-                <label class="control-label" for="inputDefault">ID</label>
-                <input type="text" class="form-control" id="inputDefault" ng-model="editCar.CarId">
+<div layout="column">
+  <div layout="row">
+    <md-card flex="50">
+    <md-subheader class="md-primary">Imported Vehicle Information</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>CarId</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-             <md-input-container class="md-block" flex-gt-sm>
-            <label>First name</label>
-            <input ng-model="user.firstName">
           </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm>
-            <label>First name</label>
-            <input ng-model="user.firstName">
+          <md-input-container flex="50" class="md-block">
+            <label>Odometer</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Vin</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>CarStatus</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>CarComment</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
           </md-input-container>
-            <div class="form-group">
-                <label class="control-label" for="inputDefault">Chassis</label>
-                <input type="text" class="form-control" id="inputDefault">
+           <md-input-container flex="50" class="md-block">
+            <label>Price</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="inputDefault">Manufacturer</label>
-                <select id="select111" class="form-control" ng-model="editCar.Brand">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
+          </md-input-container>
+           <md-input-container flex="50" class="md-block">
+            <label>GST</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="inputDefault">Model Detail</label>
-                <input type="text" class="form-control" id="inputDefault">
+          </md-input-container>
+           <md-input-container flex="50" class="md-block">
+            <label>PaymentStatus</label>
+             <md-select ng-model="user.state">
+              <!--   <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                  {{state.abbrev}}
+                </md-option> -->
+                <md-option value="">Yes</md-option>
+                <md-option value="">No</md-option>
+              </md-select>
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="inputDefault">Odometer</label>
-                <input type="text" class="form-control" id="inputDefault" ng-model="editCar.Odometer">
+          </md-input-container>
+           <md-input-container flex="50" class="md-block">
+            <label>Currency</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="inputDefault">Repairment</label>
-              <input type="text" class="form-control" id="inputDefault">
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>RegisterationNum</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>WofTime</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                  <label class="control-label" for="inputDefault">Registration</label>
-                  <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">VIN</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Model</label>
-                <select id="select111" class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Year</label>
-                <select id="select111" class="form-control">
-                  <option>1975</option>
-                  <option>1976</option>
-                  <option>1988</option>
-                  <option>1999</option>
-                  <option>2008</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">CC</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Warranty</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Warranty</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-          </div>
+          </md-input-container>
         </div>
-        
-      </div>
-    </div>
-    <div class="col-sm-6">
-       <div class="panel panel-primary">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Car Spec</div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Fuel Consumption</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Drivetrain</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Doors</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Seat</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="inputDefault">Hand Side</label>
-                <input type="text" class="form-control" id="inputDefault">
-              </div>
-
+      </md-card-content>
+    </md-card>
+    
+    <md-card flex="50">
+    <md-subheader class="md-primary">Vehicle Model Information</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>Maker/Brand</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-            <div class="col-sm-6">
-               <div class="form-group">
-                  <label class="control-label" for="inputDefault">Weight</label>
-                  <input type="text" class="form-control" id="inputDefault">
-              </div>  
-              <div class="form-group">
-                  <label class="control-label" for="inputDefault">Model Type</label>
-                  <input type="text" class="form-control" id="inputDefault">
-              </div>  
-              <div class="form-group">
-                  <label class="control-label" for="inputDefault">Drivetrain</label>
-                  <input type="text" class="form-control" id="inputDefault">
-              </div>  
-              <div class="form-group">
-                  <label class="control-label" for="inputDefault">Size</label>
-                  <input type="text" class="form-control" id="inputDefault">
-              </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Year</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
-          </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Model</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>  
+          <md-input-container flex="50" class="md-block">
+            <label>Engine</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Fuel</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Origin</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Transmission</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Seats</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Doors</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>DriveTrain</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Weight</label>
+            <input required ng-model="vehicle.MakerName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="100" class="md-block">
+            <label>Description</label>
+            <input md-maxlength="30" required name="description" ng-model="project.description">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
         </div>
-      </div>
-
-    </div>
+      </md-card-content>
+    </md-card>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          Car Status
-        </div>
-        <div class="panel-body">
 
-          <div class="radio radio-primary">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="editCar.Status" value="option1" checked=""><span class="circle"></span><span class="check"></span>
-              Option one is this
-            </label>
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""><span class="circle"></span><span class="check"></span>
-              Option one is this
-            </label>
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""><span class="circle"></span><span class="check"></span>
-              Option one is this
-            </label>
-          </div>
+  <md-card flex="100">
+    <md-subheader class="md-primary">Transportation Information</md-subheader>
+      <md-card-content layout="row" layout-wrap>
+         <md-input-container flex="50" class="md-block">
+            <label>TransportationExpense</label>
+            <input md-maxlength="30" required name="description" ng-model="project.description">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>TransportCompany</label>
+            <input md-maxlength="30" required name="description" ng-model="project.description">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
 
-      </div>
-    </div>
-  </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Features</div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div> 
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" checked=""><span class="checkbox-material"><span class="check"></span></span> Auto-updates
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+          <md-datepicker flex="100" ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
           
-        </div>
+      </md-card-content>
+  </md-card>
 
-      </div>
-    </div>
-   
-  </div>
-  
-<div class="row">
-  <div class="text-center">
-    <a href="javascript:void(0)" ui-sref="car" class="btn btn-raised btn-danger">Cancel</a>
-    <a href="javascript:void(0)" class="btn btn-raised btn-primary">Save</a>
-  </div>
 </div>
 
-
-<!-- <div layout="row">
-  <md-card flex="50">
-    <md-card-header>
-      <md-card-header-text>
-        <span class="md-title">User</span>
-
-      </md-card-header-text>
-    </md-card-header>
-    <md-card-content>
-      <h2>Card headline</h2>
-      <p>Card content</p>
-    </md-card-content>
-  </md-card>
-  <md-card flex="50">
-    <md-card-content>
-      <h2>Card headline</h2>
-      <p>Card content</p>
-    </md-card-content>
-  </md-card>
-</div>
- -->

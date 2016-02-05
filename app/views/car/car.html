@@ -1,4 +1,5 @@
-            <md-card flex-gt-sm="90" flex-gt-md="70" ui-view="car-details-view">
+            <div class=""  ui-view="car-details-view">
+            <md-card flex-gt-sm="90" flex-gt-md="100">
                     <md-card-content>
                      <!--  <div class="table-responsive">
                       <table class="table table-striped table-hover">
@@ -68,13 +69,13 @@
                             </thead>
                             <tbody md-body>
                               <tr md-row md-select="dessert" md-on-select md-auto-select="options.autoSelect" ng-repeat="dessert in cars | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                                <td md-cell>{{dessert.CarId}}</md-cell>
+                                <td md-cell><a href="" ng-click="editCar(dessert)">{{dessert.CarId}}</a></md-cell>
                                 <td md-cell>{{dessert.Maker}}</md-cell>
                                 <td md-cell>{{dessert.Model}}</td>
                                 <td md-cell>{{dessert.Year}}</td>
                                 <td md-cell>{{dessert.Odometer| number }}&nbsp;Km</td>
                                 <td md-cell>{{dessert.SalePrice | currency}}</td>
-                                <td md-cell>{{dessert.Status}}</td>
+                                <td md-cell><span class="label primary">{{dessert.Status}}</span></td>
                               </tr>
                             </tbody>
                           </table>
@@ -84,3 +85,4 @@
 
                     </md-card-content>
                   </md-card>
+                  </div>
