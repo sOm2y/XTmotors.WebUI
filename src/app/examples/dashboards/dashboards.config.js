@@ -56,7 +56,7 @@
             url: '/dashboards/sales',
             data: {
                 layout: {
-                    showToolbar: false
+                    showToolbar: true
                 }
             },
             views: {
