@@ -39,7 +39,10 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/modules/{,*/}*.js'],
-        tasks: ['newer:concat:app','newer:jshint:all'],
+        tasks: [
+          'newer:concat:app',
+          // 'newer:jshint:all'
+          ],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -73,7 +76,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -259,7 +262,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat:dist,uglify,concat:libs'],
+              js: ['concat:dist,uglify'],
               css: ['cssmin']
             },
             post: {}
@@ -511,7 +514,7 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    // 'newer:jshint',
     // 'test',
     // 'azureDeploy',
     'build'

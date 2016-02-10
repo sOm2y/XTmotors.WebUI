@@ -1,8 +1,9 @@
 'use strict';
 angular.module('app.services', [])
-  .factory('xtmotorsAPIService', ['$resource', function($resource) {
+  .factory('xtmotorsAPIService', ['$resource','$http', function($resource,$http) {
+        $http.defaults.headers.post["Content-Type"] = "text/plain";
         var apiUrl = 'http://xtmotorapi.azurewebsites.net/api/';
-        return $resource(apiUrl+':section/:id');
+        return $resource(apiUrl+':section/:id',null,{ 'update': { method: 'PUT' }});
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
             //   'save':   {method:'POST'},
@@ -31,7 +32,7 @@ angular.module('app.services', [])
 
         this.update = function(functionName, $scope, item){
             // $activityIndicator.startAnimating();
-            return xtmotorsAPIService.save({section: functionName}, item)
+            return xtmotorsAPIService.update({section: functionName}, item)
                 .$promise.then(function(item){
                     if($scope.itemList) {$scope.itemList.push(item);}
                     if($scope.newItem){
