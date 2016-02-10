@@ -1,16 +1,42 @@
 {
+  "node": true,
+  "esnext": true,
   "bitwise": true,
-  "browser": true,
+  "camelcase": true,
   "curly": true,
   "eqeqeq": true,
-  "esnext": true,
+  "immed": true,
+  "indent": 4,
   "latedef": true,
+  "newcap": true,
   "noarg": true,
-  "node": true,
-  "strict": true,
+  "quotmark": "single",
+  "regexp": true,
   "undef": true,
+  "latedef":false,
   "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "white": true,
+  "validthis": true,
+  "browser":true,
+  "-W034": true,
   "globals": {
-    "angular": false
+    "angular": false,
+    // Angular Mocks
+    "inject": false,
+    // JASMINE
+    "describe": false,
+    "it": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false,
+    "expect": false,
+    "moment":false,
+    "CountUp":false,
+    "jQuery":false,
+    "$": false
   }
 }
