@@ -8,15 +8,15 @@
  */
 angular.module('car',
     [
-        'car.controllers'
+        'car.controllers',
         // 'car.directives',
-        // 'car.services'
+        'car.services'
     ])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('car', {
                 url: "/car",
-                templateUrl: "views/car/car.html",
+                templateUrl: "modules/car/car.html",
                 controller: 'CarCtrl',
                 data: {
                     requireLogin: true
@@ -27,7 +27,7 @@ angular.module('car',
                 params: {myParam: null},
                 views: {
                     "car-details-view": { 
-                        templateUrl: "views/car/car.details.html",
+                        templateUrl: "modules/car/car.details.html",
                         controller: 'CarDetailsCtrl'
                     }
                 },

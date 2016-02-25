@@ -1,0 +1,26 @@
+<div ui-view="employee-details-view" >
+  <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="employee in paginatedEmployees" layout-align="center">
+      <md-card-content>
+        <md-list-item class="md-3-line" >
+          <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+          <div class="md-list-item-text" layout="column">
+            <h3 ng-click="editEmployee(employee)">{{::employee.FirstName}}&nbsp;{{::employee.LastName}}</h3>
+            <h4>{{::employee.EmailAddress}}</h4>
+            <p>{{::employee.Mobile}}</p>
+          </div>
+      </md-list-item>
+      </md-card-content>
+  </md-card>
+  <div layout="row" layout-align="center">
+    <pagination
+      ng-change="pageChanged()"
+      total-items="totalEmployees" 
+      items-per-page="employeesPerPage" 
+      ng-model="pagination.currentPage" 
+      max-size="totalPages" 
+      class="pagination-sm" 
+      boundary-links="true">
+    </pagination>   
+  </div>
+</div>
+       

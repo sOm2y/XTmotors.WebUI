@@ -11,6 +11,7 @@ angular.module('app.controllers',[])
 	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog', 
     function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog) {
     $rootScope._ = _;
+
     
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
@@ -23,12 +24,17 @@ angular.module('app.controllers',[])
           $rootScope.isLoading = false;
           loginModal()
             .then(function () {
-               return $state.go('car');
+                return $state.go('car');
             })
             .catch(function () {
               return $state.go('car');
             });
         }
+    });
+    $scope.$watch('selectedCar', function(newVal){
+            if(newVal){
+                $rootScope.editCar(newVal);
+            }
     });
  
     $rootScope.changeView = function(view) {
@@ -86,13 +92,6 @@ angular.module('app.controllers',[])
     };
 		$scope.listGalleryView = false;
 
-
-    
-  // Toolbar search toggle
-  $scope.toggleSearch = function(element) {
-    $scope.showSearch = !$scope.showSearch;
-  };
-  
   // Sidenav toggle
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
@@ -103,34 +102,39 @@ angular.module('app.controllers',[])
     {
       link : 'car',
       title: 'Car',
-      icon: 'action:ic_dashboard_24px' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
+      icon: 'directions_car' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
     },
     {
       link : 'settlement',
       title: 'Settlement',
-      icon: 'social:ic_group_24px'
+      icon: 'equalizer'
     },
     {
       link : 'storage',
       title: 'Storage',
-      icon: 'communication:ic_message_24px'
+      icon: 'store'
     },
     {
       link : 'consignment',
       title: 'Consignments',
-      icon: 'communication:ic_message_24px'
+      icon: 'directions_ferry'
+    },
+    {
+      link : 'sales',
+      title: 'Sales',
+      icon: 'trending_up'
     }
   ];
   $scope.admin = [
     {
       link : 'customer',
       title: 'Customer',
-      icon: 'action:ic_delete_24px'
+      icon: 'supervisor_account'
     },
     {
       link : 'employee',
       title: 'Employee',
-      icon: 'action:ic_settings_24px'
+      icon: 'perm_contact_cal'
     }
   ];
   

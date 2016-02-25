@@ -17,7 +17,7 @@ angular.module('consignment',
         $stateProvider
             .state('consignment', {
                 url: "/consignment",
-                templateUrl: "views/consignment/consignment.html",
+                templateUrl: "modules/consignment/consignment.html",
                 controller: 'ConsignmentCtrl',
                 data: {
                     requireLogin: true

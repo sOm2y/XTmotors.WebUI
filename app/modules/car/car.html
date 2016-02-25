@@ -1,0 +1,35 @@
+<div class=""  ui-view="car-details-view">
+  <md-card flex-gt-sm="90" flex-gt-md="100">
+    <md-card-content>
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder>
+              <tr md-row>
+                <th md-column md-order-by="CarId"><span>Car ID</span></th>
+                <th md-column md-order-by="MakerName"><span>Maker/Brand</span></th>
+                <th md-column md-order-by="Model" md-desc><span>Model</span></th>
+                <th md-column md-numeric md-order-by="Year"><span>Manufactory Year</span></th>
+                <th md-column md-numeric md-order-by="Odometer"><span>Odometer</span></th>
+                <th md-column md-numeric md-order-by="Price"><span>Import Price</span></th>
+                <th md-column md-order-by="CarStatus"><span>Car Status</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="dessert" md-on-select ng-repeat="dessert in cars | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell ng-click="editCar(dessert)">{{::dessert.CarId}}</md-cell>
+                <td md-cell>{{::dessert.MakerName}}</md-cell>
+                <td md-cell>{{::dessert.Model}}</td>
+                <td md-cell>{{::dessert.Year}}</td>
+                <td md-cell>{{::dessert.Odometer| number }}&nbsp;Km</td>
+                <td md-cell>{{::dessert.Price | currency}}</td>
+                <td md-cell><span class="label primary">{{::dessert.CarStatus}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+         <md-table-pagination  md-limit="query.limit" md-page="query.page" md-total="{{cars.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
+
+    </md-card-content>
+  </md-card>
+</div>

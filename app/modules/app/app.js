@@ -25,6 +25,7 @@ angular
     'ngMaterial',
     'ngMdIcons',
     'md.data.table',
+    'scDateTime',
 
     //XTmotors app
     'app.controllers',
@@ -55,7 +56,7 @@ angular
         $stateProvider
             .state('appSetting', {
                 url: "/setting",
-                templateUrl: "views/app/appSetting.html",
+                templateUrl: "modules/app/appSetting.html",
                 controller: 'StorageCtrl',
                 data: {
                     requireLogin: true

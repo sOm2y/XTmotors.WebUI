@@ -6,7 +6,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>Employee Id</label>
-            <input required ng-model="item.EmployeeId" disabled="item.EmployeeId">
+            <input required ng-model="item.CustomerId" disabled="item.CustomerId">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -107,8 +107,8 @@
       </md-card-content>
   </md-card>
   <div layout="row" layout-align="center">
-    <md-button flex="25" class="md-raised" ng-click="backToEmployee()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee(editEmployee)">Save</md-button>
+    <md-button flex="25" class="md-raised" ng-click="backToCustomer()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(item)">Save</md-button>
   </div>
  
 </div>

@@ -51,10 +51,10 @@ angular.module('employee.controllers',[])
 			xtmotorsCRUDService.cancelEdit($scope);
 			$state.go('employee');
 		};
-		$scope.saveEmployee= function(employee){
+		$scope.saveEmployee= function(){
             // var formValid = xtmotorsAPIService.validateForm($scope);
             // if(formValid){
-            xtmotorsCRUDService.update('Employee', $scope, employee);
+            xtmotorsAPIService.save({section:'Employee'},$scope.item);
             // }
         };
 

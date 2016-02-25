@@ -16,7 +16,7 @@ angular.module('employee',
         $stateProvider
             .state('employee', {
                 url: "/employee",
-                templateUrl: "views/employee/employee.html",
+                templateUrl: "modules/employee/employee.html",
                 controller: 'EmployeeCtrl',
                 data: {
                     requireLogin: true
@@ -26,7 +26,7 @@ angular.module('employee',
                 url:"/details",
                 views:{
                     "employee-details-view":{
-                        templateUrl:"views/employee/employee.details.html",
+                        templateUrl:"modules/employee/employee.details.html",
                         controller: 'EmployeeDetailsCtrl'
                     }
                 },

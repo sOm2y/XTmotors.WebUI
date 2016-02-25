@@ -11,6 +11,7 @@ angular.module('app.controllers',[])
 	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog', 
     function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog) {
     $rootScope._ = _;
+
     
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
         // alertService.add('success','state change', '200');
@@ -23,12 +24,17 @@ angular.module('app.controllers',[])
           $rootScope.isLoading = false;
           loginModal()
             .then(function () {
-               return $state.go('car');
+                return $state.go('car');
             })
             .catch(function () {
               return $state.go('car');
             });
         }
+    });
+    $scope.$watch('selectedCar', function(newVal){
+            if(newVal){
+                $rootScope.editCar(newVal);
+            }
     });
  
     $rootScope.changeView = function(view) {
@@ -86,13 +92,6 @@ angular.module('app.controllers',[])
     };
 		$scope.listGalleryView = false;
 
-
-    
-  // Toolbar search toggle
-  $scope.toggleSearch = function(element) {
-    $scope.showSearch = !$scope.showSearch;
-  };
-  
   // Sidenav toggle
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
@@ -103,34 +102,39 @@ angular.module('app.controllers',[])
     {
       link : 'car',
       title: 'Car',
-      icon: 'action:ic_dashboard_24px' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
+      icon: 'directions_car' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
     },
     {
       link : 'settlement',
       title: 'Settlement',
-      icon: 'social:ic_group_24px'
+      icon: 'equalizer'
     },
     {
       link : 'storage',
       title: 'Storage',
-      icon: 'communication:ic_message_24px'
+      icon: 'store'
     },
     {
       link : 'consignment',
       title: 'Consignments',
-      icon: 'communication:ic_message_24px'
+      icon: 'directions_ferry'
+    },
+    {
+      link : 'sales',
+      title: 'Sales',
+      icon: 'trending_up'
     }
   ];
   $scope.admin = [
     {
       link : 'customer',
       title: 'Customer',
-      icon: 'action:ic_delete_24px'
+      icon: 'supervisor_account'
     },
     {
       link : 'employee',
       title: 'Employee',
-      icon: 'action:ic_settings_24px'
+      icon: 'perm_contact_cal'
     }
   ];
   
@@ -223,14 +227,14 @@ angular.module('app.directives', [])
 	.directive('formSearchCar', [function () {
 		return {
 			restrict: 'E',
-			templateUrl:'views/app/formSearchCar.html'
+			templateUrl:'modules/app/formSearchCar.html'
 					
 		};
 	}])
 	.directive('cubeGridSpinner', ['$rootScope','$timeout', 'alertService', function ($rootScope, $timeout, alertService) {
 	  	return {
 		    restrict: 'E',
-		    templateUrl: 'views/app/cubeGridSpinner.html',
+		    templateUrl: 'modules/app/cubeGridSpinner.html',
 		    link:function(scope, elem, attrs){
 		    	// rootScope.isLoading = false;
 		    	//adding fake async loading
@@ -280,6 +284,7 @@ angular
     'ngMaterial',
     'ngMdIcons',
     'md.data.table',
+    'scDateTime',
 
     //XTmotors app
     'app.controllers',
@@ -310,7 +315,7 @@ angular
         $stateProvider
             .state('appSetting', {
                 url: "/setting",
-                templateUrl: "views/app/appSetting.html",
+                templateUrl: "modules/app/appSetting.html",
                 controller: 'StorageCtrl',
                 data: {
                     requireLogin: true
@@ -369,9 +374,8 @@ angular
 'use strict';
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource','$http', function($resource,$http) {
-        $http.defaults.headers.post["Content-Type"] = "text/plain";
-        var apiUrl = 'http://xtmotorapi.azurewebsites.net/api/';
-        return $resource(apiUrl+':section/:id',null,{ 'update': { method: 'PUT' }});
+        var apiUrl = 'http://xtmotorwebapi.azurewebsites.net/api/';
+        return $resource(apiUrl+':section/:id',{ id: '@_id' },{ update: { method: 'PUT' }});
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
             //   'save':   {method:'POST'},
@@ -400,7 +404,7 @@ angular.module('app.services', [])
 
         this.update = function(functionName, $scope, item){
             // $activityIndicator.startAnimating();
-            return xtmotorsAPIService.update({section: functionName}, item)
+            return xtmotorsAPIService.save({section: functionName}, item)
                 .$promise.then(function(item){
                     if($scope.itemList) {$scope.itemList.push(item);}
                     if($scope.newItem){
@@ -470,7 +474,7 @@ angular.module('app.services', [])
 
     return function() {
       var instance = $modal.open({
-        templateUrl: 'views/app/loginModalTemplate.html',
+        templateUrl: 'modules/app/loginModalTemplate.html',
         controller: 'LoginModalCtrl'
       });
 
@@ -519,9 +523,9 @@ angular.module('app.services', [])
 angular.module('car.controllers',[])
 	.controller('CarCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q','$state','$mdEditDialog','$timeout',function ($rootScope,$scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q,$state,$mdEditDialog,$timeout) {
 		if($scope.cars){$rootScope.isLoading = false;}
-    xtmotorsAPIService.query({section:'Car/CarBriefView'})
+    xtmotorsAPIService.query({section:'car/summary'})
       .$promise.then(function(cars) {
-        $scope.cars = cars;
+        $rootScope.cars = cars;
      
         $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
 
@@ -539,7 +543,7 @@ angular.module('car.controllers',[])
         };
         
         $scope.query = {
-          order: 'name',
+          order: 'CarId',
           limit: 15,
           page: 1
         };
@@ -567,9 +571,57 @@ angular.module('car.controllers',[])
           console.log('limit: ', limit);
         };
 
-        $scope.editCar = function(car){
-          $state.go('car.details',{myParam:car});
+        $rootScope.editCar = function(car){
+          $q.all({
+        // importSummary: xtmotorsAPIService.query({section:'import'}).$promise
+              importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.CarId}).$promise,
+              contract: xtmotorsAPIService.get({ section:'Contract/'+car.CarId}).$promise
+            })
+            .then(function(res) {
+                  $scope.importRecord  = res.importRecord;
+                  // $scope.maintenance   = res.maintenance;
+                  $scope.contract      = res.contract;
+
+                  if($scope.importRecord){
+                    $q.all({
+                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+car.CarId}).$promise,
+                      importSummary: xtmotorsAPIService.get({ section:'Import/'+$scope.importRecord.BatchId}).$promise
+                    })
+                     .then(function(res){
+                      $scope.importSummary = res.importSummary;
+                      $scope.maintenanceRecords = res.maintenance;
+                     },function(error){
+
+                     });
+                  }
+                // $scope.importRecord = response.importRecord;
+                   _.pull($scope.itemList,car);
+                  $scope.itemCopy = angular.copy(car);
+                  $scope.item = car;
+                  $state.go('car.details');
+            },function(error){
+            
+          });
+       
         };
+
+        $scope.createItem = function(){
+            if(!$scope.item){
+                $scope.newItem = true;
+                $scope.item = {};
+            }
+          };
+        $scope.backToCustomer = function(){
+          xtmotorsCRUDService.cancelEdit($scope);
+          $state.go('car');
+        };
+        $scope.saveCustomer= function(car){
+              // var formValid = xtmotorsAPIService.validateForm($scope);
+              // if(formValid){
+              xtmotorsCRUDService.update('Car/CarBriefView', $scope, car);
+              // }
+          };
+    
   
       }, function(error) {
         console.log(error);
@@ -577,27 +629,32 @@ angular.module('car.controllers',[])
        $rootScope.isLoading = false;
     });
 
+
   	
 	}])
-  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$translate','$translatePartialLoader','$stateParams', function ($rootScope,$scope,xtmotorsAPIService, $translate, $translatePartialLoader,$stateParams) {
+  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog',
+    function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog) {
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();  
-    if($stateParams.myParam){
-      // xtmotorsAPIService.query({section:'Car/CarBriefView/'+$stateParams.myParam.CarId})
-      // .$promise.then(function(cars) {
-         $scope.editCar = $stateParams.myParam;
-        
-      // })
-      // .finally(function(){
-       $rootScope.isLoading = false;
-    // });
-    }
-      this.userState = '';
-        this.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-            'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-            'WY').split(' ').map(function (state) { return { abbrev: state }; });
-    // _.pull($rootScope.cars, $scope.editCar);
-    $scope.carCopy = angular.copy($scope.editCar);
+    $scope.doSecondaryAction = function(event) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .title('Secondary Action')
+        .textContent('Secondary actions can be used for one click actions')
+        .ariaLabel('Secondary click demo')
+        .ok('Neat!')
+        .targetEvent(event)
+      );
+    };
+  
+
+  }])
+  .controller('ImportInfoCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$translate','$translatePartialLoader','$stateParams', 
+    function ($rootScope,$scope,xtmotorsAPIService,xtmotorsCRUDService,$translate, $translatePartialLoader,$stateParams) {
+
+
+
+
   }]);
 
 'use strict';
@@ -610,15 +667,15 @@ angular.module('car.controllers',[])
  */
 angular.module('car',
     [
-        'car.controllers'
+        'car.controllers',
         // 'car.directives',
-        // 'car.services'
+        'car.services'
     ])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('car', {
                 url: "/car",
-                templateUrl: "views/car/car.html",
+                templateUrl: "modules/car/car.html",
                 controller: 'CarCtrl',
                 data: {
                     requireLogin: true
@@ -629,7 +686,7 @@ angular.module('car',
                 params: {myParam: null},
                 views: {
                     "car-details-view": { 
-                        templateUrl: "views/car/car.details.html",
+                        templateUrl: "modules/car/car.details.html",
                         controller: 'CarDetailsCtrl'
                     }
                 },
@@ -637,6 +694,15 @@ angular.module('car',
                     requireLogin: true
                 }
             });
+    }]);
+angular.module('car.services', [])
+    .service('getImportInfo', ['xtmotorsAPIService',
+    	function(xtmotorsAPIService){
+	        return {
+	            importSummary: xtmotorsAPIService.query({ section: 'Import' }).$promise,
+	            importRecord: xtmotorsAPIService.query({ section: 'ImportRecords' }).$promise
+	        };
+        
     }]);
 'use strict';
 /**
@@ -737,7 +803,7 @@ angular.module('consignment',
         $stateProvider
             .state('consignment', {
                 url: "/consignment",
-                templateUrl: "views/consignment/consignment.html",
+                templateUrl: "modules/consignment/consignment.html",
                 controller: 'ConsignmentCtrl',
                 data: {
                     requireLogin: true
@@ -754,7 +820,7 @@ angular.module('consignment',
  * customer controller of the application.
  */
 angular.module('customer.controllers',[])
-	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q', function ($rootScope,$scope,xtmotorsAPIService,$q) {
+	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$state','xtmotorsCRUDService', function ($rootScope,$scope,xtmotorsAPIService,$q,$state,xtmotorsCRUDService) {
 			$rootScope.isLoading = true;
 			xtmotorsAPIService.query({section:'Customer'})
 			.$promise.then(function(customer){
@@ -784,6 +850,29 @@ angular.module('customer.controllers',[])
 			.finally(function(){
 		       $rootScope.isLoading = false;
 		    });
+
+		    $scope.createItem = function(){
+            if(!$scope.item){
+                $scope.newItem = true;
+                $scope.item = {};
+            }
+	        };
+		   	$scope.editCustomer = function(customer){
+				_.pull($scope.itemList,customer);
+				$scope.itemCopy = angular.copy(customer);
+				$scope.item = customer;
+				$state.go('customer.details');
+			};
+			$scope.backToCustomer = function(){
+				xtmotorsCRUDService.cancelEdit($scope);
+				$state.go('customer');
+			};
+			$scope.saveCustomer= function(customer){
+	            // var formValid = xtmotorsAPIService.validateForm($scope);
+	            // if(formValid){
+	            xtmotorsCRUDService.update('Employee', $scope, customer);
+	            // }
+	        };
 		
 		
 	}])
@@ -810,7 +899,7 @@ angular.module('customer',
         $stateProvider
             .state('customer', {
                 url: "/customer",
-                templateUrl: "views/customer/customer.html",
+                templateUrl: "modules/customer/customer.html",
                 controller: 'CustomerCtrl',
                 data: {
                     requireLogin: true
@@ -820,7 +909,7 @@ angular.module('customer',
                 url:"/details",
                 views:{
                     "customer-details-view":{
-                        templateUrl:"views/customer/customer.details.html",
+                        templateUrl:"modules/customer/customer.details.html",
                         controller: 'CustomerDetailsCtrl',
                     }
                 },
@@ -882,10 +971,10 @@ angular.module('employee.controllers',[])
 			xtmotorsCRUDService.cancelEdit($scope);
 			$state.go('employee');
 		};
-		$scope.saveEmployee= function(employee){
+		$scope.saveEmployee= function(){
             // var formValid = xtmotorsAPIService.validateForm($scope);
             // if(formValid){
-            xtmotorsCRUDService.update('Employee', $scope, employee);
+            xtmotorsAPIService.save({section:'Employee'},$scope.item);
             // }
         };
 
@@ -912,7 +1001,7 @@ angular.module('employee',
         $stateProvider
             .state('employee', {
                 url: "/employee",
-                templateUrl: "views/employee/employee.html",
+                templateUrl: "modules/employee/employee.html",
                 controller: 'EmployeeCtrl',
                 data: {
                     requireLogin: true
@@ -922,7 +1011,7 @@ angular.module('employee',
                 url:"/details",
                 views:{
                     "employee-details-view":{
-                        templateUrl:"views/employee/employee.details.html",
+                        templateUrl:"modules/employee/employee.details.html",
                         controller: 'EmployeeDetailsCtrl'
                     }
                 },
@@ -943,8 +1032,40 @@ angular.module('employee',
 angular.module('settlement.controllers',[])
 	.controller('SettlementCtrl', ['$scope', function ($scope) {
 		$scope.settlement = 'settlement'; 
-		$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
-        $scope.data = [300, 500, 100, 40, 120];
+	
+		$scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+		$scope.series = ['Series A', 'Series B'];
+		$scope.data = [
+		    [65, 59, 80, 81, 56, 55, 40],
+		    [28, 48, 40, 19, 86, 27, 90]
+		];
+		$scope.colours=[{
+			fillColor: 'rgba(255, 255, 255, 0.8)',
+		    strokeColor: 'rgba(255, 255, 255, 0.8)',
+		    highlightFill: 'rgba(255, 255, 255, 0.8)',
+		    highlightStroke: 'rgba(255, 255, 255, 0.8)'
+		}];
+		
+
+		// function resizeChart() {
+		//     var canvas = document.getElementById("canvas");
+
+		//     //set new sizes                 
+		//     var new_canvasWidth = Math.max((canvas.parentNode.clientWidth), 800);
+		//     var new_canvasHeight = 400;
+
+		//     //only redraw if the size  has changed
+		//     if ((new_canvasWidth != canvas.width) || (new_canvasHeight != canvas.height)) {
+		//         canvas.width = new_canvasWidth;
+		//         canvas.height = new_canvasHeight;
+		//         new Chart(canvas.getContext("2d")).Line(lineChartData(data, options));
+		//     }
+		// }
+		// //resizeTracker, clearTimeout, and setTimeout are used to only fire the resize event after the user has finished resizing; rather than firing lots of times unnecessarily while resizing.
+		// var resizeTracker;
+		// window.addEventListener('resize', (function(){clearTimeout(resizeTracker);resizeTracker = setTimeout(resizeChart, 100);}), false);
+	  
+
 	}]);
 'use strict';
 
@@ -965,7 +1086,7 @@ angular.module('settlement',
         $stateProvider
             .state('settlement', {
                 url: "/settlement",
-                templateUrl: "views/settlement/settlement.html",
+                templateUrl: "modules/settlement/settlement.html",
                 controller: 'SettlementCtrl',
                 data: {
                     requireLogin: true
@@ -982,9 +1103,25 @@ angular.module('settlement',
  * storage controller of the application.
  */
 angular.module('storage.controllers',[])
-	.controller('StorageCtrl',['$scope','$translate','$translatePartialLoader',function ($scope, $translate, $translatePartialLoader) {
+	.controller('StorageCtrl',['$scope','$translate','$translatePartialLoader','xtmotorsCRUDService',function ($scope, $translate, $translatePartialLoader,xtmotorsCRUDService) {
 		$translatePartialLoader.addPart('storage');
   		$translate.refresh();
+  		xtmotorsCRUDService.get('Car/CarBriefView',$scope)
+  		$scope.selected = [];
+  
+        $scope.options = {
+          autoSelect: true,
+          boundaryLinks: false,
+          largeEditDialog: false,
+          pageSelector: false,
+          rowSelection: false
+        };
+        
+        $scope.query = {
+          order: 'name',
+          limit: 10,
+          page: 1
+        };
 
 		// $scope.totalItems = $scope.cars.length;
 	 //    $scope.itemsPerPage = 10;
@@ -1021,7 +1158,7 @@ angular.module('storage',
         $stateProvider
             .state('storage', {
                 url: "/storage",
-                templateUrl: "views/storage/storage.html",
+                templateUrl: "modules/storage/storage.html",
                 controller: 'StorageCtrl',
                 data: {
                     requireLogin: true

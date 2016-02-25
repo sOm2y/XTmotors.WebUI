@@ -3,14 +3,14 @@ angular.module('app.directives', [])
 	.directive('formSearchCar', [function () {
 		return {
 			restrict: 'E',
-			templateUrl:'views/app/formSearchCar.html'
+			templateUrl:'modules/app/formSearchCar.html'
 					
 		};
 	}])
 	.directive('cubeGridSpinner', ['$rootScope','$timeout', 'alertService', function ($rootScope, $timeout, alertService) {
 	  	return {
 		    restrict: 'E',
-		    templateUrl: 'views/app/cubeGridSpinner.html',
+		    templateUrl: 'modules/app/cubeGridSpinner.html',
 		    link:function(scope, elem, attrs){
 		    	// rootScope.isLoading = false;
 		    	//adding fake async loading
