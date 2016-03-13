@@ -61,16 +61,16 @@
       <md-card-content>
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
-            <label>Maker/Brand</label>
-            <input required ng-model="vehicle.MakerName">
+            <label>IrdNumber</label>
+            <input required ng-model="item.IrdNumber">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>Year</label>
-            <input required ng-model="vehicle.MakerName">
+            <label>Discount</label>
+            <input required ng-model="item.Discount">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -81,31 +81,6 @@
       </md-card-content>
     </md-card>
   </div>
-
-  <md-card flex="100">
-    <md-subheader class="md-primary">Transportation Information</md-subheader>
-      <md-card-content layout="row" layout-wrap>
-         <md-input-container flex="50" class="md-block">
-            <label>TransportationExpense</label>
-            <input md-maxlength="30" required name="description" ng-model="project.description">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-            </div>
-          </md-input-container>
-          <md-input-container flex="50" class="md-block">
-            <label>TransportCompany</label>
-            <input md-maxlength="30" required name="description" ng-model="project.description">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-            </div>
-          </md-input-container>
-
-          <md-datepicker flex="100" ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-          
-      </md-card-content>
-  </md-card>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToEmployee()">Cancel</md-button>
     <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee(editEmployee)">Save</md-button>

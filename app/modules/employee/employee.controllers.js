@@ -45,7 +45,7 @@ angular.module('employee.controllers',[])
 			_.pull($scope.itemList,employee);
 			$scope.itemCopy = angular.copy(employee);
 			$scope.item = employee;
-			$state.go('employee.details');
+			$state.go('employee.details',{EmployeeId:$scope.item.EmployeeId});
 		};
 		$scope.backToEmployee = function(){
 			xtmotorsCRUDService.cancelEdit($scope);
@@ -54,7 +54,7 @@ angular.module('employee.controllers',[])
 		$scope.saveEmployee= function(){
             // var formValid = xtmotorsAPIService.validateForm($scope);
             // if(formValid){
-            xtmotorsAPIService.save({section:'Employee'},$scope.item);
+            xtmotorsAPIService.update({section:'Employee/'+$scope.item.EmployeeId},$scope.item);
             // }
         };
 

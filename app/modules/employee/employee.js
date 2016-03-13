@@ -23,7 +23,7 @@ angular.module('employee',
                 }
             })
             .state('employee.details',{
-                url:"/details",
+                url:"/:EmployeeId",
                 views:{
                     "employee-details-view":{
                         templateUrl:"modules/employee/employee.details.html",
