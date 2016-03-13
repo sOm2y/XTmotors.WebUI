@@ -29,6 +29,8 @@ module.exports = function(config) {
       'bower_components/Chart.js/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/angular-cookies/angular-cookies.js',
+      'bower_components/angular-google-places-autocomplete/src/autocomplete.js',
+      'bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-material/angular-material.js',
@@ -47,7 +49,6 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/i18next/bin/index.js',
       'bower_components/ng-i18next/dist/ng-i18next.js',
-      'bower_components/sc-date-time/dist/sc-date-time.js',
       // endbower
       "app/modules/**/*.js",
       "test/mock/**/*.js",

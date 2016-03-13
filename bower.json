@@ -2,13 +2,14 @@
   "name": "xtmotorwebui",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "~1.4.8",
+    "angular": "^1.4.0",
     "angular-animate": "^1.3.0",
     "angular-bootstrap": "~0.13.4",
     "angular-chart.js": "~0.8.8",
     "angular-cookies": "^1.3.0",
+    "angular-google-places-autocomplete": "~0.2.7",
     "angular-material": "~1.0.4",
-    "angular-material-data-table": "*",
+    "angular-material-data-table": "0.9.14",
     "angular-material-icons": "~0.6.0",
     "angular-mocks": "^1.3.0",
     "angular-resource": "^1.3.0",
@@ -21,8 +22,7 @@
     "bootstrap": "~3.3.5",
     "countUp.js": "countup#~1.6.1",
     "lodash": "~3.10.1",
-    "ng-i18next": "~0.5.2",
-    "sc-date-time": "~1.1.6"
+    "ng-i18next": "~0.5.2"
   },
   "appPath": "app",
   "moduleName": "xtmotorwebuiApp"
