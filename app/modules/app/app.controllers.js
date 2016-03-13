@@ -18,7 +18,8 @@ angular.module('app.controllers',[])
         // alertService.add('warning','state change', '400');
         // $rootScope.isLoading = true;
         var requireLogin = toState.data.requireLogin;
-         $rootScope.buttonDisable = false;
+        $rootScope.buttonDisable = false;
+       
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
           event.preventDefault();
           $rootScope.isLoading = false;
@@ -36,13 +37,42 @@ angular.module('app.controllers',[])
                 $rootScope.editCar(newVal);
             }
     });
- 
+
+    $rootScope.fabDirections = ['up', 'down', 'left', 'right'];
+    $rootScope.fabDirection = $rootScope.fabDirections[0];
+    $rootScope.fabAnimations = ['md-fling', 'md-scale'];
+    $rootScope.fabAnimation = $rootScope.fabAnimations[1];
+    $rootScope.fabStatuses = [false, true];
+    $rootScope.fabStatus = $rootScope.fabStatuses[0];
+
+    $rootScope.createSeletedObject = function (selectedObject) {
+      switch(selectedObject){
+        case 'customer': 
+          $state.go('customer.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
+          break;
+        case 'employee':
+          $state.go('employee.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
+          break;
+        case 'car':
+          $state.go('car.details',{}, {reload: true});
+          $rootScope.buttonDisable = true;
+          break;
+      }
+    };
+    $rootScope.createItem = function(){
+      if(!$scope.item){
+          $scope.newItem = true;
+          $scope.item = {};
+      }
+    };
     $rootScope.changeView = function(view) {
       $location.path(view);
     };
     // root binding for alertService
     $rootScope.closeAlert = alertService.closeAlert; 
- 
+    
 
     $rootScope.logout = function(){
       delete $rootScope.currentUser;
@@ -61,35 +91,6 @@ angular.module('app.controllers',[])
     }
 
 
-    $rootScope.checkCurrentPage = function(){
-      switch($state.current.name){
-        case 'customer': 
-          $state.go('customer.details',{}, {reload: true});
-          $rootScope.buttonDisable = true;
-          break;
-        case 'employee':
-          $state.go('employee.details',{}, {reload: true});
-          $rootScope.buttonDisable = true;
-          break;
-        case 'car':
-          $state.go('car.details',{}, {reload: true});
-          $rootScope.buttonDisable = true;
-          break;
-        case 'customer.details':
-          $rootScope.buttonDisable = true;
-          break;
-        case 'employee.details':
-          $rootScope.buttonDisable = true;
-          break;
-        case 'car.details':
-          $rootScope.buttonDisable = true;
-          break;
-        default:
-          $state.go('car.details',{}, {reload: true});
-          $rootScope.buttonDisable = true;
-          break;
-      }
-    };
 		$scope.listGalleryView = false;
 
   // Sidenav toggle
@@ -160,54 +161,6 @@ angular.module('app.controllers',[])
 	    $scope.$close(user);
   	};
 
-}])
-.controller('DemoCtrl', ['$scope', 'xtmotorsAPIService',function ($scope,xtmotorsAPIService) {
-  
-    var self = this;
-      // list of `state` value/display objects
-    self.states        = loadAll();
-    self.selectedItem  = null;
-    self.searchText    = null;
-    self.querySearch   = querySearch;
-    // ******************************
-    // Internal methods
-    // ******************************
-    /**
-     * Search for states... use $timeout to simulate
-     * remote dataservice call.
-     */
-    function querySearch (query) {
-      var results = query ?  createFilterFor(query) : [];
-      return results;
-    }
-    /**
-     * Build `states` list of key/value pairs
-     */
-    
-    function loadAll() {
-      xtmotorsAPIService.query({section:'Car/CarBriefView'})
-      .$promise.then(function(cars) {
-         var allStates = cars;
-          return allStates.map( function (state) {
-            return {
-              value: state.CarId.toLowerCase(),
-              display: state
-            };
-          });
-      });
-     
-    }
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(state) {
-        return (state.value.indexOf(lowercaseQuery) === 0);
-      };
-    }
-   
- 
 }])
 .controller('ListBottomSheetCtrl',['$scope','$mdBottomSheet',function($scope, $mdBottomSheet) {
   $scope.items = [
