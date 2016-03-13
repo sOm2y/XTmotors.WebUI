@@ -8,7 +8,7 @@
  * customer controller of the application.
  */
 angular.module('customer.controllers',[])
-	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$state','xtmotorsCRUDService', function ($rootScope,$scope,xtmotorsAPIService,$q,$state,xtmotorsCRUDService) {
+	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$state','xtmotorsCRUDService','$mdToast','$element', function ($rootScope,$scope,xtmotorsAPIService,$q,$state,xtmotorsCRUDService,$mdToast,$element) {
 			$rootScope.isLoading = true;
 			xtmotorsAPIService.query({section:'Customer'})
 			.$promise.then(function(customer){
@@ -49,7 +49,7 @@ angular.module('customer.controllers',[])
 				_.pull($scope.itemList,customer);
 				$scope.itemCopy = angular.copy(customer);
 				$scope.item = customer;
-				$state.go('customer.details');
+				$state.go('customer.details',{CustomerId:$scope.item.CustomerId});
 			};
 			$scope.backToCustomer = function(){
 				xtmotorsCRUDService.cancelEdit($scope);
@@ -58,7 +58,20 @@ angular.module('customer.controllers',[])
 			$scope.saveCustomer= function(customer){
 	            // var formValid = xtmotorsAPIService.validateForm($scope);
 	            // if(formValid){
-	            xtmotorsCRUDService.update('Employee', $scope, customer);
+	             xtmotorsAPIService.update({section:'Customer/'+$scope.item.CustomerId},$scope.item)
+	             .$promise.then(function(res){
+		            console.log(res);
+		          },function(error){
+		            console.log(error);
+		            $mdToast.show({
+		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+		              position: 'top right',
+		              hideDelay: 5000,
+		              parent: $element
+		            });
+		          }).finally(function(){
+		              
+		          })
 	            // }
 	        };
 		
