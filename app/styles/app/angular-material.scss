@@ -1,5 +1,6 @@
 // Colors
 $gray: #eee;
+$red: #F44336;
 
 // Angular
 [ng-click] {
@@ -11,6 +12,11 @@ $gray: #eee;
 // Main content bg color
 md-content.md-default-theme {
   background-color: $gray;
+}
+md-toast.md-toast.md-toast-500,md-toast.md-toast.md-toast-405{
+  .md-toast-content{
+    background-color: $red;
+  }
 }
 
 // Navigation drawer pattern: https://www.google.com/design/spec/patterns/navigation-drawer.html#navigation-drawer-specs
