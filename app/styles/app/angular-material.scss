@@ -9,6 +9,22 @@ $red: #F44336;
   }
 }
 
+.md-top {
+position: fixed;
+top: 8vh!important; // size of my navbar + 16px
+}
+.md-bottom {
+position: fixed;
+bottom: 5vh; // size of my navbar + 16px
+}
+
+.md-right {
+position: fixed;
+right: 4vw;
+}
+
+
+
 // Main content bg color
 md-content.md-default-theme {
   background-color: $gray;
