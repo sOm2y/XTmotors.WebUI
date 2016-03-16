@@ -103,7 +103,7 @@ angular.module('car.controllers',[])
 
      
         $scope.backToCar = function(){
-          xtmotorsCRUDService.cancelEdit($scope);
+          // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
         };
         $scope.saveCar= function(car){
