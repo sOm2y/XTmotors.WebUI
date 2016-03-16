@@ -25,7 +25,6 @@ angular
     'ngMaterial',
     'ngMdIcons',
     'md.data.table',
-    'scDateTime',
     'google.places',
 
     //XTmotors app
