@@ -77,16 +77,16 @@ angular.module('car.controllers',[])
 
         $rootScope.editCar = function(car){
           $q.all({
-              importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.CarId}).$promise,
-              contract: xtmotorsAPIService.get({ section:'Contract/'+car.CarId}).$promise
+              importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId}).$promise,
+              contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
             .then(function(res) {
                   $scope.importRecord  = res.importRecord;
                   $scope.contract      = res.contract;
                   if($scope.importRecord){
                     $q.all({
-                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+car.CarId}).$promise,
-                      importSummary: xtmotorsAPIService.get({ section:'Import/'+$scope.importRecord.BatchId}).$promise
+                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+car.carId}).$promise,
+                      importSummary: xtmotorsAPIService.get({ section:'Import/'+$scope.importRecord.batchId}).$promise
                     })
                     .then(function(res){
                       $scope.importSummary = res.importSummary;
@@ -105,7 +105,7 @@ angular.module('car.controllers',[])
                 _.pull($scope.itemList,car);
                 $scope.itemCopy = angular.copy(car);
                 $scope.item = car;
-                $state.go('car.details',{CarId: $scope.item.CarId});
+                $state.go('car.details',{carId: $scope.item.carId});
                  
             },function(error){
               $mdToast.show({
