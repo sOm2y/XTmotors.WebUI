@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/app/loginModal.css">
     <link rel="stylesheet" href="styles/app/spinner.css">
     <link rel="stylesheet" href="styles/app/angular-material.css">
+    <link rel="stylesheet" href="styles/app/car.css">
     <!-- endbuild -->
     <!-- material bootstrap -->
     <!-- build:css(.) styles/vendor.css -->
@@ -29,65 +30,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   </head>
-  <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl" layout="row">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <!-- Add your site or application content here -->
-<!--    <div class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="javascript:void(0)"><img width="140" src="images/xtmotors_logo_fixed_2.png" alt=""></a>
-        </div>
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
-            <form-search-car> </form-search-car>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">  
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">   Admin <span class="badge">3</span>
-                    </a>
-                     <ul class="dropdown-menu list-group">
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-123 <strong>Change Status to Arriving Soon</strong></a></li>
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-124 <strong>Change Status to Shipping</strong></a></li>      
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-124 <strong>Arriving in 3 days</strong></a></li>      
-                    </ul>
-                </li>
-                <li  ui-sref-active="active">  <a href="" ui-sref="appSetting"><i class="fa fa-cog fa-lg"></i></a></li>
-                <li>  <a href="" ng-click="logout()" >Log out</a></li>
-            
-            </ul>
-        </div>
-
-      
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
-            <ul class="nav navbar-nav navbar-left">
-             
-                <li class="dropdown">
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bars fa-lg"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="customer">Customer</a></li>
-                
-                        <li ui-sref-active="active"><a ui-sref="employee">Employee</a></li>      
-                    </ul>
-                       <li ui-sref-active="active"><a ui-sref="car">Cars <span class="badge">84</span></a></li>
-                       <li ui-sref-active="active"><a ui-sref="settlement">Settlement</a></li>
-                       <li ui-sref-active="active"><a ui-sref="storage">Storage</a></li>
-                       <li ui-sref-active="active"><a ui-sref="consignment" >Consignments</a></li>
-                </li>
-            </ul>
-            <car-filter></car-filter>
-        </div>
-    </div> -->
+  <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl" layout="row" ng-cloak>
 
     <cube-grid-spinner ng-show="isLoading"></cube-grid-spinner>
-    <!-- <div ui-view state="{{$state.current.name}}" ng-hide="isLoading"></div> -->
      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
       <md-toolbar style="height:66px;">
        <div class="md-toolbar-tools">
@@ -197,7 +142,7 @@
         </div>
       </md-toolbar>
 
-      <md-content flex md-scroll-y>
+      <md-content style="background-color:#efefef;" flex md-scroll-y>
         <ui-view layout="column" state="{{$state.current.name}}" ng-hide="isLoading" layout-fill layout-padding>
      
         </ui-view>
@@ -237,6 +182,8 @@
     <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
     <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>

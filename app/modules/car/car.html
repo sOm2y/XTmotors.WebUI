@@ -16,13 +16,13 @@
             </thead>
             <tbody md-body>
               <tr  md-row md-select="dessert" md-on-select ng-repeat="dessert in cars | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                <td ng-click="editCar(dessert)" md-cell>{{::dessert.CarId}}</md-cell>
-                <td md-cell>{{::dessert.MakerName}}</md-cell>
-                <td md-cell>{{::dessert.Model}}</td>
-                <td md-cell>{{::dessert.Year}}</td>
-                <td md-cell>{{::dessert.Odometer| number }}&nbsp;Km</td>
-                <td md-cell>{{::dessert.Price | currency}}</td>
-                <td md-cell><span class="label primary">{{::dessert.CarStatus}}</span></td>
+                <td ng-click="editCar(dessert)" md-cell>{{::dessert.carId}}</md-cell>
+                <td md-cell>{{::dessert.makerName}}</md-cell>
+                <td md-cell>{{::dessert.model}}</td>
+                <td md-cell>{{::dessert.year}}</td>
+                <td md-cell>{{::dessert.odometer| number }}&nbsp;Km</td>
+                <td md-cell>{{::dessert.price | currency}}</td>
+                <td md-cell><span class="label" ng-class="checkCarStatusColor(dessert.carStatus)">{{::dessert.carStatus}}</span></td>
               </tr>
             </tbody>
           </table>

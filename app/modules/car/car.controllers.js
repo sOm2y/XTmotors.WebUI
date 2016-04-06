@@ -58,6 +58,23 @@ angular.module('car.controllers',[])
           console.log('limit: ', limit);
         };
 
+        $scope.checkCarStatusColor = function(carStatus){
+          switch(carStatus){
+            case "Sold":
+              return "sold";
+            case "Reserved":
+              return "reserved";
+            case "For Sale":
+              return "sale";
+            case "Inspection":
+              return "inspection";  
+            case "Arrived Port":
+              return "arrived"; 
+            case "Departed Port":
+              return "departed";
+          }
+        };
+
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.CarId}).$promise,
@@ -65,7 +82,6 @@ angular.module('car.controllers',[])
             })
             .then(function(res) {
                   $scope.importRecord  = res.importRecord;
-                  // $scope.maintenance   = res.maintenance;
                   $scope.contract      = res.contract;
                   if($scope.importRecord){
                     $q.all({
@@ -110,8 +126,14 @@ angular.module('car.controllers',[])
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           // xtmotorsCRUDService.update('Car/CarBriefView', $scope, car);
-          xtmotorsAPIService.update({section:'car/'+$scope.item.CarId}, $scope.item)
-          .$promise.then(function(res){
+          $q.all({
+              carSummary:xtmotorsAPIService.update({section:'car/'+$scope.item.CarId}, $scope.item),
+              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+car.CarId}, $scope.importRecord).$promise,
+              contract: xtmotorsAPIService.update({ section:'Contract/'+car.CarId}, $scope.contract).$promise,
+              maintenance: xtmotorsAPIService.update({section:'Maintenance/Car/'+car.CarId}, $scope.maintenance).$promise,
+              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.BatchId}, $scope.importSummary).$promise
+          })
+          .then(function(res){
             console.log(res);
           },function(error){
             console.log(error);

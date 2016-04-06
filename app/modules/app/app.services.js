@@ -2,7 +2,7 @@
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource','$http', function($resource,$http) {
         var apiUrl = 'http://xtmotorwebapi.azurewebsites.net/api/';
-        return $resource(apiUrl+':section/:id',{ id: '@_id' },{ update: { method: 'PUT' }});
+        return $resource(apiUrl+':section/:id',{ id: '@_id' },{ 'update': { method: 'PUT' }});
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},
             //   'save':   {method:'POST'},

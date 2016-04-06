@@ -8,7 +8,7 @@
  * employee controller of the application.
  */
 angular.module('employee.controllers',[])
-	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state) {
+	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
 		// $scope.employee = 'employee'; 
 		// var _ = _ || {};
 		$rootScope.isLoading = true;
@@ -53,9 +53,22 @@ angular.module('employee.controllers',[])
 		};
 		$scope.saveEmployee= function(){
             // var formValid = xtmotorsAPIService.validateForm($scope);
-            // if(formValid){
-            xtmotorsAPIService.update({section:'Employee/'+$scope.item.EmployeeId},$scope.item);
-            // }
+	            // if(formValid){
+	             xtmotorsAPIService.update({section:'Employee/'+$scope.item.employeeId},$scope.item)
+	             .$promise.then(function(res){
+		            console.log(res);
+		          },function(error){
+		            console.log(error);
+		            $mdToast.show({
+		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+		              position: 'top right',
+		              hideDelay: 5000,
+		              parent: $element
+		            });
+		          }).finally(function(){
+		              
+		          })
+	            // }
         };
 
 	}])
