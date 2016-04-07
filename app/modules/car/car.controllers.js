@@ -34,8 +34,6 @@ angular.module('car.controllers',[])
           limit: 15,
           page: 1
         };
-      
-        
 
         $scope.checkCarStatusColor = function(carStatus){
           switch(carStatus){
@@ -57,14 +55,16 @@ angular.module('car.controllers',[])
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId}).$promise,
+              car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
             .then(function(res) {
                   $scope.importRecord  = res.importRecord;
                   $scope.contract      = res.contract;
+                  $scope.car           = res.car;
                   if($scope.importRecord){
                     $q.all({
-                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+car.carId}).$promise,
+                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
                       importSummary: xtmotorsAPIService.get({ section:'Import/'+$scope.importRecord.batchId}).$promise
                     })
                     .then(function(res){
@@ -80,11 +80,7 @@ angular.module('car.controllers',[])
                       });
                     });
                   }
-                // $scope.importRecord = response.importRecord;
-                _.pull($scope.itemList,car);
-                $scope.itemCopy = angular.copy(car);
-                $scope.item = car;
-                $state.go('car.details',{carId: $scope.item.carId});
+                $state.go('car.details',{carId: $scope.car.carId});
                  
             },function(error){
               $mdToast.show({
@@ -104,16 +100,15 @@ angular.module('car.controllers',[])
         $scope.saveCar= function(car){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
-          // xtmotorsCRUDService.update('Car/CarBriefView', $scope, car);
           $q.all({
-              carSummary:xtmotorsAPIService.update({section:'car/'+$scope.item.CarId}, $scope.item),
-              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+car.CarId}, $scope.importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+car.CarId}, $scope.contract).$promise,
-              maintenance: xtmotorsAPIService.update({section:'Maintenance/Car/'+car.CarId}, $scope.maintenance).$promise,
-              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.BatchId}, $scope.importSummary).$promise
+              car: xtmotorsAPIService.update({section:'car/summary/'+$scope.car.carId}, $scope.car),
+              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+$scope.car.carId}, $scope.importRecord).$promise,
+              contract: xtmotorsAPIService.update({ section:'Contract/'+$scope.car.carId}, $scope.contract).$promise,
+              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
+              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.batchId}, $scope.importSummary).$promise
           })
           .then(function(res){
-            console.log(res);
+            // console.log(res);
           },function(error){
             console.log(error);
             $mdToast.show({
