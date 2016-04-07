@@ -54,14 +54,14 @@ angular.module('car.controllers',[])
 
         $rootScope.editCar = function(car){
           $q.all({
-              importRecord: xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId}).$promise,
-              car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
+              importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
+              // car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
             .then(function(res) {
                   $scope.importRecord  = res.importRecord;
                   $scope.contract      = res.contract;
-                  $scope.car           = res.car;
+                  $scope.car           = car;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -80,7 +80,7 @@ angular.module('car.controllers',[])
                       });
                     });
                   }
-                $state.go('car.details',{carId: $scope.car.carId});
+                $state.go('car.details',{carId: car.carId});
                  
             },function(error){
               $mdToast.show({
