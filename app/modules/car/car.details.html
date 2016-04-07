@@ -11,269 +11,240 @@
                 <form layout="row" layout-wrap name="carSummary">
                   <md-input-container flex="50" class="md-block">
                     <label>CarId</label>
-                    <input required ng-model="car.carId" name="carId">
-                    <div ng-messages="carSummary.carId.$error"  ng-if='carSummary.$submitted || carSummary.carId.$touched'>
-
+                    <input required name="carId" ng-model="car.carId">
+                    <div ng-messages="carSummary.carId.$error">
                       <div ng-message="required">This is required.</div>
                       <!-- <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div> -->
                     </div>
                   </md-input-container>
-                  <md-input-container flex="50" class="md-block">
-                    <label>WofTime</label>
-                    <input required ng-model="car.wofTime">
-                    <div ng-messages="projectForm.description.$error">
+
+                  <!-- <md-datepicker name="carWofTime" required ng-model="car.wofTime">
+                  	<label>WofTime</label>
+                	</md-datepicker> -->
+
+                  <md-input-container flex="50" class="md-block">   
+                    <label>WofTime</label>                 
+                    <input required name="carWofTime" ng-model="car.wofTime" ng-maxlength="3">                   
+                    <div ng-messages="carSummary.carWofTime.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>RegisterationNum</label>
-                    <input required ng-model="item.RegisterationNum">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="registerationNum" required ng-model="car.registerationNum">
+                    <div ng-messages="carSummary.registerationNum.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Warranty</label>
-                    <input required ng-model="item.Warranty">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="warranty" ng-model="car.warranty">
+                    <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Odometer</label>
-                    <input required ng-model="item.Odometer">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="odometer" required ng-model="car.odometer">
+                    <div ng-messages="carSummary.odometer.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Color</label>
-                    <input required ng-model="item.Color">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="color" required ng-model="car.color">
+                    <div ng-messages="carSummary.color.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Vin</label>
-                    <input required ng-model="item.Vin">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="vin" required ng-model="car.vin">
+                    <div ng-messages="carSummary.vin.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Length</label>
-                    <input required ng-model="item.Length">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="length" required ng-model="car.length">
+                    <div ng-messages="carSummary.length.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Width</label>
-                    <input required ng-model="item.Width">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="width" required ng-model="car.width">
+                    <div ng-messages="carSummary.width.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Height</label>
-                    <input required ng-model="item.Height">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="height" required ng-model="car.height">
+                    <div ng-messages="carSummary.height.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>CarStatus</label>
-                    <input required ng-model="item.CarStatus">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="carStatus" required ng-model="car.carStatus">
+                    <div ng-messages="carSummary.carStatus.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>CarComment</label>
-                    <input required ng-model="item.CarComment">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="carComment" required ng-model="car.carComment">
+                    <div ng-messages="carSummary.carComment.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Price</label>
-                    <input required ng-model="item.Price">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="price" required ng-model="car.price">
+                    <div ng-messages="carSummary.price.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>GST</label>
-                    <input required ng-model="item.GST">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="gst" required ng-model="car.gst">
+                    <div ng-messages="carSummary.gst.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Total</label>
-                    <input required ng-model="item.Total">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="total" required ng-model="car.total">
+                    <div ng-messages="carSummary.total.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>PaymentStatus</label>
-                    <input required ng-model="item.PaymentStatus">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="paymentStatus" required ng-model="car.paymentStatus">
+                    <div ng-messages="carSummary.paymentStatus.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>Currency</label>
-                    <input required ng-model="item.Currency">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="currency" required ng-model="car.currency">
+                    <div ng-messages="carSummary.currency.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Description</label>
-                    <input required ng-model="item.Description">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="carDescription" required ng-model="car.description">
+                    <div ng-messages="carSummary.carDescription.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                 </form>
               </md-card-content>
             </md-card>
+
             <md-card flex="50">
               <md-subheader class="md-primary">Vehicle Info</md-subheader>
               <md-card-content>
-                <div layout="row" layout-wrap>
+              <form layout="row" layout-wrap name="vehicleInfo">
                   <md-input-container flex="50" class="md-block">
                     <label>MakerName</label>
-                    <input required ng-model="item.MakerName">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="makerName" required ng-model="car.makerName">
+                    <div ng-messages="vehicleInfo.makerName.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Model</label>
-                    <input required ng-model="item.Model">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="model" required ng-model="car.model">
+                    <div ng-messages="vehicleInfo.description.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Year</label>
-                    <input required ng-model="item.Year">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="year" required ng-model="car.year">
+                    <div ng-messages="vehicleInfo.year.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Engine</label>
-                    <input required ng-model="item.Engine">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="engine" required ng-model="car.engine">
+                    <div ng-messages="vehicleInfo.engine.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
                     <label>Fuel</label>
-                    <input required ng-model="item.Fuel">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="fuel" required ng-model="car.fuel">
+                    <div ng-messages="vehicleInfo.fuel.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>FuelEconomyCity</label>
-                    <input required ng-model="item.FuelEconomyCity">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="fuelEconomyCity" required ng-model="car.fuelEconomyCity">
+                    <div ng-messages="vehicleInfo.fuelEconomyCity.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>FuelEconomyHwy</label>
-                    <input required ng-model="item.FuelEconomyHwy">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="fuelEconomyHwy" required ng-model="car.fuelEconomyHwy">
+                    <div ng-messages="vehicleInfo.fuelEconomyHwy.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>FuelEconomyMixed</label>
-                    <input required ng-model="item.FuelEconomyMixed">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="fuelEconomyMixed" required ng-model="car.fuelEconomyMixed">
+                    <div ng-messages="vehicleInfo.fuelEconomyMixed.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Origin</label>
-                    <input required ng-model="item.Origin">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="origin" required ng-model="car.origin">
+                    <div ng-messages="vehicleInfo.origin.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Transmission</label>
-                    <input required ng-model="item.Transmission">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="transmission" required ng-model="car.transmission">
+                    <div ng-messages="vehicleInfo.transmission.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Seats</label>
-                    <input required ng-model="item.Seats">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="seats" required ng-model="car.seats">
+                    <div ng-messages="vehicleInfo.seats.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Doors</label>
-                    <input required ng-model="item.Doors">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="doors" required ng-model="car.doors">
+                    <div ng-messages="vehicleInfo.doors.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Weight</label>
-                    <input required ng-model="item.Weight">
-                    <div ng-messages="projectForm.description.$error">
+                    <input name="weight" required ng-model="car.weight">
+                    <div ng-messages="vehicleInfo.weight.$error">
                       <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>DriveTrain</label>
-                    <input required ng-model="item.DriveTrain">
-                    <div ng-messages="projectForm.description.$error">
-                      <div ng-message="required">This is required.</div>
-                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                    </div>
+                    <input name="driveTrain" ng-model="car.driveTrain">
                   </md-input-container>
-                </div>
+                </form>
               </md-card-content>
             </md-card>
             </div>
@@ -282,6 +253,7 @@
       </md-tab>
       <md-tab label="Import Info">
         <md-content class="md-padding"> 
+        <form name="importInfo">
           <div layout="column">
             <div layout="row">
             <md-card flex="100">
@@ -289,106 +261,90 @@
                   <div layout="row" layout-wrap>
                     <md-input-container flex="50" class="md-block">
                       <label>TransportationExpense</label>
-                      <input required ng-model="importSummary.TransportationExpense">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="transportationExpense" required ng-model="importSummary.transportationExpense">
+                      <div ng-messages="importInfo.transportationExpense.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>
                     <md-input-container flex="50" class="md-block">
                       <label>TransportCompany</label>
-                      <input required ng-model="importSummary.TransportCompany">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="transportCompany" required ng-model="importSummary.transportCompany">
+                      <div ng-messages="importInfo.transportCompany.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>
                     <md-input-container flex="50" class="md-block">
                       <label>Eta</label>
-                      <input required ng-model="importSummary.Eta">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="eta" required ng-model="importSummary.eta">
+                      <div ng-messages="importInfo.eta.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>  
                     <md-input-container flex="50" class="md-block">
                       <label>CheckLocation</label>
-                      <input required ng-model="importSummary.CheckLocation">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="checkLocation" required ng-model="importSummary.checkLocation">
+                      <div ng-messages="importInfo.checkLocation.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>
                     <md-input-container flex="50" class="md-block">
                       <label>CreateTime</label>
-                      <input required ng-model="importSummary.CreateTime">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="createTime" required ng-model="importSummary.createTime">
+                      <div ng-messages="importInfo.createTime.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container> 
                     <md-input-container flex="50" class="md-block">
                       <label>TotalDue</label>
-                      <input required ng-model="importSummary.TotalDue">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="totalDue" required ng-model="importSummary.totalDue">
+                      <div ng-messages="importInfo.totalDue.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container> 
                     <md-input-container flex="50" class="md-block">
                       <label>Quantity</label>
-                      <input required ng-model="importRecord.Quantity">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="quantity" required ng-model="importRecord.quantity">
+                      <div ng-messages="importInfo.quantity.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container> 
                     <md-input-container flex="50" class="md-block">
                       <label>Amount</label>
-                      <input required ng-model="importRecord.Amount">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="amount" required ng-model="importRecord.amount">
+                      <div ng-messages="importInfo.amount.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container> 
                     <md-input-container flex="50" class="md-block">
                       <label>GST</label>
-                      <input required ng-model="importRecord.GST">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="gst" required ng-model="importRecord.gst">
+                      <div ng-messages="importInfo.gst.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>
                     <md-input-container flex="50" class="md-block">
                       <label>Total</label>
-                      <input required ng-model="importRecord.Total">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="total" required ng-model="importRecord.total">
+                      <div ng-messages="importInfo.total.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container>
                     <md-input-container flex="50" class="md-block">
                       <label>PaymentStatus</label>
-                      <input required ng-model="importRecord.PaymentStatus">
-                      <div ng-messages="projectForm.description.$error">
+                      <input name="paymentStatus" required ng-model="importRecord.paymentStatus">
+                      <div ng-messages="importInfo.paymentStatus.$error">
                         <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                       </div>
                     </md-input-container> 
                     <md-input-container flex="50" class="md-block">
                       <label>Currency</label>
-                      <input required ng-model="importRecord.Currency">
-                      <div ng-messages="projectForm.description.$error">
-                        <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                      </div>
+                      <input name="currency" ng-model="importRecord.currency">
                     </md-input-container>
                     <md-input-container flex="100" class="md-block">
                       <label>Description</label>
-                      <input md-maxlength="30" required name="description" ng-model="importRecord.Description">
-                      <div ng-messages="projectForm.description.$error">
-                        <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                      <input md-maxlength="100" name="description" ng-model="importRecord.description">
+                      <div ng-messages="importInfo.description.$error">
+                        <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
                       </div>
                     </md-input-container>
                   </div>
@@ -396,6 +352,7 @@
               </md-card>
             </div>
           </div>
+        </form>
         </md-content>
       </md-tab>
 
@@ -408,12 +365,12 @@
                     <md-list-item class="md-3-line">
                       <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
                       <div class="md-list-item-text" layout="column">
-                        <h3 flex>{{::record.ProjectName}}&nbsp;{{::record.ProjectCategory}}</h3>
-                        <h4 flex>{{::record.Description}}</h4>
-                        <p flex>{{::record.Total | currency}}</p>
-                       
+                        <h3 flex>{{::record.projectName}}&nbsp;{{::record.projectCategory}}</h3>
+                        <h4 flex>{{::record.description}}</h4>
+                        <p flex>{{::record.total | currency}}</p>
+                        
                       </div>
-                       <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>
+                    <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>  
                   </md-list-item>
                 </md-card-content>
             </md-card>
@@ -423,89 +380,78 @@
       </md-tab>
       <md-tab label="Sale Info" ng-if="contract.contractNum">
         <md-content class="md-padding">
+        <form name="saleInfo">
           <md-card>
             <md-card-content>
               <md-input-container flex="50" class="md-block">
                 <label>ContractNum</label>
-                <input required ng-model="contract.ContractNum">
-                <div ng-messages="projectForm.description.$error">
+                <input name="contractNum" required ng-model="contract.contractNum">
+                <div ng-messages="saleInfo.contractNum.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>ContractDate</label>
-                <input required ng-model="contract.ContractDate">
-                <div ng-messages="projectForm.description.$error">
+                <input name="contractDate" required ng-model="contract.contractDate">
+                <div ng-messages="saleInfo.contractDate.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>Deposite</label>
-                <input required ng-model="contract.Deposite">
-                <div ng-messages="projectForm.description.$error">
+                <input name="deposite" required ng-model="contract.deposite">
+                <div ng-messages="saleInfo.deposite.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>Balance</label>
-                <input required ng-model="contract.Balance">
-                <div ng-messages="projectForm.description.$error">
+                <input name="balance" required ng-model="contract.balance">
+                <div ng-messages="saleInfo.balance.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>Price</label>
-                <input required ng-model="contract.Price">
-                <div ng-messages="projectForm.description.$error">
+                <input name="price" required ng-model="contract.price">
+                <div ng-messages="saleInfo.price.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>GST</label>
-                <input required ng-model="contract.GST">
-                <div ng-messages="projectForm.description.$error">
+                <input name="gst" required ng-model="contract.gst">
+                <div ng-messages="saleInfo.gst.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>Total</label>
-                <input required ng-model="contract.Total">
-                <div ng-messages="projectForm.description.$error">
+                <input name="total" required ng-model="contract.total">
+                <div ng-messages="saleInfo.total.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
                 PaymentStatus &nbsp;
-                <md-checkbox flex="50" class="md-block" ng-model="contract.PaymentStatus" aria-label="contract">
-                  {{contract.PaymentStatus?'Paid':'Unpaid'}}
+                <md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
+                  {{contract.paymentStatus?'Paid':'Unpaid'}}
                 </md-checkbox>
               
               <md-input-container flex="50" class="md-block">
                 <label>Currency</label>
-                <input required ng-model="contract.Currency">
-                <div ng-messages="projectForm.description.$error">
+                <input name="currency" required ng-model="contract.currency">
+                <div ng-messages="saleInfo.currency.$error">
                   <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
                 </div>
               </md-input-container> 
                <md-input-container flex="50" class="md-block">
                 <label>Description</label>
-                <input required ng-model="contract.Description">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">This is required.</div>
-                  <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                </div>
+                <input name="description" ng-model="contract.description">
               </md-input-container> 
               
             </md-card-content>
           </md-card>
-          
+        </form>  
         </md-content>
       </md-tab>
     </md-tabs>
@@ -513,7 +459,7 @@
   </div>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToCar()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar(item)">Save</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar(car)">Save</md-button>
   </div>
 
 
