@@ -27,6 +27,7 @@ angular
     'md.data.table',
     'google.places',
     'angularMoment',
+    'ngMessages',
 
     //XTmotors app
     'app.controllers',
