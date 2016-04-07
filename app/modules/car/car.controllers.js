@@ -30,33 +30,12 @@ angular.module('car.controllers',[])
         };
         
         $scope.query = {
-          order: 'CarId',
+          order: 'carId',
           limit: 15,
           page: 1
         };
-
-        $scope.getTypes = function () {
-          return ['Candy', 'Ice cream', 'Other', 'Pastry'];
-        };
+      
         
-        $scope.loadStuff = function () {
-          $scope.promise = $timeout(function () {
-            // loading
-          }, 2000);
-        };
-        
-        $scope.logItem = function (item) {
-          console.log(item.name, 'was selected');
-        };
-        
-        $scope.logOrder = function (order) {
-          console.log('order: ', order);
-        };
-        
-        $scope.logPagination = function (page, limit) {
-          console.log('page: ', page);
-          console.log('limit: ', limit);
-        };
 
         $scope.checkCarStatusColor = function(carStatus){
           switch(carStatus){

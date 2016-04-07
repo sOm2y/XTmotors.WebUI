@@ -104,9 +104,8 @@ angular
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
   }])
-  .run(['$rootScope', '$state', '$stateParams','loginModal',
+  .run(['$rootScope', '$state', '$stateParams','loginModal','amMoment',
     function($rootScope, $state, $stateParams,loginModal){
-   
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
 
