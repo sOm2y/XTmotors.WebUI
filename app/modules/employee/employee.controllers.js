@@ -9,8 +9,6 @@
  */
 angular.module('employee.controllers',[])
 	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
-		// $scope.employee = 'employee'; 
-		// var _ = _ || {};
 		$rootScope.isLoading = true;
 		xtmotorsCRUDService.get('Employee',$scope);
 		
@@ -42,10 +40,8 @@ angular.module('employee.controllers',[])
             }
         };
 	   	$scope.editEmployee = function(employee){
-			_.pull($scope.itemList,employee);
-			$scope.itemCopy = angular.copy(employee);
-			$scope.item = employee;
-			$state.go('employee.details',{EmployeeId:$scope.item.EmployeeId});
+			$scope.employee = employee;
+			$state.go('employee.details',{EmployeeId:$scope.employee.employeeId});
 		};
 		$scope.backToEmployee = function(){
 			xtmotorsCRUDService.cancelEdit($scope);
@@ -54,7 +50,7 @@ angular.module('employee.controllers',[])
 		$scope.saveEmployee= function(){
             // var formValid = xtmotorsAPIService.validateForm($scope);
 	            // if(formValid){
-	             xtmotorsAPIService.update({section:'Employee/'+$scope.item.employeeId},$scope.item)
+	             xtmotorsAPIService.update({section:'Employee/'+$scope.employee.employeeId},$scope.employee)
 	             .$promise.then(function(res){
 		            console.log(res);
 		          },function(error){

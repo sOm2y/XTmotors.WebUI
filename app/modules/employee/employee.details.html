@@ -6,7 +6,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>Employee Id</label>
-            <input required ng-model="item.employeeId">
+            <input required ng-model="employee.employeeId">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -14,7 +14,7 @@
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>Title</label>
-            <input required ng-model="item.Title">
+            <input required ng-model="employee.title">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -22,7 +22,7 @@
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>FirstName</label>
-            <input required ng-model="item.FirstName">
+            <input required ng-model="employee.firstName">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -30,7 +30,7 @@
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>LastName</label>
-            <input required ng-model="item.LastName">
+            <input required ng-model="employee.lastName">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -38,7 +38,7 @@
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>Mobile</label>
-            <input required ng-model="item.Mobile">
+            <input required ng-model="employee.mobile">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -46,7 +46,7 @@
           </md-input-container>
            <md-input-container flex="50" class="md-block">
             <label>EmailAddress</label>
-            <input required ng-model="item.EmailAddress">
+            <input required ng-model="employee.emailAddress">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -62,7 +62,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>IrdNumber</label>
-            <input required ng-model="item.IrdNumber">
+            <input required ng-model="employee.irdNumber">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -70,7 +70,7 @@
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>Discount</label>
-            <input required ng-model="item.Discount">
+            <input required ng-model="employee.discount">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -83,7 +83,7 @@
   </div>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToEmployee()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee(editEmployee)">Save</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee()">Save</md-button>
   </div>
  
 </div>
