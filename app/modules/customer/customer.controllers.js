@@ -11,8 +11,8 @@ angular.module('customer.controllers',[])
 	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$state','xtmotorsCRUDService','$mdToast','$element', function ($rootScope,$scope,xtmotorsAPIService,$q,$state,xtmotorsCRUDService,$mdToast,$element) {
 			$rootScope.isLoading = true;
 			xtmotorsAPIService.query({section:'Customer'})
-			.$promise.then(function(customer){
-				$rootScope.customers = customer;
+			.$promise.then(function(customers){
+				$rootScope.customers = customers;
 
 				$scope.totalCustomers = $scope.customers.length;
 		        $scope.totalPages     = 10;
@@ -21,9 +21,7 @@ angular.module('customer.controllers',[])
 		        };        
 		        $scope.customersPerPage    = 20;
 		        
-		        
 		        $scope.paginatedCustomers = $scope.customers.slice(0, $scope.customersPerPage);
-
 		        $scope.pageChanged = function(){
 		         // $scope.currentPage = 1;
 		          var begin = (($scope.pagination.currentPage - 1) * $scope.customersPerPage),
@@ -46,19 +44,18 @@ angular.module('customer.controllers',[])
             }
 	        };
 		   	$scope.editCustomer = function(customer){
-				_.pull($scope.itemList,customer);
-				$scope.itemCopy = angular.copy(customer);
-				$scope.item = customer;
-				$state.go('customer.details',{CustomerId:$scope.item.CustomerId});
+
+				$scope.customer = customer;
+				$state.go('customer.details',{CustomerId:$scope.customer.customerId});
 			};
 			$scope.backToCustomer = function(){
-				xtmotorsCRUDService.cancelEdit($scope);
+				// xtmotorsCRUDService.cancelEdit($scope);
 				$state.go('customer');
 			};
 			$scope.saveCustomer= function(customer){
 	            // var formValid = xtmotorsAPIService.validateForm($scope);
 	            // if(formValid){
-	             xtmotorsAPIService.update({section:'Customer/'+$scope.item.CustomerId},$scope.item)
+	             xtmotorsAPIService.update({section:'Customer/'+$scope.customer.customerId},$scope.customer)
 	             .$promise.then(function(res){
 		            console.log(res);
 		          },function(error){

@@ -44,7 +44,7 @@ angular.module('employee.controllers',[])
 			$state.go('employee.details',{EmployeeId:$scope.employee.employeeId});
 		};
 		$scope.backToEmployee = function(){
-			xtmotorsCRUDService.cancelEdit($scope);
+			// xtmotorsCRUDService.cancelEdit($scope);
 			$state.go('employee');
 		};
 		$scope.saveEmployee= function(){
