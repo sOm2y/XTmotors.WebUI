@@ -9,26 +9,30 @@
               <md-subheader class="md-primary">Features</md-subheader>
               <md-card-content>
                 <form layout="row" layout-wrap name="carSummary">
+
+   
                   <md-input-container flex="50" class="md-block">
                     <label>CarId</label>
                     <input required name="carId" ng-model="car.carId">
                     <div ng-messages="carSummary.carId.$error">
                       <div ng-message="required">This is required.</div>
-                      <!-- <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div> -->
                     </div>
                   </md-input-container>
 
-                  <!-- <md-datepicker name="carWofTime" required ng-model="car.wofTime">
-                  	<label>WofTime</label>
-                	</md-datepicker> -->
-
-                  <md-input-container flex="50" class="md-block">   
-                    <label>WofTime</label>                 
-                    <input required name="carWofTime" ng-model="car.wofTime" ng-maxlength="3">                   
-                    <div ng-messages="carSummary.carWofTime.$error">
+                  <!-- <md-input-container flex="50" class="md-block">
+                    <label>WofTime</label>
+                    <input required name="wofTime" ng-model="car.wofTime">
+                    <div ng-messages="carSummary.wofTime.$error">
                       <div ng-message="required">This is required.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container> -->
+
+
+                    <label>WOFTime</label>
+                    <md-datepicker name="carWofTime" required ng-model="car.wofTime">
+                    </md-datepicker>
+
+
                   <md-input-container flex="50" class="md-block">
                     <label>RegisterationNum</label>
                     <input name="registerationNum" required ng-model="car.registerationNum">
@@ -273,13 +277,9 @@
                         <div ng-message="required">This is required.</div>
                       </div>
                     </md-input-container>
-                    <md-input-container flex="50" class="md-block">
-                      <label>Eta</label>
-                      <input name="eta" required ng-model="importSummary.eta">
-                      <div ng-messages="importInfo.eta.$error">
-                        <div ng-message="required">This is required.</div>
-                      </div>
-                    </md-input-container>  
+                    <label>Eta</label>
+                    <md-datepicker name="eta" required ng-model="importSummary.eta" flex="50" class="md-block">
+                    </md-datepicker>
                     <md-input-container flex="50" class="md-block">
                       <label>CheckLocation</label>
                       <input name="checkLocation" required ng-model="importSummary.checkLocation">
@@ -287,13 +287,9 @@
                         <div ng-message="required">This is required.</div>
                       </div>
                     </md-input-container>
-                    <md-input-container flex="50" class="md-block">
-                      <label>CreateTime</label>
-                      <input name="createTime" required ng-model="importSummary.createTime">
-                      <div ng-messages="importInfo.createTime.$error">
-                        <div ng-message="required">This is required.</div>
-                      </div>
-                    </md-input-container> 
+                    <label>CreateTime</label>
+                    <md-datepicker name="eta" required ng-model="importSummary.createTime">                   
+                    </md-datepicker>
                     <md-input-container flex="50" class="md-block">
                       <label>TotalDue</label>
                       <input name="totalDue" required ng-model="importSummary.totalDue">
@@ -390,13 +386,12 @@
                   <div ng-message="required">This is required.</div>
                 </div>
               </md-input-container> 
-              <md-input-container flex="50" class="md-block">
-                <label>ContractDate</label>
-                <input name="contractDate" required ng-model="contract.contractDate">
-                <div ng-messages="saleInfo.contractDate.$error">
-                  <div ng-message="required">This is required.</div>
-                </div>
-              </md-input-container> 
+              <label>ContractDate</label>
+              <md-datepicker name="carWofTime" required ng-model="contract.contractDate">
+                  <div ng-messages="saleInfo.contractDate.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+              </md-datepicker>
               <md-input-container flex="50" class="md-block">
                 <label>Deposite</label>
                 <input name="deposite" required ng-model="contract.deposite">

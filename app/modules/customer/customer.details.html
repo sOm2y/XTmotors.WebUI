@@ -76,14 +76,11 @@
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
           </md-input-container> 
-          <md-input-container flex="50" class="md-block">
-            <label>DOB</label>
-            <input required ng-model="customer.dob">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-            </div>
-          </md-input-container> 
+
+          <label>DOB</label>
+            <md-datepicker name="dob" required ng-model="customer.dob">
+          </md-datepicker>
+
           <md-input-container flex="50" class="md-block">
             <label>DriveLicense</label>
             <input required ng-model="customer.driveLicense">

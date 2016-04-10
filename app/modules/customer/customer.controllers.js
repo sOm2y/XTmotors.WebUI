@@ -37,6 +37,11 @@ angular.module('customer.controllers',[])
 		       $rootScope.isLoading = false;
 		    });
 
+		    function changeDateFormat(date){          
+          	   var wofTime = moment(date).startOf('day').toDate();
+          	   return wofTime;
+        	} 
+
 		    $scope.createItem = function(){
             if(!$scope.item){
                 $scope.newItem = true;
@@ -47,6 +52,7 @@ angular.module('customer.controllers',[])
 
 				$scope.customer = customer;
 				$state.go('customer.details',{CustomerId:$scope.customer.customerId});
+				$scope.customer.dob = changeDateFormat($scope.customer.dob);
 			};
 			$scope.backToCustomer = function(){
 				// xtmotorsCRUDService.cancelEdit($scope);

@@ -70,6 +70,8 @@ angular.module('car.controllers',[])
                     .then(function(res){
                       $scope.importSummary = res.importSummary;
                       $scope.maintenanceRecords = res.maintenance;
+                      $scope.importSummary.eta = changeDateFormat($scope.importSummary.eta);
+                      $scope.importSummary.createTime = changeDateFormat($scope.importSummary.createTime);
                     },function(error){
                       console.log(error);
                       $mdToast.show({
@@ -81,7 +83,8 @@ angular.module('car.controllers',[])
                     });
                   }
                 $state.go('car.details',{carId: car.carId});
-                 
+                $scope.car.wofTime = changeDateFormat($scope.car.wofTime);
+                $scope.contract.contractDate = changeDateFormat($scope.contract.contractDate);
             },function(error){
               $mdToast.show({
                 template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
@@ -92,7 +95,14 @@ angular.module('car.controllers',[])
             });
         };
 
-     
+
+        function changeDateFormat(date){          
+          var wofTime = moment(date).startOf('day').toDate();
+          return wofTime;
+        } 
+
+        
+
         $scope.backToCar = function(){
           // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
@@ -130,6 +140,7 @@ angular.module('car.controllers',[])
           parent: $element
         });
     }).finally(function(){
+
        $rootScope.isLoading = false;
     });
   	
@@ -158,3 +169,5 @@ angular.module('car.controllers',[])
 
 
   }]);
+
+
