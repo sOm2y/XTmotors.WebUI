@@ -19,7 +19,7 @@ angular.module('customer.controllers',[])
 		        $scope.pagination = {
 		            currentPage:  1
 		        };        
-		        $scope.customersPerPage    = 20;
+		        $scope.customersPerPage  = 20;
 		        
 		        $scope.paginatedCustomers = $scope.customers.slice(0, $scope.customersPerPage);
 		        $scope.pageChanged = function(){
@@ -43,10 +43,9 @@ angular.module('customer.controllers',[])
         	} 
 
 		    $scope.createItem = function(){
-            if(!$scope.item){
-                $scope.newItem = true;
-                $scope.item = {};
-            }
+           		if(!$scope.customer){
+                	$scope.customer = {};
+            	}
 	        };
 		   	$scope.editCustomer = function(customer){
 
@@ -61,7 +60,7 @@ angular.module('customer.controllers',[])
 			$scope.saveCustomer= function(customer){
 	            // var formValid = xtmotorsAPIService.validateForm($scope);
 	            // if(formValid){
-	             xtmotorsAPIService.update({section:'Customer/'+$scope.customer.customerId},$scope.customer)
+	             xtmotorsAPIService.update({section:'Customer/'+customer.customerId},customer)
 	             .$promise.then(function(res){
 		            console.log(res);
 		          },function(error){

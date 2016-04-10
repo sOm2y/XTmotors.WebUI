@@ -82,9 +82,10 @@ angular.module('car.controllers',[])
                       });
                     });
                   }
-                $state.go('car.details',{carId: car.carId});
+               
                 $scope.car.wofTime = changeDateFormat($scope.car.wofTime);
                 $scope.contract.contractDate = changeDateFormat($scope.contract.contractDate);
+                $state.go('car.details',{carId: car.carId});
             },function(error){
               $mdToast.show({
                 template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
@@ -101,24 +102,22 @@ angular.module('car.controllers',[])
           return wofTime;
         } 
 
-        
-
         $scope.backToCar = function(){
           // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
         };
-        $scope.saveCar= function(car){
+        $scope.saveCar= function(car,importRecord,importSummary,contract){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           $q.all({
-              car: xtmotorsAPIService.update({section:'car/summary/'+$scope.car.carId}, $scope.car),
-              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+$scope.car.carId}, $scope.importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+$scope.car.carId}, $scope.contract).$promise,
-              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
-              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.batchId}, $scope.importSummary).$promise
+              car: xtmotorsAPIService.update({section:'car/'+car.carId}, car),
+              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+car.carId}, importRecord).$promise,
+              contract: xtmotorsAPIService.update({ section:'Contract/'+car.carId}, contract).$promise,
+              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'}, $scope.maintenance).$promise,
+              importSummary: xtmotorsAPIService.update({ section:'Import/'+importRecord.batchId}, importSummary).$promise
           })
           .then(function(res){
-            // console.log(res);
+            console.log(res);
           },function(error){
             console.log(error);
             $mdToast.show({

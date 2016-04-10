@@ -33,10 +33,9 @@ angular.module('employee.controllers',[])
 			    $rootScope.isLoading = false;
 			}
 		};
-	    $scope.createItem = function(){
-            if(!$scope.item){
-                $scope.newItem = true;
-                $scope.item = {};
+	    $scope.createEmployee = function(){
+            if(!$scope.employee){
+                $scope.employee = {};
             }
         };
 	   	$scope.editEmployee = function(employee){
@@ -47,23 +46,45 @@ angular.module('employee.controllers',[])
 			// xtmotorsCRUDService.cancelEdit($scope);
 			$state.go('employee');
 		};
-		$scope.saveEmployee= function(){
+
+		$scope.saveEmployee= function(employee){
             // var formValid = xtmotorsAPIService.validateForm($scope);
 	            // if(formValid){
-	             xtmotorsAPIService.update({section:'Employee/'+$scope.employee.employeeId},$scope.employee)
-	             .$promise.then(function(res){
-		            console.log(res);
-		          },function(error){
-		            console.log(error);
-		            $mdToast.show({
-		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-		              position: 'top right',
-		              hideDelay: 5000,
-		              parent: $element
-		            });
-		          }).finally(function(){
+	            //TODO: Check whether is creating a new employee object or updateing an exist employee object
+	            if($scope.newEmployee){
+	            	
+	            	xtmotorsAPIService.save({section:'Employee/'},employee)
+		            .$promise.then(function(res){
+			            console.log(res);
+			          },function(error){
+			            console.log(error);
+			            $scope.newEmployee = true;
+			            $mdToast.show({
+			              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+			              position: 'top right',
+			              hideDelay: 5000,
+			              parent: $element
+			            });
+			          }).finally(function(){
+			              $scope.newEmployee = false;
+			          })
+	            // }
+	            }else{
+    				xtmotorsAPIService.update({section:'Employee/'+employee.employeeId},employee)
+	             	.$promise.then(function(res){
+		            	console.log(res);
+		          	},function(error){
+		            	console.log(error);
+		            	$mdToast.show({
+			              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+			              position: 'top right',
+			              hideDelay: 5000,
+			              parent: $element
+		            	});
+		          	}).finally(function(){
 		              
-		          })
+		         	});
+	            }
 	            // }
         };
 
