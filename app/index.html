@@ -95,12 +95,12 @@
               md-selected-item="selectedCar"
               md-search-text="searchText"
               md-items="item in cars | filter:searchText"
-              md-item-text="item.CarId"
+              md-item-text="item.carId"
               md-min-length="0"
               md-max-length="10"
               placeholder="Enter Vehicle ID to Search Cars" style="color:#333;">
               <md-item-template>
-                <span md-highlight-text="searchText">{{'ID: '+item.CarId+' '+item.Year+' '+item.MakerName+'  '+item.Model}}</span>
+                <span md-highlight-text="searchText">{{'ID: '+item.carId+' '+item.year+' '+item.makerName+'  '+item.model}}</span>
               </md-item-template>
               <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
                 <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
@@ -151,22 +151,7 @@
       </md-content>
 
     </div>
-
-    
-<!-- 
-    <div class="footer">
-      <div class="container">
-        <p>Made with <span class="glyphicon glyphicon-heart"></span> By the <strong>Shyin</strong> team</p>
-      </div>
-    </div> -->
- <!--    <button class="btn btn-fab btn-raised btn-material-red home--button-add" ng-class="{'disabled':buttonDisable}" ng-click="checkCurrentPage()"><i class="mdi-content-add"></i></button>
-
-    <div class="alert-container" style="position: fixed; width: 400px; bottom: 0px;">
-           <alert  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg+alert.type}}</alert>
-    </div>
-  
- -->
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq1i2N2S0BIx007edt8Kg2hnmfhF47wi4&libraries=places"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -177,7 +162,6 @@
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-    <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
@@ -198,12 +182,10 @@
     <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/i18next/i18next.min.js"></script>
     <script src="bower_components/ng-i18next/dist/ng-i18next.js"></script>
-
-
     <!-- endbower -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq1i2N2S0BIx007edt8Kg2hnmfhF47wi4&libraries=places"></script>
+
 
      <script>
             $(document).ready(function() {
@@ -214,10 +196,10 @@
     </script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/scripts.js"></script>
-       <script src="templateCache.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/scripts.js"></script>
+    <script src="templateCache.js"></script>
+    <!-- endbuild -->
 
     <script type="text/javascript" src="http://logbon72.github.io/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
 

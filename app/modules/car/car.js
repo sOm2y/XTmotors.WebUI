@@ -23,7 +23,7 @@ angular.module('car',
                 }
             })
             .state('car.details', {
-                url: "/:CarId",
+                url: "/:carId",
                 // params: {item: null},
                 views: {
                     "car-details-view": { 

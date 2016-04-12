@@ -48,44 +48,55 @@ angular.module('employee.controllers',[])
 		};
 
 		$scope.saveEmployee= function(employee){
-            // var formValid = xtmotorsAPIService.validateForm($scope);
-	            // if(formValid){
-	            //TODO: Check whether is creating a new employee object or updateing an exist employee object
-	            if($scope.newEmployee){
-	            	
-	            	xtmotorsAPIService.save({section:'Employee/'},employee)
-		            .$promise.then(function(res){
-			            console.log(res);
-			          },function(error){
-			            console.log(error);
-			            $scope.newEmployee = true;
-			            $mdToast.show({
-			              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-			              position: 'top right',
-			              hideDelay: 5000,
-			              parent: $element
-			            });
-			          }).finally(function(){
-			              $scope.newEmployee = false;
-			          })
-	            // }
-	            }else{
-    				xtmotorsAPIService.update({section:'Employee/'+employee.employeeId},employee)
-	             	.$promise.then(function(res){
-		            	console.log(res);
-		          	},function(error){
-		            	console.log(error);
-		            	$mdToast.show({
-			              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-			              position: 'top right',
-			              hideDelay: 5000,
-			              parent: $element
-		            	});
-		          	}).finally(function(){
-		              
-		         	});
-	            }
-	            // }
+	        //TODO: Check whether is creating a new employee object or updateing an exist employee object
+            if($rootScope.newEmployee){
+            	xtmotorsAPIService.save({section:'Employee/'+employee.employeeId},employee)
+	            .$promise.then(function(res){
+		            console.log(res);
+		            $mdToast.show({
+		              	template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New employee has been saved'  + '</span></md-toast>',
+		              	position: 'top right',
+		              	hideDelay: 5000,
+		              	parent: $element
+		            });
+		            $rootScope.newEmployee = false;
+		        },function(error){
+		            console.log(error);
+		            $mdToast.show({
+		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+		              position: 'top right',
+		              hideDelay: 5000,
+		              parent: $element
+	            	});
+		            $rootScope.newEmployee = true;
+		            
+		        }).finally(function(){
+		           
+		        });
+            
+            }else{
+				xtmotorsAPIService.update({section:'Employee/'+employee.employeeId},employee)
+             	.$promise.then(function(res){
+	            	console.log(res);
+	            	$mdToast.show({
+		              template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Employee hass been updated'  + '</span></md-toast>',
+		              position: 'top right',
+		              hideDelay: 5000,
+		              parent: $element
+	            	});
+	          	},function(error){
+	            	console.log(error);
+	            	$mdToast.show({
+		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+		              position: 'top right',
+		              hideDelay: 5000,
+		              parent: $element
+	            	});
+	          	}).finally(function(){
+	              
+	         	});
+            }
+	        
         };
 
 	}])

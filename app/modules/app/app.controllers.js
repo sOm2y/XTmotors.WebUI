@@ -50,6 +50,7 @@ angular.module('app.controllers',[])
         case 'customer': 
           $state.go('customer.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
+          $rootScope.newCustomer = true;
           break;
         case 'employee':
           $state.go('employee.details',{}, {reload: true});

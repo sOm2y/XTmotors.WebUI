@@ -1,6 +1,7 @@
 // Colors
 $gray: #eee;
 $red: #F44336;
+$green: #4CAF50;
 
 // Angular
 [ng-click] {
@@ -32,6 +33,11 @@ md-content.md-default-theme {
 md-toast.md-toast.md-toast-500,md-toast.md-toast.md-toast-405{
   .md-toast-content{
     background-color: $red;
+  }
+}
+md-toast.md-toast.md-toast-success{
+  .md-toast-content{
+    background-color: $green;
   }
 }
 

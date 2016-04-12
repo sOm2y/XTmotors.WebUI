@@ -58,23 +58,52 @@ angular.module('customer.controllers',[])
 				$state.go('customer');
 			};
 			$scope.saveCustomer= function(customer){
-	            // var formValid = xtmotorsAPIService.validateForm($scope);
-	            // if(formValid){
-	             xtmotorsAPIService.update({section:'Customer/'+customer.customerId},customer)
-	             .$promise.then(function(res){
-		            console.log(res);
-		          },function(error){
-		            console.log(error);
-		            $mdToast.show({
-		              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-		              position: 'top right',
-		              hideDelay: 5000,
-		              parent: $element
-		            });
-		          }).finally(function(){
-		              
-		          })
-	            // }
+	           	if($rootScope.newCustomer){
+	           		xtmotorsAPIService.save({section:'Customer/'},customer)
+		             .$promise.then(function(res){
+			            console.log(res);
+			            $mdToast.show({
+			              	template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New customer has been saved'  + '</span></md-toast>',
+			              	position: 'top right',
+			              	hideDelay: 5000,
+			              	parent: $element
+			            });
+			            $rootScope.newCustomer = false;
+			        },function(error){
+			            console.log(error);
+			            $mdToast.show({
+			              	template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+			              	position: 'top right',
+			              	hideDelay: 5000,
+			              	parent: $element
+			            });
+			            $rootScope.newCustomer = true;
+			        }).finally(function(){
+			            
+			        });
+			    }else{
+			      	xtmotorsAPIService.update({section:'Customer/'+customer.customerId},customer)
+		             .$promise.then(function(res){
+			            console.log(res);
+			            $mdToast.show({
+			              	template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Customer has been updated'  + '</span></md-toast>',
+			              	position: 'top right',
+			              	hideDelay: 5000,
+			              	parent: $element
+			            });
+			        },function(error){
+			            console.log(error);
+			            $mdToast.show({
+			              	template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+			              	position: 'top right',
+			              	hideDelay: 5000,
+			              	parent: $element
+			            });
+			        }).finally(function(){
+			              
+			        });
+			    }
+	            
 	        };
 		
 		
