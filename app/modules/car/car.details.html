@@ -1,3 +1,4 @@
+
 <div ng-cloak>
   <!-- <md-content> -->
     <md-tabs md-dynamic-height md-border-bottom>
@@ -19,19 +20,10 @@
                     </div>
                   </md-input-container>
 
-                  <!-- <md-input-container flex="50" class="md-block">
+                  <md-input-container flex="50" class="md-block">
                     <label>WofTime</label>
-                    <input required name="wofTime" ng-model="car.wofTime">
-                    <div ng-messages="carSummary.wofTime.$error">
-                      <div ng-message="required">This is required.</div>
-                    </div>
-                  </md-input-container> -->
-
-
-                    <label>WOFTime</label>
-                    <md-datepicker name="carWofTime" required ng-model="car.wofTime">
-                    </md-datepicker>
-
+                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="wofTime" placeholder="Date" ng-model="car.wofTime" class=" md-input">
+                  </md-input-container>
 
                   <md-input-container flex="50" class="md-block">
                     <label>RegisterationNum</label>
@@ -277,9 +269,13 @@
                         <div ng-message="required">This is required.</div>
                       </div>
                     </md-input-container>
-                    <label>Eta</label>
-                    <md-datepicker name="eta" required ng-model="importSummary.eta" flex="50" class="md-block">
-                    </md-datepicker>
+
+                    <md-input-container flex="50" class="md-block">
+                    <label>ETA</label>
+                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="eta"
+                        ng-model="importSummary.eta" class=" md-input">
+                    </md-input-container>
+
                     <md-input-container flex="50" class="md-block">
                       <label>CheckLocation</label>
                       <input name="checkLocation" required ng-model="importSummary.checkLocation">
@@ -287,9 +283,12 @@
                         <div ng-message="required">This is required.</div>
                       </div>
                     </md-input-container>
+
+                    <md-input-container flex="50" class="md-block">
                     <label>CreateTime</label>
-                    <md-datepicker name="eta" required ng-model="importSummary.createTime">                   
-                    </md-datepicker>
+                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="creatTime" placeholder="Date" ng-model="importSummary.createTime" class=" md-input">
+                    </md-input-container>
+
                     <md-input-container flex="50" class="md-block">
                       <label>TotalDue</label>
                       <input name="totalDue" required ng-model="importSummary.totalDue">
@@ -386,12 +385,12 @@
                   <div ng-message="required">This is required.</div>
                 </div>
               </md-input-container> 
-              <label>ContractDate</label>
-              <md-datepicker name="carWofTime" required ng-model="contract.contractDate">
-                  <div ng-messages="saleInfo.contractDate.$error">
-                    <div ng-message="required">This is required.</div>
-                  </div>
-              </md-datepicker>
+
+              <md-input-container flex="50" class="md-block">
+                <label>ContractDate</label>
+                <input time="false" date="true" mdc-datetime-picker="" type="text" id="contractDate" placeholder="Date" ng-model="contract.contractDate" class=" md-input">
+              </md-input-container>
+
               <md-input-container flex="50" class="md-block">
                 <label>Deposite</label>
                 <input name="deposite" required ng-model="contract.deposite">

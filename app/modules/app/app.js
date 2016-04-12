@@ -26,8 +26,9 @@ angular
     'ngMdIcons',
     'md.data.table',
     'google.places',
-    'angularMoment',
+    // 'angularMoment',
     'ngMessages',
+    'ngMaterialDatePicker',
 
     //XTmotors app
     'app.controllers',
@@ -105,7 +106,7 @@ angular
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
   }])
-  .run(['$rootScope', '$state', '$stateParams','loginModal','amMoment',
+  .run(['$rootScope', '$state', '$stateParams','loginModal',
     function($rootScope, $state, $stateParams,loginModal){
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
