@@ -33,9 +33,10 @@ angular.module('employee.controllers',[])
 			    $rootScope.isLoading = false;
 			}
 		};
-	    $scope.createEmployee = function(){
-            if(!$scope.employee){
-                $scope.employee = {};
+	    $scope.createItem = function(){
+            if(!$scope.item){
+                $scope.newItem = true;
+                $scope.item = {};
             }
         };
 	   	$scope.editEmployee = function(employee){

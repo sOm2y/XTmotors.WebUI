@@ -9,7 +9,7 @@
 angular.module('car',
     [
         'car.controllers',
-        // 'car.directives',
+        'car.directives',
         'car.services'
     ])
     .config(['$stateProvider', function ($stateProvider) {

@@ -19,7 +19,7 @@ angular.module('customer.controllers',[])
 		        $scope.pagination = {
 		            currentPage:  1
 		        };        
-		        $scope.customersPerPage  = 20;
+		        $scope.customersPerPage    = 20;
 		        
 		        $scope.paginatedCustomers = $scope.customers.slice(0, $scope.customersPerPage);
 		        $scope.pageChanged = function(){
@@ -43,9 +43,10 @@ angular.module('customer.controllers',[])
         	} 
 
 		    $scope.createItem = function(){
-           		if(!$scope.customer){
-                	$scope.customer = {};
-            	}
+            if(!$scope.item){
+                $scope.newItem = true;
+                $scope.item = {};
+            }
 	        };
 		   	$scope.editCustomer = function(customer){
 

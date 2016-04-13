@@ -26,7 +26,7 @@ angular
     'ngMdIcons',
     'md.data.table',
     'google.places',
-    // 'angularMoment',
+    'angularMoment',
     'ngMessages',
     'ngMaterialDatePicker',
 

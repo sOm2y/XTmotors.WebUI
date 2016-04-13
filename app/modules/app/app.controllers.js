@@ -55,7 +55,6 @@ angular.module('app.controllers',[])
         case 'employee':
           $state.go('employee.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
-          $rootScope.newEmployee = true;
           break;
         case 'car':
           $state.go('car.details',{}, {reload: true});

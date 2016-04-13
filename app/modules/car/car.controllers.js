@@ -55,13 +55,13 @@ angular.module('car.controllers',[])
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
-              // car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
+              car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
             .then(function(res) {
                   $scope.importRecord  = res.importRecord;
                   $scope.contract      = res.contract;
-                  $scope.car           = car;
+                  $scope.car           = res.car;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -82,10 +82,9 @@ angular.module('car.controllers',[])
                       });
                     });
                   }
-               
+                $state.go('car.details',{carId: car.carId});
                 $scope.car.wofTime = changeDateFormat($scope.car.wofTime);
                 $scope.contract.contractDate = changeDateFormat($scope.contract.contractDate);
-                $state.go('car.details',{carId: car.carId});
             },function(error){
               $mdToast.show({
                 template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
@@ -102,22 +101,24 @@ angular.module('car.controllers',[])
           return wofTime;
         } 
 
+        
+
         $scope.backToCar = function(){
           // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
         };
-        $scope.saveCar= function(car,importRecord,importSummary,contract){
+        $scope.saveCar= function(car){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           $q.all({
-              car: xtmotorsAPIService.update({section:'car/'+car.carId}, car),
-              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+car.carId}, importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+car.carId}, contract).$promise,
-              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'}, $scope.maintenance).$promise,
-              importSummary: xtmotorsAPIService.update({ section:'Import/'+importRecord.batchId}, importSummary).$promise
+              car: xtmotorsAPIService.update({section:'car/'+$scope.car.carId}, $scope.car),
+              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+$scope.car.carId}, $scope.importRecord).$promise,
+              contract: xtmotorsAPIService.update({ section:'Contract/'+$scope.car.carId}, $scope.contract).$promise,
+              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
+              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.batchId}, $scope.importSummary).$promise
           })
           .then(function(res){
-            console.log(res);
+            // console.log(res);
           },function(error){
             console.log(error);
             $mdToast.show({

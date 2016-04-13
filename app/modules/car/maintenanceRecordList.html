@@ -1,0 +1,22 @@
+<md-tab label="Maintenance Record">
+  <md-content class="md-padding">
+    <div layout="column">
+      <!-- <div layout="row"> -->
+      <md-card flex="100" ng-repeat="record in maintenanceRecords">
+          <md-card-content layout="row" layout-wrap>
+              <md-list-item class="md-3-line">
+                <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+                <div class="md-list-item-text" layout="column">
+                  <h3 flex>{{::record.projectName}}&nbsp;{{::record.projectCategory}}</h3>
+                  <h4 flex>{{::record.description}}</h4>
+                  <p flex>{{::record.total | currency}}</p>
+                  
+                </div>
+              <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>  
+            </md-list-item>
+          </md-card-content>
+      </md-card>
+    <!-- </div> -->
+    </div>
+  </md-content>
+</md-tab>
