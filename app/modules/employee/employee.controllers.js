@@ -84,7 +84,7 @@ angular.module('employee.controllers',[])
 		$scope.saveEmployee= function(employee){
 	        //TODO: Check whether is creating a new employee object or updateing an exist employee object
             if($rootScope.newEmployee){
-            	xtmotorsAPIService.save({section:'Employee/'+employee.employeeId},employee)
+            	xtmotorsAPIService.save({section:'Employee/'},employee)
 	            .$promise.then(function(res){
 		            console.log(res);
 		            $mdToast.show({

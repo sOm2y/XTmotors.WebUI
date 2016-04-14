@@ -55,6 +55,7 @@ angular.module('car.controllers',[])
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
+              vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'}).$promise,
               car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
@@ -62,6 +63,7 @@ angular.module('car.controllers',[])
                   $scope.importRecord  = res.importRecord;
                   $scope.contract      = res.contract;
                   $scope.car           = res.car;
+                  $scope.vehicleModel  = res.vehicleModel;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -101,21 +103,20 @@ angular.module('car.controllers',[])
           return wofTime;
         } 
 
-        
-
         $scope.backToCar = function(){
           // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
         };
-        $scope.saveCar= function(car){
+        $scope.saveCar= function(car,vehicleModel,importRecord,contract,importSummary){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           $q.all({
-              car: xtmotorsAPIService.update({section:'car/'+$scope.car.carId}, $scope.car),
-              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+$scope.car.carId}, $scope.importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+$scope.car.carId}, $scope.contract).$promise,
+              car: xtmotorsAPIService.update({section:'car/'+car.carId}, car).$promise,
+              vehicleModel: xtmotorsAPIService.update({ section:'VehicleModel/'},vehicleModel).$promise,
+              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+car.carId}, importRecord).$promise,
+              contract: xtmotorsAPIService.update({ section:'Contract/'+car.carId}, contract).$promise,
               // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
-              importSummary: xtmotorsAPIService.update({ section:'Import/'+$scope.importRecord.batchId}, $scope.importSummary).$promise
+              importSummary: xtmotorsAPIService.update({ section:'Import/'+ importRecord.batchId}, importSummary).$promise
           })
           .then(function(res){
             // console.log(res);
