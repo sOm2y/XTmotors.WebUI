@@ -83,6 +83,17 @@ angular.module('app.controllers',[])
       });   
     };
 
+    $rootScope.openSetting = function(){
+      $state.go('appSetting',{}, {reload: true});
+      // $rootScope.buttonDisable = true;
+    };
+
+    $rootScope.openProfile = function(){
+      // alert("a");
+      $state.go('userProfile',{}, {reload: true});
+      // $rootScope.buttonDisable = true;
+    };
+
     function directCarDetails(){
       if($state.current.name === 'car.details'){
         return $state.go('car');
@@ -163,6 +174,19 @@ angular.module('app.controllers',[])
   	};
 
 }])
+
+.controller('SettingCtrl',['$scope',function ($scope) {
+
+    // alert("setting");
+
+}])
+
+.controller('ProfileCtrl',['$scope',function ($scope) {
+
+    // alert("profile");
+
+}])
+
 .controller('ListBottomSheetCtrl',['$scope','$mdBottomSheet',function($scope, $mdBottomSheet) {
   $scope.items = [
     { name: 'Share', icon: 'social:ic_share_24px' },
