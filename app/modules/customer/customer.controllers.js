@@ -19,7 +19,7 @@ angular.module('customer.controllers',[])
 		        $scope.pagination = {
 		            currentPage:  1
 		        };        
-		        $scope.customersPerPage    = 20;
+		        $scope.customersPerPage  = 20;
 		        
 		        $scope.paginatedCustomers = $scope.customers.slice(0, $scope.customersPerPage);
 		        $scope.pageChanged = function(){
@@ -43,10 +43,9 @@ angular.module('customer.controllers',[])
         	} 
 
 		    $scope.createItem = function(){
-            if(!$scope.item){
-                $scope.newItem = true;
-                $scope.item = {};
-            }
+           		if(!$scope.customer){
+                	$scope.customer = {};
+            	}
 	        };
 		   	$scope.editCustomer = function(customer){
 
@@ -106,6 +105,33 @@ angular.module('customer.controllers',[])
 			    }
 	            
 	        };
+
+	        $scope.$on('g-places-autocomplete:select', function (event, param) {
+			var address = [];
+			(param.address_components).forEach(function(value) {
+				address.push(value.types[0]);
+				switch(value.types[0]){
+					case "street_number":
+        				$scope.customer.street = value.long_name;
+        				break;
+    				case "route":
+    					$scope.customer.street += " " + value.long_name;
+        				break;
+        			case "locality":
+        				$scope.customer.city = value.long_name;
+        				break;
+        			case "administrative_area_level_1":
+        				$scope.customer.state = value.long_name;
+        				break;
+        			case "country":
+        				$scope.customer.country = value.long_name;
+        				break;
+        			default:
+        				break;
+				}
+			});
+ 
+		});
 		
 		
 	}])

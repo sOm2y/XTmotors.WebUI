@@ -11,6 +11,35 @@ angular.module('employee.controllers',[])
 	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
 		$rootScope.isLoading = true;
 		xtmotorsCRUDService.get('Employee',$scope);
+
+		var isLoaded = false;
+
+		$scope.$on('g-places-autocomplete:select', function (event, param) {
+			var address = [];
+			(param.address_components).forEach(function(value) {
+				address.push(value.types[0]);
+				switch(value.types[0]){
+					case "street_number":
+        				$scope.employee.street = value.long_name;
+        				break;
+    				case "route":
+    					$scope.employee.street += " " + value.long_name;
+        				break;
+        			case "locality":
+        				$scope.employee.city = value.long_name;
+        				break;
+        			case "administrative_area_level_1":
+        				$scope.employee.state = value.long_name;
+        				break;
+        			case "country":
+        				$scope.employee.country = value.long_name;
+        				break;
+        			default:
+        				break;
+				}
+			});
+ 
+		});
 		
 		$scope.employeePagination = function(){
 			if($scope.itemList){
@@ -31,6 +60,7 @@ angular.module('employee.controllers',[])
 
 			    };
 			    $rootScope.isLoading = false;
+			    isLoaded = true;
 			}
 		};
 	    $scope.createItem = function(){
@@ -38,6 +68,7 @@ angular.module('employee.controllers',[])
                 $scope.newItem = true;
                 $scope.item = {};
             }
+            
         };
 	   	$scope.editEmployee = function(employee){
 			$scope.employee = employee;

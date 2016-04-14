@@ -81,6 +81,29 @@
       </md-card-content>
     </md-card>
   </div>
+
+  <md-card flex="100">
+    <md-subheader class="md-primary">Address Information</md-subheader>
+      <md-card-content layout="row" layout-wrap>
+        <md-input-container flex="50" class="md-block">
+          <label>Street</label>
+          <input type="text" g-places-autocomplete ng-model="employee.street" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>City</label>
+          <input type="text" ng-model="employee.city" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>State</label>
+          <input type="text" ng-model="employee.state" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Country</label>
+          <input type="text" ng-model="employee.country" />
+        </md-input-container>       
+      </md-card-content>
+  </md-card>
+
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToEmployee()">Cancel</md-button>
     <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee()">Save</md-button>

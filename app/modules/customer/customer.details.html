@@ -77,9 +77,10 @@
             </div>
           </md-input-container> 
 
-          <label>DOB</label>
-            <md-datepicker name="dob" required ng-model="customer.dob">
-          </md-datepicker>
+          <md-input-container flex="50" class="md-block">
+            <label>DOB</label>
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.dob" class=" md-input">
+          </md-input-container>
 
           <md-input-container flex="50" class="md-block">
             <label>DriveLicense</label>
@@ -98,13 +99,29 @@
   <md-card flex="100">
     <md-subheader class="md-primary">Address Information</md-subheader>
       <md-card-content layout="row" layout-wrap>
-          <input type="text" g-places-autocomplete ng-model="myScopeVar" />
-          {{myScopeVar}}
+        <md-input-container flex="50" class="md-block">
+          <label>Street</label>
+          <input type="text" g-places-autocomplete ng-model="customer.street" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>City</label>
+          <input type="text" ng-model="customer.city" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>State</label>
+          <input type="text" ng-model="customer.state" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Country</label>
+          <input type="text" ng-model="customer.country" />
+        </md-input-container>
+        
       </md-card-content>
   </md-card>
+
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToCustomer()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(item)">Save</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)">Save</md-button>
   </div>
  
 </div>
