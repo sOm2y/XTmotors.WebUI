@@ -107,32 +107,33 @@ angular.module('customer.controllers',[])
 	        };
 
 	        $scope.$on('g-places-autocomplete:select', function (event, param) {
-			var address = [];
-			(param.address_components).forEach(function(value) {
-				address.push(value.types[0]);
-				switch(value.types[0]){
-					case "street_number":
-        				$scope.customer.street = value.long_name;
-        				break;
-    				case "route":
-    					$scope.customer.street += " " + value.long_name;
-        				break;
-        			case "locality":
-        				$scope.customer.city = value.long_name;
-        				break;
-        			case "administrative_area_level_1":
-        				$scope.customer.state = value.long_name;
-        				break;
-        			case "country":
-        				$scope.customer.country = value.long_name;
-        				break;
-        			default:
-        				break;
-				}
-			});
+				$scope.customer.street = null;
+				$scope.customer.city = null;
+				$scope.customer.state = null;
+				$scope.customer.country = null;
+				(param.address_components).forEach(function(value) {
+					switch(value.types[0]){
+						case "street_number":
+	        				$scope.customer.street = value.long_name;
+	        				break;
+	    				case "route":
+	    					$scope.customer.street += " " + value.long_name;
+	        				break;
+	        			case "locality":
+	        				$scope.customer.city = value.long_name;
+	        				break;
+	        			case "administrative_area_level_1":
+	        				$scope.customer.state = value.long_name;
+	        				break;
+	        			case "country":
+	        				$scope.customer.country = value.long_name;
+	        				break;
+	        			default:
+	        				break;
+					}
+				});
  
-		});
-		
+			});		
 		
 	}])
 	.controller('CustomerDetailsCtrl', ['$rootScope','$scope', function ($rootScope,$scope) {

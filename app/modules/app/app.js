@@ -60,7 +60,15 @@ angular
             .state('appSetting', {
                 url: "/setting",
                 templateUrl: "modules/app/appSetting.html",
-                controller: 'StorageCtrl',
+                controller: 'SettingCtrl',
+                data: {
+                    requireLogin: true
+                }
+            })
+            .state('userProfile', {
+                url: "/profile",
+                templateUrl: "modules/app/userProfile.html",
+                controller: 'ProfileCtrl',
                 data: {
                     requireLogin: true
                 }
