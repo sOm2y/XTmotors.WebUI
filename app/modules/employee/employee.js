@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * @ngdoc function
  * @name xtmotorwebuiApp.controller:MainCtrl
@@ -17,17 +16,17 @@ angular.module('employee',
         $stateProvider
             .state('employee', {
                 url: "/employee",
-                templateUrl: "views/employee/employee.html",
+                templateUrl: "modules/employee/employee.html",
                 controller: 'EmployeeCtrl',
                 data: {
                     requireLogin: true
                 }
             })
             .state('employee.details',{
-                url:"/details",
+                url:"/:employeeId",
                 views:{
                     "employee-details-view":{
-                        templateUrl:"views/employee/employee.details.html",
+                        templateUrl:"modules/employee/employee.details.html",
                         controller: 'EmployeeDetailsCtrl'
                     }
                 },

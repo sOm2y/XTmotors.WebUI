@@ -17,7 +17,7 @@ angular.module('storage',
         $stateProvider
             .state('storage', {
                 url: "/storage",
-                templateUrl: "views/storage/storage.html",
+                templateUrl: "modules/storage/storage.html",
                 controller: 'StorageCtrl',
                 data: {
                     requireLogin: true

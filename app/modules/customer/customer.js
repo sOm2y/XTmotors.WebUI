@@ -17,17 +17,17 @@ angular.module('customer',
         $stateProvider
             .state('customer', {
                 url: "/customer",
-                templateUrl: "views/customer/customer.html",
+                templateUrl: "modules/customer/customer.html",
                 controller: 'CustomerCtrl',
                 data: {
                     requireLogin: true
                 }
             })
             .state('customer.details',{
-                url:"/details",
+                url:"/:customerId",
                 views:{
                     "customer-details-view":{
-                        templateUrl:"views/customer/customer.details.html",
+                        templateUrl:"modules/customer/customer.details.html",
                         controller: 'CustomerDetailsCtrl',
                     }
                 },
