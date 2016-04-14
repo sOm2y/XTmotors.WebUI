@@ -50,8 +50,8 @@ angular.module('customer.controllers',[])
 		   	$scope.editCustomer = function(customer){
 
 				$scope.customer = customer;
-				$state.go('customer.details',{CustomerId:$scope.customer.customerId});
-				$scope.customer.dob = changeDateFormat($scope.customer.dob);
+				$state.go('customer.details',{customerId:customer.customerId});
+				$scope.customer.dob = changeDateFormat(customer.dob);
 			};
 			$scope.backToCustomer = function(){
 				// xtmotorsCRUDService.cancelEdit($scope);

@@ -72,7 +72,7 @@ angular.module('employee.controllers',[])
         };
 	   	$scope.editEmployee = function(employee){
 			$scope.employee = employee;
-			$state.go('employee.details',{EmployeeId:$scope.employee.employeeId});
+			$state.go('employee.details',{employeeId:employee.employeeId});
 		};
 		$scope.backToEmployee = function(){
 			// xtmotorsCRUDService.cancelEdit($scope);
