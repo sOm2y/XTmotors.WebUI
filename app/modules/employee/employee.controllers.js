@@ -15,9 +15,11 @@ angular.module('employee.controllers',[])
 		var isLoaded = false;
 
 		$scope.$on('g-places-autocomplete:select', function (event, param) {
-			var address = [];
+			$scope.employee.street = null;
+			$scope.employee.city = null;
+			$scope.employee.state = null;
+			$scope.employee.country = null;
 			(param.address_components).forEach(function(value) {
-				address.push(value.types[0]);
 				switch(value.types[0]){
 					case "street_number":
         				$scope.employee.street = value.long_name;
