@@ -55,7 +55,7 @@ angular.module('car.controllers',[])
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
-              vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'}).$promise,
+              vehicleModel: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
               car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
