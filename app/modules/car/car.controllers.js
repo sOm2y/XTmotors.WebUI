@@ -149,17 +149,30 @@ angular.module('car.controllers',[])
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog) {
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();  
-    $scope.doSecondaryAction = function(event) {
-      $mdDialog.show(
-        $mdDialog.alert()
-          .title('Secondary Action')
-          .textContent('Secondary actions can be used for one click actions')
-          .ariaLabel('Secondary click demo')
-          .ok('Neat!')
-          .targetEvent(event)
-      );
+    $scope.showMaintenanceReordDetails = false;
+
+
+    $scope.addMaintenanceRecord = function(){
+        $scope.showMaintenanceReordDetails = true;
+        $scope.maintenanceRecord = {};
     };
-  
+
+    $scope.backToMaintenanceRecordList = function(){
+      $scope.showMaintenanceReordDetails = false;
+    };
+
+    $scope.editMaintenanceReord = function(record){
+      if(!_.isUndefined(record)){
+        $scope.maintenanceRecord = record;
+        $scope.showMaintenanceReordDetails = true;
+      }
+    };
+
+    $scope.saveMaintenanceRecord = function(record){
+      //TODO: check is an edit maintenance object or create new maintenance object
+      //then use xtmotorsAPIService.update for updateing edit object
+      //use xtmotorsAPIService.save for saving new object
+    };
 
   }])
   .controller('ImportInfoCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$translate','$translatePartialLoader','$stateParams', 

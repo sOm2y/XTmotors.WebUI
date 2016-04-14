@@ -18,6 +18,12 @@ angular.module('car.directives', [])
 			templateUrl:'modules/car/maintenanceRecordList.html'
 		};
 	}])
+	.directive('maintenanceRecordDetails', [function () {
+		return {
+			restrict: 'E',
+			templateUrl:'modules/car/maintenanceRecordDetails.html'
+		};
+	}])
 	.directive('contractSummary', [function () {
 		return {
 			restrict: 'E',

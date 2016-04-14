@@ -1,0 +1,69 @@
+<div layout="row">
+  <md-input-container flex="50" class="md-block">
+    <label>carId</label>
+    <input name="contractNum" required ng-model="maintenanceRecord.carId">
+    <div ng-messages="saleInfo.contractNum.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+
+  <md-input-container flex="50" class="md-block">
+    <label>projectName</label>
+    <input name="contractNum" required ng-model="maintenanceRecord.projectName">
+    <div ng-messages="saleInfo.contractNum.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container>
+</div>
+<div layout="row">
+  <md-input-container flex="50" class="md-block">
+    <label>projectCategory</label>
+    <input name="deposite" required ng-model="maintenanceRecord.projectCategory">
+    <div ng-messages="saleInfo.deposite.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+  <md-input-container flex="50" class="md-block">
+    <label>total include gst</label>
+    <input name="balance" required ng-model="maintenanceRecord.total">
+    <div ng-messages="saleInfo.balance.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+</div>
+<div layout="row">  
+  <md-input-container flex="50" class="md-block">
+    <label>street</label>
+    <input name="price" required ng-model="maintenanceRecord.street">
+    <div ng-messages="saleInfo.price.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+  <md-input-container flex="50" class="md-block">
+    <label>city</label>
+    <input name="gst" required ng-model="maintenanceRecord.city">
+    <div ng-messages="saleInfo.gst.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+</div>
+<div layout="row">
+  <md-input-container flex="50" class="md-block">
+    <label>description</label>
+    <input name="total" required ng-model="maintenanceRecord.description">
+    <div ng-messages="saleInfo.total.$error">
+      <div ng-message="required">This is required.</div>
+    </div>
+  </md-input-container> 
+   
+</div>
+PaymentStatus &nbsp;
+<md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
+  {{contract.paymentStatus?'Paid':'Unpaid'}}
+</md-checkbox>
+
+<div layout="row" layout-align="center">
+  <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()">Cancel</md-button>
+  <md-button flex="25" class="md-raised md-primary" ng-click="saveMaintenanceRecord(maintenanceRecord)">Save Record</md-button>
+</div>
+
