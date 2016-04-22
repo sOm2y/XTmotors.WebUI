@@ -65,7 +65,7 @@ angular
                     requireLogin: true
                 }
             })
-            .state('userProfile', {
+            .state('profile', {
                 url: "/profile",
                 templateUrl: "modules/app/userProfile.html",
                 controller: 'ProfileCtrl',

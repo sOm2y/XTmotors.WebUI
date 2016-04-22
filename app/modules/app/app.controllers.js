@@ -33,9 +33,9 @@ angular.module('app.controllers',[])
         }
     });
     $scope.$watch('selectedCar', function(newVal){
-            if(newVal){
-                $rootScope.editCar(newVal);
-            }
+      if(newVal){
+          $rootScope.editCar(newVal);
+      }
     });
 
     $rootScope.fabDirections = ['up', 'down', 'left', 'right'];
@@ -90,7 +90,7 @@ angular.module('app.controllers',[])
 
     $rootScope.openProfile = function(){
       // alert("a");
-      $state.go('userProfile',{}, {reload: true});
+      $state.go('profile',{}, {reload: true});
       // $rootScope.buttonDisable = true;
     };
 

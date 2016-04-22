@@ -93,14 +93,14 @@
           <span flex>
              <md-autocomplete
               md-selected-item="selectedCar"
-              md-search-text="searchText"
-              md-items="item in cars | filter:searchText"
+              md-search-text="carSearchText"
+              md-items="item in cars | filter:carSearchText"
               md-item-text="item.carId"
               md-min-length="0"
               md-max-length="10"
               placeholder="Enter Vehicle ID to Search Cars" style="color:#333;">
               <md-item-template>
-                <span md-highlight-text="searchText">{{'ID: '+item.carId+' '+item.year+' '+item.makerName+'  '+item.model}}</span>
+                <span md-highlight-text="carSearchText">{{'ID: '+item.carId+' '+item.year+' '+item.makerName+'  '+item.model}}</span>
               </md-item-template>
               <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
                 <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>

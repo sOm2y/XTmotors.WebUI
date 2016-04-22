@@ -55,7 +55,8 @@ angular.module('car.controllers',[])
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
-              vehicleModel: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
+              vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'+car.carId}).$promise,
+              vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
               car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
@@ -64,6 +65,7 @@ angular.module('car.controllers',[])
                   $scope.contract      = res.contract;
                   $scope.car           = res.car;
                   $scope.vehicleModel  = res.vehicleModel;
+                  $scope.vehicleModelList  = res.vehicleModelList;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -95,6 +97,12 @@ angular.module('car.controllers',[])
                 parent: $element
               });
             });
+        };
+
+        $scope.selectedItemChange = function(selectVehicle) { 
+          if(selectVehicle !== null){       
+            $scope.vehicleModel = selectVehicle;    
+          }       
         };
 
 
@@ -151,11 +159,13 @@ angular.module('car.controllers',[])
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();  
     $scope.showMaintenanceReordDetails = false;
+    var creatMaintenanceRecord = false;
 
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
         $scope.maintenanceRecord = {};
+        creatMaintenanceRecord = true;
     };
 
     $scope.backToMaintenanceRecordList = function(){
@@ -166,6 +176,7 @@ angular.module('car.controllers',[])
       if(!_.isUndefined(record)){
         $scope.maintenanceRecord = record;
         $scope.showMaintenanceReordDetails = true;
+        creatMaintenanceRecord = false;
       }
     };
 
@@ -173,6 +184,25 @@ angular.module('car.controllers',[])
       //TODO: check is an edit maintenance object or create new maintenance object
       //then use xtmotorsAPIService.update for updateing edit object
       //use xtmotorsAPIService.save for saving new object
+      console.log(record);
+        if(creatMaintenanceRecord){
+          xtmotorsAPIService.save({section:'Maintenance/'+record.carId}, record)
+            .$promise.then(function(){
+              console.log("New Record!");
+            },function(error){
+              console.log("error");
+          });
+          
+        }else{
+          xtmotorsAPIService.update({section:'Maintenance/'+record.carId}, record)
+            .$promise.then(function(){
+              console.log("Record Updated!");
+            },function(error){
+              console.log("error");
+          });
+              
+        }
+
     };
 
   }])

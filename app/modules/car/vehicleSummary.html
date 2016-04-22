@@ -6,8 +6,6 @@
               <md-subheader class="md-primary">Features</md-subheader>
               <md-card-content>
                 <form layout="row" layout-wrap name="carSummary">
-
-   
                   <md-input-container flex="50" class="md-block">
                     <label>CarId</label>
                     <input required name="carId" ng-model="car.carId">
@@ -139,8 +137,26 @@
 
             <md-card flex="50">
               <md-subheader class="md-primary">Vehicle Info</md-subheader>
-              <md-card-content>
+              <md-card-content>           
               <form layout="row" layout-wrap name="vehicleInfo">
+                  <div flex="100" class="searchBar">
+                    <md-autocomplete
+                      md-selected-item="selectVehicle"
+                      md-search-text="modelSearchText"
+                      md-selected-item-change="selectedItemChange(selectVehicle)"
+                      md-items="item in vehicleModelList | filter:modelSearchText"
+                      md-item-text="item.makerName+' '+item.model+' '+item.year"
+                      md-min-length="0"
+                      md-max-length="10"
+                      placeholder="Please enter your Vehicle Maker or Model to Search" 
+                      style="color:#333;">
+                      <md-item-template>
+                        <span md-highlight-text="modelSearchText">{{item.makerName+' '+item.model+' '+item.year}}
+                        </span>
+                      </md-item-template>
+                    </md-autocomplete>
+                  </div>
+
                   <md-input-container flex="50" class="md-block">
                     <label>MakerName</label>
                     <input name="makerName" required ng-model="vehicleModel.makerName">
