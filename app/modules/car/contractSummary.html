@@ -1,8 +1,16 @@
-<md-tab label="Sale Info" ng-if="contract.contractNum">
+<!-- <md-tab label="Sale Info" ng-if="contract.contractNum">
+ --><md-tab label="Sale Info">
   <md-content class="md-padding">
   <form name="saleInfo">
-    <md-card>
+
+      <div class="checkBox">
+        Has vehicle been sold? &nbsp;
+        <md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
+          {{contract.paymentStatus?'Sold':'Unsold'}}
+        </md-checkbox>
+      </div>
       <md-card-content>
+      <div layout="row" layout-wrap ng-if="contract.paymentStatus">
         <md-input-container flex="50" class="md-block">
           <label>ContractNum</label>
           <input name="contractNum" required ng-model="contract.contractNum">
@@ -10,12 +18,10 @@
             <div ng-message="required">This is required.</div>
           </div>
         </md-input-container> 
-
         <md-input-container flex="50" class="md-block">
           <label>ContractDate</label>
           <input time="false" date="true" mdc-datetime-picker="" type="text" id="contractDate" placeholder="Date" ng-model="contract.contractDate" class=" md-input">
         </md-input-container>
-
         <md-input-container flex="50" class="md-block">
           <label>Deposite</label>
           <input name="deposite" required ng-model="contract.deposite">
@@ -50,12 +56,7 @@
           <div ng-messages="saleInfo.total.$error">
             <div ng-message="required">This is required.</div>
           </div>
-        </md-input-container> 
-          PaymentStatus &nbsp;
-          <md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
-            {{contract.paymentStatus?'Paid':'Unpaid'}}
-          </md-checkbox>
-        
+        </md-input-container>       
         <md-input-container flex="50" class="md-block">
           <label>Currency</label>
           <input name="currency" required ng-model="contract.currency">
@@ -67,8 +68,12 @@
           <label>Description</label>
           <input name="description" ng-model="contract.description">
         </md-input-container> 
-        
-      </md-card-content>
+        </div>
+<!--         PaymentStatus &nbsp;
+        <md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
+          {{contract.paymentStatus?'Paid':'Unpaid'}}
+        </md-checkbox>  -->      
+      </md-card-content>   
     </md-card>
   </form>  
   </md-content>
