@@ -184,21 +184,21 @@ angular.module('car.controllers',[])
       //TODO: check is an edit maintenance object or create new maintenance object
       //then use xtmotorsAPIService.update for updateing edit object
       //use xtmotorsAPIService.save for saving new object
-      console.log(record);
+      //console.log(record);
         if(creatMaintenanceRecord){
           xtmotorsAPIService.save({section:'Maintenance/'+record.carId}, record)
             .$promise.then(function(){
-              console.log("New Record!");
+              //console.log("New Record!");
             },function(error){
-              console.log("error");
+              //console.log("error");
           });
           
         }else{
           xtmotorsAPIService.update({section:'Maintenance/'+record.carId}, record)
             .$promise.then(function(){
-              console.log("Record Updated!");
+              //console.log("Record Updated!");
             },function(error){
-              console.log("error");
+              //console.log("error");
           });
               
         }
