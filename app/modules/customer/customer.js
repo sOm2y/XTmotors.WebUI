@@ -17,7 +17,22 @@ angular.module('customer',
         $stateProvider
             .state('customer', {
                 url: "/customer",
-                templateUrl: "views/customer/customer.html",
-                controller: 'CustomerCtrl'
+                templateUrl: "modules/customer/customer.html",
+                controller: 'CustomerCtrl',
+                data: {
+                    requireLogin: true
+                }
+            })
+            .state('customer.details',{
+                url:"/:customerId",
+                views:{
+                    "customer-details-view":{
+                        templateUrl:"modules/customer/customer.details.html",
+                        controller: 'CustomerDetailsCtrl',
+                    }
+                },
+                data:{
+                    requireLogin: true
+                }
             });
     }]);

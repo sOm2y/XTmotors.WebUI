@@ -1,0 +1,34 @@
+.label{
+	&.sold{
+		background-color: #F44336;
+	}
+	&.reserved{
+		background-color: #FF9800;
+	}
+	&.sale{
+		background-color: #4CAF50;
+	}
+	&.inspection{
+		background-color: #CDDC39;
+	}
+	&.arrived{
+		background-color: #00BCD4;
+	}
+	&.departed{
+		background-color: #03A9F4;
+	}
+
+}
+
+.searchBar{
+	margin-bottom: 25px;
+}
+
+.checkBox{
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.toolTip{
+	font-size: 20px;
+}

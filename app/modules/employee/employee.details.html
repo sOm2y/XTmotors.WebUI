@@ -1,0 +1,113 @@
+<div layout="column">
+  <div layout="row">
+    <md-card flex="50">
+    <md-subheader class="md-primary">Employee Details Information</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>Employee Id</label>
+            <input required ng-model="employee.employeeId">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Title</label>
+            <input required ng-model="employee.title">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>FirstName</label>
+            <input required ng-model="employee.firstName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>LastName</label>
+            <input required ng-model="employee.lastName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Mobile</label>
+            <input required ng-model="employee.mobile">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+           <md-input-container flex="50" class="md-block">
+            <label>EmailAddress</label>
+            <input required ng-model="employee.emailAddress">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+    
+    <md-card flex="50">
+    <md-subheader class="md-primary">Vehicle Model Information</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>IrdNumber</label>
+            <input required ng-model="employee.irdNumber">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Discount</label>
+            <input required ng-model="employee.discount">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+         
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <md-card flex="100">
+    <md-subheader class="md-primary">Address Information</md-subheader>
+      <md-card-content layout="row" layout-wrap>
+        <md-input-container flex="50" class="md-block">
+          <label>Street</label>
+          <input type="text" g-places-autocomplete ng-model="employee.street" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>City</label>
+          <input type="text" ng-model="employee.city" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>State</label>
+          <input type="text" ng-model="employee.state" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Country</label>
+          <input type="text" ng-model="employee.country" />
+        </md-input-container>       
+      </md-card-content>
+  </md-card>
+
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised" ng-click="backToEmployee()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveEmployee()">Save</md-button>
+  </div>
+ 
+</div>
+

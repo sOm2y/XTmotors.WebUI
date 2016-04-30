@@ -10,14 +10,17 @@
 angular.module('consignment',
     [
         'consignment.controllers',
-        // 'consignment.directives',
+        'consignment.directives',
         // 'consignment.services'
     ])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('consignment', {
                 url: "/consignment",
-                templateUrl: "views/consignment/consignment.html",
-                controller: 'ConsignmentCtrl'
+                templateUrl: "modules/consignment/consignment.html",
+                controller: 'ConsignmentCtrl',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);
