@@ -139,7 +139,7 @@
               <md-subheader class="md-primary">Vehicle Info</md-subheader>
               <md-card-content>           
               <form layout="row" layout-wrap name="vehicleInfo">
-                  <div flex="100" class="searchBar">
+                  <div flex="100" class="searchBar" ng-if="isVehicleModelListLoaded">
                     <md-autocomplete
                       md-selected-item="selectVehicle"
                       md-search-text="modelSearchText"
