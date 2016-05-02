@@ -154,13 +154,56 @@ angular.module('car.controllers',[])
     });
   	
 	}])
-  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog',
-    function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog) {
+  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload',
+    function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload) {
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();  
     $scope.showMaintenanceReordDetails = false;
+    $scope.uploading = false;
+    $scope.progressPercentage = 0;
     var creatMaintenanceRecord = false;
 
+
+    $scope.$watch('files', function () {
+      $scope.upload($scope.files);
+    });
+
+    $scope.log = '';
+
+    $scope.upload = function (files) {
+      $scope.files = files;
+      console.log($scope.files);
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+              var file = files[i];
+              if (!file.$error) {
+                Upload.upload({
+                    url: 'http://xtmotorwebapi.azurewebsites.net/api/Photo/Storage/',
+                    data: {
+                      username: $scope.username,
+                      file: file  
+                    }
+                }).then(function (resp) {
+                    $timeout(function() {
+                        $scope.log = 'file: ' +
+                        resp.config.data.file.name +
+                        ', Response: ' + JSON.stringify(resp.data) +
+                        '\n' + $scope.log;
+                    });
+                }, null, function (evt) {
+                    $scope.uploading = true;
+                    $scope.progressPercentage = parseInt(100.0 *
+                        evt.loaded / evt.total);
+                    $scope.log = 'progress: ' + $scope.progressPercentage + 
+                      '% ' + evt.config.data.file.name + '\n' + 
+                      $scope.log;
+                }).finally(function(){
+                   $scope.uploading =false;
+                });
+              }
+            }
+        }
+    };
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
