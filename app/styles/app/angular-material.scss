@@ -1,0 +1,103 @@
+// Colors
+$gray: #eee;
+$red: #F44336;
+$green: #4CAF50;
+
+// Angular
+[ng-click] {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.md-top {
+position: fixed;
+top: 8vh!important; // size of my navbar + 16px
+}
+.md-bottom {
+position: fixed;
+bottom: 5vh; // size of my navbar + 16px
+}
+
+.md-right {
+position: fixed;
+right: 4vw;
+}
+
+
+
+// Main content bg color
+md-content.md-default-theme {
+  background-color: $gray;
+}
+md-toast.md-toast.md-toast-500,md-toast.md-toast.md-toast-405{
+  .md-toast-content{
+    background-color: $red;
+  }
+}
+md-toast.md-toast.md-toast-success{
+  .md-toast-content{
+    background-color: $green;
+  }
+}
+
+// Navigation drawer pattern: https://www.google.com/design/spec/patterns/navigation-drawer.html#navigation-drawer-specs
+md-sidenav {
+  & > md-toolbar {
+    padding: 15px;
+    height: 150px;
+    max-height: 150px;
+  }
+  & md-list-item.md-2-line .md-list-item-text {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+  & md-divider {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+// White svg icons in toolbar and fab
+
+md-sidenav {
+  md-icon {
+    fill: #737373;
+    position: relative;
+  }
+  .md-avatar {
+    height: 64px;
+    width: 64px;
+  }
+}
+
+/* More closely matches https://www.google.com/design/spec/components/lists.html#lists-specs */
+md-list-item.md-3-line {
+  md-divider {
+    &[md-inset] {
+      left: 70px;
+    }
+  }
+}
+
+md-list-item.md-2-line.initial-height{
+  min-height: initial;
+}
+// Round avatar
+.md-avatar {
+  & > svg {
+    border-radius: 50%;
+  }
+}
+
+/* fade animation */
+.animate-show {
+    transition: 0.75s ease-out opacity;
+    opacity: 1;
+  &.ng-hide {
+    height: 0;
+    min-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+}

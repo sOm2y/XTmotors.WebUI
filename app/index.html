@@ -2,114 +2,179 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>XTMOTORS GROUP LTD</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.tmp) styles/main.css -->
+    <!-- build:css(.tmp) styles/main.css -->  
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/app/app.css">
+    <link rel="stylesheet" href="styles/app/loginModal.css">
+    <link rel="stylesheet" href="styles/app/spinner.css">
+    <link rel="stylesheet" href="styles/app/angular-material.css">
+    <link rel="stylesheet" href="styles/app/car.css">
     <!-- endbuild -->
     <!-- material bootstrap -->
+    <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.css">
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <!-- endbuild -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="http://logbon72.github.io/angular-material-datetimepicker/css/material-datetimepicker.css" type="text/css"/>
 
-    <!-- endbuild -->
+
   </head>
-  <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <body ng-app="xtmotorwebuiApp" ng-controller="appCtrl" layout="row" ng-cloak>
 
-    <!-- Add your site or application content here -->
-   <div class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="javascript:void(0)">XTmotors Group Ltd</a>
+    <cube-grid-spinner ng-show="isLoading"></cube-grid-spinner>
+     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      <md-toolbar style="height:66px;">
+       <div class="md-toolbar-tools">
+       <span>XTMOTORS GROUP</span>
+       </div>
+      </md-toolbar>
+      <md-list>
+        <md-list-item class="md-2-line initial-height" ui-sref-active="active" ng-repeat="item in menu" role="link" md-ink-ripple>
+          <ng-md-icon icon="{{item.icon}}" aria-label="{{item.title}}"></ng-md-icon>
+          <div class="md-list-item-text" ui-sref="{{item.link}}">
+            <span class="md-body-2">{{item.title}}</span>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-subheader  class="md-no-sticky">Management</md-subheader>
+        <md-list-item class="md-2-line initial-height md-primary" ng-repeat="item in admin" role="link" md-ink-ripple>
+          <ng-md-icon icon="{{item.icon}}" aria-label="{{item.title}}"></ng-md-icon>
+          <div class="md-list-item-text" ui-sref="{{item.link}}">
+            <span class="md-body-2">{{item.title}}</span>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-sidenav>
+    <div layout="column" class="relative" layout-fill role="main">
+     <!--  <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-disabled="buttonDisable" ng-click="checkCurrentPage()">
+        <ng-md-icon icon="add"></ng-md-icon>
+      </md-button> -->
+      <md-fab-speed-dial class="md-fab md-fab-bottom-right" md-direction="{{fabDirection}}" md-open="fabStatus" ng-class="fabAnimation"  ng-disabled="buttonDisable">
+          <md-fab-trigger>
+              <md-button aria-label="share this post" class="md-fab">
+                <md-tooltip md-direction="left"> Add </md-tooltip>
+                  <ng-md-icon icon="add"></ng-md-icon>
+              </md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+              <md-button aria-label="employee" class="md-fab md-raised md-mini" ng-click="createSeletedObject('employee');createItem()">
+                  <md-tooltip md-direction="left"> Add new employee </md-tooltip>
+                  <ng-md-icon icon="perm_contact_cal"></ng-md-icon>
+              </md-button>
+              <md-button aria-label="customer" class="md-fab md-raised md-mini" ng-click="createSeletedObject('customer');createItem()">
+                  <md-tooltip md-direction="left"> Add new customer </md-tooltip>
+                  <ng-md-icon icon="supervisor_account"></ng-md-icon>
+              </md-button>
+              <md-button aria-label="car" class="md-fab md-raised md-mini" ng-click="createSeletedObject('car');createItem()">
+                  <md-tooltip md-direction="left"> Add new car </md-tooltip>
+                  <ng-md-icon icon="directions_car"></ng-md-icon>
+              </md-button>
+          </md-fab-actions>
+      </md-fab-speed-dial>
+    
+      <md-toolbar class="md-whiteframe-z1">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+          </md-button>
+          <h2>
+            {{$state.current.name | uppercase}}
+          </h2>
+          <span flex="5"></span>
+          <span flex>
+             <md-autocomplete
+              md-selected-item="selectedCar"
+              md-search-text="carSearchText"
+              md-items="item in cars | filter:carSearchText"
+              md-item-text="item.vin"
+              md-min-length="0"
+              md-max-length="10"
+              placeholder="Enter Vin Number to Search Cars" style="color:#333;">
+              <md-item-template>
+                <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+',   Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
+              </md-item-template>
+              <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
+                <div ng-message="minlength">Your entry is not long enough.</div>
+                <div ng-message="maxlength">Your entry is too long.</div>
+              </div>
+            </md-autocomplete>
+          </span>
+          <md-button class="md-icon-button toolbar-button" aria-label="Search" ng-click="">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+           <md-button class="md-icon-button toolbar-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+            <ng-md-icon icon="notifications"></ng-md-icon><span>2</span>
+          </md-button>
+          <md-menu>
+            <md-button aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
+              <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+                Christos
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-click="openSetting()" aria-label="side navigation">
+                        <ng-md-icon icon="settings"></ng-md-icon>&nbsp;
+                        <span>Setting</span>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="openProfile()" aria-label="side navigation">
+                          <ng-md-icon icon="people"></ng-md-icon>&nbsp;
+                        <span>Profile</span>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="logout()" aria-label="side navigation">
+                        <ng-md-icon icon="logout"></ng-md-icon>&nbsp;
+                        <span>Log out</span>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+          </md-menu>
         </div>
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
-            
-            <form class="navbar-form navbar-left">
-                <input type="text" class="form-control col-lg-8" placeholder="Search"> <a href=""><i class="fa fa-search fa-lg"></i></a>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">  
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">   Admin <span class="badge">3</span>
-                    </a>
-                     <ul class="dropdown-menu list-group">
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-123 <strong>Change Status to Arriving Soon</strong></a></li>
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-124 <strong>Change Status to Shipping</strong></a></li>      
-                        <li class="list-group-item"><a href="javascript:void(0)">ID: 000-124 <strong>Arriving in 3 days</strong></a></li>      
-                    </ul>
-                </li>
-                <li>  <a href=""><i class="fa fa-cog fa-lg"></i></a></li>
-                <li>  <a href="">Log out</a></li>
-            
-            </ul>
-        </div>
+      </md-toolbar>
 
-      
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
-            <ul class="nav navbar-nav navbar-left">
-             
-                <li class="dropdown">
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bars fa-lg"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="customer">Customer</a></li>
-                        <!-- <li class="divider"></li> -->
-                        <li ui-sref-active="active"><a ui-sref="employee">Employee</a></li>      
-                    </ul>
-                       <li ui-sref-active="active"><a ui-sref="car">Cars <span class="badge">84</span></a></li>
-                       <li ui-sref-active="active"><a ui-sref="settlement">Settlement</a></li>
-                       <li ui-sref-active="active"><a ui-sref="storage">Storage</a></li>
-                       <li ui-sref-active="active"><a ui-sref="consignment" >Consignments</a></li>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="listGalleryView=!listGalleryView" ng-show="$state.current.name === 'car'"><a href=""><i ng-class="listGalleryView?'fa-th':'fa-list'" class="fa fa-2x"></i></a></li>
-                <li><a href=""><i class="fa fa-sort-alpha-asc fa-2x"></i></a></li>
-                <li><a ></a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-     <div ui-view state="{{$state.current.name}}"></div>
+      <md-content flex md-scroll-y>
+        <ui-view layout="column" state="{{$state.current.name}}" ng-hide="isLoading" layout-fill layout-padding>
+     
+        </ui-view>
+      </md-content>
 
     </div>
-
-    <div class="footer">
-      <div class="container">
-        <p>Made with <span class="glyphicon glyphicon-heart"></span> By the <strong>Shyin</strong> team</p>
-      </div>
-    </div>
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq1i2N2S0BIx007edt8Kg2hnmfhF47wi4&libraries=places"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -117,13 +182,15 @@
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/countUp.js/dist/countUp.min.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/i18next/i18next.js"></script>
+    <script src="bower_components/i18next/bin/index.js"></script>
     <script src="bower_components/ng-i18next/dist/ng-i18next.js"></script>
     <!-- endbower -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.js"></script>
+
 
      <script>
             $(document).ready(function() {
@@ -134,22 +201,13 @@
     </script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="modules/app.js"></script>
-        <script src="modules/app.controllers.js"></script>
-        <script src="modules/car/car.js"></script>
-        <script src="modules/car/car.controllers.js"></script>
-        <script src="modules/consignment/consignment.js"></script>
-        <script src="modules/consignment/consignment.controllers.js"></script>
-        <script src="modules/customer/customer.js"></script>
-        <script src="modules/customer/customer.controllers.js"></script>
-        <script src="modules/employee/employee.js"></script>
-        <script src="modules/employee/employee.controllers.js"></script>
-        <script src="modules/settlement/settlement.js"></script>
-        <script src="modules/settlement/settlement.controllers.js"></script>
-        <script src="modules/storage/storage.js"></script>
-        <script src="modules/storage/storage.controllers.js"></script>
-       
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/scripts.js"></script>
+    <script src="templateCache.js"></script>
+    <!-- endbuild -->
+
+    <script type="text/javascript" src="http://logbon72.github.io/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
+
+        
 </body>
 </html>

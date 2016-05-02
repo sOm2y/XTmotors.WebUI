@@ -1,0 +1,107 @@
+<div layout="column">
+  <div layout="row">
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Paid Funds</p>
+      </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Unpaid Funds</p>
+      </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0" options="{ prefix: '$' }"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Total Sales</p>
+      </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0" options="{ prefix: '$' }"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Total Sales</p>
+      </md-card-content>
+    </md-card>
+  </div>
+  <md-card>
+    <md-card-content>
+      <h2>Card headline</h2>
+      <p>Card content</p>
+    </md-card-content>
+    <md-card-footer>
+    Card footer
+    </md-card-footer>
+  </md-card>
+
+</div>
+
+
+<div class="container-fluid">
+ <div class="jumbotron">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1><i class="fa fa-usd"></i><strong> <span count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="2"></span></strong></h1>
+        <p>Paid funds</p>
+      </div>
+      <div class="col-sm-6">
+        <h1><i class="fa fa-usd"></i><strong> <span count-to="{{countToUnpaid}}" value="{{countFromUnpaid}}" duration="2"></span></strong></h1>
+        <p>Unpaid funds</p>
+      </div>
+      </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+          <!-- TODO: repeat header -->
+          <!--   <th ng-repeat="name in tableHeaderName">
+                <a ng-click="orderByField = name.title; reverseSort = !reverseSort" href="">
+                {{name.title | translate}}
+                <span ng-class="orderByField == name.title && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'">
+                </a>
+            </th> -->
+                        
+          </tr>
+          <tr>
+            <th><a ng-click="orderByField = 'CarId';reverseSort = !reverseSort" href="">{{"id" | translate}} 
+            <span ng-class="orderByField == 'CarId' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th><a ng-click="orderByField = 'Brand';reverseSort = !reverseSort" href="">{{"brand" | translate}}
+            <span ng-class="orderByField == 'Brand' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th><a ng-click="orderByField = 'Model';reverseSort = !reverseSort" href="">{{"model" | translate}} 
+            <span ng-class="orderByField == 'Model' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th><a ng-click="orderByField = 'Year';reverseSort = !reverseSort" href="">{{"year" | translate}} 
+            <span ng-class="orderByField == 'Year' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th><a ng-click="orderByField = 'Odometer';reverseSort = !reverseSort" href="">{{"odometer" | translate}} 
+            <span ng-class="orderByField == 'Odometer' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th><a ng-click="orderByField = 'SalePrice';reverseSort = !reverseSort"href="">{{"salePrice" | translate}} 
+            <span ng-class="orderByField == 'SalePrice' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+            <th style="text-align:center;"><a ng-click="orderByField = 'Status';reverseSort = !reverseSort" href=""> </span>{{"status" | translate}}  
+            <span ng-class="orderByField == 'Status' && reverseSort?'fa fa-caret-up fa-lg':'fa fa-caret-down fa-lg'"></a>
+            </th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr ng-repeat="car in filteredCars | orderBy:orderByField:reverseSort | filter:searchKeyword"> 
+            <td><a href="">{{car.CarId}}</a></td>
+            <td>{{car.Brand}}</td>
+            <td>{{car.Model}}</td>
+            <td>{{car.Year}}</td>
+            <td>{{car.Odometer | number }} Km</td>
+            <td>{{car.SalePrice | currency}}</td>
+            <td style="text-align:center;"><span class="label label-info">{{car.Status}}</span></td></tr>
+          <tr>
+        </tbody>  
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+ <ul class="nav navbar-nav navbar-right">
+    <li ng-click="listGalleryView=!listGalleryView" ng-show="$state.current.name === 'car'">
+        <a href=""><i ng-class="listGalleryView?'fa-th':'fa-list'" class="fa fa-2x"></i></a>
+    </li>
+    <li>
+    <div class="btn-group">
+        <a href="bootstrap-elements.html" data-target="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Cars Per Page
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="javascript:void(0)" ng-click="itemsPerPage = 2 ">20</a></li>
+            <li><a href="javascript:void(0)" ng-click="itemsPerPage = 50">50</a></li>
+            <li><a href="javascript:void(0)" ng-click="itemsPerPage = 100">100</a></li>
+        </ul>
+    </div>
+    </li>
+                
+    <li><a ></a></li>
+</ul>

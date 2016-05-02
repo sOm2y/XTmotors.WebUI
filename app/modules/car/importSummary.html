@@ -1,0 +1,103 @@
+      <md-tab label="Import Info">
+        <md-content class="md-padding"> 
+        <form name="importInfo">
+          <div layout="column">
+            <div layout="row">
+            <md-card flex="100">
+                <md-card-content>
+                  <div layout="row" layout-wrap>
+                    <md-input-container flex="50" class="md-block">
+                      <label>TransportationExpense</label>
+                      <input name="transportationExpense" required ng-model="importSummary.transportationExpense">
+                      <div ng-messages="importInfo.transportationExpense.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="50" class="md-block">
+                      <label>TransportCompany</label>
+                      <input name="transportCompany" required ng-model="importSummary.transportCompany">
+                      <div ng-messages="importInfo.transportCompany.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+
+                    <md-input-container flex="50" class="md-block">
+                    <label>ETA</label>
+                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="eta"
+                        ng-model="importSummary.eta" class=" md-input">
+                    </md-input-container>
+
+                    <md-input-container flex="50" class="md-block">
+                      <label>CheckLocation</label>
+                      <input name="checkLocation" required ng-model="importSummary.checkLocation">
+                      <div ng-messages="importInfo.checkLocation.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+
+                    <md-input-container flex="50" class="md-block">
+                    <label>CreateTime</label>
+                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="creatTime" placeholder="Date" ng-model="importSummary.createTime" class=" md-input">
+                    </md-input-container>
+
+                    <md-input-container flex="50" class="md-block">
+                      <label>TotalDue</label>
+                      <input name="totalDue" required ng-model="importSummary.totalDue">
+                      <div ng-messages="importInfo.totalDue.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container> 
+                    <md-input-container flex="50" class="md-block">
+                      <label>Quantity</label>
+                      <input name="quantity" required ng-model="importRecord.quantity">
+                      <div ng-messages="importInfo.quantity.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container> 
+                    <md-input-container flex="50" class="md-block">
+                      <label>Amount</label>
+                      <input name="amount" required ng-model="importRecord.amount">
+                      <div ng-messages="importInfo.amount.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container> 
+                    <md-input-container flex="50" class="md-block">
+                      <label>GST</label>
+                      <input name="gst" required ng-model="importRecord.gst">
+                      <div ng-messages="importInfo.gst.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="50" class="md-block">
+                      <label>Total</label>
+                      <input name="total" required ng-model="importRecord.total">
+                      <div ng-messages="importInfo.total.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="50" class="md-block">
+                      <label>PaymentStatus</label>
+                      <input name="paymentStatus" required ng-model="importRecord.paymentStatus">
+                      <div ng-messages="importInfo.paymentStatus.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container> 
+                    <md-input-container flex="50" class="md-block">
+                      <label>Currency</label>
+                      <input name="currency" ng-model="importRecord.currency">
+                    </md-input-container>
+                    <md-input-container flex="100" class="md-block">
+                      <label>Description</label>
+                      <input md-maxlength="100" name="description" ng-model="importRecord.description">
+                      <div ng-messages="importInfo.description.$error">
+                        <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                </md-card-content>
+              </md-card>
+            </div>
+          </div>
+        </form>
+        </md-content>
+      </md-tab>
