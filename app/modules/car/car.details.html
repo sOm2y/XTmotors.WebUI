@@ -7,22 +7,24 @@
       <contract-summary></contract-summary>
       <md-tab label="Upload car photos">
         <md-content class="md-padding">
-        Upload your car photos
-        <input class="ng-hide" id="input-file-id" multiple ngf-select="upload($files)" ngf-multiple="true" />
-        <label for="input-file-id" class="md-button md-raised md-primary">Choose Photos</label>
-          <div layout="row" layout-sm="column" layout-align="space-around" ng-if="uploading">
-            <md-progress-circular md-mode="determinate" value="{{progressPercentage}}"></md-progress-circular>
-            <pre>{{log}}</pre>
-          </div>
+        <!-- Upload your car photos -->
+          <h4>Upload Car Photos</h4>
 
+          <button ngf-select="uploadFiles($files)" ngf-multiple="true">Select Files</button>
+          <br>
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-if="uploading">
+            <md-progress-circular md-mode="determinate" value="{{progress}}"></md-progress-circular>
+            <span class="progress" ng-show="progress >= 0">
+              <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+            </span>
+          </div>
+          <br>Files:
           <ul>
               <li ng-repeat="f in files" style="font:smaller">
-              {{f.name}} {{f.$error}} {{f.$errorParam}}
-            
+                  {{f.name}}
+                  <img ngf-thumbnail="f || '/thumb.jpg'" width="300">
               </li>
           </ul>
-        
-
         </md-content>
       </md-tab>
       

@@ -154,54 +154,51 @@ angular.module('car.controllers',[])
     });
   	
 	}])
-  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload',
-    function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload) {
+  .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
+    function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();  
     $scope.showMaintenanceReordDetails = false;
     $scope.uploading = false;
-    $scope.progressPercentage = 0;
     var creatMaintenanceRecord = false;
-
-
-    $scope.$watch('files', function () {
-      $scope.upload($scope.files);
-    });
 
     $scope.log = '';
 
-    $scope.upload = function (files) {
-      $scope.files = files;
-      console.log($scope.files);
+    $scope.uploadFiles = function (files) {
+       $scope.files = files;
         if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              if (!file.$error) {
-                Upload.upload({
-                    url: 'http://xtmotorwebapi.azurewebsites.net/api/Photo/Storage/',
-                    data: {
-                      username: $scope.username,
-                      file: file  
-                    }
-                }).then(function (resp) {
-                    $timeout(function() {
-                        $scope.log = 'file: ' +
-                        resp.config.data.file.name +
-                        ', Response: ' + JSON.stringify(resp.data) +
-                        '\n' + $scope.log;
-                    });
-                }, null, function (evt) {
-                    $scope.uploading = true;
-                    $scope.progressPercentage = parseInt(100.0 *
-                        evt.loaded / evt.total);
-                    $scope.log = 'progress: ' + $scope.progressPercentage + 
-                      '% ' + evt.config.data.file.name + '\n' + 
-                      $scope.log;
-                }).finally(function(){
-                   $scope.uploading =false;
-                });
+            Upload.upload({
+              url: 'http://xtmotorwebapi.azurewebsites.net/api/Photo/Storage/',
+              data: {
+                file: files  
               }
-            }
+            }).then(function (response) {
+                $timeout(function () {
+                    $scope.result = response.data;
+                });
+                $mdToast.show({
+                  template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Photos has been saved'  + '</span></md-toast>',
+                  position: 'top right',
+                  hideDelay: 5000,
+                  parent: $element
+                });
+            }, function (error) {
+                if (error.status > 0) {
+                  $mdToast.show({
+                    template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+                    position: 'top right',
+                    hideDelay: 5000,
+                    parent: $element
+                  });
+                  $scope.uploading = false;
+                }
+            }, function (evt) {
+                $scope.uploading = true;
+                $scope.progress = 
+                    Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            }).finally(function(){
+              $scope.uploading = false;
+            });
         }
     };
 
