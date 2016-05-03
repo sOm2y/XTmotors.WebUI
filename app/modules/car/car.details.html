@@ -8,10 +8,26 @@
     </md-tabs>
   <!-- </md-content> -->
   </div>
-  <div layout="row" layout-align="center" ng-if="!showMaintenanceReordDetails">
+  <div layout="row" layout-align="center center" ng-if="!showMaintenanceReordDetails">
     <md-button flex="25" class="md-raised" ng-click="backToCar()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar(car,contract,importSummary,importRecord)">Save</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-disabled=" !(carSummary.$valid && vehicleInfo.$valid && importInfo.$valid && saleInfo.$valid)" ng-click="saveCar(car,vehicleModel,importRecord,contract,importSummary)">Save</md-button> 
+    <div layout="column" layout-align="space-around center">
+      <div ng-messages="carSummary.$error" class="errorMessage">
+        <div ng-message="required">Please fill the required fileds in Feature Tab.</div>
+      </div> 
+      <div ng-messages="vehicleInfo.$error" class="errorMessage">
+        <div ng-message="required">Please fill the required fileds in Vehicle Info Tab.</div>
+      </div>
+      <div ng-messages="importInfo.$error" class="errorMessage">
+        <div ng-message="required">Please fill the required fileds in Import Info Tab.</div>
+      </div>
+      <div ng-messages="saleInfo.$error" class="errorMessage">
+        <div ng-message="required">Please fill the required fileds in Sale Info Tab.</div>
+      </div> 
+    </div>
   </div>
+
+
 
 
 
