@@ -6,30 +6,29 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
               <tr md-row>
-                <th md-column md-order-by="CarId"><span>Car ID</span></th>
-                <th md-column md-order-by="Maker"><span>Maker/Brand</span></th>
-                <th md-column md-order-by="Model" md-desc><span>Model</span></th>
-                <th md-column md-numeric md-order-by="Year"><span>Manufactory Year</span></th>
-                <th md-column md-numeric md-order-by="Odometer"><span>Odometer</span></th>
-                <th md-column md-numeric md-order-by="SalePrice"><span>Sale Price</span></th>
-                <th md-column md-order-by="Status"><span>Car Status</span></th>
+                <th md-column md-order-by="carId"><span>Car ID</span></th>
+                <th md-column md-order-by="makerName"><span>Maker/Brand</span></th>
+                <th md-column md-order-by="model" md-desc><span>Model</span></th>
+                <th md-column md-numeric md-order-by="year"><span>Manufactory Year</span></th>
+                <th md-column md-numeric md-order-by="odometer"><span>Odometer</span></th>
+                <th md-column md-numeric md-order-by="price"><span>Sale Price</span></th>
+                <th md-column md-order-by="carStatus"><span>Car Status</span></th>
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row md-select="dessert" md-on-select md-auto-select="options.autoSelect" ng-repeat="dessert in itemList | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                <td md-cell><a href="" ng-click="editCar(dessert)">{{::dessert.CarId}}</a></md-cell>
-                <td md-cell>{{::dessert.Maker}}</md-cell>
-                <td md-cell>{{::dessert.Model}}</td>
-                <td md-cell>{{::dessert.Year}}</td>
-                <td md-cell>{{::dessert.Odometer| number }}&nbsp;Km</td>
-                <td md-cell>{{::dessert.SalePrice | currency}}</td>
-                <td md-cell><span class="label primary">{{::dessert.Status}}</span></td>
+              <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in inStoreList | orderBy: query.order | limitTo: query.limitForInStore: (query.pageForInStore -1) * query.limitForInStore">
+                <td md-cell><a href="" ng-click="editCar(car)" >{{::car.carId}}</a></md-cell>
+                <td md-cell>{{::car.makerName}}</md-cell>
+                <td md-cell>{{::car.model}}</td>
+                <td md-cell>{{::car.year}}</td>
+                <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
+                <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)" >{{::car.carStatus}}</span></td>
               </tr>
             </tbody>
           </table>
         </md-table-container>
-
-         <md-table-pagination  md-limit="query.limit" md-page="query.page" md-total="{{itemList.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
+        <md-table-pagination md-limit="query.limitForInStore" md-page="query.pageForInStore" md-total="{{inStoreList.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" ></md-table-pagination>
     </md-card-content>
    
   </md-card>
@@ -40,30 +39,30 @@
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
               <tr md-row>
-                <th md-column md-order-by="CarId"><span>Car ID</span></th>
-                <th md-column md-order-by="Maker"><span>Maker/Brand</span></th>
-                <th md-column md-order-by="Model" md-desc><span>Model</span></th>
-                <th md-column md-numeric md-order-by="Year"><span>Manufactory Year</span></th>
-                <th md-column md-numeric md-order-by="Odometer"><span>Odometer</span></th>
-                <th md-column md-numeric md-order-by="SalePrice"><span>Sale Price</span></th>
-                <th md-column md-order-by="Status"><span>Car Status</span></th>
+                <th md-column md-order-by="carId"><span>Car ID</span></th>
+                <th md-column md-order-by="makerName"><span>Maker/Brand</span></th>
+                <th md-column md-order-by="model" md-desc><span>Model</span></th>
+                <th md-column md-numeric md-order-by="year"><span>Manufactory Year</span></th>
+                <th md-column md-numeric md-order-by="odometer"><span>Odometer</span></th>
+                <th md-column md-numeric md-order-by="price"><span>Sale Price</span></th>
+                <th md-column md-order-by="carStatus"><span>Car Status</span></th>
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row md-select="dessert" md-on-select md-auto-select="options.autoSelect" ng-repeat="dessert in itemList | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                <td md-cell><a href="" ng-click="editCar(dessert)">{{::dessert.CarId}}</a></md-cell>
-                <td md-cell>{{::dessert.Maker}}</md-cell>
-                <td md-cell>{{::dessert.Model}}</td>
-                <td md-cell>{{::dessert.Year}}</td>
-                <td md-cell>{{::dessert.Odometer| number }}&nbsp;Km</td>
-                <td md-cell>{{::dessert.SalePrice | currency}}</td>
-                <td md-cell><span class="label primary">{{::dessert.Status}}</span></td>
+              <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in onTheWayList | orderBy: query.order | limitTo: query.limitForOnTheWay : (queryC.pageForOnTheWay -1) * queryC.limitForOnTheWay">
+                <td md-cell><a href="" ng-click="editCar(car)">{{::car.carId}}</a></md-cell>
+                <td md-cell>{{::car.makerName}}</md-cell>
+                <td md-cell>{{::car.model}}</td>
+                <td md-cell>{{::car.year}}</td>
+                <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
+                <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)" >{{::car.carStatus}}</span></td>
               </tr>
             </tbody>
           </table>
         </md-table-container>
 
-         <md-table-pagination  md-limit="query.limit" md-page="query.page" md-total="{{itemList.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
+         <md-table-pagination  md-limit="query.limitForOnTheWay" md-page="query.pageForOnTheWay" md-total="{{onTheWayList.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
     </md-card-content>
    
   </md-card>

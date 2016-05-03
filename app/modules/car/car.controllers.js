@@ -21,19 +21,8 @@ angular.module('car.controllers',[])
 
         $scope.selected = [];
   
-        $scope.options = {
-          autoSelect: true,
-          boundaryLinks: false,
-          largeEditDialog: false,
-          pageSelector: false,
-          rowSelection: false
-        };
         
-        $scope.query = {
-          order: 'carId',
-          limit: 15,
-          page: 1
-        };
+
 
         $scope.checkCarStatusColor = function(carStatus){
           switch(carStatus){
@@ -159,6 +148,19 @@ angular.module('car.controllers',[])
        $rootScope.isLoading = false;
     });
   	
+    $scope.options = {
+      autoSelect: true,
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+      rowSelection: false
+    };
+        
+    $scope.query = {
+      order: 'carId',
+      limit: 15,
+      page: 1
+    };
 	}])
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','$mdToast', '$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,$mdToast,$element) {
