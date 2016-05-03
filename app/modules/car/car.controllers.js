@@ -41,11 +41,21 @@ angular.module('car.controllers',[])
           }
         };
 
+
+        vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'})
+          .$promise.then(function(res){
+            $scope.vehicleModelList  = res;
+            $rootScope.isVehicleModelListLoaded = true;
+          },function(error){
+            //console.log("error");
+        });
+
+
         $rootScope.editCar = function(car){
           $q.all({
               importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
               vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'+car.carId}).$promise,
-              vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
+              //vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
               car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
               contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
@@ -54,7 +64,7 @@ angular.module('car.controllers',[])
                   $scope.contract      = res.contract;
                   $scope.car           = res.car;
                   $scope.vehicleModel  = res.vehicleModel;
-                  $scope.vehicleModelList  = res.vehicleModelList;
+                  //$scope.vehicleModelList  = res.vehicleModelList;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -88,6 +98,17 @@ angular.module('car.controllers',[])
             });
         };
 
+        $scope.createNewCar = function(){
+          if($rootScope.newCar){
+              $scope.car = {};
+              $scope.vehicleModel = {};
+              $scope.importRecord = {};
+              $scope.maintenanceRecord = {};
+              $scope.contract = {};
+              //$scope.fetchVehicleModelList();
+          }
+        };
+
         $scope.selectedItemChange = function(selectVehicle) { 
           if(selectVehicle !== null){       
             $scope.vehicleModel = selectVehicle;    
@@ -104,6 +125,11 @@ angular.module('car.controllers',[])
           // xtmotorsCRUDService.cancelEdit($scope);
           $state.go('car');
         };
+
+        if($rootScope.newCar){
+          $scope.createNewCar();
+        }
+
         $scope.saveCar= function(car,vehicleModel,importRecord,contract,importSummary){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
