@@ -42,13 +42,12 @@ angular.module('customer.controllers',[])
           	   return wofTime;
         	} 
 
-		    $scope.createItem = function(){
-           		if(!$scope.customer){
+		    $scope.createNewCustomer = function(){
+           		if($rootScope.newCustomer){
                 	$scope.customer = {};
             	}
 	        };
 		   	$scope.editCustomer = function(customer){
-
 				$scope.customer = customer;
 				$state.go('customer.details',{customerId:customer.customerId});
 				$scope.customer.dob = changeDateFormat(customer.dob);
@@ -133,7 +132,11 @@ angular.module('customer.controllers',[])
 					}
 				});
  
-			});		
+			});	
+
+			if($rootScope.newCustomer){
+				$scope.createNewCustomer();
+			}	
 		
 	}])
 	.controller('CustomerDetailsCtrl', ['$rootScope','$scope', function ($rootScope,$scope) {
