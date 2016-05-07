@@ -52,6 +52,14 @@
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
             </div>
           </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Salary</label>
+            <input required ng-model="employee.salary">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
         </div>
       </md-card-content>
     </md-card>
