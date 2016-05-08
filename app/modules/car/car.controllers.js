@@ -130,14 +130,14 @@ angular.module('car.controllers',[])
           $scope.createNewCar();
         }
 
-        $scope.saveCar= function(car,vehicleModel,importRecord,contract,importSummary){
+        $scope.saveCar= function(car,vehicleModel,importRecord,importSummary){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           $q.all({
               car: xtmotorsAPIService.update({section:'car/'+car.carId}, car).$promise,
               vehicleModel: xtmotorsAPIService.update({ section:'VehicleModel/' +vehicleModel.vehicleModelId},vehicleModel).$promise,
               importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+importRecord.carId}, importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
+              //contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
               // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
               importSummary: xtmotorsAPIService.update({ section:'Import/'+ importSummary.batchId}, importSummary).$promise
           })
