@@ -1,0 +1,16 @@
+{
+	"tab_import_summary":"Import Summary",
+	"summary_import_transportationExpense":"Transportation Expense",
+	"summary_import_transportCompany":"Transport Company",
+	"summary_import_eta":"ETA",
+	"summary_import_createTime":"Create Time",
+	"summary_import_totalDue":"Total Due",
+	"summary_import_quantity":"Quantity",
+	"summary_import_amount":"Amount",
+	"summary_import_gst":"GST",
+	"summary_import_total":"Total",
+	"summary_import_paymentStatus":"Payment Status",
+	"summary_import_currency":"Currency",
+	"summary_import_checkLocation":"Check Location",
+	"summary_import_description":"Description"
+}
