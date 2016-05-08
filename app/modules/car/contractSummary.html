@@ -2,7 +2,6 @@
  --><md-tab label="Sale Info">
   <md-content class="md-padding">
   <form name="saleInfo">
-
       <div class="checkBox">
         Has vehicle been sold? &nbsp;
         <md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
@@ -77,4 +76,11 @@
     </md-card>
   </form>  
   </md-content>
+  <div layout="row" layout-align="center center">
+    <md-button flex="25" class="md-raised" ng-click="backToCar()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-disabled="!saleInfo.$valid" ng-click="saveContract(contract)">Save</md-button> 
+    <div ng-messages="saleInfo.$error" class="errorMessage">
+        <div ng-message="required">Please fill the required fileds in Sales Info Tab.</div>
+    </div>
+  </div>
 </md-tab>

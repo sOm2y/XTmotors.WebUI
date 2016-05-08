@@ -20,9 +20,6 @@ angular.module('car.controllers',[])
         $translate.refresh();
 
         $scope.selected = [];
-  
-        
-
 
         $scope.checkCarStatusColor = function(carStatus){
           switch(carStatus){
@@ -130,14 +127,14 @@ angular.module('car.controllers',[])
           $scope.createNewCar();
         }
 
-        $scope.saveCar= function(car,vehicleModel,importRecord,contract,importSummary){
+        $scope.saveCar= function(car,vehicleModel,importRecord,importSummary){
           // var formValid = xtmotorsAPIService.validateForm($scope);
           // if(formValid){
           $q.all({
               car: xtmotorsAPIService.update({section:'car/'+car.carId}, car).$promise,
               vehicleModel: xtmotorsAPIService.update({ section:'VehicleModel/' +vehicleModel.vehicleModelId},vehicleModel).$promise,
               importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+importRecord.carId}, importRecord).$promise,
-              contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
+              //contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
               // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
               importSummary: xtmotorsAPIService.update({ section:'Import/'+ importSummary.batchId}, importSummary).$promise
           })
@@ -173,7 +170,44 @@ angular.module('car.controllers',[])
 
        $rootScope.isLoading = false;
     });
+
+    function updateContract(contract){
+      xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract)
+        .$promise.then(function(res){
+          $mdToast.show({
+              template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New contract has been saved'  + '</span></md-toast>',
+              position: 'top right',
+              hideDelay: 5000,
+              parent: $element
+          });
+        },function(error){
+          $mdToast.show({
+              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+              position: 'top right',
+              hideDelay: 5000,
+              parent: $element
+          });
+        }).finally(function(){
+            
+        });
+    }
   	
+    $scope.saveContract= function(contract){
+      if(contract.paymentStatus){
+        updateContract(contract);
+      }else{
+        //Wait for ID
+        
+        //console.log("empty");
+        // contract.carId = "";
+        // contract.customerId = "";
+        // contract.employeeId = "";
+        // contract.contractNum = "";
+        // contract.currency = "";
+        // updateContract(contract);
+      }
+    }
+
     $scope.options = {
       autoSelect: true,
       boundaryLinks: false,
