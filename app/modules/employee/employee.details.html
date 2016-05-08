@@ -6,7 +6,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>Employee Id</label>
-            <input required ng-model="employee.employeeId">
+            <input required ng-model="employee.employeeId" ng-disabled="!newEmployee">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
@@ -47,6 +47,14 @@
            <md-input-container flex="50" class="md-block">
             <label>EmailAddress</label>
             <input required ng-model="employee.emailAddress">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Salary</label>
+            <input required ng-model="employee.salary">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">This is required.</div>
               <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>

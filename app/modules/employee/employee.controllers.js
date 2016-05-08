@@ -10,6 +10,7 @@
 angular.module('employee.controllers',[])
 	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
 		$rootScope.isLoading = true;
+
 		xtmotorsCRUDService.get('Employee',$scope);
 
 		var isLoaded = false;
@@ -40,7 +41,6 @@ angular.module('employee.controllers',[])
         				break;
 				}
 			});
- 
 		});
 		
 		$scope.employeePagination = function(){
@@ -65,12 +65,12 @@ angular.module('employee.controllers',[])
 			    isLoaded = true;
 			}
 		};
-	    $scope.createItem = function(){
-            if(!$scope.item){
-                $scope.newItem = true;
-                $scope.item = {};
+
+
+	    $scope.createNewEmployee = function(){	 	    	  	
+	    	if($rootScope.newEmployee){
+                $scope.employee = {};
             }
-            
         };
 	   	$scope.editEmployee = function(employee){
 			$scope.employee = employee;
@@ -80,6 +80,10 @@ angular.module('employee.controllers',[])
 			// xtmotorsCRUDService.cancelEdit($scope);
 			$state.go('employee');
 		};
+
+		if($rootScope.newEmployee){
+			$scope.createNewEmployee();
+		}
 
 		$scope.saveEmployee= function(employee){
 	        //TODO: Check whether is creating a new employee object or updateing an exist employee object
