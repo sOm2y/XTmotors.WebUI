@@ -17,6 +17,13 @@ angular.module('car.controllers',[])
         $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
 
         $translatePartialLoader.addPart('car');
+        $translatePartialLoader.addPart('carDetails');
+        $translatePartialLoader.addPart('contractSummary');
+        $translatePartialLoader.addPart('importSummary');
+        $translatePartialLoader.addPart('vehicleSummary');
+        $translatePartialLoader.addPart('maintenanceRecordDetails');
+        $translatePartialLoader.addPart('maintenanceRecordList');
+        $translatePartialLoader.addPart('errorMessage');
         $translate.refresh();
 
         $scope.selected = [];

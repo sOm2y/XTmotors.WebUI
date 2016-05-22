@@ -1,18 +1,18 @@
 <div layout="column" flex-gt-sm="80" flex-gt-md="70">
   <md-card flex="80">
-    <md-subheader class="md-primary">In Store</md-subheader>
+    <md-subheader class="md-primary">{{"inStore" | translate}}</md-subheader>
     <md-card-content>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
               <tr md-row>
-                <th md-column md-order-by="carId"><span>Car ID</span></th>
-                <th md-column md-order-by="makerName"><span>Maker/Brand</span></th>
-                <th md-column md-order-by="model" md-desc><span>Model</span></th>
-                <th md-column md-numeric md-order-by="year"><span>Manufactory Year</span></th>
-                <th md-column md-numeric md-order-by="odometer"><span>Odometer</span></th>
-                <th md-column md-numeric md-order-by="price"><span>Sale Price</span></th>
-                <th md-column md-order-by="carStatus"><span>Car Status</span></th>
+                <th md-column md-order-by="carId"><span>{{"id" | translate}}</span></th>
+                <th md-column md-order-by="makerName"><span>{{"brand" | translate}}</span></th>
+                <th md-column md-order-by="model" md-desc><span>{{"model" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="year"><span>{{"year" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="odometer"><span>{{"odometer" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="price"><span>{{"salePrice" | translate}}</span></th>
+                <th md-column md-order-by="carStatus"><span>{{"status" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>
@@ -33,19 +33,19 @@
    
   </md-card>
   <md-card flex="80">
-    <md-subheader class="md-primary">On the way</md-subheader>
+    <md-subheader class="md-primary">{{"onTheWay" | translate}}</md-subheader>
     <md-card-content>
       <md-table-container>
         <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
               <tr md-row>
-                <th md-column md-order-by="carId"><span>Car ID</span></th>
-                <th md-column md-order-by="makerName"><span>Maker/Brand</span></th>
-                <th md-column md-order-by="model" md-desc><span>Model</span></th>
-                <th md-column md-numeric md-order-by="year"><span>Manufactory Year</span></th>
-                <th md-column md-numeric md-order-by="odometer"><span>Odometer</span></th>
-                <th md-column md-numeric md-order-by="price"><span>Sale Price</span></th>
-                <th md-column md-order-by="carStatus"><span>Car Status</span></th>
+                <th md-column md-order-by="carId"><span>{{"id" | translate}}</span></th>
+                <th md-column md-order-by="makerName"><span>{{"brand" | translate}}</span></th>
+                <th md-column md-order-by="model" md-desc><span>{{"model" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="year"><span>{{"year" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="odometer"><span>{{"odometer" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="price"><span>{{"salePrice" | translate}}</span></th>
+                <th md-column md-order-by="carStatus"><span>{{"status" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>

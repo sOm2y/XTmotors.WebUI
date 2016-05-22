@@ -8,10 +8,13 @@
  * customer controller of the application.
  */
 angular.module('customer.controllers',[])
-	.controller('CustomerCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$state','xtmotorsCRUDService','$mdToast','$element', function ($rootScope,$scope,xtmotorsAPIService,$q,$state,xtmotorsCRUDService,$mdToast,$element) {
+	.controller('CustomerCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q','$state','xtmotorsCRUDService','$mdToast','$element', function ($rootScope,$scope,$translate, $translatePartialLoader,xtmotorsAPIService,$q,$state,xtmotorsCRUDService,$mdToast,$element) {
 			$rootScope.isLoading = true;
 			xtmotorsAPIService.query({section:'Customer'})
 			.$promise.then(function(customers){
+				$translatePartialLoader.addPart('customerDetails');
+				$translatePartialLoader.addPart('errorMessage');
+        		$translate.refresh();
 				$rootScope.customers = customers;
 
 				$scope.totalCustomers = $scope.customers.length;
