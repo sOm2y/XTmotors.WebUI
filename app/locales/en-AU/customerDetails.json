@@ -1,0 +1,19 @@
+{
+	"tab_customer_details_info":"Customer Details Information",
+	"tab_customer_details_customerId":"Customer ID",
+	"tab_customer_details_title":"Title",
+	"tab_customer_details_firstName":"First Name",
+	"tab_customer_details_lastName":"Last Name",
+	"tab_customer_details_mobile":"Mobile",
+	"tab_customer_details_emailAddress":"Email Address",
+	"tab_customer_details_occupation":"Occupation",
+	"tab_customer_details_driverLicense":"Driver License",
+	"tab_customer_details_dob":"DOB",
+	"tab_address_info":"Address Information",
+	"tab_address_street":"Street",
+	"tab_address_city":"City",
+	"tab_address_state":"State",
+	"tab_address_country":"Country",
+	"customer_details_cancel":"Cancel",
+	"customer_details_save":"Save"
+}

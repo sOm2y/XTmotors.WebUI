@@ -8,11 +8,13 @@
  * employee controller of the application.
  */
 angular.module('employee.controllers',[])
-	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
+	.controller('EmployeeCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope,$translate,$translatePartialLoader,xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
 		$rootScope.isLoading = true;
 
 		xtmotorsCRUDService.get('Employee',$scope);
-
+$translatePartialLoader.addPart('employeeDetails');
+				$translatePartialLoader.addPart('errorMessage');
+        		$translate.refresh();
 		var isLoaded = false;
 
 		$scope.$on('g-places-autocomplete:select', function (event, param) {

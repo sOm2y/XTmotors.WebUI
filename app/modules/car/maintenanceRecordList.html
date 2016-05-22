@@ -1,7 +1,7 @@
-<md-tab label="Maintenance Record">
+<md-tab label="{{'tab_maintenance_record' | translate}}">
   <md-content class="md-padding">
    <div layout="row" layout-align="center" ng-if="!showMaintenanceReordDetails">
-    <md-button flex="25" class="md-raised md-primary" ng-click="addMaintenanceRecord()">Add Maintenance Record</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="addMaintenanceRecord()">{{"maintenance_record_addMaintenanceRecord" | translate}}</md-button>
     </div>
     <div layout="column" ng-if="!showMaintenanceReordDetails">
       <!-- <div layout="row"> -->
@@ -15,7 +15,7 @@
                   <p flex>{{::record.total | currency}}</p>
                   
                 </div>
-              <md-button class="md-secondary" ng-click="editMaintenanceReord(record)">Edit</md-button>  
+              <md-button class="md-secondary" ng-click="editMaintenanceReord(record)">{{"maintenance_record_editMaintenanceRecord" | translate}}</md-button>  
             </md-list-item>
           </md-card-content>
       </md-card>

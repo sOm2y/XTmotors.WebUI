@@ -1,0 +1,15 @@
+{
+	"tab_sale_info":"Sale Info",
+	"carSaleQuestion":"Has vehicle been sold",
+	"contract_summary_contractNum":"Contract Number",
+	"contract_summary_contractDate":"Contract Date",
+	"contract_summary_deposite":"Deposite",
+	"contract_summary_balance":"Balance",
+	"contract_summary_price":"Price",
+	"contract_summary_gst":"GST",
+	"contract_summary_total":"Total",
+	"contract_summary_currency":"Currency",
+	"contract_summary_description":"Description",
+	"contract_summary_save":"Save",
+	"contract_summary_cancel":"Cancel"
+}

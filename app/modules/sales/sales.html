@@ -1,0 +1,22 @@
+<div class="" ui-view="sales-details-view">
+  <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="contract in contracts">
+      <md-card-content>
+
+        <md-list-item>
+          <p>Contract ID : {{ contract.contractNum }} </p>
+          <md-checkbox class="md-secondary" ng-model="contract.paymentStatus"></md-checkbox>
+        </md-list-item>
+      </md-card-content>
+  </md-card>
+   <div layout="row" layout-align="center">
+      <pagination
+        ng-change="pageChanged()"
+        total-items="totalCustomers" 
+        items-per-page="customersPerPage" 
+        ng-model="pagination.currentPage" 
+        max-size="totalPages" 
+        class="pagination-sm" 
+        boundary-links="true">
+      </pagination>   
+    </div>
+</div>
