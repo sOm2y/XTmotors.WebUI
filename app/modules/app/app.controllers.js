@@ -61,6 +61,7 @@ angular.module('app.controllers',[])
           $state.go('car.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
           $rootScope.newCar = true;
+          $rootScope.isVehicleModelListLoaded = false;
           break;
       }
     };

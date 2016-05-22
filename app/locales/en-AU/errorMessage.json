@@ -1,0 +1,11 @@
+{
+	"featureRequiredFieldErrorMessage":"Please fill the required fileds in Feature Tab",
+	"vehicleInfoRequiredFieldErrorMessage":"Please fill the required fileds in Vehicle Info Tab",
+	"importInfoRequiredFieldErrorMessage":"Please fill the required fileds in Import Info Tab",
+	"saleInfoRequiredFieldErrorMessage":"Please fill the required fileds in Sale Info Tab",
+	
+	"requiredFieldError":"This field is required",
+	"maxLength100Error":"The name has to be less than 100 characters long",
+	"maxLength30Error":"The name has to be less than 30 characters long",
+	"requiredFieldValidationErrorMessage":"Please fill the required fileds"
+}

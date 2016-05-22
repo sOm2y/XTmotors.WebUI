@@ -1,145 +1,142 @@
-      <md-tab label="Vehicle Summary">
-        <!-- <md-content class="md-padding"> -->
+      <md-tab label="{{'tab_vehicle_summary' | translate}}">
           <div layout="column">
           <div layout="row">
             <md-card flex="50">
-              <md-subheader class="md-primary">Features</md-subheader>
+              <md-subheader class="md-primary">{{"summary_feature_title" | translate}}</md-subheader>
               <md-card-content>
                 <form layout="row" layout-wrap name="carSummary">
                   <md-input-container flex="50" class="md-block">
-                    <label>CarId</label>
+                    <label>{{"summary_feature_carId" | translate}}</label>
                     <input required name="carId" ng-model="car.carId">
                     <div ng-messages="carSummary.carId.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-
                   <md-input-container flex="50" class="md-block">
-                    <label>WofTime</label>
+                    <label>{{"summary_feature_wofTime" | translate}}</label>
                     <input time="false" date="true" mdc-datetime-picker="" type="text" id="wofTime" placeholder="Date" ng-model="car.wofTime" class=" md-input">
                   </md-input-container>
 
                   <md-input-container flex="50" class="md-block">
-                    <label>RegisterationNum</label>
+                    <label>{{"summary_feature_registerationNum" | translate}}</label>
                     <input name="registerationNum" required ng-model="car.registerationNum">
                     <div ng-messages="carSummary.registerationNum.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Warranty</label>
+                    <label>{{"summary_feature_warranty" | translate}}</label>
                     <input name="warranty" ng-model="car.warranty">
                     <div ng-messages="carSummary.warranty.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Odometer</label>
+                    <label>{{"summary_feature_odometer" | translate}}</label>
                     <input name="odometer" required ng-model="car.odometer">
                     <div ng-messages="carSummary.odometer.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Color</label>
+                    <label>{{"summary_feature_color" | translate}}</label>
                     <input name="color" required ng-model="car.color">
                     <div ng-messages="carSummary.color.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Vin</label>
+                    <label>{{"summary_feature_vin" | translate}}</label>
                     <input name="vin" required ng-model="car.vin">
                     <div ng-messages="carSummary.vin.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Length</label>
+                    <label>{{"summary_feature_length" | translate}}</label>
                     <input name="length" required ng-model="car.length">
                     <div ng-messages="carSummary.length.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Width</label>
+                    <label>{{"summary_feature_width" | translate}}</label>
                     <input name="width" required ng-model="car.width">
                     <div ng-messages="carSummary.width.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Height</label>
+                    <label>{{"summary_feature_height" | translate}}</label>
                     <input name="height" required ng-model="car.height">
                     <div ng-messages="carSummary.height.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>CarStatus</label>
+                    <label>{{"summary_feature_carStatus" | translate}}</label>
                     <input name="carStatus" required ng-model="car.carStatus">
                     <div ng-messages="carSummary.carStatus.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>CarComment</label>
+                    <label>{{"summary_feature_carComment" | translate}}</label>
                     <input name="carComment" required ng-model="car.carComment">
                     <div ng-messages="carSummary.carComment.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Price</label>
+                    <label>{{"summary_feature_price" | translate}}</label>
                     <input name="price" required ng-model="car.price">
                     <div ng-messages="carSummary.price.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>GST</label>
+                    <label>{{"summary_feature_gst" | translate}}</label>
                     <input name="gst" required ng-model="car.gst">
                     <div ng-messages="carSummary.gst.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Total</label>
+                    <label>{{"summary_feature_total" | translate}}</label>
                     <input name="total" required ng-model="car.total">
                     <div ng-messages="carSummary.total.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>PaymentStatus</label>
+                    <label>{{"summary_feature_paymentStatus" | translate}}</label>
                     <input name="paymentStatus" required ng-model="car.paymentStatus">
                     <div ng-messages="carSummary.paymentStatus.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>Currency</label>
+                    <label>{{"summary_feature_currency" | translate}}</label>
                     <input name="currency" required ng-model="car.currency">
                     <div ng-messages="carSummary.currency.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Description</label>
+                    <label>{{"summary_feature_description" | translate}}</label>
                     <input name="carDescription" required ng-model="car.description">
                     <div ng-messages="carSummary.carDescription.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                 </form>
               </md-card-content>
             </md-card>
-
             <md-card flex="50">
-              <md-subheader class="md-primary">Vehicle Info</md-subheader>
+              <md-subheader class="md-primary">{{"summary_vehicleInfo_title" | translate}}</md-subheader>
               <md-card-content>           
               <form layout="row" layout-wrap name="vehicleInfo">
-                  <div flex="100" class="searchBar">
+                  <div flex="100" class="searchBar" ng-if="isVehicleModelListLoaded">
                     <md-autocomplete
                       md-selected-item="selectVehicle"
                       md-search-text="modelSearchText"
@@ -148,7 +145,7 @@
                       md-item-text="item.makerName+' '+item.model+' '+item.year"
                       md-min-length="0"
                       md-max-length="10"
-                      placeholder="Please enter your Vehicle Maker or Model to Search" 
+                      placeholder="{{'summary_vehicleInfo_searchText' | translate }}" 
                       style="color:#333;">
                       <md-item-template>
                         <span md-highlight-text="modelSearchText">{{item.makerName+' '+item.model+' '+item.year}}
@@ -158,98 +155,98 @@
                   </div>
 
                   <md-input-container flex="50" class="md-block">
-                    <label>MakerName</label>
+                    <label>{{"summary_vehicleInfo_makerName" | translate}}</label>
                     <input name="makerName" required ng-model="vehicleModel.makerName">
                     <div ng-messages="vehicleInfo.makerName.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Model</label>
+                    <label>{{"summary_vehicleInfo_model" | translate}}</label>
                     <input name="model" required ng-model="vehicleModel.model">
                     <div ng-messages="vehicleInfo.description.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Year</label>
+                    <label>{{"summary_vehicleInfo_year" | translate}}</label>
                     <input name="year" required ng-model="vehicleModel.year">
                     <div ng-messages="vehicleInfo.year.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Engine</label>
+                    <label>{{"summary_vehicleInfo_engine" | translate}}</label>
                     <input name="engine" required ng-model="vehicleModel.engine">
                     <div ng-messages="vehicleInfo.engine.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> 
                   <md-input-container flex="50" class="md-block">
-                    <label>Fuel</label>
+                    <label>{{"summary_vehicleInfo_fuel" | translate}}</label>
                     <input name="fuel" required ng-model="vehicleModel.fuel">
                     <div ng-messages="vehicleInfo.fuel.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>FuelEconomyCity</label>
+                    <label>{{"summary_vehicleInfo_fuelEconomyCity" | translate}}</label>
                     <input name="fuelEconomyCity" required ng-model="vehicleModel.fuelEconomyCity">
                     <div ng-messages="vehicleInfo.fuelEconomyCity.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>FuelEconomyHwy</label>
+                    <label>{{"summary_vehicleInfo_fuelEconomyHwy" | translate}}</label>
                     <input name="fuelEconomyHwy" required ng-model="vehicleModel.fuelEconomyHwy">
                     <div ng-messages="vehicleInfo.fuelEconomyHwy.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
-                    <label>FuelEconomyMixed</label>
+                    <label>{{"summary_vehicleInfo_fuelEconomyMixed" | translate}}</label>
                     <input name="fuelEconomyMixed" required ng-model="vehicleModel.fuelEconomyMixed">
                     <div ng-messages="vehicleInfo.fuelEconomyMixed.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Origin</label>
+                    <label>{{"summary_vehicleInfo_origin" | translate}}</label>
                     <input name="origin" required ng-model="vehicleModel.origin">
                     <div ng-messages="vehicleInfo.origin.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Transmission</label>
+                    <label>{{"summary_vehicleInfo_transmission" | translate}}</label>
                     <input name="transmission" required ng-model="vehicleModel.transmission">
                     <div ng-messages="vehicleInfo.transmission.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Seats</label>
+                    <label>{{"summary_vehicleInfo_seats" | translate}}</label>
                     <input name="seats" required ng-model="vehicleModel.seats">
                     <div ng-messages="vehicleInfo.seats.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Doors</label>
+                    <label>{{"summary_vehicleInfo_doors" | translate}}</label>
                     <input name="doors" required ng-model="vehicleModel.doors">
                     <div ng-messages="vehicleInfo.doors.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>Weight</label>
+                    <label>{{"summary_vehicleInfo_weight" | translate}}</label>
                     <input name="weight" required ng-model="vehicleModel.weight">
                     <div ng-messages="vehicleInfo.weight.$error">
-                      <div ng-message="required">This is required.</div>
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>DriveTrain</label>
+                    <label>{{"summary_vehicleInfo_driveTrain" | translate}}</label>
                     <input name="driveTrain" ng-model="vehicleModel.driveTrain">
                   </md-input-container>
                 </form>
@@ -257,5 +254,4 @@
             </md-card>
             </div>
           </div>
-        <!-- </md-content> -->
       </md-tab>
