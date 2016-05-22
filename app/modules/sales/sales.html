@@ -1,0 +1,25 @@
+<div class="" ui-view="sales-details-view">
+  <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="contract in contracts">
+      <md-card-content>
+        <md-list-item class="md-3-line" >
+          <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+          <div class="md-list-item-text" layout="column">
+            <h3 ng-click="editCustomer(customer)">{{::contract.contractNum}}&nbsp;{{::contract.total}}</h3>
+            <h4>{{::contract.description}}</h4>
+            <p>{{::contract.contractDate}}</p>
+          </div>
+        </md-list-item>
+      </md-card-content>
+  </md-card>
+   <div layout="row" layout-align="center">
+      <pagination
+        ng-change="pageChanged()"
+        total-items="totalCustomers" 
+        items-per-page="customersPerPage" 
+        ng-model="pagination.currentPage" 
+        max-size="totalPages" 
+        class="pagination-sm" 
+        boundary-links="true">
+      </pagination>   
+    </div>
+</div>

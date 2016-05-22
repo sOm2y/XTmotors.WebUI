@@ -1,0 +1,128 @@
+<div layout="column">
+  <div layout="row">
+    <md-card flex="50">
+    <md-subheader class="md-primary">Customer Details Information</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>Customer Id</label>
+            <input required ng-model="customer.customerId" ng-disabled="!newCustomer">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Title</label>
+            <input required ng-model="customer.title">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>FirstName</label>
+            <input required ng-model="customer.firstName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>LastName</label>
+            <input required ng-model="customer.lastName">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>Mobile</label>
+            <input required ng-model="customer.mobile">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+           <md-input-container flex="50" class="md-block">
+            <label>EmailAddress</label>
+            <input required ng-model="customer.emailAddress">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+    
+    <md-card flex="50">
+    <md-subheader class="md-primary"></md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>Occupation</label>
+            <input required ng-model="customer.occupation">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>DriveLicense</label>
+            <input required ng-model="customer.driveLicense">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container> 
+
+          <md-input-container flex="50" class="md-block">
+            <label>DOB</label>
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.dob" class=" md-input">
+          </md-input-container>
+
+          <md-input-container flex="50" class="md-block">
+            <label>DriveLicense</label>
+            <input required ng-model="customer.driveLicense">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+         
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <md-card flex="100">
+    <md-subheader class="md-primary">Address Information</md-subheader>
+      <md-card-content layout="row" layout-wrap>
+        <md-input-container flex="50" class="md-block">
+          <label>Street</label>
+          <input type="text" g-places-autocomplete ng-model="customer.street" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>City</label>
+          <input type="text" ng-model="customer.city" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>State</label>
+          <input type="text" ng-model="customer.state" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Country</label>
+          <input type="text" ng-model="customer.country" />
+        </md-input-container>
+        
+      </md-card-content>
+  </md-card>
+
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised" ng-click="backToCustomer()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)">Save</md-button>
+  </div>
+ 
+</div>
+
