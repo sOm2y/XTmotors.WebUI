@@ -41,7 +41,8 @@ angular
     'customer',
     'employee',
     'settlement',
-    'storage'
+    'storage',
+    'sales'
   ])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
         $urlRouterProvider.otherwise(function($injector) {
