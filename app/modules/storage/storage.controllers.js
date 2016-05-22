@@ -23,7 +23,7 @@ angular.module('storage.controllers',[])
 				$scope.selected = [];
 				
 				angular.forEach(itemList, function(item,key){
-					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold'){
+					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold' || item.carStatus == 'Reserved'){
 						$scope.inStore.push(item);
 					}else {
 						$scope.onTheWay.push(item);
