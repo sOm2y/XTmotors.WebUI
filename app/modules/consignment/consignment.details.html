@@ -1,0 +1,113 @@
+<div layout="column">
+  <div layout="row">
+    <md-card flex="50">
+    <md-subheader class="md-primary">Transportation Details</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>batchId</label>
+            <input required ng-model="import.batchId" ng-disabled="!newCustomer">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>transportationExpense</label>
+            <input required ng-model="import.transportationExpense">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>transportCompany</label>
+            <input required ng-model="import.transportCompany">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>eta</label>
+              <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.createTime" class=" md-input">
+          </md-input-container> 
+        </div>
+      </md-card-content>
+    </md-card>
+    
+    <md-card flex="50">
+    <md-subheader class="md-primary"> &nbsp;</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>checkLocation</label>
+            <input required ng-model="import.checkLocation">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>totalDue</label>
+            <input required ng-model="import.totalDue">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container> 
+          <md-input-container flex="50" class="md-block">
+            <label>createTime</label>
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.createTime" class=" md-input">
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+ 
+  <div>
+    <div layout="row">
+     
+      <span flex-gt-sm="90" flex-gt-md="70">
+        <md-autocomplete
+          md-selected-item="selectedCar"
+          md-search-text="carSearchText"
+          md-items="item in cars | filter:carSearchText"
+          md-item-text="item.vin"
+          md-min-length="0"
+          md-max-length="10"
+          placeholder="Enter Vin Number to Search Cars" style="color:#333;">
+          <md-item-template>
+            <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+',   Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
+          </md-item-template>
+          <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+            <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
+            <div ng-message="minlength">Your entry is not long enough.</div>
+            <div ng-message="maxlength">Your entry is too long.</div>
+          </div>
+        </md-autocomplete>
+      </span>
+       <span lex-gt-sm="10" flex-gt-md="30">
+         <md-button class="md-raised md-primary" ng-click="saveCustomer(customer)">Add</md-button>
+       </span>
+    </div>
+    <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="importRecord in importRecords">
+      <md-card-content>
+        <md-list-item class="md-3-line" >
+          <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+          <div class="md-list-item-text" layout="column">
+            <h3 ng-click="editImportRecord(importRecord)">{{::importRecord.firstName}}&nbsp;{{::importRecord.lastName}}</h3>
+            <h4>{{::importRecord.emailAddress}}</h4>
+            <p>{{::importRecord.mobile}}</p>
+          </div>
+        </md-list-item>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised" ng-click="backToConsignment()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)">Save</md-button>
+  </div>
+ 
+</div>
+
