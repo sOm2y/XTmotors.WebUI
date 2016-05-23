@@ -5,6 +5,29 @@
       <import-summary></import-summary>
       <maintenance-record-list></maintenance-record-list>
       <contract-summary></contract-summary>
+      <md-tab label="Upload car photos">
+        <md-content class="md-padding">
+        <!-- Upload your car photos -->
+          <h4>Upload Car Photos</h4>
+
+          <button ngf-select="uploadFiles($files)" ngf-multiple="true">Select Files</button>
+          <br>
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-if="uploading">
+            <md-progress-circular md-mode="determinate" value="{{progress}}"></md-progress-circular>
+            <span class="progress" ng-show="progress >= 0">
+              <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+            </span>
+          </div>
+          <br>Files:
+          <ul>
+              <li ng-repeat="f in files" style="font:smaller">
+                  {{f.name}}
+                  <img ngf-thumbnail="f || '/thumb.jpg'" width="300">
+              </li>
+          </ul>
+        </md-content>
+      </md-tab>
+      
     </md-tabs>
   <!-- </md-content> -->
   </div>
