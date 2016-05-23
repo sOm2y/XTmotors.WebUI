@@ -8,10 +8,13 @@
  * employee controller of the application.
  */
 angular.module('employee.controllers',[])
-	.controller('EmployeeCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope, xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
+	.controller('EmployeeCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','xtmotorsAPIService','xtmotorsCRUDService','$q','$state','$mdToast','$element', function ($rootScope,$scope,$translate,$translatePartialLoader,xtmotorsAPIService, xtmotorsCRUDService, $q ,$state, $mdToast,$element) {
 		$rootScope.isLoading = true;
-		xtmotorsCRUDService.get('Employee',$scope);
 
+		xtmotorsCRUDService.get('Employee',$scope);
+$translatePartialLoader.addPart('employeeDetails');
+				$translatePartialLoader.addPart('errorMessage');
+        		$translate.refresh();
 		var isLoaded = false;
 
 		$scope.$on('g-places-autocomplete:select', function (event, param) {
@@ -40,7 +43,6 @@ angular.module('employee.controllers',[])
         				break;
 				}
 			});
- 
 		});
 		
 		$scope.employeePagination = function(){
@@ -65,12 +67,12 @@ angular.module('employee.controllers',[])
 			    isLoaded = true;
 			}
 		};
-	    $scope.createItem = function(){
-            if(!$scope.item){
-                $scope.newItem = true;
-                $scope.item = {};
+
+
+	    $scope.createNewEmployee = function(){	 	    	  	
+	    	if($rootScope.newEmployee){
+                $scope.employee = {};
             }
-            
         };
 	   	$scope.editEmployee = function(employee){
 			$scope.employee = employee;
@@ -81,10 +83,14 @@ angular.module('employee.controllers',[])
 			$state.go('employee');
 		};
 
+		if($rootScope.newEmployee){
+			$scope.createNewEmployee();
+		}
+
 		$scope.saveEmployee= function(employee){
 	        //TODO: Check whether is creating a new employee object or updateing an exist employee object
             if($rootScope.newEmployee){
-            	xtmotorsAPIService.save({section:'Employee/'+employee.employeeId},employee)
+            	xtmotorsAPIService.save({section:'Employee/'},employee)
 	            .$promise.then(function(res){
 		            console.log(res);
 		            $mdToast.show({

@@ -29,6 +29,8 @@ angular
     'angularMoment',
     'ngMessages',
     'ngMaterialDatePicker',
+    'azureBlobUpload',
+    'ngFileUpload',
 
     //XTmotors app
     'app.controllers',
@@ -41,7 +43,8 @@ angular
     'customer',
     'employee',
     'settlement',
-    'storage'
+    'storage',
+    'sales'
   ])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
         $urlRouterProvider.otherwise(function($injector) {
@@ -65,7 +68,7 @@ angular
                     requireLogin: true
                 }
             })
-            .state('userProfile', {
+            .state('profile', {
                 url: "/profile",
                 templateUrl: "modules/app/userProfile.html",
                 controller: 'ProfileCtrl',

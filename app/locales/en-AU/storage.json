@@ -1,9 +1,11 @@
 {
-	"id":"ID",
+	"id":"Car ID",
 	"brand":"Brand",
 	"model":"Model",
 	"year":"Year",
 	"odometer":"Odometer",
 	"salePrice":"Sale Price",
-	"status":"Vehicle Status"
+	"status":"Vehicle Status",
+	"inStore":"TEST",
+	"onTheWay":"On The Way"
 }

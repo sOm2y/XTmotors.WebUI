@@ -33,9 +33,9 @@ angular.module('app.controllers',[])
         }
     });
     $scope.$watch('selectedCar', function(newVal){
-            if(newVal){
-                $rootScope.editCar(newVal);
-            }
+      if(newVal){
+          $rootScope.editCar(newVal);
+      }
     });
 
     $rootScope.fabDirections = ['up', 'down', 'left', 'right'];
@@ -55,10 +55,13 @@ angular.module('app.controllers',[])
         case 'employee':
           $state.go('employee.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
+          $rootScope.newEmployee = true;
           break;
         case 'car':
           $state.go('car.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
+          $rootScope.newCar = true;
+          $rootScope.isVehicleModelListLoaded = false;
           break;
       }
     };
@@ -90,7 +93,7 @@ angular.module('app.controllers',[])
 
     $rootScope.openProfile = function(){
       // alert("a");
-      $state.go('userProfile',{}, {reload: true});
+      $state.go('profile',{}, {reload: true});
       // $rootScope.buttonDisable = true;
     };
 

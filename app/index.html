@@ -65,17 +65,21 @@
       <md-fab-speed-dial class="md-fab md-fab-bottom-right" md-direction="{{fabDirection}}" md-open="fabStatus" ng-class="fabAnimation"  ng-disabled="buttonDisable">
           <md-fab-trigger>
               <md-button aria-label="share this post" class="md-fab">
+                <md-tooltip md-direction="left"> Add </md-tooltip>
                   <ng-md-icon icon="add"></ng-md-icon>
               </md-button>
           </md-fab-trigger>
           <md-fab-actions>
               <md-button aria-label="employee" class="md-fab md-raised md-mini" ng-click="createSeletedObject('employee');createItem()">
+                  <md-tooltip md-direction="left"> Add new employee </md-tooltip>
                   <ng-md-icon icon="perm_contact_cal"></ng-md-icon>
               </md-button>
               <md-button aria-label="customer" class="md-fab md-raised md-mini" ng-click="createSeletedObject('customer');createItem()">
+                  <md-tooltip md-direction="left"> Add new customer </md-tooltip>
                   <ng-md-icon icon="supervisor_account"></ng-md-icon>
               </md-button>
               <md-button aria-label="car" class="md-fab md-raised md-mini" ng-click="createSeletedObject('car');createItem()">
+                  <md-tooltip md-direction="left"> Add new car </md-tooltip>
                   <ng-md-icon icon="directions_car"></ng-md-icon>
               </md-button>
           </md-fab-actions>
@@ -93,14 +97,14 @@
           <span flex>
              <md-autocomplete
               md-selected-item="selectedCar"
-              md-search-text="searchText"
-              md-items="item in cars | filter:searchText"
-              md-item-text="item.carId"
+              md-search-text="carSearchText"
+              md-items="item in cars | filter:carSearchText"
+              md-item-text="item.vin"
               md-min-length="0"
               md-max-length="10"
-              placeholder="Enter Vehicle ID to Search Cars" style="color:#333;">
+              placeholder="Enter Vin Number to Search Cars" style="color:#333;">
               <md-item-template>
-                <span md-highlight-text="searchText">{{'ID: '+item.carId+' '+item.year+' '+item.makerName+'  '+item.model}}</span>
+                <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+',   Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
               </md-item-template>
               <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
                 <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
@@ -162,6 +166,7 @@
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
@@ -180,7 +185,8 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/countUp.js/dist/countUp.min.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/i18next/i18next.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/i18next/bin/index.js"></script>
     <script src="bower_components/ng-i18next/dist/ng-i18next.js"></script>
     <!-- endbower -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script>

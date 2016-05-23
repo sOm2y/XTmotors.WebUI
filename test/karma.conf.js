@@ -49,6 +49,7 @@ module.exports = function(config) {
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/countUp.js/dist/countUp.min.js',
       'bower_components/lodash/lodash.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/i18next/bin/index.js',
       'bower_components/ng-i18next/dist/ng-i18next.js',
       // endbower

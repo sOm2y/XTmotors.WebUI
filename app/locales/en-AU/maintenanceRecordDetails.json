@@ -1,0 +1,13 @@
+{
+	"maintenance_record_carId":"Car ID",
+	"maintenance_record_currency":"Currency",
+	"maintenance_record_saveMaintenanceRecord":"Save Record",
+	"maintenance_record_cancelMaintenanceRecord":"Cancel",
+	"maintenance_record_address_city":"City",
+	"maintenance_record_address_street":"Street",
+	"maintenance_record_totalPrice":"Total price includes gst",
+	"maintenance_record_description":"Description",
+	"maintenance_record_paymentStatus":"Payment Status",
+	"maintenance_record_projectCategory":"Project Category",
+	"maintenance_record_projectName":"Project Name"
+}
