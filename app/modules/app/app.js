@@ -29,6 +29,8 @@ angular
     'angularMoment',
     'ngMessages',
     'ngMaterialDatePicker',
+    'azureBlobUpload',
+    'ngFileUpload',
 
     //XTmotors app
     'app.controllers',
