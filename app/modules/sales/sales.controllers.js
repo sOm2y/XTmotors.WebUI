@@ -14,4 +14,19 @@ angular.module('sales.controllers',[])
 		.$promise.then(function(contracts){
 			$scope.contracts = contracts;
 		});
+
+    $scope.options = {
+      autoSelect: true,
+      boundaryLinks: false,
+      largeEditDialog: false,
+      pageSelector: false,
+      rowSelection: false
+    };
+
+    $scope.query = {
+      order: 'carId',
+      limitForSales: 15,
+      pageForSales: 1
+    };
+    
 	}]);
