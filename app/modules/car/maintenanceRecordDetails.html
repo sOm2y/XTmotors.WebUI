@@ -2,18 +2,18 @@
 <div layout="row">
     <md-input-container flex="50" class="md-block">
       <label>{{"maintenance_record_carId" | translate}}</label>
-      <input name="contractNum" required ng-model="maintenanceRecord.carId">
+      <input name="contractNum" required ng-model="maintenanceRecord.carId" ng-readonly="maintenanceRecord.carId">
       <div ng-messages="maintanceSummary.contractNum.$error">
         <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
       </div>
-    </md-input-container> 
+    </md-input-container>
     <md-input-container flex="50" class="md-block">
     <label>{{"maintenance_record_currency" | translate}}</label>
     <input name="currency" required ng-model="maintenanceRecord.currency">
     <div ng-messages="maintanceSummary.currency.$error">
       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
     </div>
-    </md-input-container> 
+    </md-input-container>
 </div>
 
 <div layout="row">
@@ -73,7 +73,9 @@
 
 
 <div layout="row" layout-align="center center">
-  <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()">{{"maintenance_record_cancelMaintenanceRecord" | translate}}</md-button>
+  <md-button flex="25" class="md-raised" ng-click="cancelToMaintenanceRecordList()" ng-hide="saveStatus()">{{"maintenance_record_cancelMaintenanceRecord" | translate}}</md-button>
+  <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()" ng-show="saveStatus()">{{"maintenance_record_backMaintenanceRecord" | translate}}</md-button>
+
   <md-button flex="25" class="md-raised md-primary" ng-disabled="!maintanceSummary.$valid" ng-click="saveMaintenanceRecord(maintenanceRecord)">{{"maintenance_record_saveMaintenanceRecord" | translate}}</md-button>
   <div ng-messages="maintanceSummary.$error" class="errorMessage">
       <div ng-message="required">{{"requiredFieldValidationErrorMessage" | translate}}.</div>
