@@ -3,7 +3,7 @@
 	"carSaleQuestion":"Has vehicle been sold",
 	"contract_summary_contractNum":"Contract Number",
 	"contract_summary_contractDate":"Contract Date",
-	"contract_summary_deposite":"Deposite",
+	"contract_summary_deposit":"Deposit",
 	"contract_summary_balance":"Balance",
 	"contract_summary_price":"Price",
 	"contract_summary_gst":"GST",

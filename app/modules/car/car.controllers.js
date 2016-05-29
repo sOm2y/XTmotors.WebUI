@@ -80,7 +80,7 @@ angular.module('car.controllers',[])
                       $scope.maintenanceRecords = res.maintenance;
                       $scope.importSummary.eta = changeDateFormat($scope.importSummary.eta);
                       $scope.importSummary.createTime = changeDateFormat($scope.importSummary.createTime);
-                        $scope.vehicleModel  = res.vehicleModel;
+                      $scope.vehicleModel  = res.vehicleModel;
                     },function(error){
                       console.log(error);
                       $mdToast.show({
@@ -267,8 +267,8 @@ angular.module('car.controllers',[])
     $translate.refresh();  
     $scope.showMaintenanceReordDetails = false;
     $scope.uploading = false;
-    var creatMaintenanceRecord = false;
-
+    var createMaintenanceRecord = false;
+    var saveStatus = false;
     $scope.log = '';
 
     $scope.uploadFiles = function (files) {
@@ -311,19 +311,51 @@ angular.module('car.controllers',[])
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
-        $scope.maintenanceRecord = {};
-        newMaintenanceRecord = true;
+        $scope.maintenanceRecord = {
+          carId: $scope.car.carId
+        };
+      createMaintenanceRecord = true;
+      saveStatus = false;
+
+    };
+
+    $scope.cancelToMaintenanceRecordList = function(){
+      $scope.showMaintenanceReordDetails = false;
+      saveStatus = false;
     };
 
     $scope.backToMaintenanceRecordList = function(){
       $scope.showMaintenanceReordDetails = false;
+      saveStatus = false;
+
+      $q.all({
+        maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
+      })
+        .then(function(res){
+          $scope.maintenanceRecords = res.maintenance;
+        },function(error){
+          $mdToast.show({
+            template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+            position: 'top right',
+            hideDelay: 5000,
+            parent: $element
+          });
+        });
     };
 
-    $scope.editMaintenanceReord = function(record){
+    $scope.saveStatus = function(){
+      if(saveStatus){
+        return true;
+      } else {
+        return false;
+      }
+    };
+      
+    $scope.editMaintenanceRecord = function(record){
       if(!_.isUndefined(record)){
         $scope.maintenanceRecord = record;
         $scope.showMaintenanceReordDetails = true;
-        newMaintenanceRecord = false;
+        createMaintenanceRecord = false;
       }
     };
 
@@ -336,7 +368,8 @@ angular.module('car.controllers',[])
                 hideDelay: 5000,
                 parent: $element
             });
-            newMaintenanceRecord = false;
+        createMaintenanceRecord = false;
+        saveStatus = true;
           },function(error){
             $mdToast.show({
                 template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
@@ -344,9 +377,9 @@ angular.module('car.controllers',[])
                 hideDelay: 5000,
                 parent: $element
             });
-            newMaintenanceRecord = true;
-          }).finally(function(){
-              
+        createMaintenanceRecord = true;
+        saveStatus = false;
+      }).finally(function(){
           });
     }
 
@@ -376,8 +409,8 @@ angular.module('car.controllers',[])
       //then use xtmotorsAPIService.update for updateing edit object
       //use xtmotorsAPIService.save for saving new object
       //console.log(record);
-        if(newMaintenanceRecord){
-          $scope.save(record);         
+        if(createMaintenanceRecord){
+          $scope.save(record);
         }else{
           $scope.update(record);
         }
