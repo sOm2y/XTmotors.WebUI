@@ -392,6 +392,7 @@ angular.module('car.controllers',[])
                 hideDelay: 5000,
                 parent: $element
             });
+        saveStatus = true;
           },function(error){
             $mdToast.show({
                 template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
@@ -399,6 +400,7 @@ angular.module('car.controllers',[])
                 hideDelay: 5000,
                 parent: $element
             });
+        saveStatus = false;
           }).finally(function(){
               
           });
