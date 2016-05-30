@@ -1,22 +1,31 @@
 <div class="" ui-view="sales-details-view">
-  <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="contract in contracts">
+  <md-card flex-gt-sm="90">
       <md-card-content>
-
-        <md-list-item>
-          <p>Contract ID : {{ contract.contractNum }} </p>
-          <md-checkbox class="md-secondary" ng-model="contract.paymentStatus"></md-checkbox>
-        </md-list-item>
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder>
+            <tr md-row>
+              <th md-column md-order-by="carId"><span>{{"id" | translate}}</span></th>
+              <th md-column md-order-by="contractNum"><span>{{"contract_summary_contractNum" | translate}}</span></th>
+              <th md-column md-order-by="deposite" md-desc><span>{{"contract_summary_deposit" | translate}}</span></th>
+              <th md-column md-numeric md-order-by="total"><span>{{"contract_summary_total" | translate}}</span></th>
+              <th md-column md-numeric md-order-by="currency"><span>{{"contract_summary_currency" | translate}}</span></th>
+              <th md-column md-order-by="paymentStatus"><span>{{"contract_summary_paymentStatus" | translate}}</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row md-select="contract" md-on-select md-auto-select="options.autoSelect" ng-repeat="contract in contracts | orderBy: query.order | limitTo: query.limitForSales: (query.pageForSales -1) * query.limitForSales">
+              <td md-cell>{{::contract.carId}}</td>
+              <td md-cell>{{::contract.contractNum}}</td>
+              <td md-cell>{{::contract.deposite| number}}</td>
+              <td md-cell>{{::contract.total| number}}</td>
+              <td md-cell>{{contract.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limitForSales" md-page="query.pageForSales" md-total="{{contracts.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" ></md-table-pagination>
       </md-card-content>
   </md-card>
-   <div layout="row" layout-align="center">
-      <pagination
-        ng-change="pageChanged()"
-        total-items="totalCustomers" 
-        items-per-page="customersPerPage" 
-        ng-model="pagination.currentPage" 
-        max-size="totalPages" 
-        class="pagination-sm" 
-        boundary-links="true">
-      </pagination>   
-    </div>
+
 </div>

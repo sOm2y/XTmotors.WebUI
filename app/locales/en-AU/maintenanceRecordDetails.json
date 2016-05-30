@@ -3,6 +3,7 @@
 	"maintenance_record_currency":"Currency",
 	"maintenance_record_saveMaintenanceRecord":"Save Record",
 	"maintenance_record_cancelMaintenanceRecord":"Cancel",
+  "maintenance_record_backMaintenanceRecord":"Back",
 	"maintenance_record_address_city":"City",
 	"maintenance_record_address_street":"Street",
 	"maintenance_record_totalPrice":"Total price includes gst",
