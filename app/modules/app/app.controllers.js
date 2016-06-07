@@ -8,18 +8,19 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog', 
-    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog) {
+	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http',
+    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http) {
     $rootScope._ = _;
 
-    
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {        
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
         // $rootScope.isLoading = true;
+
         var requireLogin = toState.data.requireLogin;
         $rootScope.buttonDisable = false;
-       
+
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
           event.preventDefault();
           $rootScope.isLoading = false;
@@ -37,7 +38,10 @@ angular.module('app.controllers',[])
           $rootScope.editCar(newVal);
       }
     });
-
+		$rootScope.setUserAuth = function(oauth){
+				var authHeader = 'Bearer '+oauth.access_token;
+				$http.defaults.headers.common.Authorization = authHeader;
+		};
     $rootScope.fabDirections = ['up', 'down', 'left', 'right'];
     $rootScope.fabDirection = $rootScope.fabDirections[0];
     $rootScope.fabAnimations = ['md-fling', 'md-scale'];
@@ -47,7 +51,7 @@ angular.module('app.controllers',[])
 
     $rootScope.createSeletedObject = function (selectedObject) {
       switch(selectedObject){
-        case 'customer': 
+        case 'customer':
           $state.go('customer.details',{}, {reload: true});
           $rootScope.buttonDisable = true;
           $rootScope.newCustomer = true;
@@ -75,15 +79,15 @@ angular.module('app.controllers',[])
       $location.path(view);
     };
     // root binding for alertService
-    $rootScope.closeAlert = alertService.closeAlert; 
-    
+    $rootScope.closeAlert = alertService.closeAlert;
+
 
     $rootScope.logout = function(){
       delete $rootScope.currentUser;
       loginModal().then(function () {
         // $rootScope.removeAlerts();
-        directCarDetails();
-      });   
+        return $state.go($state.current, {}, {reload: true});
+      });
     };
 
     $rootScope.openSetting = function(){
@@ -112,7 +116,7 @@ angular.module('app.controllers',[])
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
-  
+
   // Menu items
   $scope.menu = [
     {
@@ -153,8 +157,8 @@ angular.module('app.controllers',[])
       icon: 'perm_contact_cal'
     }
   ];
-  
-    
+
+
     // Bottomsheet & Modal Dialogs
     $scope.alert = '';
     $scope.showListBottomSheet = function($event) {
@@ -169,12 +173,20 @@ angular.module('app.controllers',[])
     };
 
 	}])
-.controller('LoginModalCtrl',['$scope',function ($scope) {
+.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast',function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast) {
 
-   	$scope.submit = function (email, password) {
-	    var user = {'email':email,'password':password};
-	    $scope.$close(user);
-  	};
+   $scope.attemptLogin = function (email, passWord) {
+		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
+		//  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
+			xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
+					$rootScope.setUserAuth(res);
+					var user = {'email':email,'password':passWord};
+					$scope.$close(user);
+			},function(error){
+				$mdToast.show($mdToast.simple().textContent('Hello!'));
+			});
+
+	 };
 
 }])
 
@@ -197,7 +209,7 @@ angular.module('app.controllers',[])
     { name: 'Copy', icon: 'content:ic_content_copy_24px' },
     { name: 'Print this page', icon: 'action:ic_print_24px' },
   ];
-  
+
   $scope.listItemClick = function($index) {
     var clickedItem = $scope.items[$index];
     $mdBottomSheet.hide(clickedItem);
