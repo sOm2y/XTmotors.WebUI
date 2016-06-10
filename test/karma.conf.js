@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-google-places-autocomplete/src/autocomplete.js',
       'bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
+      'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-material/angular-material.js',
