@@ -8,16 +8,26 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http',
-    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http) {
+	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http','localStorageService',
+    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http,localStorageService) {
     $rootScope._ = _;
 
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-        // alertService.add('success','state change', '200');
-        // alertService.add('warning','state change', '400');
         // $rootScope.isLoading = true;
-
+				if(localStorageService.get('oauth_token')){
+					var user = localStorageService.get('oauth_token');
+					$rootScope.setUserAuth(user);
+					xtmotorsAPIService.get({section:'account/getUserProfile'}).$promise.then(function(res){
+						$rootScope.profile = {
+							email:res.email,
+							lastName: res.lastName,
+							firstName: res.firstName,
+							phone:res.phone
+						}
+					});
+					$rootScope.close(user);
+				}
         var requireLogin = toState.data.requireLogin;
         $rootScope.buttonDisable = false;
 
@@ -33,6 +43,7 @@ angular.module('app.controllers',[])
             });
         }
     });
+
     $scope.$watch('selectedCar', function(newVal){
       if(newVal){
           $rootScope.editCar(newVal);
@@ -83,6 +94,7 @@ angular.module('app.controllers',[])
 
 
     $rootScope.logout = function(){
+			localStorageService.clearAll();
       delete $rootScope.currentUser;
       loginModal().then(function () {
         // $rootScope.removeAlerts();
@@ -173,32 +185,77 @@ angular.module('app.controllers',[])
     };
 
 	}])
-.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast',function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast) {
-
+.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService','loginModal','$modalInstance',
+function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService,loginModal,$modalInstance) {
+	$rootScope.close = function (user) {
+			$modalInstance.close(user);
+	};
    $scope.attemptLogin = function (email, passWord) {
 		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
 		//  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
 			xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
 					$rootScope.setUserAuth(res);
+
+					if($scope.rememberPassword){
+						localStorageService.set('oauth_token',res);
+					}
+
 					var user = {'email':email,'password':passWord};
-					$scope.$close(user);
+					$rootScope.close(user);
 			},function(error){
-				$mdToast.show($mdToast.simple().textContent('Hello!'));
+				$mdToast.show({
+					template: '<md-toast class="md-toast md-toast-500"><span flex>' + 'Login Failed'  + '</span></md-toast>',
+					position: 'top right',
+					hideDelay: 5000
+				});
 			});
 
 	 };
 
 }])
 
-.controller('SettingCtrl',['$scope',function ($scope) {
+.controller('SettingCtrl',['$scope','xtmotorsAPIService','$mdToast','$state',function ($scope,xtmotorsAPIService,$mdToast,$state) {
+	$scope.updatePassword = function(password){
+		xtmotorsAPIService.save({section:'account/changePassword'},password).$promise.then(function(res){
+			$mdToast.show({
+				template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Password has been updated.'  + '</span></md-toast>',
+				position: 'top right',
+				hideDelay: 5000
+			});
+		},function(err){
+			$mdToast.show({
+				template: '<md-toast class="md-toast md-toast-500"><span flex>' + 'Password does not match.'  + '</span></md-toast>',
+				position: 'top right',
+				hideDelay: 5000
+			});
+		});
+	};
+	$scope.backToHome = function(){
+		$state.go('car');
+	}
 
-    // alert("setting");
 
 }])
 
-.controller('ProfileCtrl',['$scope',function ($scope) {
-
-    // alert("profile");
+.controller('ProfileCtrl',['$scope','xtmotorsAPIService','$mdToast','$state',function ($scope,xtmotorsAPIService,$mdToast,$state) {
+		$scope.updateProfile = function(profile){
+			xtmotorsAPIService.save({section:'account/changeProfile'},profile).$promise.then(function(res){
+				$mdToast.show({
+					template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Profile has been updated.'  + '</span></md-toast>',
+					position: 'top right',
+					hideDelay: 5000
+				});
+			},function(err){
+				$mdToast.show({
+					template: '<md-toast class="md-toast md-toast-500"><span flex>' + 'Update Profile Failed.'  + '</span></md-toast>',
+					position: 'top right',
+					hideDelay: 5000
+				});
+			});
+		};
+  	$scope.backToHome = function(){
+			$state.go('car');
+		}
 
 }])
 

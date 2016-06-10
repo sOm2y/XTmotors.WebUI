@@ -5,7 +5,7 @@
 		</div>
 
 		<div id="form-container" flex="100" layout="row">
-			<form flex="60" id="login-form" layout="row" layout-wrap>		
+			<form flex="60" id="login-form" layout="row" layout-wrap>
 				<input ng-model="email" type="email" placeholder="EMAIL" class="form-control login-input">
 				<input ng-model="password" type="password" placeholder="PASSWORD" class="form-control login-input">
 				<div  flex="100" layout="row" layout-align="space-between center">
@@ -13,10 +13,10 @@
 						<span id="checkbox-lable">&nbsp; Remember Me?</span>
 					</md-checkbox>
 
-					<md-button ng-click="attemptLogin(email,password)">Login</md-button>
+					<md-button ng-click="attemptLogin(email,password);LoginModalCtrl.cancel()">Login</md-button>
 				</div>
-			</form>	
-		<div>	
+			</form>
+		<div>
 	</div>
 </div>
 <div class="version-no">v&nbsp;0.0.1</div>
