@@ -10,6 +10,7 @@
   border-radius: 0;
   background: url('../../images/xtmotors_bg_bmw.jpg') no-repeat center center;
   background-size: cover;
+  text-align: center;
   .version-no{
   	position: absolute;
   	bottom: 15px;
@@ -23,12 +24,13 @@
   		padding-bottom: 50px;
   	}
   	#login-form {
+      margin: 0 auto;
   		input{
   			background: rgba(255,255,255,0.4);
   			height: 50px;
   			margin-bottom: 20px;
   			padding-left: 10px;
-  			color: #fff;
+  			color: #FFFFFF;
   			&:focus{
   				color: white;
   			}
@@ -37,6 +39,26 @@
   			padding-left: 15px;
   			color: white;
   		}
+      md-checkbox{
+        margin-left: 15px;
+        margin-top: 15px;
+        .md-container{
+          border-width: 2px ; 
+          border-style: solid;
+          border-color: #FFFFFF;
+        }
+        span{
+          color: #FFFFFF !important;  
+          font-size: 16px;
+          /*font-weight: bold;*/
+        }
+      }
+      
+      .md-button{
+        background-color: #3f51b5 !important;
+        color: #FFFFFF;
+        margin: 0 !important;
+      }
   	}
 
   }
