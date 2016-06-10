@@ -31,6 +31,7 @@ angular
     'ngMaterialDatePicker',
     'azureBlobUpload',
     'ngFileUpload',
+    'LocalStorageModule',
 
     //XTmotors app
     'app.controllers',
@@ -50,7 +51,7 @@ angular
         $urlRouterProvider.otherwise(function($injector) {
             var $state = $injector.get("$state");
             $state.go("car");
-        });     
+        });
     }])
   .config(['$translateProvider',function($translateProvider ) {
     $translateProvider.useLoader('$translatePartialLoader', {
@@ -95,7 +96,7 @@ angular
 
       $mdIconProvider
       // linking to https://github.com/google/material-design-icons/tree/master/sprites/svg-sprite
-      // 
+      //
       .iconSet('action', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24)
       .iconSet('alert', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-alert.svg', 24)
       .iconSet('av', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-av.svg', 24)
@@ -111,16 +112,14 @@ angular
       .iconSet('notification', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-notification.svg', 24)
       .iconSet('social', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-social.svg', 24)
       .iconSet('toggle', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-toggle.svg', 24)
-    
+
       // Illustrated user icons used in the docs https://material.angularjs.org/latest/#/demo/material.components.gridList
       .iconSet('avatars', 'https://raw.githubusercontent.com/angular/material/master/docs/app/icons/avatar-icons.svg', 24)
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
   }])
-  .run(['$rootScope', '$state', '$stateParams','loginModal',
-    function($rootScope, $state, $stateParams,loginModal){
+  .run(['$rootScope', '$state', '$stateParams','loginModal','localStorageService',
+    function($rootScope, $state, $stateParams,loginModal,localStorageService){
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
-
   }]);
-

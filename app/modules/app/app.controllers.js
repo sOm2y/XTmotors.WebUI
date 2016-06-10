@@ -8,8 +8,8 @@
  * Main controller of the application.
  */
 angular.module('app.controllers',[])
-	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http',
-    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http) {
+	.controller('appCtrl', ['$rootScope','$scope',  '$state', '$stateParams', 'loginModal','$location','alertService','xtmotorsAPIService', '$q', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http','localStorageService',
+    function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http,localStorageService) {
     $rootScope._ = _;
 
 
@@ -17,7 +17,11 @@ angular.module('app.controllers',[])
         // alertService.add('success','state change', '200');
         // alertService.add('warning','state change', '400');
         // $rootScope.isLoading = true;
-
+				if(localStorageService.get('oauth_token')){
+					var user = localStorageService.get('oauth_token');
+					$rootScope.setUserAuth(user);
+					$scope.$close(user);
+				}
         var requireLogin = toState.data.requireLogin;
         $rootScope.buttonDisable = false;
 
@@ -83,6 +87,7 @@ angular.module('app.controllers',[])
 
 
     $rootScope.logout = function(){
+			localStorageService.clearAll();
       delete $rootScope.currentUser;
       loginModal().then(function () {
         // $rootScope.removeAlerts();
@@ -173,7 +178,9 @@ angular.module('app.controllers',[])
     };
 
 	}])
-.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast',function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast) {
+.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService',
+function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService) {
+
 
    $scope.attemptLogin = function (email, passWord) {
 		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
@@ -181,9 +188,12 @@ angular.module('app.controllers',[])
 			xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
 					$rootScope.setUserAuth(res);
 					var user = {'email':email,'password':passWord};
+					if($scope.rememberMe){
+						localStorageService.set('oauth_token',res);
+					}
 					$scope.$close(user);
 			},function(error){
-				$mdToast.show($mdToast.simple().textContent('Hello!'));
+				$mdToast.show($mdToast.simple().textContent(error.message));
 			});
 
 	 };
