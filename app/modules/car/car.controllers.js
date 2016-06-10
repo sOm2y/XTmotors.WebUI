@@ -68,8 +68,7 @@ angular.module('car.controllers',[])
                   // $scope.contract      = res.contract;
                   $scope.car           = res.car;
 
-                  //$scope.vehicleModelList  = res.vehicleModelList;
-                  if($scope.importRecord){
+                  if($scope.car){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
                       // importSummary: xtmotorsAPIService.get({ section:'Imports/'+$scope.importRecord.batchId}).$promise,
@@ -418,12 +417,5 @@ angular.module('car.controllers',[])
         }
 
     };
-
-  }])
-  .controller('ImportInfoCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$translate','$translatePartialLoader','$stateParams',
-    function ($rootScope,$scope,xtmotorsAPIService,xtmotorsCRUDService,$translate, $translatePartialLoader,$stateParams) {
-
-
-
 
   }]);
