@@ -14,14 +14,14 @@ angular.module('storage.controllers',[])
 
 		xtmotorsAPIService.query({section:'car/summary'})
   			.$promise.then(function(itemList) {
-				
+
 				$translatePartialLoader.addPart('storage');
-  				$translate.refresh();
-				
+  			$translate.refresh();
+
 				$scope.inStore=[];
 				$scope.onTheWay=[];
 				$scope.selected = [];
-				
+
 				angular.forEach(itemList, function(item,key){
 					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold' || item.carStatus == 'Reserved'){
 						$scope.inStore.push(item);
@@ -29,24 +29,24 @@ angular.module('storage.controllers',[])
 						$scope.onTheWay.push(item);
 					}
 				});
-        		  		
-        		$scope.inStoreList = $scope.inStore;
-          		$scope.onTheWayList = $scope.onTheWay;	
 
-          		$rootScope.editCar = function(car){
+    		$scope.inStoreList = $scope.inStore;
+      	$scope.onTheWayList = $scope.onTheWay;
+
+        $rootScope.editCar = function(car){
           $q.all({
-              importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
+              // importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
               vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'+car.carId}).$promise,
-              vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
+              // vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
               car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
-              contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
+              // contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
             })
             .then(function(res) {
-                  $scope.importRecord  = res.importRecord;
-                  $scope.contract      = res.contract;
+                  // $scope.importRecord  = res.importRecord;
+                  // $scope.contract      = res.contract;
                   $scope.car           = res.car;
                   $scope.vehicleModel  = res.vehicleModel;
-                  $scope.vehicleModelList  = res.vehicleModelList;
+                  // $scope.vehicleModelList  = res.vehicleModelList;
                   if($scope.importRecord){
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
@@ -78,20 +78,20 @@ angular.module('storage.controllers',[])
                 parent: $element
               });
             });
-        };	
-
-
-         $scope.selectedItemChange = function(selectVehicle) { 
-          if(selectVehicle !== null){       
-            $scope.vehicleModel = selectVehicle;    
-          }       
         };
 
 
-        function changeDateFormat(date){          
+         $scope.selectedItemChange = function(selectVehicle) {
+          if(selectVehicle !== null){
+            $scope.vehicleModel = selectVehicle;
+          }
+        };
+
+
+        function changeDateFormat(date){
           var wofTime = moment(date).startOf('day').toDate();
           return wofTime;
-        } 
+        }
 
         $scope.backToCar = function(){
           // xtmotorsCRUDService.cancelEdit($scope);
@@ -119,16 +119,16 @@ angular.module('storage.controllers',[])
               parent: $element
             });
           }).finally(function(){
-              
+
           })
         };
 
       		}, function(error) {
-		       
+
     		}).finally(function(){
        			$rootScope.isLoading = false;
-    		});  		
-		       
+    		});
+
 		$scope.options = {
 			autoSelect: true,
 	        boundaryLinks: false,
@@ -136,7 +136,7 @@ angular.module('storage.controllers',[])
 	        pageSelector: false,
 	        rowSelection: false
         };
-        
+
 		$scope.query = {
 			order: 'carId',
 	        limitForInStore: 5,
@@ -154,9 +154,9 @@ angular.module('storage.controllers',[])
 			    case "For Sale":
 			        return "sale";
 			    case "Inspection":
-			        return "inspection";  
+			        return "inspection";
 			    case "Arrived Port":
-			        return "arrived"; 
+			        return "arrived";
 			    case "Departed Port":
 			        return "departed";
 			}
