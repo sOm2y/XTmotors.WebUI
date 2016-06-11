@@ -28,9 +28,9 @@
  -->
  <div ng-hide="$state.current.name === 'consignment.details'">
   <div layout="row" layout-align="center" ng-if="!showMaintenanceReordDetails">
-    <md-button flex="25" class="md-raised md-primary" ng-click="addMaintenanceRecord()">Add New Batch</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="createImport()">Add New Batch</md-button>
   </div>
-  <md-card flex-gt-sm="90" flex-gt-md="100" >
+  <md-card>
     <md-card-content>
         <md-table-container>
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
@@ -62,4 +62,3 @@
 </div>
 <div layout="column" ui-view="consignment-details-view">
 </div>
-

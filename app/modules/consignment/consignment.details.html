@@ -6,42 +6,38 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>batchId</label>
-            <input required ng-model="import.batchId" ng-disabled="!newCustomer">
+            <input required ng-model="import.batchId" ng-disabled="!newImport">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>transportationExpense</label>
+            <label>Transportation Expense</label>
             <input required ng-model="import.transportationExpense">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
-          </md-input-container> 
+          </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>transportCompany</label>
+            <label>Transport Company</label>
             <input required ng-model="import.transportCompany">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
-          </md-input-container> 
-          <md-input-container flex="50" class="md-block">
-            <label>eta</label>
-              <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.createTime" class=" md-input">
-          </md-input-container> 
+          </md-input-container>
         </div>
       </md-card-content>
     </md-card>
-    
+
     <md-card flex="50">
     <md-subheader class="md-primary"> &nbsp;</md-subheader>
       <md-card-content>
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
-            <label>checkLocation</label>
+            <label>Check Location</label>
             <input required ng-model="import.checkLocation">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -49,25 +45,25 @@
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>totalDue</label>
+            <label>Tota lDue</label>
             <input required ng-model="import.totalDue">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
-          </md-input-container> 
+          </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>createTime</label>
+            <label>ETA</label>
             <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.createTime" class=" md-input">
           </md-input-container>
         </div>
       </md-card-content>
     </md-card>
   </div>
- 
+
   <div>
     <div layout="row">
-     
+
       <span flex-gt-sm="90" flex-gt-md="70">
         <md-autocomplete
           md-selected-item="selectedCar"
@@ -108,6 +104,5 @@
     <md-button flex="25" class="md-raised" ng-click="backToConsignment()">Cancel</md-button>
     <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)">Save</md-button>
   </div>
- 
-</div>
 
+</div>

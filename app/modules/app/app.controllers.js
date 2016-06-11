@@ -15,19 +15,7 @@ angular.module('app.controllers',[])
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         // $rootScope.isLoading = true;
-				if(localStorageService.get('oauth_token')){
-					var user = localStorageService.get('oauth_token');
-					$rootScope.setUserAuth(user);
-					xtmotorsAPIService.get({section:'account/getUserProfile'}).$promise.then(function(res){
-						$rootScope.profile = {
-							email:res.email,
-							lastName: res.lastName,
-							firstName: res.firstName,
-							phone:res.phone
-						}
-					});
-					$rootScope.close(user);
-				}
+
         var requireLogin = toState.data.requireLogin;
         $rootScope.buttonDisable = false;
 
@@ -185,11 +173,26 @@ angular.module('app.controllers',[])
     };
 
 	}])
-.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService','loginModal','$modalInstance',
-function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService,loginModal,$modalInstance) {
+.controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService','loginModal','$modalInstance','$state',
+function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService,loginModal,$modalInstance,$state) {
 	$rootScope.close = function (user) {
 			$modalInstance.close(user);
 	};
+	if(localStorageService.get('oauth_token')){
+		var user = localStorageService.get('oauth_token');
+		$rootScope.setUserAuth(user);
+		xtmotorsAPIService.get({section:'account/getUserProfile'}).$promise.then(function(res){
+			$rootScope.profile = {
+				email:res.email,
+				lastName: res.lastName,
+				firstName: res.firstName,
+				phone:res.phone
+			}
+		});
+		$rootScope.close(user);
+		// $state.go('car');
+	}
+
    $scope.attemptLogin = function (email, passWord) {
 		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
 		//  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';

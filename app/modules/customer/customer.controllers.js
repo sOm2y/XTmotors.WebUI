@@ -40,17 +40,17 @@ angular.module('customer.controllers',[])
 		       $rootScope.isLoading = false;
 		  });
 
-		    function changeDateFormat(date){
-          	   var wofTime = moment(date).startOf('day').toDate();
-          	   return wofTime;
-        	}
+	    function changeDateFormat(date){
+        	   var wofTime = moment(date).startOf('day').toDate();
+        	   return wofTime;
+      	}
 
-		    $scope.createNewCustomer = function(){
-           		if($rootScope.newCustomer){
-                	$scope.customer = {};
-            	}
-	        };
-		   	$scope.editCustomer = function(customer){
+	    $scope.createNewCustomer = function(){
+       		if($rootScope.newCustomer){
+            	$scope.customer = {};
+        	}
+      };
+		  $scope.editCustomer = function(customer){
 				$scope.customer = customer;
 				$state.go('customer.details',{customerId:customer.customerId});
 				$scope.customer.dob = changeDateFormat(customer.dob);

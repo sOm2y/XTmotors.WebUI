@@ -23,14 +23,14 @@
                     <div ng-messages="carSummary.registerationNum.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
                     <input name="warranty" ng-model="car.warranty">
                     <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_odometer" | translate}}</label>
                     <input name="odometer" required ng-model="car.odometer">
@@ -121,8 +121,8 @@
                     <div ng-messages="carSummary.currency.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
-                  <md-input-container flex="50" class="md-block">
+                  </md-input-container>
+                  <md-input-container flex="100" class="md-block">
                     <label>{{"summary_feature_description" | translate}}</label>
                     <input name="carDescription" required ng-model="car.description">
                     <div ng-messages="carSummary.carDescription.$error">
@@ -134,7 +134,7 @@
             </md-card>
             <md-card flex="50">
               <md-subheader class="md-primary">{{"summary_vehicleInfo_title" | translate}}</md-subheader>
-              <md-card-content>           
+              <md-card-content>
               <form layout="row" layout-wrap name="vehicleInfo">
                   <div flex="100" class="searchBar" ng-if="isVehicleModelListLoaded">
                     <md-autocomplete
@@ -145,7 +145,7 @@
                       md-item-text="item.makerName+' '+item.model+' '+item.year"
                       md-min-length="0"
                       md-max-length="10"
-                      placeholder="{{'summary_vehicleInfo_searchText' | translate }}" 
+                      placeholder="{{'summary_vehicleInfo_searchText' | translate }}"
                       style="color:#333;">
                       <md-item-template>
                         <span md-highlight-text="modelSearchText">{{item.makerName+' '+item.model+' '+item.year}}
@@ -167,21 +167,21 @@
                     <div ng-messages="vehicleInfo.description.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_year" | translate}}</label>
                     <input name="year" required ng-model="vehicleModel.year">
                     <div ng-messages="vehicleInfo.year.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_engine" | translate}}</label>
                     <input name="engine" required ng-model="vehicleModel.engine">
                     <div ng-messages="vehicleInfo.engine.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> 
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuel" | translate}}</label>
                     <input name="fuel" required ng-model="vehicleModel.fuel">
