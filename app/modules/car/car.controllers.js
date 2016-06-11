@@ -42,6 +42,8 @@ angular.module('car.controllers',[])
               return "arrived";
             case "Departed Port":
               return "departed";
+						default:
+							return "departed";
           }
         };
 

@@ -12,41 +12,52 @@ angular.module('app.controllers',[])
     function ($rootScope, $scope, $state, $stateParams, loginModal,$location,alertService,xtmotorsAPIService,$q,$mdBottomSheet, $mdSidenav, $mdDialog,$http,localStorageService) {
     $rootScope._ = _;
 
-
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         // $rootScope.isLoading = true;
-
-        var requireLogin = toState.data.requireLogin;
-        $rootScope.buttonDisable = false;
-
+    	var requireLogin = toState.data.requireLogin;
+      $rootScope.buttonDisable = false;
+			if(localStorageService.get('oauth_token')){
+				var user = localStorageService.get('oauth_token');
+				$rootScope.setUserAuth(user);
+				getUserProfile();
+			}else{
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
           event.preventDefault();
           $rootScope.isLoading = false;
           loginModal()
             .then(function () {
+								getUserProfile();
                 return $state.go('car');
             })
             .catch(function () {
-              return $state.go('car');
+            	//TODO: error handling
             });
         }
+			}
     });
+
+		function getUserProfile(){
+			xtmotorsAPIService.get({section:'account/getUserProfile'}).$promise.then(function(res){
+				$rootScope.profile = {
+						email:res.email,
+						lastName: res.lastName,
+						firstName: res.firstName,
+						phone:res.phone
+					}
+				});
+		}
 
     $scope.$watch('selectedCar', function(newVal){
       if(newVal){
           $rootScope.editCar(newVal);
       }
     });
+
 		$rootScope.setUserAuth = function(oauth){
 				var authHeader = 'Bearer '+oauth.access_token;
 				$http.defaults.headers.common.Authorization = authHeader;
 		};
-    $rootScope.fabDirections = ['up', 'down', 'left', 'right'];
-    $rootScope.fabDirection = $rootScope.fabDirections[0];
-    $rootScope.fabAnimations = ['md-fling', 'md-scale'];
-    $rootScope.fabAnimation = $rootScope.fabAnimations[1];
-    $rootScope.fabStatuses = [false, true];
-    $rootScope.fabStatus = $rootScope.fabStatuses[0];
+
 
     $rootScope.createSeletedObject = function (selectedObject) {
       switch(selectedObject){
@@ -68,36 +79,33 @@ angular.module('app.controllers',[])
           break;
       }
     };
+
     $rootScope.createItem = function(){
       if(!$scope.item){
           $scope.newItem = true;
           $scope.item = {};
       }
     };
-    $rootScope.changeView = function(view) {
-      $location.path(view);
-    };
+
     // root binding for alertService
     $rootScope.closeAlert = alertService.closeAlert;
-
 
     $rootScope.logout = function(){
 			localStorageService.clearAll();
       delete $rootScope.currentUser;
       loginModal().then(function () {
-        // $rootScope.removeAlerts();
         return $state.go($state.current, {}, {reload: true});
       });
     };
 
     $rootScope.openSetting = function(){
-      $state.go('appSetting',{}, {reload: true});
+      $state.go('appSetting');
       // $rootScope.buttonDisable = true;
     };
 
     $rootScope.openProfile = function(){
       // alert("a");
-      $state.go('profile',{}, {reload: true});
+      $state.go('profile');
       // $rootScope.buttonDisable = true;
     };
 
@@ -110,12 +118,17 @@ angular.module('app.controllers',[])
     }
 
 
-		$scope.listGalleryView = false;
-
   // Sidenav toggle
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
+
+	$rootScope.fabDirections = ['up', 'down', 'left', 'right'];
+	$rootScope.fabDirection = $rootScope.fabDirections[0];
+	$rootScope.fabAnimations = ['md-fling', 'md-scale'];
+	$rootScope.fabAnimation = $rootScope.fabAnimations[1];
+	$rootScope.fabStatuses = [false, true];
+	$rootScope.fabStatus = $rootScope.fabStatuses[0];
 
   // Menu items
   $scope.menu = [
@@ -159,39 +172,12 @@ angular.module('app.controllers',[])
   ];
 
 
-    // Bottomsheet & Modal Dialogs
-    $scope.alert = '';
-    $scope.showListBottomSheet = function($event) {
-      $scope.alert = '';
-      $mdBottomSheet.show({
-        template: '<md-bottom-sheet class="md-list md-has-header"><md-list><md-list-item class="md-2-line" ng-repeat="item in items" role="link" md-ink-ripple><md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.name}}"></md-icon><div class="md-list-item-text"><h3>{{item.name}}</h3></div></md-list-item> </md-list></md-bottom-sheet>',
-        controller: 'ListBottomSheetCtrl',
-        targetEvent: $event
-      }).then(function(clickedItem) {
-        $scope.alert = clickedItem.name + ' clicked!';
-      });
-    };
-
 	}])
 .controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService','loginModal','$modalInstance','$state',
 function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService,loginModal,$modalInstance,$state) {
 	$rootScope.close = function (user) {
 			$modalInstance.close(user);
 	};
-	if(localStorageService.get('oauth_token')){
-		var user = localStorageService.get('oauth_token');
-		$rootScope.setUserAuth(user);
-		xtmotorsAPIService.get({section:'account/getUserProfile'}).$promise.then(function(res){
-			$rootScope.profile = {
-				email:res.email,
-				lastName: res.lastName,
-				firstName: res.firstName,
-				phone:res.phone
-			}
-		});
-		$rootScope.close(user);
-		// $state.go('car');
-	}
 
    $scope.attemptLogin = function (email, passWord) {
 		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
