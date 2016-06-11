@@ -9,6 +9,12 @@
         <md-content class="md-padding">
         <!-- Upload your car photos -->
           <h4>Upload Car Photos</h4>
+          <ul>
+              <li ng-repeat="image in images">
+                  {{image.photoName}}
+                  <img ng-src="{{image.imageUrl}}" width="300">
+              </li>
+          </ul>
 
           <button ngf-select="uploadFiles($files)" ngf-multiple="true">Select Files</button>
           <br>
@@ -25,23 +31,14 @@
                   <img ngf-thumbnail="f || '/thumb.jpg'" width="300">
               </li>
           </ul>
+
         </md-content>
       </md-tab>
-      
+
     </md-tabs>
   <!-- </md-content> -->
   </div>
   <div layout="row" layout-align="center center" ng-hide="!(selectedTab == 1 || selectedTab == 0)" ng-if="!showMaintenanceReordDetails">
     <md-button flex="25" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-disabled=" !(carSummary.$valid && vehicleInfo.$valid && importInfo.$valid)" ng-click="saveCar(car,vehicleModel,importRecord,importSummary)">{{"save" | translate}}</md-button> 
+    <md-button flex="25" class="md-raised md-primary" ng-disabled=" !(carSummary.$valid && vehicleInfo.$valid && importInfo.$valid)" ng-click="saveCar(car,vehicleModel,importRecord,importSummary)">{{"save" | translate}}</md-button>
   </div>
-
-
-
-
-
-
-
- 
-
-

@@ -74,7 +74,8 @@ angular.module('car.controllers',[])
                     $q.all({
                       maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
                       // importSummary: xtmotorsAPIService.get({ section:'Imports/'+$scope.importRecord.batchId}).$promise,
-                      vehicleModel: xtmotorsAPIService.get({ section:'VehicleModels/'+$scope.car.vehicleModelId}).$promise
+                      vehicleModel: xtmotorsAPIService.get({ section:'VehicleModels/'+$scope.car.vehicleModelId}).$promise,
+											images: xtmotorsAPIService.query({section:'images/car/'+$scope.car.carId}).$promise
                     })
                     .then(function(res){
                       // $scope.importSummary = res.importSummary;
@@ -82,6 +83,7 @@ angular.module('car.controllers',[])
                       // $scope.importSummary.eta = changeDateFormat($scope.importSummary.eta);
                       // $scope.importSummary.createTime = changeDateFormat($scope.importSummary.createTime);
                       $scope.vehicleModel  = res.vehicleModel;
+											$scope.images = res.images;
                     },function(error){
                       console.log(error);
                       $mdToast.show({
@@ -121,7 +123,6 @@ angular.module('car.controllers',[])
             $scope.vehicleModel = selectVehicle;
           }
         };
-
 
         function changeDateFormat(date){
           var wofTime = moment(date).startOf('day').toDate();
@@ -270,7 +271,6 @@ angular.module('car.controllers',[])
     $scope.uploading = false;
     var createMaintenanceRecord = false;
     var saveStatus = false;
-    $scope.log = '';
 
     $scope.uploadFiles = function (files) {
        $scope.files = files;
