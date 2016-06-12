@@ -8,48 +8,179 @@
  * consignment controller of the application.
  */
 angular.module('consignment.controllers',[])
-	.controller('ConsignmentCtrl', ['$scope','xtmotorsAPIService','$state',function ($scope,xtmotorsAPIService,$state) {
+	.controller('ConsignmentCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
+		function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
 		$scope.consignment = 'consignment';
 		$scope.countToPaid = 20408;
 		$scope.countFromPaid = 0;
 		$scope.countToUnpaid = 10403;
 		$scope.countFromUnpaid = 0;
+		// $rootScope.newBatch = false;
 
 		$scope.options = {
-      autoSelect: true,
-      boundaryLinks: false,
-      largeEditDialog: false,
-      pageSelector: false,
-      rowSelection: false
-    };
+	      autoSelect: true,
+	      boundaryLinks: false,
+	      largeEditDialog: false,
+	      pageSelector: false,
+	      rowSelection: false
+	    };
 
-    $scope.query = {
-      order: 'batchId',
-      limit: 15,
-      page: 1
-    };
+	    $scope.query = {
+	      order: 'batchId',
+	      limit: 15,
+	      page: 1
+	    };
 
 		xtmotorsAPIService.query({section:'Imports/'})
 		.$promise.then(function(imports){
 			$scope.imports = imports;
+		},function(error){
+            $scope.showError(error);
+        });
 
-			$scope.createImport = function(){
-					$state.go('consignment.details');
-			}
-			$scope.editImport = function(importDetail){
-				$scope.import = importDetail;
-				$state.go('consignment.details',{batchId:$scope.import.batchId});
-				// $scope.customer.dob = changeDateFormat(customer.dob);
-			};
-			$scope.backToConsignment = function(){
-				$state.go('consignment');
-			};
-		});
+        xtmotorsAPIService.query({section:'car/summary'})
+		.$promise.then(function(cars){
+			$scope.cars = cars;
+		},function(error){
+            $scope.showError(error);
+        });
+
+		$scope.createImport = function(){
+			$rootScope.newBatch = true;
+			$state.go('consignment.details', {batchId:$scope.imports.length+1}, {reload: true});
+		};
+
+		$scope.editImport = function(importDetail){
+			//$scope.import = importDetail;
+			$rootScope.newBatch = false;
+			$state.go('consignment.details',{batchId:importDetail.batchId});
+			// $scope.customer.dob = changeDateFormat(customer.dob);
+		};
+
+		$scope.backToConsignment = function(){
+			$rootScope.newBatch = false;
+			$state.go('consignment', {}, {reload: true});
+		};
+
+		$scope.showError = function(error){
+        	$mdToast.show({
+                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+                position: 'top right',
+                hideDelay: 5000,
+                parent: $element
+            });
+        };
+
+        $scope.successToast = function(message){
+			$mdToast.show({
+                template: '<md-toast class="md-toast md-toast-success"><span flex>' + message  + '</span></md-toast>',
+                position: 'top right',
+                hideDelay: 5000,
+                parent: $element
+            });
+		};
+
 	}])
-	.controller('ConsignmentDetailsCtrl', ['$scope','xtmotorsAPIService' ,function ($scope,xtmotorsAPIService) {
-		xtmotorsAPIService.query({section:'ImportRecords/'})
-		.$promise.then(function(importRecords){
-			$scope.importRecords = importRecords;
-		});
+	.controller('ConsignmentDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$stateParams', '$state',
+		function ($rootScope,$scope,xtmotorsAPIService,$stateParams,$state) {
+			if($rootScope.newBatch){
+				$scope.batch = {};
+				$scope.batch.batchId = $stateParams.batchId;
+			}else{
+				getBatchRecords();
+				getImportRecord();
+			}
+
+		function getImportRecord(){
+			xtmotorsAPIService.query({section:'ImportRecords/batch/'+$stateParams.batchId})
+			.$promise.then(function(importRecords){
+				$scope.importRecords = importRecords;
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function getBatchRecords(){
+			xtmotorsAPIService.get({section:'Imports/'+$stateParams.batchId})
+			.$promise.then(function(batch){
+				$scope.batch = batch;
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function updateBatchRecord(){
+			xtmotorsAPIService.update({section:'Imports/'+$scope.batch.batchId}, $scope.batch)
+			.$promise.then(function(batch){
+				$scope.successToast("Batch updates saved.");
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function saveBatchRecord(batch){
+			xtmotorsAPIService.save({section:'Imports'}, batch)
+			.$promise.then(function(res){
+				$scope.successToast("New batch saved.");
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function saveImportRecord(importCarRecord){
+			xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
+			.$promise.then(function(res){
+				$state.reload();
+			},function(error){
+				error.statusText = "The car has alreday been added"
+            	$scope.showError(error);
+        	});
+		}
+
+		// function getCar(carId){
+		// 	xtmotorsAPIService.get({ section:'car/'+carId})
+		// 	.$promise.then(function(car){
+		// 		$scope.car = car;
+		// 	},function(error){
+  //           	$scope.showError(error);
+  //       	});
+		// }
+		
+		$scope.selectedItemChange = function(selectedCar){
+			if(selectedCar !== null){
+            	$scope.carToAdd = selectedCar;
+          	}		
+		};
+
+		$scope.saveCarToBatch = function(car){
+			//Need to chck if the car has been added.
+			$scope.importCarRecord = {
+				"carId": car.carId,
+				"batchId": $scope.batch.batchId,
+				"quantity": 1,
+				"amount": 1,
+				"gst": car.gst,
+				"total": car.total,
+				"paymentStatus": car.paymentStatus,
+				"currency": car.currency,
+				"description": car.description
+			}
+			saveImportRecord($scope.importCarRecord);
+		};
+
+		$scope.editImportRecord = function(importRecord){
+			// getCar(importRecord.carId);
+			// $rootScope.editCar($scope.car);
+			$state.go('car.details',{carId: importRecord.carId}, {reload: true});
+		};
+
+		$scope.saveBatch = function(batch){
+			if($rootScope.newBatch){
+				saveBatchRecord(batch);
+			}else{
+				updateBatchRecord();
+			}	
+		};
+		
 
 	}]);

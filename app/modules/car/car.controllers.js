@@ -48,9 +48,9 @@ angular.module('car.controllers',[])
         };
 
 
-        vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModels/'})
+        xtmotorsAPIService.query({ section:'VehicleModels/'})
           .$promise.then(function(res){
-            $scope.vehicleModelList  = res;
+            $rootScope.vehicleModelList  = res;
             $rootScope.isVehicleModelListLoaded = true;
           },function(error){
             //console.log("error");
@@ -263,6 +263,7 @@ angular.module('car.controllers',[])
       page: 1
     };
 	}])
+
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
     $translatePartialLoader.addPart('carDetails');
@@ -271,6 +272,14 @@ angular.module('car.controllers',[])
     $scope.uploading = false;
     var createMaintenanceRecord = false;
     var saveStatus = false;
+
+    xtmotorsAPIService.get({section:'car/'+$stateParams.carId})
+      .$promise.then(function(car){
+        console.log(car);
+        $scope.car = car;
+      },function(error){
+        $scope.showError(error);
+    });
 
     $scope.uploadFiles = function (files) {
        $scope.files = files;

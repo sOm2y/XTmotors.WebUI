@@ -31,7 +31,6 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-google-places-autocomplete/src/autocomplete.js',
       'bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
-      'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-material/angular-material.js',
@@ -51,7 +50,7 @@ module.exports = function(config) {
       'bower_components/countUp.js/dist/countUp.min.js',
       'bower_components/lodash/lodash.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
-      'bower_components/i18next/bin/index.js',
+      'bower_components/i18next/i18next.min.js',
       'bower_components/ng-i18next/dist/ng-i18next.js',
       // endbower
       "app/modules/**/*.js",
