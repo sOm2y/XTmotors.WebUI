@@ -36,7 +36,14 @@ angular.module('consignment.controllers',[])
 			$scope.imports = imports;
 		},function(error){
             $scope.showError(error);
-        });;
+        });
+
+        xtmotorsAPIService.query({section:'car/summary'})
+		.$promise.then(function(cars){
+			$scope.cars = cars;
+		},function(error){
+            $scope.showError(error);
+        });
 
 		$scope.createImport = function(){
 			$rootScope.newBatch = true;
@@ -63,33 +70,82 @@ angular.module('consignment.controllers',[])
                 parent: $element
             });
         };
+
+        $scope.successToast = function(message){
+			$mdToast.show({
+                template: '<md-toast class="md-toast md-toast-success"><span flex>' + message  + '</span></md-toast>',
+                position: 'top right',
+                hideDelay: 5000,
+                parent: $element
+            });
+		};
+
 	}])
-	.controller('ConsignmentDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$stateParams',
-		function ($rootScope,$scope,xtmotorsAPIService,$stateParams) {
+	.controller('ConsignmentDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$stateParams', '$state',
+		function ($rootScope,$scope,xtmotorsAPIService,$stateParams,$state) {
 			if($rootScope.newBatch){
-				$scope.batch = [];
+				$scope.batch = {};
 				$scope.batch.batchId = $stateParams.batchId;
 			}else{
-				getImportRecord();
 				getBatchRecords();
+				getImportRecord();
 			}
 
-		function getBatchRecords(){
+		function getImportRecord(){
 			xtmotorsAPIService.query({section:'ImportRecords/batch/'+$stateParams.batchId})
 			.$promise.then(function(importRecords){
 				$scope.importRecords = importRecords;
-			});
+			},function(error){
+            	$scope.showError(error);
+        	});
 		}
 
-		function getImportRecord(){
+		function getBatchRecords(){
 			xtmotorsAPIService.get({section:'Imports/'+$stateParams.batchId})
 			.$promise.then(function(batch){
-				console.log(batch);
 				$scope.batch = batch;
-			});
+			},function(error){
+            	$scope.showError(error);
+        	});
 		}
-		
 
+		function updateBatchRecord(){
+			xtmotorsAPIService.update({section:'Imports/'+$scope.batch.batchId}, $scope.batch)
+			.$promise.then(function(batch){
+				$scope.successToast("Batch updates saved.");
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function saveBatchRecord(batch){
+			xtmotorsAPIService.save({section:'Imports'}, batch)
+			.$promise.then(function(res){
+				$scope.successToast("New batch saved.");
+			},function(error){
+            	$scope.showError(error);
+        	});
+		}
+
+		function saveImportRecord(importCarRecord){
+			xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
+			.$promise.then(function(res){
+				$state.reload();
+			},function(error){
+				error.statusText = "The car has alreday been added"
+            	$scope.showError(error);
+        	});
+		}
+
+		// function getCar(carId){
+		// 	xtmotorsAPIService.get({ section:'car/'+carId})
+		// 	.$promise.then(function(car){
+		// 		$scope.car = car;
+		// 	},function(error){
+  //           	$scope.showError(error);
+  //       	});
+		// }
+		
 		$scope.selectedItemChange = function(selectedCar){
 			if(selectedCar !== null){
             	$scope.carToAdd = selectedCar;
@@ -97,7 +153,34 @@ angular.module('consignment.controllers',[])
 		};
 
 		$scope.saveCarToBatch = function(car){
-			console.log(car);
+			//Need to chck if the car has been added.
+			$scope.importCarRecord = {
+				"carId": car.carId,
+				"batchId": $scope.batch.batchId,
+				"quantity": 1,
+				"amount": 1,
+				"gst": car.gst,
+				"total": car.total,
+				"paymentStatus": car.paymentStatus,
+				"currency": car.currency,
+				"description": car.description
+			}
+			saveImportRecord($scope.importCarRecord);
 		};
+
+		$scope.editImportRecord = function(importRecord){
+			// getCar(importRecord.carId);
+			// $rootScope.editCar($scope.car);
+			$state.go('car.details',{carId: importRecord.carId}, {reload: true});
+		};
+
+		$scope.saveBatch = function(batch){
+			if($rootScope.newBatch){
+				saveBatchRecord(batch);
+			}else{
+				updateBatchRecord();
+			}	
+		};
+		
 
 	}]);
