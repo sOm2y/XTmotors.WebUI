@@ -130,9 +130,20 @@ angular.module('consignment.controllers',[])
 		function saveImportRecord(importCarRecord){
 			xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
 			.$promise.then(function(res){
-				$state.reload();
+				$scope.successToast("Add was successful.");
+				getImportRecord();
 			},function(error){
-				error.statusText = "The car has alreday been added"
+				error.statusText = "The car has alreday been added";
+            	$scope.showError(error);
+        	});
+		}
+
+		$scope.deleteImportRecord = function(carId){
+			xtmotorsAPIService.remove({section:'ImportRecords/'+carId})
+			.$promise.then(function(res){
+				$scope.successToast("Delete was successful.");
+				getImportRecord();
+			},function(error){
             	$scope.showError(error);
         	});
 		}

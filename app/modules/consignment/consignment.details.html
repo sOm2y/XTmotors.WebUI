@@ -6,7 +6,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>batchId</label>
-            <input required ng-model="batch.batchId" ng-disabled="!newImport">
+            <input required ng-model="batch.batchId" disabled>
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
@@ -93,15 +93,19 @@
     </md-card>
 
     <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="importRecord in importRecords">
-      <md-card-content>
-        <md-list-item class="md-3-line" >
+      <md-card-content layout="row" layour-align="space-between center">
+        <md-list-item class="md-3-line" flex="80">
           <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
-          <div class="md-list-item-text" layout="column" ng-click="editImportRecord(importRecord)">
+          <div class="md-list-item-text" layout="column">
             <h3>CardId: {{::importRecord.carId}}</h3>
-            <p>Quantity: {{::importRecord.quantity}}</p>
-            <p>Amount: {{::importRecord.amount}}</p>
+            <p>Quantity: {{::importRecord.quantity}}</p> 
+            <p>Amount: {{::importRecord.amount}}</p> 
           </div>
         </md-list-item>
+        <md-card-actions layout="column" layout-align="end center" flex="20">
+          <md-button class="md-raised md-primary" ng-click="editImportRecord(importRecord)">View More</md-button>
+          <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">Delete</md-button>
+        </md-card-actions>
       </md-card-content>
     </md-card>
   </div>
