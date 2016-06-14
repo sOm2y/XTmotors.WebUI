@@ -26,9 +26,9 @@
     </md-card>
   </div>
  -->
- <div ng-hide="$state.current.name === 'sales.details'">
-  <div layout="row" layout-align="center" ng-if="!showMaintenanceReordDetails">
-    <md-button flex="25" class="md-raised md-primary" ng-click="addMaintenanceRecord()">Add New Sales</md-button>
+ <div ng-hide="$state.current.name === 'sales.details'" ng-cloak>
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised md-primary" ng-click="createNewContract()">Add New Sales</md-button>
   </div>
   <md-card flex-gt-sm="90" flex-gt-md="100" >
     <md-card-content>
@@ -45,7 +45,7 @@
               </tr>
             </thead>
             <tbody md-body>
-              <tr ng-click="editImport(contract)" md-row md-select="contract" md-on-select ng-repeat="contract in contracts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+              <tr ng-click="editContact(contract)" md-row md-select="contract" md-on-select ng-repeat="contract in contracts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                 <td md-cell>{{::contract.carId}}</md-cell>
                 <td md-cell>{{::contract.customerId}}</md-cell>
                 <td md-cell>{{::contract.deposite | currency}}</td>
