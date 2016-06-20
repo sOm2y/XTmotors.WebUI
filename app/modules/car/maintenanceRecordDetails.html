@@ -73,12 +73,12 @@
 
 
 <div layout="row" layout-align="center center">
-  <md-button flex="25" class="md-raised" ng-click="cancelToMaintenanceRecordList()" ng-hide="saveStatus()">{{"maintenance_record_cancelMaintenanceRecord" | translate}}</md-button>
-  <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()" ng-show="saveStatus()">{{"maintenance_record_backMaintenanceRecord" | translate}}</md-button>
+  <!-- <md-button flex="25" class="md-raised" ng-click="cancelToMaintenanceRecordList()" ng-hide="saveStatus()">{{"maintenance_record_cancelMaintenanceRecord" | translate}}</md-button> -->
+  <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()">{{"maintenance_record_backMaintenanceRecord" | translate}}</md-button>
 
   <md-button flex="25" class="md-raised md-primary" ng-disabled="!maintanceSummary.$valid" ng-click="saveMaintenanceRecord(maintenanceRecord)">{{"maintenance_record_saveMaintenanceRecord" | translate}}</md-button>
-  <div ng-messages="maintanceSummary.$error" class="errorMessage">
+  <!-- <div ng-messages="maintanceSummary.$error" class="errorMessage">
       <div ng-message="required">{{"requiredFieldValidationErrorMessage" | translate}}.</div>
-  </div>
+  </div> -->
 </div>
 

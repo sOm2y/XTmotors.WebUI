@@ -36,5 +36,5 @@
 	"summary_vehicleInfo_doors":"Doors",
 	"summary_vehicleInfo_weight":"Weight",
 	"summary_vehicleInfo_driveTrain":"Drive Train",
-	"summary_vehicleInfo_searchText":"Please enter your Vehicle Maker or Model to Search"
+	"summary_vehicleInfo_searchText":"Enter Maker or Model to Search"
 }
