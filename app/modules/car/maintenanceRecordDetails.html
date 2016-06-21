@@ -2,7 +2,7 @@
 <div layout="row">
     <md-input-container flex="50" class="md-block">
       <label>{{"maintenance_record_carId" | translate}}</label>
-      <input name="contractNum" required ng-model="maintenanceRecord.carId" ng-readonly="maintenanceRecord.carId">
+      <input name="contractNum" required disabled ng-model="maintenanceRecord.carId" ng-readonly="maintenanceRecord.carId">
       <div ng-messages="maintanceSummary.contractNum.$error">
         <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
       </div>
@@ -67,8 +67,8 @@
     </md-input-container> 
 </div>
 </form>{{"maintenance_record_paymentStatus" | translate}} &nbsp;
-<md-checkbox flex="50" class="md-block" ng-model="contract.paymentStatus" aria-label="contract">
-  {{contract.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}
+<md-checkbox flex="50" class="md-block" ng-model="maintenanceRecord.paymentStatus" aria-label="contract">
+  {{maintenanceRecord.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}
 </md-checkbox>
 
 
@@ -76,7 +76,7 @@
   <!-- <md-button flex="25" class="md-raised" ng-click="cancelToMaintenanceRecordList()" ng-hide="saveStatus()">{{"maintenance_record_cancelMaintenanceRecord" | translate}}</md-button> -->
   <md-button flex="25" class="md-raised" ng-click="backToMaintenanceRecordList()">{{"maintenance_record_backMaintenanceRecord" | translate}}</md-button>
 
-  <md-button flex="25" class="md-raised md-primary" ng-disabled="!maintanceSummary.$valid" ng-click="saveMaintenanceRecord(maintenanceRecord)">{{"maintenance_record_saveMaintenanceRecord" | translate}}</md-button>
+  <md-button flex="25" class="md-raised md-primary" ng-disabled="!maintanceSummary.$valid" ng-click="saveMaintenance(maintenanceRecord)">{{"maintenance_record_saveMaintenanceRecord" | translate}}</md-button>
   <!-- <div ng-messages="maintanceSummary.$error" class="errorMessage">
       <div ng-message="required">{{"requiredFieldValidationErrorMessage" | translate}}.</div>
   </div> -->

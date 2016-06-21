@@ -38,7 +38,7 @@
     </md-tabs>
   <!-- </md-content> -->
   </div>
-  <div layout="row" layout-align="center center" ng-hide="!(selectedTab == 1 || selectedTab == 0)" ng-if="!showMaintenanceReordDetails">
+  <div layout="row" layout-align="center center" ng-hide="!(selectedTab == 0)" ng-if="!showMaintenanceReordDetails">
     <md-button flex="25" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
     <md-button flex="25" class="md-raised md-primary" ng-disabled=" !(vehicleInfo.$valid)" ng-click="saveCar()">{{"save" | translate}}</md-button> 
   </div>
