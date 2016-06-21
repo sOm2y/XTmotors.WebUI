@@ -33,51 +33,8 @@ angular.module('storage.controllers',[])
     		$scope.inStoreList = $scope.inStore;
       	$scope.onTheWayList = $scope.onTheWay;
 
-        $rootScope.editCar = function(car){
-          $q.all({
-              // importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise,
-              vehicleModel: xtmotorsAPIService.get({ section:'VehicleModel/'+car.carId}).$promise,
-              // vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModel/'}).$promise,
-              car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
-              // contract: xtmotorsAPIService.get({ section:'Contract/'+car.carId}).$promise
-            })
-            .then(function(res) {
-                  // $scope.importRecord  = res.importRecord;
-                  // $scope.contract      = res.contract;
-                  $scope.car           = res.car;
-                  $scope.vehicleModel  = res.vehicleModel;
-                  // $scope.vehicleModelList  = res.vehicleModelList;
-                  if($scope.importRecord){
-                    $q.all({
-                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
-                      importSummary: xtmotorsAPIService.get({ section:'Import/'+$scope.importRecord.batchId}).$promise
-                    })
-                    .then(function(res){
-                      $scope.importSummary = res.importSummary;
-                      $scope.maintenanceRecords = res.maintenance;
-                      $scope.importSummary.eta = changeDateFormat($scope.importSummary.eta);
-                      $scope.importSummary.createTime = changeDateFormat($scope.importSummary.createTime);
-                    },function(error){
-                      console.log(error);
-                      $mdToast.show({
-                        template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                        position: 'top right',
-                        hideDelay: 5000,
-                        parent: $element
-                      });
-                    });
-                  }
-                $state.go('car.details',{carId: car.carId});
-                $scope.car.wofTime = changeDateFormat($scope.car.wofTime);
-                $scope.contract.contractDate = changeDateFormat($scope.contract.contractDate);
-            },function(error){
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-            });
+        $scope.editCar = function(car){
+          $state.go('car.details',{carId: car.carId}, {reload: true});
         };
 
 
