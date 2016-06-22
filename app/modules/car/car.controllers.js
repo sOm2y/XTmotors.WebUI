@@ -157,6 +157,7 @@ angular.module('car.controllers',[])
       $state.go('car');
       $scope.getCarSummary();
       $rootScope.newCar = false;
+      $rootScope.isCarEdited = false;
     };
 
     $scope.getVehicleModelList();

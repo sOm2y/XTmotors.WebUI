@@ -63,7 +63,7 @@ angular.module('customer.controllers',[])
        	if($rootScope.newCustomer){
        		xtmotorsAPIService.save({section:'Customer/'},customer)
            .$promise.then(function(res){
-            console.log(res);
+            //console.log(res);
             $mdToast.show({
               	template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New customer has been saved'  + '</span></md-toast>',
               	position: 'top right',
@@ -86,7 +86,7 @@ angular.module('customer.controllers',[])
 				}else{
 			      	xtmotorsAPIService.update({section:'Customer/'+customer.customerId},customer)
 		             .$promise.then(function(res){
-			            console.log(res);
+			            //console.log(res);
 			            $mdToast.show({
 			              	template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Customer has been updated'  + '</span></md-toast>',
 			              	position: 'top right',

@@ -97,7 +97,7 @@ angular.module('employee.controllers',[])
 				if($rootScope.newEmployee){
 					xtmotorsAPIService.save({section:'Employee/'},employee)
 					.$promise.then(function(res){
-						console.log(res);
+						//console.log(res);
 						$mdToast.show({
 								template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New employee has been saved'  + '</span></md-toast>',
 								position: 'top right',
@@ -122,7 +122,7 @@ angular.module('employee.controllers',[])
 			}else{
 				xtmotorsAPIService.update({section:'Employee/'+employee.employeeId},employee)
 					.$promise.then(function(res){
-						console.log(res);
+						//console.log(res);
 						$mdToast.show({
 							template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Employee hass been updated'  + '</span></md-toast>',
 							position: 'top right',
@@ -145,7 +145,8 @@ angular.module('employee.controllers',[])
 		};
 
 	}])
-	.controller('EmployeeDetailsCtrl', ['$rootScope','$scope','$state',function ($rootScope,$scope,$state) {
+	.controller('EmployeeDetailsCtrl', ['$rootScope','$scope','$state','$stateParams', function ($rootScope,$scope,$state,$stateParams) {
 		$rootScope.isLoading = false;
+		//console.log($stateParams.employeeId);
 
 	}]);
