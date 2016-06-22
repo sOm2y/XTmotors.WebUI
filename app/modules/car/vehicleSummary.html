@@ -130,13 +130,13 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-                  <!-- <md-input-container flex="50" class="md-block">
+                  <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_description" | translate}}</label>
                     <input name="carDescription" required ng-model="car.description">
                     <div ng-messages="carSummary.carDescription.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container> -->
+                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_carStatus" | translate}}</label>
                      <md-select ng-model="selectedcarStatus" ng-change="statusChanged(selectedcarStatus)">
@@ -146,17 +146,18 @@
                         </md-option>
                      </md-select>
                   </md-input-container>
-                  <div class="checkBox" flex="50" style="margin-top: 0">
-                    <md-checkbox class="md-block" ng-model="car.paymentStatus" aria-label="contract">
+                  <div class="checkBox" flex="50">
+                    <md-checkbox class="md-block" ng-model="car.paymentStatus" aria-label="paymentStatus">
                       {{car.paymentStatus ?'Paid':'Unpaid'}}
                     </md-checkbox>
                   </div>
-                  <md-input-container flex="100" class="md-block">
+
+                  <!-- <md-input-container flex="100" class="md-block">
                     <label>{{"summary_feature_description" | translate}}</label>
-                    <text-angular flex="100" ng-model="car.description" ta-toolbar="[]">
-                    <p>description</p> 
-                  </text-angular>
-                  </md-input-container>
+                    <div text-angular flex="100" ng-model="car.description" ta-toolbar="[]">
+                    
+                  </div>
+                  </md-input-container> -->
                   
                 </form>
               </md-card-content>
