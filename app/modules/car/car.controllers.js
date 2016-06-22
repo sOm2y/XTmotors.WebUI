@@ -217,7 +217,7 @@ angular.module('car.controllers',[])
       //$scope.car.vehicleModelId = '';
     }else{
       if($scope.isCarEdited){
-
+        $scope.isCarEdited = false;
       }else{
         $scope.getCarById($stateParams.carId);
       }

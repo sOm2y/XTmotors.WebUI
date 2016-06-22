@@ -15,7 +15,7 @@ angular
     'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
+    // 'ngSanitize',
     'ngTouch',
     'jm.i18next',
     'ui.router',
@@ -32,6 +32,7 @@ angular
     'azureBlobUpload',
     'ngFileUpload',
     'LocalStorageModule',
+    'textAngular',
 
     //XTmotors app
     'app.controllers',
