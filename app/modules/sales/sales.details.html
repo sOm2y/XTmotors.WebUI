@@ -112,13 +112,9 @@
               <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container>
-          <md-input-container flex="50" class="md-block">
+          <md-input-container flex="100" class="md-block">
             <label>Description</label>
-            <input required ng-model="contract.description">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
-            </div>
+            <textarea ng-model="contract.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
           </md-input-container>
         </div>
       </md-card-content>

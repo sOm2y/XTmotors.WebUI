@@ -60,11 +60,16 @@
 <div layout="row">  
   <md-input-container flex="100" class="md-block">
     <label>{{"maintenance_record_description" | translate}}</label>
+    <textarea ng-model="maintenanceRecord.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+  </md-input-container>
+  
+  <!-- <md-input-container flex="100" class="md-block">
+    <label>{{"maintenance_record_description" | translate}}</label>
     <input name="description" ng-model="maintenanceRecord.description">
     <div ng-messages="maintanceSummary.description.$error">
       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
     </div>
-    </md-input-container> 
+    </md-input-container>  -->
 </div>
 </form>{{"maintenance_record_paymentStatus" | translate}} &nbsp;
 <md-checkbox flex="50" class="md-block" ng-model="maintenanceRecord.paymentStatus" aria-label="contract">
