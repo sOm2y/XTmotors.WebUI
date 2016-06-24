@@ -5,8 +5,10 @@ button.home--button-add{
 }
 canvas{
     width: 100% !important;
+    max-width: 1000px;
     min-width: 800px;
-    // height: 350px;
+    height: 350px;
+    max-width:400px;
 }
 
 .contractSearchContainer{
