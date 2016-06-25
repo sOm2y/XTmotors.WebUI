@@ -15,8 +15,12 @@ angular.module('settlement.controllers',[])
 		
 		var contractTemp = [];
 		var importTemp = [];
+
 		$scope.contractData = [];
 		$scope.importData = [];
+
+		$scope.modelLabels = [];
+		$scope.modelData = [];
 
 		function Dates(){
 			this.January = [];
@@ -41,6 +45,7 @@ angular.module('settlement.controllers',[])
 		function drawGraphs(){
 			getContracts();
 			getImports();
+			getVehicleModels();
 		}
 
 		var count = 0;
@@ -63,9 +68,6 @@ angular.module('settlement.controllers',[])
 						});
 					});
 				})
-				
-			    
-
 			});
 		}
 
@@ -80,6 +82,27 @@ angular.module('settlement.controllers',[])
 				getCountNumber(contractTemp, $scope.contractDates, $scope.contractData);
 			},function(error){
 
+			});
+		}
+
+		function getVehicleModels(){
+			xtmotorsAPIService.query({section:'car/summary'})
+			.$promise.then(function(cars) {
+				
+				_.forEach(cars, function(item){
+					$scope.modelLabels.push(item.makerName);
+				})
+				
+				$scope.modelLabels = _.uniq($scope.modelLabels);
+				_.forEach($scope.modelLabels, function(item){
+					var count = 0;
+					_.forEach(cars, function(car){
+						if(car.makerName === item){
+							count++;
+						}
+					})
+					$scope.modelData.push(count);
+				})
 			});
 		}
 
@@ -137,14 +160,6 @@ angular.module('settlement.controllers',[])
 			var date = moment(item[description]).format('MMMM');
 			return date;
 		}
-
-		// function countNumber(dateObj, items, dateName, temp, data){
-		// 	_.forEach(items, function(item){
-		// 		console.log(getMonthName(item, dateName));
-		// 		//addToDates(dateObj, date, item);	
-		// 	})
-		// 	//getCountNumber(temp, dateObj, data);
-		// }
 		
 		$scope.colours=[{
 			fillColor: 'rgba(255, 255, 255, 0.8)',
@@ -152,7 +167,6 @@ angular.module('settlement.controllers',[])
 		    highlightFill: 'rgba(255, 255, 255, 0.8)',
 		    highlightStroke: 'rgba(255, 255, 255, 0.8)'
 		}];
-
 
 		// function resizeChart() {
 		//     var canvas = document.getElementById("canvas");
