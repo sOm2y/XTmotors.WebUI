@@ -22,5 +22,18 @@ angular.module('consignment',
                 data: {
                     requireLogin: true
                 }
+            })
+             .state('consignment.details', {
+                url:"/:batchId",
+                views:{
+                    "consignment-details-view":{
+                        templateUrl:"modules/consignment/consignment.details.html",
+                        controller: 'ConsignmentDetailsCtrl',
+                    }
+                },
+                data:{
+                    requireLogin: true
+                }
             });
+            
     }]);

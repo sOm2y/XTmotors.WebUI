@@ -1,9 +1,28 @@
-<canvas id="line" class="chart chart-line" chart-data="data"
-  chart-labels="labels" chart-legend="true" chart-series="series"
-  chart-click="onClick" >
-</canvas> 
-<md-card flex-gt-sm="90" flex-gt-md="80" ui-view="settlement-details-view" >
-    <md-card-content layout="row">
-      
-    </md-card-content>
-</md-card>  
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Sales summary</b></div>
+	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
+		<canvas id="bar" class="chart chart-bar" chart-data="contractData" chart-labels="labels">
+		</canvas>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Imports summary</b></div>
+	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
+		<canvas id="line" class="chart chart-line" chart-data="importData" chart-labels="labels">
+		</canvas>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>VehicleModels summary</b></div>
+	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
+		<canvas id="pie" class="chart chart-pie" chart-data="modelData" chart-labels="modelLabels">
+		</canvas>
+	</div>
+</div>
+
+
+
+
+
+  

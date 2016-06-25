@@ -15,65 +15,65 @@
           <div ng-messages="saleInfo.contractNum.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_contractDate" | translate}}</label>
           <input time="false" date="true" mdc-datetime-picker="" type="text" id="contractDate" placeholder="Date" ng-model="contract.contractDate" class=" md-input">
         </md-input-container>
         <md-input-container flex="50" class="md-block">
-          <label>{{"contract_summary_deposite" | translate}}</label>
+          <label>{{"contract_summary_deposit" | translate}}</label>
           <input name="deposite" required ng-model="contract.deposite">
           <div ng-messages="saleInfo.deposite.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_balance" | translate}}</label>
           <input name="balance" required ng-model="contract.balance">
           <div ng-messages="saleInfo.balance.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_price" | translate}}</label>
           <input name="price" required ng-model="contract.price">
           <div ng-messages="saleInfo.price.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_gst" | translate}}</label>
           <input name="gst" required ng-model="contract.gst">
           <div ng-messages="saleInfo.gst.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_total" | translate}}</label>
           <input name="total" required ng-model="contract.total">
           <div ng-messages="saleInfo.total.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container>       
+        </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_currency" | translate}}</label>
           <input name="currency" required ng-model="contract.currency">
           <div ng-messages="saleInfo.currency.$error">
             <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
           </div>
-        </md-input-container> 
+        </md-input-container>
          <md-input-container flex="50" class="md-block">
           <label>{{"contract_summary_description" | translate}}</label>
           <input name="description" ng-model="contract.description">
-        </md-input-container> 
-        </div>    
-      </md-card-content>   
+        </md-input-container>
+        </div>
+      </md-card-content>
     </md-card>
-  </form>  
+  </form>
   </md-content>
   <div layout="row" layout-align="center center">
     <md-button flex="25" class="md-raised" ng-click="backToCar()">{{"contract_summary_cancel" | translate}}</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-disabled="!saleInfo.$valid" ng-click="saveContract(contract)">{{"contract_summary_save" | translate}}</md-button> 
+    <md-button flex="25" class="md-raised md-primary" ng-disabled="!saleInfo.$valid" ng-click="saveContract(contract)">{{"contract_summary_save" | translate}}</md-button>
     <div ng-messages="saleInfo.$error" class="errorMessage">
         <div ng-message="required">{{"saleInfoRequiredFieldErrorMessage" | translate}}.</div>
     </div>

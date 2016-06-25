@@ -1,39 +1,22 @@
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12 text-center">	
+	<div layout="row" layout-wrap>
+		<div flex="100" class="login-container">
 			<img width="300" src="images/xtmotors_logo_fixed_2.png" alt="">
 		</div>
 
-		<div id="form-container" class="row">
-			<div class="col-xs-3"></div>
-			<div class="col-xs-6" id="login-form-wrapper" hidden="" style="display: block; opacity: 1;">
-				<p id="login-error" hidden="" style="display: none;"> 
-				</p>
-				<form id="login-form" class="ng-pristine ng-valid" >
-					<input id="user-email" name="email" type="email" class="form-control login-input" placeholder="EMAIL">
-					<input name="password" type="password" class="login-form form-control login-input" placeholder="PASSWORD" id="login-password">
-					<div class="row login-form">
-						<div class="col-xs-6">
-							<div class="row login-options">
-								<div class="checkbox login-input-checkbox" id="remember-me">
-									<label>
-										<input name="remember" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>&nbsp; Remember Me?
-									</label>
-								</div>
-							</div>
-							<div id="forgot-password-container" class="row login-options">
-								<!-- <a id="forgot-password">Forgot your password?</a> -->
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<button type="submit" class="btn btn-primary btn-raised pull-right splash-button-success" ng-click="submit()" style="background:#3f51b5;">Login<div class="ripple-wrapper"></div></button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-xs-3">
-			</div>
-		</div>
+		<div id="form-container" flex="100" layout="row">
+			<form flex="60" id="login-form" layout="row" layout-wrap>
+				<input ng-model="email" type="email" placeholder="EMAIL" class="form-control login-input">
+				<input ng-model="password" type="password" placeholder="PASSWORD" class="form-control login-input">
+				<div  flex="100" layout="row" layout-align="space-between center">
+					<md-checkbox ng-model="rememberPassword" aria-label="Remember Me?" id="login-checkBox">
+						<span id="checkbox-lable">&nbsp; Remember Me?</span>
+					</md-checkbox>
+
+					<md-button ng-click="attemptLogin(email,password);LoginModalCtrl.cancel()">Login</md-button>
+				</div>
+			</form>
+		<div>
 	</div>
 </div>
 <div class="version-no">v&nbsp;0.0.1</div>

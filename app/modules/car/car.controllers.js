@@ -10,243 +10,20 @@
 angular.module('car.controllers',[])
 	.controller('CarCtrl', ['$rootScope','$scope','$translate','$translatePartialLoader','xtmotorsAPIService','$q','$state','$stateParams','$mdEditDialog','$timeout','$mdToast','$element',function ($rootScope,$scope, $translate, $translatePartialLoader,xtmotorsAPIService,$q,$state, $stateParams,$mdEditDialog,$timeout,$mdToast,$element) {
 		$rootScope.isLoading = true;
-    xtmotorsAPIService.query({section:'car/summary'})
-      .$promise.then(function(cars) {
-        $rootScope.cars = cars;
-     
-        $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
+    $scope.selected = [];
+    $scope.selectedcarStatus = '';
 
-        $translatePartialLoader.addPart('car');
-        $translatePartialLoader.addPart('carDetails');
-        $translatePartialLoader.addPart('contractSummary');
-        $translatePartialLoader.addPart('importSummary');
-        $translatePartialLoader.addPart('vehicleSummary');
-        $translatePartialLoader.addPart('maintenanceRecordDetails');
-        $translatePartialLoader.addPart('maintenanceRecordList');
-        $translatePartialLoader.addPart('errorMessage');
-        $translate.refresh();
+    $translatePartialLoader.addPart('car');
+    $translatePartialLoader.addPart('carDetails');
+    $translatePartialLoader.addPart('contractSummary');
+    $translatePartialLoader.addPart('importSummary');
+    $translatePartialLoader.addPart('vehicleSummary');
+    $translatePartialLoader.addPart('maintenanceRecordDetails');
+    $translatePartialLoader.addPart('maintenanceRecordList');
+    $translatePartialLoader.addPart('errorMessage');
+    $translate.refresh();
 
-        $scope.selected = [];
-
-        $scope.checkCarStatusColor = function(carStatus){
-          switch(carStatus){
-            case "Sold":
-              return "sold";
-            case "Reserved":
-              return "reserved";
-            case "For Sale":
-              return "sale";
-            case "Inspection":
-              return "inspection";  
-            case "Arrived Port":
-              return "arrived"; 
-            case "Departed Port":
-              return "departed";
-          }
-        };
-
-
-        vehicleModelList: xtmotorsAPIService.query({ section:'VehicleModels/'})
-          .$promise.then(function(res){
-            $scope.vehicleModelList  = res;
-            $rootScope.isVehicleModelListLoaded = true;
-          },function(error){
-            //console.log("error");
-        });
-
-
-        $rootScope.editCar = function(car){
-          $q.all({
-
-              car: xtmotorsAPIService.get({ section:'car/'+car.carId}).$promise,
-              contract: xtmotorsAPIService.get({ section:'Contracts/'+car.carId}).$promise,
-              importRecord: xtmotorsAPIService.get({section:'ImportRecords/'+car.carId}).$promise
-              
-            })
-            .then(function(res) {
-                  $scope.importRecord  = res.importRecord;
-                  $scope.contract      = res.contract;
-                  $scope.car           = res.car;
-                
-                  //$scope.vehicleModelList  = res.vehicleModelList;
-                  if($scope.importRecord){
-                    $q.all({
-                      maintenance: xtmotorsAPIService.query({section:'Maintenance/Car/'+$scope.car.carId}).$promise,
-                      importSummary: xtmotorsAPIService.get({ section:'Imports/'+$scope.importRecord.batchId}).$promise,
-                      vehicleModel: xtmotorsAPIService.get({ section:'VehicleModels/'+$scope.car.vehicleModelId}).$promise
-                    })
-                    .then(function(res){
-                      $scope.importSummary = res.importSummary;
-                      $scope.maintenanceRecords = res.maintenance;
-                      $scope.importSummary.eta = changeDateFormat($scope.importSummary.eta);
-                      $scope.importSummary.createTime = changeDateFormat($scope.importSummary.createTime);
-                        $scope.vehicleModel  = res.vehicleModel;
-                    },function(error){
-                      console.log(error);
-                      $mdToast.show({
-                        template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                        position: 'top right',
-                        hideDelay: 5000,
-                        parent: $element
-                      });
-                    });
-                  }
-                $state.go('car.details',{carId: car.carId});
-                $scope.car.wofTime = changeDateFormat($scope.car.wofTime);
-                $scope.contract.contractDate = changeDateFormat($scope.contract.contractDate);
-            },function(error){
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-            });
-        };
-
-        $scope.createNewCar = function(){
-          if($rootScope.newCar){
-              $scope.car = {};
-              $scope.vehicleModel = {};
-              $scope.importRecord = {};
-              $scope.maintenanceRecord = {};
-              $scope.contract = {};
-              //$scope.fetchVehicleModelList();
-          }
-        };
-
-        $scope.selectedItemChange = function(selectVehicle) { 
-          if(selectVehicle !== null){       
-            $scope.vehicleModel = selectVehicle;    
-          }       
-        };
-
-
-        function changeDateFormat(date){          
-          var wofTime = moment(date).startOf('day').toDate();
-          return wofTime;
-        } 
-
-        $scope.backToCar = function(){
-          // xtmotorsCRUDService.cancelEdit($scope);
-          $state.go('car');
-          $rootScope.newCar = false;
-        };
-
-        $scope.saveCar= function(car,vehicleModel,importRecord,importSummary){
-          // var formValid = xtmotorsAPIService.validateForm($scope);
-          // if(formValid){
-          if($rootScope.newCar){
-            $q.all({
-              car: xtmotorsAPIService.save({section:'car/'}, car).$promise,
-              // vehicleModel: xtmotorsAPIService.save({ section:'VehicleModels/'},vehicleModel).$promise,
-              // importRecord: xtmotorsAPIService.save({ section:'ImportRecords/'}, importRecord).$promise,
-              //contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
-              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
-              // importSummary: xtmotorsAPIService.save({ section:'Imports/'}, importSummary).$promise
-            })
-            .then(function(res){
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Car has been saved'  + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-              $rootScope.newCar = false;
-              // console.log(res);
-            },function(error){
-              console.log(error);
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-            }).finally(function(){
-                
-            });
-          }else{
-            $q.all({
-              car: xtmotorsAPIService.update({section:'car/'+car.carId}, car).$promise,
-              vehicleModel: xtmotorsAPIService.update({ section:'VehicleModels/' +vehicleModel.vehicleModelId},vehicleModel).$promise,
-              importRecord: xtmotorsAPIService.update({ section:'ImportRecords/'+importRecord.carId}, importRecord).$promise,
-              //contract: xtmotorsAPIService.update({ section:'Contract/'+contract.carId}, contract).$promise,
-              // maintenance: xtmotorsAPIService.update({section:'Maintenance/'+$scope.maintenance.recordId}, $scope.maintenance).$promise,
-              importSummary: xtmotorsAPIService.update({ section:'Imports/'+ importSummary.batchId}, importSummary).$promise
-            })
-            .then(function(res){
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Car record has been saved'  + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-              // console.log(res);
-            },function(error){
-              console.log(error);
-              $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-              });
-            }).finally(function(){
-                
-            });
-          }
-         
-        };
-
-
-      }, function(error) {
-        $mdToast.show({
-          template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-          position: 'top right',
-          hideDelay: 5000,
-          parent: $element
-        });
-    }).finally(function(){
-
-      $rootScope.isLoading = false;
-    });
-
-    function updateContract(contract){
-      xtmotorsAPIService.update({ section:'Contracts/'+contract.carId}, contract)
-        .$promise.then(function(res){
-          $mdToast.show({
-              template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Contract record has been updated'  + '</span></md-toast>',
-              position: 'top right',
-              hideDelay: 5000,
-              parent: $element
-          });
-        },function(error){
-          $mdToast.show({
-              template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-              position: 'top right',
-              hideDelay: 5000,
-              parent: $element
-          });
-        }).finally(function(){
-            
-        });
-    }
-  	
-    $scope.saveContract= function(contract){
-      if(contract.paymentStatus){
-        updateContract(contract);
-      }else{
-        //Wait for ID
-        
-        //console.log("empty");
-        // contract.carId = "";
-        // contract.customerId = "";
-        // contract.employeeId = "";
-        // contract.contractNum = "";
-        // contract.currency = "";
-        // updateContract(contract);
-      }
-    }
-
+    
     $scope.options = {
       autoSelect: true,
       boundaryLinks: false,
@@ -254,22 +31,280 @@ angular.module('car.controllers',[])
       pageSelector: false,
       rowSelection: false
     };
-        
+
     $scope.query = {
       order: 'carId',
       limit: 15,
       page: 1
     };
+
+    $scope.getCarSummary = function(){
+      xtmotorsAPIService.query({section:'car/summary'})
+      .$promise.then(function(cars) {
+        $rootScope.cars = cars;
+        $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
+        $rootScope.isLoading = false;      
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $rootScope.showError = function(error){
+      $mdToast.show({
+        template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+        position: 'top right',
+        hideDelay: 5000,
+        parent: $element
+      });
+    };
+
+    $rootScope.successToast = function(message){
+      $mdToast.show({
+        template: '<md-toast class="md-toast md-toast-success"><span flex>' + message  + '</span></md-toast>',
+        position: 'top right',
+        hideDelay: 5000,
+        parent: $element
+      });
+    };
+
+    $rootScope.carStatusList = ["Sold", "Reserved", "For Sale", "Inspection", "Arrived Port", "Departed Port"];
+
+    $scope.checkCarStatusColor = function(carStatus){
+      switch(carStatus){
+        case "Sold":
+          return "sold";
+        case "Reserved":
+          return "reserved";
+        case "For Sale":
+          return "sale";
+        case "Inspection":
+          return "inspection";
+        case "Arrived Port":
+          return "arrived";
+        case "Departed Port":
+          return "departed";
+        default:
+          return "departed";
+      }
+    };
+
+    $scope.getVehicleModelList = function(){
+      xtmotorsAPIService.query({ section:'VehicleModels/'})
+      .$promise.then(function(res){
+        $rootScope.vehicleModelList  = res;
+        $rootScope.isVehicleModelListLoaded = true;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getCarById = function(carId){
+      xtmotorsAPIService.get({ section:'car/'+carId})
+      .$promise.then(function(res){
+        $scope.car = res;
+        $scope.getModelById(res.vehicleModelId);
+        //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
+        $scope.getCarMaintenanceList(carId);
+        $state.go('car.details',{carId: carId});
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getCarMaintenanceList = function(carId){
+      xtmotorsAPIService.query({section:'Maintenance/Car/'+carId})
+      .$promise.then(function(res){
+        $scope.maintenanceRecords = res;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getCarImportRecord = function(carId){
+      xtmotorsAPIService.get({ section:'ImportRecords/'+carId})
+      .$promise.then(function(res){
+        $scope.importSummary = res;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getCarImages = function(carId){
+      xtmotorsAPIService.query({section:'images/car/'+carId})
+      .$promise.then(function(res){
+        $scope.images = res;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getModelById = function(vehicleModelId){
+      xtmotorsAPIService.get({ section:'VehicleModels/'+vehicleModelId})
+      .$promise.then(function(res){
+        $scope.vehicleModel = res;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $rootScope.editCar = function(car){
+      $scope.getCarById(car.carId);
+      $rootScope.isCarEdited = true;
+    };  
+
+    $scope.backToCar = function(){
+      // xtmotorsCRUDService.cancelEdit($scope);
+      $state.go('car');
+      $scope.getCarSummary();
+      $rootScope.newCar = false;
+      $rootScope.isCarEdited = false;
+    };
+
+    $scope.getVehicleModelList();
+    $scope.getCarSummary();
+
+    // function updateContract(contract){
+    //   xtmotorsAPIService.update({ section:'Contracts/'+contract.carId}, contract)
+    //     .$promise.then(function(res){
+    //       $mdToast.show({
+    //           template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Contract record has been updated'  + '</span></md-toast>',
+    //           position: 'top right',
+    //           hideDelay: 5000,
+    //           parent: $element
+    //       });
+    //     },function(error){
+    //       $mdToast.show({
+    //           template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+    //           position: 'top right',
+    //           hideDelay: 5000,
+    //           parent: $element
+    //       });
+    //     }).finally(function(){
+
+    //     });
+    // }
+
+    // $scope.saveContract= function(contract){
+    //   if(contract.paymentStatus){
+    //     updateContract(contract);
+    //   }else{
+    //     //Wait for ID
+
+    //     //console.log("empty");
+    //     // contract.carId = "";
+    //     // contract.customerId = "";
+    //     // contract.employeeId = "";
+    //     // contract.contractNum = "";
+    //     // contract.currency = "";
+    //     // updateContract(contract);
+    //   }
+    // };
+
+    
 	}])
+
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
+    
     $translatePartialLoader.addPart('carDetails');
-    $translate.refresh();  
+    $translate.refresh();
     $scope.showMaintenanceReordDetails = false;
     $scope.uploading = false;
-    var creatMaintenanceRecord = false;
 
-    $scope.log = '';
+    if($rootScope.newCar){
+      $scope.car = {};
+      $scope.car.carId = $stateParams.carId;
+      //$scope.car.vehicleModelId = '';
+    }else{
+      if($scope.isCarEdited){
+        $scope.isCarEdited = false;
+      }else{
+        $scope.getCarById($stateParams.carId);
+      }
+    }
+
+
+    $scope.saveCar = function(){ 
+      $scope.checkModelStatus(); 
+    };
+
+    $scope.statusChanged = function(selectedcarStatus){
+      if(selectedcarStatus !== null){
+        $scope.car.carStatus = selectedcarStatus;
+        $rootScope.newVehicleModel = false;
+      }
+    }
+
+    $scope.selectedItemChange = function(selectVehicle){
+      if(selectVehicle !== null){
+        $scope.vehicleModel = selectVehicle;
+        $rootScope.newVehicleModel = false;
+      }
+    };
+
+    $scope.createNewVehicleModel = function(){
+      $rootScope.newVehicleModel = true;
+    }
+
+    $scope.checkCarStatus = function(){
+      if($rootScope.newCar){
+        $scope.saveCarRecord();
+      }else{
+        $scope.updateCarRecord();
+      }
+    };
+
+    $scope.checkModelStatus =function(){
+      if($rootScope.newVehicleModel){
+        $scope.saveModelRecord();
+      }else{
+        $scope.updateModelRecord();
+      }
+    };
+
+    //Reminder: need to set Vehicle Model first, then save the car record.
+    $scope.saveModelRecord = function(){
+      xtmotorsAPIService.save({ section:'VehicleModels/'},$scope.vehicleModel)
+      .$promise.then(function(res){
+        $rootScope.newVehicleModel = false;
+        $scope.car.vehicleModelId = res.vehicleModelId;
+        $scope.getVehicleModelList();
+        $scope.checkCarStatus();
+      },function(error){
+        $rootScope.newVehicleModel = true;
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.updateModelRecord = function(){
+      xtmotorsAPIService.update({ section:'VehicleModels/' +$scope.vehicleModel.vehicleModelId},$scope.vehicleModel)
+      .$promise.then(function(res){
+        $scope.car.vehicleModelId = res.vehicleModelId;
+        $scope.checkCarStatus();
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.saveCarRecord = function(){
+      xtmotorsAPIService.save({section:'car/'}, $scope.car)
+      .$promise.then(function(res){
+        $rootScope.newCar = false;
+        $scope.successToast("New car saved.");
+      },function(error){
+        $rootScope.newCar = true;
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.updateCarRecord = function(){
+      xtmotorsAPIService.update({section:'car/'+$scope.car.carId}, $scope.car)
+      .$promise.then(function(res){
+        $scope.successToast("Update was successful.");
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
 
     $scope.uploadFiles = function (files) {
        $scope.files = files;
@@ -277,31 +312,21 @@ angular.module('car.controllers',[])
             Upload.upload({
               url: 'http://xtmotorwebapi.azurewebsites.net/api/images/upload/'+$scope.car.carId,
               data: {
-                file: files  
+                file: files
               }
             }).then(function (response) {
                 $timeout(function () {
                     $scope.result = response.data;
                 });
-                $mdToast.show({
-                  template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Photos has been saved'  + '</span></md-toast>',
-                  position: 'top right',
-                  hideDelay: 5000,
-                  parent: $element
-                });
+                $rootScope.successToast("Photos has been saved");
             }, function (error) {
                 if (error.status > 0) {
-                  $mdToast.show({
-                    template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                    position: 'top right',
-                    hideDelay: 5000,
-                    parent: $element
-                  });
+                  $rootScope.showError(error);
                   $scope.uploading = false;
                 }
             }, function (evt) {
                 $scope.uploading = true;
-                $scope.progress = 
+                $scope.progress =
                     Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             }).finally(function(){
               $scope.uploading = false;
@@ -311,86 +336,56 @@ angular.module('car.controllers',[])
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
-        $scope.maintenanceRecord = {};
-        newMaintenanceRecord = true;
+        $scope.newMaintenanceRecord = true;
+        $scope.maintenanceRecord = {
+          carId: $scope.car.carId
+        };
     };
 
     $scope.backToMaintenanceRecordList = function(){
       $scope.showMaintenanceReordDetails = false;
+      $scope.getCarMaintenanceList($scope.car.carId);
     };
 
-    $scope.editMaintenanceReord = function(record){
+
+    $scope.editMaintenanceRecord = function(record){
       if(!_.isUndefined(record)){
+        $scope.newMaintenanceRecord = false;
         $scope.maintenanceRecord = record;
         $scope.showMaintenanceReordDetails = true;
-        newMaintenanceRecord = false;
       }
     };
 
-    $scope.save = function(record){
-      xtmotorsAPIService.save({section:'Maintenance'}, record)
-          .$promise.then(function(res){
-            $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'New maintenance has been saved'  + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-            });
-            newMaintenanceRecord = false;
-          },function(error){
-            $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-            });
-            newMaintenanceRecord = true;
-          }).finally(function(){
-              
-          });
-    }
-
-    $scope.update = function(record){
-      xtmotorsAPIService.update({section:'Maintenance/'+record.recordId}, record)
-          .$promise.then(function(res){
-            $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-success"><span flex>' + 'Maintenance record has been updated'  + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-            });
-          },function(error){
-            $mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
-                position: 'top right',
-                hideDelay: 5000,
-                parent: $element
-            });
-          }).finally(function(){
-              
-          });
-    }
-
     $scope.saveMaintenanceRecord = function(record){
+      xtmotorsAPIService.save({section:'Maintenance'}, record)
+      .$promise.then(function(res){
+        $scope.successToast('New maintenance has been saved');
+        $scope.newMaintenanceRecord = false;
+      },function(error){
+        $scope.newMaintenanceRecord = true;  
+        $rootScope.showError(error);  
+      });
+    };
+
+    $scope.updateMaintenanceRecord = function(record){
+      xtmotorsAPIService.update({section:'Maintenance/'+record.recordId}, record)
+      .$promise.then(function(res){
+        $scope.successToast('Update was successful');
+      },function(error){
+        $rootScope.showError(error);
+      });    
+    };
+
+    $scope.saveMaintenance = function(record){
       //TODO: check is an edit maintenance object or create new maintenance object
       //then use xtmotorsAPIService.update for updateing edit object
       //use xtmotorsAPIService.save for saving new object
-      //console.log(record);
-        if(newMaintenanceRecord){
-          $scope.save(record);         
+        if($scope.newMaintenanceRecord){
+          $scope.saveMaintenanceRecord(record);
         }else{
-          $scope.update(record);
+          $scope.updateMaintenanceRecord(record);
         }
 
     };
 
-  }])
-  .controller('ImportInfoCtrl', ['$rootScope','$scope','xtmotorsAPIService','xtmotorsCRUDService','$translate','$translatePartialLoader','$stateParams', 
-    function ($rootScope,$scope,xtmotorsAPIService,xtmotorsCRUDService,$translate, $translatePartialLoader,$stateParams) {
-
-
-
-
   }]);
-
-

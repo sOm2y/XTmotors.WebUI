@@ -25,6 +25,9 @@ right: 4vw;
 }
 
 
+md-toast{
+  z-index: 99999 !important;
+}
 
 // Main content bg color
 md-content.md-default-theme {

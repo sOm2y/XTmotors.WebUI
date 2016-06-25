@@ -24,7 +24,7 @@ angular.module('sales',
                 }
             })
             .state('sales.details',{
-                url:"/:ContractsId",
+                url:"/:carId",
                 views:{
                     "sales-details-view":{
                         templateUrl:"modules/sales/sales.details.html",

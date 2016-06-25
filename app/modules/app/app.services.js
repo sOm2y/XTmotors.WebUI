@@ -10,7 +10,7 @@ angular.module('app.services', [])
             //   'remove': {method:'DELETE'},
             //   'delete': {method:'DELETE'}
   }])
-  .service('xtmotorsCRUDService' ,['xtmotorsAPIService', 
+  .service('xtmotorsCRUDService' ,['xtmotorsAPIService',
       function(xtmotorsAPIService){
         this.get = function(functionName, $scope){
             // $activityIndicator.startAnimating();
@@ -123,7 +123,7 @@ angular.module('app.services', [])
 
     // alertService.add = function(alert){
 
-  
+
     //   $rootScope._.assign(alert, {
     //     dismissTimeout: alert.type === 'success' ? 3000 : 5000
     //   });

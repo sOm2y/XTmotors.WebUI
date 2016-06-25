@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.tmp) styles/main.css -->  
+    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/app/app.css">
     <link rel="stylesheet" href="styles/app/loginModal.css">
@@ -19,10 +19,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.css">
+    <!-- <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.css"> -->
     <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
     <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
     <!-- endbuild -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
@@ -84,7 +85,7 @@
               </md-button>
           </md-fab-actions>
       </md-fab-speed-dial>
-    
+
       <md-toolbar class="md-whiteframe-z1">
         <div class="md-toolbar-tools">
           <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
@@ -116,13 +117,21 @@
           <md-button class="md-icon-button toolbar-button" aria-label="Search" ng-click="">
             <ng-md-icon icon="search"></ng-md-icon>
           </md-button>
-           <md-button class="md-icon-button toolbar-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-            <ng-md-icon icon="notifications"></ng-md-icon><span>2</span>
-          </md-button>
-          <md-menu>
+          <md-menu md-position-mode="target-right target" md-offset="200 80" >
+            <md-button class="md-icon-button toolbar-button" aria-label="Open Settings" ng-click="$mdOpenMenu($event)">
+             <ng-md-icon icon="notifications"></ng-md-icon><span>0</span>
+            </md-button>
+            <md-menu-content width="5">
+              <md-menu-item>
+                <span>No notifications yet</span>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-menu md-position-mode="target-right target" md-offset="200 65">
             <md-button aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
               <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
-                Christos
+              {{profile.firstName}}
             </md-button>
             <md-menu-content width="4">
                 <md-menu-item>
@@ -150,7 +159,7 @@
 
       <md-content flex md-scroll-y>
         <ui-view layout="column" state="{{$state.current.name}}" ng-hide="isLoading" layout-fill layout-padding>
-     
+
         </ui-view>
       </md-content>
 
@@ -167,6 +176,7 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
     <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
@@ -177,7 +187,6 @@
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
@@ -186,29 +195,25 @@
     <script src="bower_components/countUp.js/dist/countUp.min.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-    <script src="bower_components/i18next/bin/index.js"></script>
+    <script src="bower_components/i18next/i18next.min.js"></script>
     <script src="bower_components/ng-i18next/dist/ng-i18next.js"></script>
+    <script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
+    <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
+    <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
     <!-- endbower -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.js"></script> -->
 
-
-     <script>
-            $(document).ready(function() {
-                // This command is used to initialize some elements and make them work properly
-                $.material.init();
-                
-            });
-    </script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/scripts.js"></script>
     <script src="templateCache.js"></script>
+
     <!-- endbuild -->
 
     <script type="text/javascript" src="http://logbon72.github.io/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
 
-        
+
 </body>
 </html>

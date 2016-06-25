@@ -1,0 +1,117 @@
+<div>
+  <div layout="row">
+    <md-card flex="50">
+    <md-subheader class="md-primary">Transportation Details</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>batchId</label>
+            <input required ng-model="batch.batchId" disabled>
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Transportation Expense</label>
+            <input required ng-model="batch.transportationExpense">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Transport Company</label>
+            <input required ng-model="batch.transportCompany">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <md-card flex="50">
+    <md-subheader class="md-primary"> &nbsp;</md-subheader>
+      <md-card-content>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>Check Location</label>
+            <input required ng-model="batch.checkLocation">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Tota lDue</label>
+            <input required ng-model="batch.totalDue">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>ETA</label>
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="ETA" ng-model="batch.createTime" class="md-input">
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div>
+    <md-card flex-gt-sm="90" flex-gt-md="70">
+      <md-card-content>
+         <div layout="row">
+          <span flex="90">
+            <md-autocomplete
+              md-selected-item="selectedCar"
+              md-search-text="carSearchText"
+              md-items="item in cars | filter:carSearchText"
+              md-selected-item-change="selectedItemChange(selectedCar)"
+              md-item-text="item.vin"
+              md-min-length="0"
+              md-max-length="10"
+              placeholder="Enter Vin Number to Search Cars" style="color:#333;">
+              <md-item-template>
+                <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+', Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
+              </md-item-template>
+              <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
+                <div ng-message="minlength">Your entry is not long enough.</div>
+                <div ng-message="maxlength">Your entry is too long.</div>
+              </div>
+            </md-autocomplete>
+          </span>
+           <span flex="10">
+             <md-button class="md-raised md-primary" ng-click="saveCarToBatch(carToAdd)">Add</md-button>
+           </span>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="importRecord in importRecords">
+      <md-card-content layout="row" layour-align="space-between center">
+        <md-list-item class="md-3-line" flex="80">
+          <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
+          <div class="md-list-item-text" layout="column">
+            <h3>CardId: {{::importRecord.carId}}</h3>
+            <p>Quantity: {{::importRecord.quantity}}</p> 
+            <p>Amount: {{::importRecord.amount}}</p> 
+          </div>
+        </md-list-item>
+        <md-card-actions layout="column" layout-align="end center" flex="20">
+          <md-button class="md-raised md-primary" ng-click="editImportRecord(importRecord)">View More</md-button>
+          <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">Delete</md-button>
+        </md-card-actions>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised" ng-click="backToConsignment()">Cancel</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveBatch(batch)">Save</md-button>
+  </div>
+
+</div>

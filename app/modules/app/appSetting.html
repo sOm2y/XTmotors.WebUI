@@ -1,9 +1,23 @@
-<div class="container">
-	<div class="row">
-		<div>Setting page</div>
-            
-            
-	           
-
+<div layout="column" layout-align="center">
+	<md-card>
+		<md-subheader class="md-primary">Your Setting</md-subheader>
+			<md-card-content layout="row" layout-wrap>
+				<md-input-container flex="100" class="md-block">
+					<label>Old Password</label>
+					<input type="passowrd" ng-model="password.oldPassword" />
+				</md-input-container>
+				<md-input-container flex="100" class="md-block">
+					<label>New Password</label>
+					<input type="passowrd" ng-model="password.newPassword" />
+				</md-input-container>
+				<md-input-container flex="100" class="md-block">
+					<label>Confirm Password</label>
+					<input type="passowrd" ng-model="password.confirmPassword" />
+				</md-input-container>
+			</md-card-content>
+	</md-card>
+	<div layout="row" layout-align="center">
+		<md-button flex="25" class="md-raised" ng-click="backToHome()">Cancel</md-button>
+		<md-button flex="25" class="md-raised md-primary" ng-click="updatePassword(password)">Update Profile</md-button>
 	</div>
 </div>

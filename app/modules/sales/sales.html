@@ -1,22 +1,67 @@
-<div class="" ui-view="sales-details-view">
-  <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="contract in contracts">
-      <md-card-content>
 
-        <md-list-item>
-          <p>Contract ID : {{ contract.contractNum }} </p>
-          <md-checkbox class="md-secondary" ng-model="contract.paymentStatus"></md-checkbox>
-        </md-list-item>
+<!--   <div layout="row">
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Paid Funds</p>
       </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Unpaid Funds</p>
+      </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0" options="{ prefix: '$' }"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Total Sales</p>
+      </md-card-content>
+    </md-card>
+    <md-card flex>
+      <md-card-content>
+        <p class="md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope" count-to="{{countToPaid}}" value="{{countFromPaid}}" duration="1.5" decimals="0" options="{ prefix: '$' }"></p>
+        <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope" translate="">Total Sales</p>
+      </md-card-content>
+    </md-card>
+  </div>
+ -->
+ <div ng-hide="$state.current.name === 'sales.details'" ng-cloak>
+  <div layout="row" layout-align="center">
+    <md-button flex="25" class="md-raised md-primary" ng-click="createNewContract()">Add New Sales</md-button>
+  </div>
+  <md-card flex-gt-sm="90" flex-gt-md="100" >
+    <md-card-content>
+        <md-table-container>
+          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder>
+             <tr md-row>
+                <th md-column md-order-by="batchId"><span>Car ID</span></th>
+                <th md-column md-order-by="customerId"><span>Customer ID</span></th>
+                <th md-column md-order-by="deposite"><span>Deposite</span></th>
+                <th md-column md-order-by="total" md-desc><span>Total Price</span></th>
+                <th md-column md-order-by="paymentStatus" md-desc><span>Payment Status</span></th>
+                <th md-column md-numeric md-order-by="contractDate"><span>Date</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-click="editContact(contract)" md-row md-select="contract" md-on-select ng-repeat="contract in contracts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell>{{::contract.carId}}</md-cell>
+                <td md-cell>{{::contract.customerId}}</md-cell>
+                <td md-cell>{{::contract.deposite | currency}}</td>
+                <td md-cell>{{::contract.total | currency}}</td>
+                <td md-cell>{{contract.paymentStatus?'Paid':'Unpaid'}}</td>
+                <td md-cell>{{::contract.contractDate | amDateFormat:'dddd , Do MMMM YYYY'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+         <md-table-pagination  md-limit="query.limit" md-page="query.page" md-total="{{contracts.length}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate></md-table-pagination>
+
+    </md-card-content>
   </md-card>
-   <div layout="row" layout-align="center">
-      <pagination
-        ng-change="pageChanged()"
-        total-items="totalCustomers" 
-        items-per-page="customersPerPage" 
-        ng-model="pagination.currentPage" 
-        max-size="totalPages" 
-        class="pagination-sm" 
-        boundary-links="true">
-      </pagination>   
-    </div>
 </div>
+<div layout="column" ui-view="sales-details-view">
+</div>
+
