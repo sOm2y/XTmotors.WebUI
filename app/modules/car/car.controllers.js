@@ -42,8 +42,10 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.query({section:'car/summary'})
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
-        $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
-        $rootScope.isLoading = false;
+        _.forEach(cars, function(car){ 
+          $scope.getCarImportRecord(car);
+        })
+        //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
       });
@@ -120,10 +122,21 @@ angular.module('car.controllers',[])
       });
     };
 
-    $scope.getCarImportRecord = function(carId){
-      xtmotorsAPIService.get({ section:'ImportRecords/'+carId})
+    $scope.getCarBatch = function(car, batchId){
+      xtmotorsAPIService.get({section:'Imports/' + batchId})
+      .$promise.then(function(batch) {   
+        car.arriveTime = batch.eta;
+        $rootScope.isLoading = false;
+      },function(error){
+        $rootScope.showError(error);
+      });
+    };
+
+    $scope.getCarImportRecord = function(car){
+      xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId})
       .$promise.then(function(res){
         $scope.importSummary = res;
+        $scope.getCarBatch(car, res.batchId);
       },function(error){
         $rootScope.showError(error);
       });
