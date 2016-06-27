@@ -329,7 +329,7 @@ module.exports = function (grunt) {
         ],
         dest: '<%= yeoman.dist %>/scripts/scripts.js'
       }
-     
+
     },
 
     imagemin: {
@@ -375,12 +375,12 @@ module.exports = function (grunt) {
       dist: {
         options: {
           module: 'xtmotorwebuiApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
+            htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
         src: 'modules/{,*/}*.html',
-        dest: '.tmp/templateCache.js'
+        dest: 'app/templateCache.js'
       }
     },
 

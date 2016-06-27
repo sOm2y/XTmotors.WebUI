@@ -23,7 +23,7 @@ angular.module('car.controllers',[])
     $translatePartialLoader.addPart('errorMessage');
     $translate.refresh();
 
-    
+
     $scope.options = {
       autoSelect: true,
       boundaryLinks: false,
@@ -43,7 +43,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
         $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
-        $rootScope.isLoading = false;      
+        $rootScope.isLoading = false;
       },function(error){
         $rootScope.showError(error);
       });
@@ -149,8 +149,9 @@ angular.module('car.controllers',[])
 
     $rootScope.editCar = function(car){
       $scope.getCarById(car.carId);
+			$scope.getCarImages(car.carId);
       $rootScope.isCarEdited = true;
-    };  
+    };
 
     $scope.backToCar = function(){
       // xtmotorsCRUDService.cancelEdit($scope);
@@ -200,12 +201,12 @@ angular.module('car.controllers',[])
     //   }
     // };
 
-    
+
 	}])
 
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
-    
+
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();
     $scope.showMaintenanceReordDetails = false;
@@ -224,8 +225,8 @@ angular.module('car.controllers',[])
     }
 
 
-    $scope.saveCar = function(){ 
-      $scope.checkModelStatus(); 
+    $scope.saveCar = function(){
+      $scope.checkModelStatus();
     };
 
     $scope.statusChanged = function(selectedcarStatus){
@@ -362,8 +363,8 @@ angular.module('car.controllers',[])
         $scope.successToast('New maintenance has been saved');
         $scope.newMaintenanceRecord = false;
       },function(error){
-        $scope.newMaintenanceRecord = true;  
-        $rootScope.showError(error);  
+        $scope.newMaintenanceRecord = true;
+        $rootScope.showError(error);
       });
     };
 
@@ -373,7 +374,7 @@ angular.module('car.controllers',[])
         $scope.successToast('Update was successful');
       },function(error){
         $rootScope.showError(error);
-      });    
+      });
     };
 
     $scope.saveMaintenance = function(record){
