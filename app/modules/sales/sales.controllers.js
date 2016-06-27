@@ -49,8 +49,8 @@ angular.module('sales.controllers',[])
 
     $scope.query = {
       order: 'carId',
-      limitForSales: 15,
-      pageForSales: 1
+      limit: 15,
+      page: 1
     };
 
     $scope.createNewContract = function(){
