@@ -12,6 +12,9 @@ angular.module('settlement.controllers',[])
 		$scope.settlement = 'settlement';
 		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
 		$scope.series = ['Series A'];
+		$scope.isCarSummaryLoading = true;
+		$scope.isVehicleModelLoading = true;
+		$scope.isImportSummaryLoading = true;
 		
 		var contractTemp = [];
 		var importTemp = [];
@@ -65,6 +68,8 @@ angular.module('settlement.controllers',[])
 							if(count === cars.length){
 								getCountNumber(importTemp, $scope.importDates, $scope.importData);
 							}
+							$scope.isImportSummaryLoading = false;
+							$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 						});
 					});
 				})
@@ -80,6 +85,8 @@ angular.module('settlement.controllers',[])
 					addToDates($scope.contractDates, date, contract);
 				})
 				getCountNumber(contractTemp, $scope.contractDates, $scope.contractData);
+				$scope.isCarSummaryLoading = false;
+				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			},function(error){
 
 			});
@@ -103,6 +110,8 @@ angular.module('settlement.controllers',[])
 					})
 					$scope.modelData.push(count);
 				})
+				$scope.isVehicleModelLoading = false;
+				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			});
 		}
 

@@ -11,9 +11,12 @@ angular.module('sales.controllers',[])
 	.controller('SalesCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
     function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
 
+    $rootScope.isLoading = true;
+
 		xtmotorsAPIService.query({ section:'contracts/'})
 		.$promise.then(function(contracts){
 			$scope.contracts = contracts;
+      $rootScope.isLoading = false;
 		},function(error){
       $scope.showError(error);
     });

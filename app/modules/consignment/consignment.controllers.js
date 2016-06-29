@@ -10,6 +10,7 @@
 angular.module('consignment.controllers',[])
 	.controller('ConsignmentCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
 		function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
+		$rootScope.isLoading = true;
 		$scope.consignment = 'consignment';
 		$scope.countToPaid = 20408;
 		$scope.countFromPaid = 0;
@@ -34,6 +35,7 @@ angular.module('consignment.controllers',[])
 		xtmotorsAPIService.query({section:'Imports/'})
 		.$promise.then(function(imports){
 			$scope.imports = imports;
+			$rootScope.isLoading = false;
 		},function(error){
             $scope.showError(error);
         });
