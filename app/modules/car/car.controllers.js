@@ -105,6 +105,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $scope.car = res;
         $scope.getModelById(res.vehicleModelId);
+        $scope.getCarImages(res.carId);
         $scope.selectedcarStatus = $scope.car.carStatus;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
@@ -163,7 +164,6 @@ angular.module('car.controllers',[])
 
     $rootScope.editCar = function(car){
       $scope.getCarById(car.carId);
-			$scope.getCarImages(car.carId);
       $rootScope.isCarEdited = true;
     };
 
@@ -334,6 +334,7 @@ angular.module('car.controllers',[])
                 $timeout(function () {
                     $scope.result = response.data;
                 });
+                $scope.getCarImages($scope.car.carId);
                 $rootScope.successToast("Photos has been saved");
             }, function (error) {
                 if (error.status > 0) {
@@ -349,6 +350,16 @@ angular.module('car.controllers',[])
             });
         }
     };
+
+    $scope.deleteImage = function(imageId){
+      xtmotorsAPIService.remove({section:'Images/'+imageId})
+      .$promise.then(function(res){
+        $scope.successToast('Image has been deleted');
+        $scope.getCarImages($scope.car.carId);
+      },function(error){
+        $rootScope.showError(error);
+      });
+    }
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
