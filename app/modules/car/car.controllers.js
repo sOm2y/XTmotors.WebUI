@@ -306,6 +306,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $rootScope.newCar = false;
         $scope.successToast("New car saved.");
+        $scope.getCarSummary();
       },function(error){
         $rootScope.newCar = true;
         $rootScope.showError(error);
