@@ -105,6 +105,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $scope.car = res;
         $scope.getModelById(res.vehicleModelId);
+        $scope.selectedcarStatus = $scope.car.carStatus;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
