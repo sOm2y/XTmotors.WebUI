@@ -5,7 +5,7 @@
 	"summary_feature_carId":"Car ID",
 	"summary_feature_wofTime":"Wof Time",
 	"summary_feature_registerationNum":"Registeration Num",
-	"summary_feature_warranty":"Warranty",
+	"summary_feature_warranty":"Warranty (Month)",
 	"summary_feature_odometer":"Odometer",
 	"summary_feature_color":"Color",
 	"summary_feature_vin":"Vin",

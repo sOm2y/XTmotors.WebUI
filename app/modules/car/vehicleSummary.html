@@ -26,7 +26,8 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
-                    <input name="warranty" ng-model="car.warranty">
+                    <!-- warranty-Suffix -->
+                    <input name="warranty" required ng-model="car.warranty">
                     <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
