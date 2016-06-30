@@ -300,5 +300,31 @@
               </md-card-content>
             </md-card>
             </div>
+            <md-card flex="100" ng-show="newCar">
+              <md-subheader class="md-primary">Batch Info</md-subheader>
+              <md-card-content>
+                 <div layout="row">
+                  <span flex="80">
+                    <md-autocomplete
+                      ng-disabled=" !(vehicleInfo.$valid)"
+                      md-selected-item="selectedImport"
+                      md-search-text="importSearchText"
+                      md-items="import in imports | filter:importSearchText"
+                      md-selected-item-change="selectedImportChange(selectedImport)"
+                      md-item-text="'Company: '+import.transportCompany+', Batch ID: '+import.batchId"
+                      md-min-length="0"
+                      md-max-length="10"
+                      placeholder="Enter batch Id to search" style="color:#333;">
+                      <md-item-template>
+                        <span md-highlight-text="importSearchText">{{'Company: '+import.transportCompany+', Batch ID: '+import.batchId}}</span>
+                      </md-item-template>
+                    </md-autocomplete>
+                  </span>
+                   <span flex="20">
+                     <md-button class="md-raised md-primary" ng-click="createBatch()" ng-disabled="!(vehicleInfo.$valid)">New batch</md-button>
+                   </span>
+                </div>
+              </md-card-content>
+            </md-card>
           </div>
       </md-tab>
