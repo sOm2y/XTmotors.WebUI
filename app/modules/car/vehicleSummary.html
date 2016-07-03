@@ -124,12 +124,14 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-                   <md-input-container flex="50" class="md-block">
+                  <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_currency" | translate}}</label>
-                    <input name="currency" required ng-model="car.currency">
-                    <div ng-messages="carSummary.currency.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
+                     <md-select ng-model="selectedcarCurrency" ng-change="currencyChanged(selectedcarCurrency)">
+                        <md-optgroup label="Currency">
+                        <md-option ng-repeat="item in carCurrency" value="{{item}}">
+                           {{item}}
+                        </md-option>
+                     </md-select>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_carStatus" | translate}}</label>

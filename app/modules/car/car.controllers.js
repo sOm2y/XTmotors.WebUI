@@ -70,6 +70,8 @@ angular.module('car.controllers',[])
     };
 
     $rootScope.carStatusList = ["Sold", "Reserved", "For Sale", "Inspection", "Arrived Port", "Departed Port"];
+    $rootScope.carBodyType = ["Convertible", "Couple", "Hatchback", "Sedan", "Station Wagon", "RV/SUV", "Ute", "Van"];
+    $rootScope.carCurrency = ["NZD", "JPY", "CNY"];
 
     $scope.checkCarStatusColor = function(carStatus){
       switch(carStatus){
@@ -108,6 +110,7 @@ angular.module('car.controllers',[])
         $scope.getCarImages(res.carId);
         $scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
+        $scope.selectedcarCurrency = $scope.car.currency;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
@@ -256,7 +259,12 @@ angular.module('car.controllers',[])
     $scope.statusChanged = function(selectedcarStatus){
       if(selectedcarStatus !== null){
         $scope.car.carStatus = selectedcarStatus;
-        $rootScope.newVehicleModel = false;
+      }
+    };
+
+    $scope.currencyChanged = function(selectedcarCurrency){
+      if(selectedcarCurrency !== null){
+        $scope.car.currency = selectedcarCurrency;
       }
     };
 
