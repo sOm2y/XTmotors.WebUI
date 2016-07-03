@@ -42,9 +42,10 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.query({section:'car/summary'})
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
-        _.forEach(cars, function(car){ 
-          $scope.getCarImportRecord(car);
-        })
+        $rootScope.isLoading = false;
+        // _.forEach(cars, function(car){ 
+        //   $scope.getCarImportRecord(car);
+        // })
         //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
@@ -108,7 +109,7 @@ angular.module('car.controllers',[])
         $scope.car = res;
         $scope.getModelById(res.vehicleModelId);
         $scope.getCarImages(res.carId);
-        $scope.getImportSummary();
+        //$scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
         $scope.selectedcarBodyType = $scope.vehicleModel.bodyType;

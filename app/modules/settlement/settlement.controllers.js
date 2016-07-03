@@ -12,9 +12,9 @@ angular.module('settlement.controllers',[])
 		$scope.settlement = 'settlement';
 		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
 		$scope.series = ['Series A'];
-		$scope.isCarSummaryLoading = true;
-		$scope.isVehicleModelLoading = true;
-		$scope.isImportSummaryLoading = true;
+		$scope.isCarSummaryLoading = false;
+		$scope.isVehicleModelLoading = false;
+		$scope.isImportSummaryLoading = false;
 		
 		var contractTemp = [];
 		var importTemp = [];

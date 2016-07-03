@@ -41,10 +41,11 @@ angular.module('storage.controllers',[])
 				$scope.inStore=[];
 				$scope.onTheWay=[];
 				$scope.selected = [];
+				$rootScope.isLoading = false;
 
-				_.forEach(itemList, function(car){ 
-          			$scope.getCarImportRecord(car);
-        		})
+				// _.forEach(itemList, function(car){ 
+    //       			$scope.getCarImportRecord(car);
+    //     		})
 
 				angular.forEach(itemList, function(item,key){
 					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold' || item.carStatus == 'Reserved'){
