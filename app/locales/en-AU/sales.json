@@ -1,0 +1,21 @@
+{
+	"addNewSales":"Add New Sales",
+	"customerID":"Customer ID",
+	"deposite":"Deposite",
+	"totalPrice":"Total Price",
+	"paymentStatus":"Payment Status",
+	"date":"Date",
+	"carId":"Car ID",
+	"employeeID":"Employee ID",
+	"contractNumber":"Contract Number",
+	"contractDate":"Contract Date",
+	"price":"Price",
+	"currency":"Currency",
+	"description":"Description",
+	"paid":"Paid",
+	"unpaid":"Unpaid",
+	"cancel":"Cancel",
+	"save":"Save",
+	"back":"Back",
+	"sales_details_contractDetails":"Contract Details"
+}
