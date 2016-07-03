@@ -111,6 +111,7 @@ angular.module('car.controllers',[])
         $scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
+        $scope.selectedcarBodyType = $scope.vehicleModel.bodyType;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
@@ -265,6 +266,12 @@ angular.module('car.controllers',[])
     $scope.currencyChanged = function(selectedcarCurrency){
       if(selectedcarCurrency !== null){
         $scope.car.currency = selectedcarCurrency;
+      }
+    };
+
+    $scope.bodyTypeChanged = function(selectedcarBodyType){
+      if(selectedcarBodyType !== null){
+        $scope.vehicleModel.bodyType = selectedcarBodyType;
       }
     };
 

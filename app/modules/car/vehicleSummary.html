@@ -55,11 +55,20 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>Body Type</label>
+                     <md-select ng-model="selectedcarBodyType" ng-change="bodyTypeChanged(selectedcarBodyType)">
+                        <md-optgroup label="Body Type">
+                        <md-option ng-repeat="item in carBodyType" value="{{item}}">
+                           {{item}}
+                        </md-option>
+                     </md-select>
+                  </md-input-container>
+                 <!--  <md-input-container flex="50" class="md-block">
+                    <label>Body Type</label>
                     <input name="bodyType" required ng-model="vehicleModel.bodyType">
                     <div ng-messages="carSummary.bodyType.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container>
+                  </md-input-container> -->
                   
                   <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_paymentStatus" | translate}}</label>
