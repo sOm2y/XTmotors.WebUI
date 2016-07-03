@@ -28,7 +28,7 @@
  -->
  <div ng-hide="$state.current.name === 'consignment.details'">
   <div layout="row" layout-align="center">
-    <md-button flex="25" class="md-raised md-primary" ng-click="createImport()">Add New Batch</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="createImport()">{{"addNewBatch" | translate}}</md-button>
   </div>
   <md-card>
     <md-card-content>
@@ -36,11 +36,11 @@
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
              <tr md-row>
-                <th md-column md-order-by="batchId"><span>Batch ID</span></th>
-                <th md-column md-order-by="makerName"><span>Transport Company</span></th>
-                <th md-column md-order-by="model" md-desc><span>Arrive Location</span></th>
-                <th md-column md-order-by="model" md-desc><span>Shipping Expense</span></th>
-                <th md-column md-numeric md-order-by="year"><span>Arrive Time</span></th>
+                <th md-column md-order-by="batchId"><span>{{"batchId" | translate}}</span></th>
+                <th md-column md-order-by="makerName"><span>{{"transportCompany" | translate}}</span></th>
+                <th md-column md-order-by="model" md-desc><span>{{"arriveLocation" | translate}}</span></th>
+                <th md-column md-order-by="model" md-desc><span>{{"shippingExpense" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="year"><span>{{"arriveTime" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>

@@ -8,11 +8,13 @@
  * consignment controller of the application.
  */
 angular.module('sales.controllers',[])
-	.controller('SalesCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
-    function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
+	.controller('SalesCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element','$translate','$translatePartialLoader',
+    function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element,$translate,$translatePartialLoader) {
 
     $rootScope.isLoading = true;
-
+    $translatePartialLoader.addPart('sales');
+    $translatePartialLoader.addPart('errorMessage');
+    $translate.refresh();
 		xtmotorsAPIService.query({ section:'contracts/'})
 		.$promise.then(function(contracts){
 			$scope.contracts = contracts;

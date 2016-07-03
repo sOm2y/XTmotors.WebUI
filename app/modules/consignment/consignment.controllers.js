@@ -8,8 +8,13 @@
  * consignment controller of the application.
  */
 angular.module('consignment.controllers',[])
-	.controller('ConsignmentCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
-		function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
+	.controller('ConsignmentCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element','$translate','$translatePartialLoader',
+		function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element,$translate,$translatePartialLoader) {
+		
+		$translatePartialLoader.addPart('consignments');
+		$translatePartialLoader.addPart('errorMessage');
+    	$translate.refresh();
+
 		$rootScope.isLoading = true;
 		$scope.consignment = 'consignment';
 		$scope.countToPaid = 20408;
