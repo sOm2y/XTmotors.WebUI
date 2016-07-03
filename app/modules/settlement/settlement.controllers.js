@@ -49,8 +49,8 @@ angular.module('settlement.controllers',[])
 		drawGraphs();
 
 		function drawGraphs(){
-			getContracts();
-			getImports();
+			//getContracts();
+			//getImports();
 			getVehicleModels();
 		}
 

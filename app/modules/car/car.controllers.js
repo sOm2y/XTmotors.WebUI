@@ -113,7 +113,6 @@ angular.module('car.controllers',[])
         //$scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
-        $scope.selectedcarBodyType = $scope.vehicleModel.bodyType;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
@@ -173,6 +172,7 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.get({ section:'VehicleModels/'+vehicleModelId})
       .$promise.then(function(res){
         $scope.vehicleModel = res;
+        $scope.selectedcarBodyType = $scope.vehicleModel.bodyType;
       },function(error){
         $rootScope.showError(error);
       });
@@ -379,7 +379,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $rootScope.newCar = false;
         $scope.successToast("New car saved.");
-        $scope.saveImportRecord($scope.importCarRecord);
+        //$scope.saveImportRecord($scope.importCarRecord);
         $scope.getCarSummary();
       },function(error){
         $rootScope.newCar = true;

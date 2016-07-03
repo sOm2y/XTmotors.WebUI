@@ -26,6 +26,7 @@
 	"summary_vehicleInfo_model":"Model",
 	"summary_vehicleInfo_year":"Year",
 	"summary_vehicleInfo_engine":"Engine",
+	"summary_vehicleInfo_bodyType":"Body Type",
 	"summary_vehicleInfo_fuel":"Fuel",
 	"summary_vehicleInfo_fuelEconomyCity":"Fuel Economy City",
 	"summary_vehicleInfo_fuelEconomyHwy":"Fuel Economy Hwy",
