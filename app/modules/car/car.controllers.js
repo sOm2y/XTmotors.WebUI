@@ -20,6 +20,7 @@ angular.module('car.controllers',[])
     $translatePartialLoader.addPart('vehicleSummary');
     $translatePartialLoader.addPart('maintenanceRecordDetails');
     $translatePartialLoader.addPart('maintenanceRecordList');
+    $translatePartialLoader.addPart('uploadCarPhotos');
     $translatePartialLoader.addPart('errorMessage');
     $translate.refresh();
 

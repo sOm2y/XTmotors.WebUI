@@ -8,7 +8,10 @@
  * settlement controller of the application.
  */
 angular.module('settlement.controllers',[])
-	.controller('SettlementCtrl', ['$rootScope', '$scope','xtmotorsAPIService', function ($rootScope,$scope,xtmotorsAPIService) {
+	.controller('SettlementCtrl', ['$rootScope', '$scope','xtmotorsAPIService', '$translate','$translatePartialLoader',function ($rootScope,$scope,xtmotorsAPIService,$translate,$translatePartialLoader) {
+		$translatePartialLoader.addPart('settlement');
+		// $translatePartialLoader.addPart('errorMessage');
+    	$translate.refresh();
 		$scope.settlement = 'settlement';
 		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
 		$scope.series = ['Series A'];
