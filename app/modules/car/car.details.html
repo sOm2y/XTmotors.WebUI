@@ -5,12 +5,12 @@
       <!-- <import-summary></import-summary> -->
       <maintenance-record-list></maintenance-record-list>
       <!-- <contract-summary></contract-summary> -->
-      <md-tab label="Upload car photos">
+      <md-tab label='{{"tab_upload_car_photos" | translate}}'>
         <md-content class="md-padding">
         <!-- Upload your car photos -->
-          <h4>Upload Car Photos</h4>
+          <h4>{{"title_upload_car_photos" | translate}}</h4>
           <br>
-          <button ngf-select="uploadFiles($files)" ngf-multiple="true">Select Images</button>
+          <button ngf-select="uploadFiles($files)" ngf-multiple="true">{{"selectImage" | translate}}</button>
           <br>
           <div layout="row" layout-sm="column" layout-align="space-around" ng-if="uploading">
             <md-progress-circular md-mode="determinate" value="{{progress}}"></md-progress-circular>
@@ -25,7 +25,7 @@
                   <td>{{image.photoName}}</td>
                   <td><img ng-src="{{image.imageUrl}}" width="300"></td>
                   <td>
-                    <md-button class="md-raised md-primary" ng-click="deleteImage(image.imageId)">Delete Image</md-button>
+                    <md-button class="md-raised md-primary" ng-click="deleteImage(image.imageId)">{{"deleteImage" | translate}}</md-button>
                   </td>
               </tr>
           </table>

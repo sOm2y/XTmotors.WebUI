@@ -18,7 +18,7 @@
             </thead>
             <tbody md-body>
               <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in inStoreList | orderBy: query.order | limitTo: query.limitForInStore: (query.pageForInStore -1) * query.limitForInStore">
-                <td md-cell><a href="" ng-click="editCar(car)" >{{::car.carId}}</a></md-cell>
+                <td ng-click="editCar(car)" md-cell>{{::car.carId}}</md-cell>
                 <td md-cell>{{::car.makerName}}</md-cell>
                 <td md-cell>{{::car.model}}</td>
                 <td md-cell>{{::car.year}}</td>
@@ -53,7 +53,7 @@
             </thead>
             <tbody md-body>
               <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in onTheWayList | orderBy: query.order | limitTo: query.limitForOnTheWay : (queryC.pageForOnTheWay -1) * queryC.limitForOnTheWay">
-                <td md-cell><a href="" ng-click="editCar(car)">{{::car.carId}}</a></md-cell>
+                 <td ng-click="editCar(car)" md-cell>{{::car.carId}}</md-cell>
                 <td md-cell>{{::car.makerName}}</md-cell>
                 <td md-cell>{{::car.model}}</td>
                 <td md-cell>{{::car.year}}</td>
