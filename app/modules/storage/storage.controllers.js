@@ -107,7 +107,7 @@ angular.module('storage.controllers',[])
       		}, function(error) {
 
     		}).finally(function(){
-       			$rootScope.isLoading = false;
+       			//$rootScope.isLoading = false;
     		});
 
 		$scope.options = {

@@ -71,6 +71,8 @@ angular.module('car.controllers',[])
     };
 
     $rootScope.carStatusList = ["Sold", "Reserved", "For Sale", "Inspection", "Arrived Port", "Departed Port"];
+    $rootScope.carBodyType = ["Convertible", "Couple", "Hatchback", "Sedan", "Station Wagon", "RV/SUV", "Ute", "Van"];
+    $rootScope.carCurrency = ["NZD", "JPY", "CNY"];
 
     $scope.checkCarStatusColor = function(carStatus){
       switch(carStatus){
@@ -107,7 +109,10 @@ angular.module('car.controllers',[])
         $scope.car = res;
         $scope.getModelById(res.vehicleModelId);
         $scope.getCarImages(res.carId);
+        $scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
+        $scope.selectedcarCurrency = $scope.car.currency;
+        $scope.selectedcarBodyType = $scope.vehicleModel.bodyType;
         //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
@@ -132,6 +137,15 @@ angular.module('car.controllers',[])
         $rootScope.isLoading = false;
       },function(error){
         $rootScope.showError(error);
+      });
+    };
+
+    $scope.getImportSummary = function(){
+      xtmotorsAPIService.query({section:'Imports/'})
+      .$promise.then(function(imports){
+        $scope.imports = imports;
+      },function(error){
+        $scope.showError(error);
       });
     };
 
@@ -230,6 +244,7 @@ angular.module('car.controllers',[])
     if($rootScope.newCar){
       $scope.car = {};
       $scope.car.carId = $stateParams.carId;
+      $scope.getImportSummary();
       //$scope.car.vehicleModelId = '';
     }else{
       if($scope.isCarEdited){
@@ -239,7 +254,6 @@ angular.module('car.controllers',[])
       }
     }
 
-
     $scope.saveCar = function(){
       $scope.checkModelStatus();
     };
@@ -247,9 +261,20 @@ angular.module('car.controllers',[])
     $scope.statusChanged = function(selectedcarStatus){
       if(selectedcarStatus !== null){
         $scope.car.carStatus = selectedcarStatus;
-        $rootScope.newVehicleModel = false;
       }
-    }
+    };
+
+    $scope.currencyChanged = function(selectedcarCurrency){
+      if(selectedcarCurrency !== null){
+        $scope.car.currency = selectedcarCurrency;
+      }
+    };
+
+    $scope.bodyTypeChanged = function(selectedcarBodyType){
+      if(selectedcarBodyType !== null){
+        $scope.vehicleModel.bodyType = selectedcarBodyType;
+      }
+    };
 
     $scope.selectedItemChange = function(selectVehicle){
       if(selectVehicle !== null){
@@ -258,9 +283,55 @@ angular.module('car.controllers',[])
       }
     };
 
+    $scope.selectedImportChange = function(selectImport){
+      if(selectImport !== null){
+        $scope.creatImportCarRecrod(selectImport.batchId);
+      }
+    };
+
+    $scope.creatImportCarRecrod = function(batchId){
+      $scope.importCarRecord = {
+        "carId": $scope.car.carId,
+        "batchId": batchId,
+        "quantity": 1,
+        "amount": 1,
+        "gst": $scope.car.gst,
+        "total": $scope.car.total,
+        "paymentStatus": $scope.car.paymentStatus,
+        "currency": $scope.car.currency,
+        "description": $scope.car.description
+      }
+      //$scope.saveImportRecord($scope.importCarRecord);
+    };
+
+    $scope.createBatch = function(){
+      $scope.batch = {
+        "batchId": $scope.imports.length+1,
+        "transportCompany": "string",
+        "checkLocation": "string"
+      }
+      xtmotorsAPIService.save({section:'Imports'}, $scope.batch)
+      .$promise.then(function(res){
+        $scope.successToast('New batch is created');
+        $scope.creatImportCarRecrod($scope.batch.batchId);
+      },function(error){
+        $scope.showError(error);
+      });
+      
+      //console.log($scope.importCarRecord);
+    };
+
+    $scope.saveImportRecord = function(importCarRecord){
+      xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
+      .$promise.then(function(res){
+      },function(error){
+        $scope.showError(error);
+      });
+    };
+
     $scope.createNewVehicleModel = function(){
       $rootScope.newVehicleModel = true;
-    }
+    };
 
     $scope.checkCarStatus = function(){
       if($rootScope.newCar){
@@ -307,6 +378,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $rootScope.newCar = false;
         $scope.successToast("New car saved.");
+        $scope.saveImportRecord($scope.importCarRecord);
         $scope.getCarSummary();
       },function(error){
         $rootScope.newCar = true;

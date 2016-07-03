@@ -72,7 +72,14 @@ angular.module('app.controllers',[])
           $rootScope.newEmployee = true;
           break;
         case 'car':
-          $state.go('car.details',{carId: "00000"+($rootScope.cars.length+1)}, {reload: true});
+          if($rootScope.cars.length < 9){
+            $state.go('car.details',{carId: "00000"+($rootScope.cars.length+1)}, {reload: true});
+          }else if($rootScope.cars.length < 99){
+            $state.go('car.details',{carId: "0000"+($rootScope.cars.length+1)}, {reload: true});
+          }else{
+            $state.go('car.details',{carId: "000"+($rootScope.cars.length+1)}, {reload: true});
+          }
+          
           $rootScope.buttonDisable = true;
           $rootScope.newCar = true;
           $rootScope.isVehicleModelListLoaded = false;
