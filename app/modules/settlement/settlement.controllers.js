@@ -15,9 +15,9 @@ angular.module('settlement.controllers',[])
 		$scope.settlement = 'settlement';
 		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
 		$scope.series = ['Series A'];
-		$scope.isCarSummaryLoading = false;
-		$scope.isVehicleModelLoading = false;
-		$scope.isImportSummaryLoading = false;
+		$scope.isCarSummaryLoading = true;
+		$scope.isVehicleModelLoading = true;
+		$scope.isImportSummaryLoading = true;
 		
 		var contractTemp = [];
 		var importTemp = [];
@@ -50,31 +50,26 @@ angular.module('settlement.controllers',[])
 
 		function drawGraphs(){
 			getContracts();
-			//getImports();
+			getImports();
 			getVehicleModels();
 		}
 
 		var count = 0;
 		function getImports(){
-			xtmotorsAPIService.query({section:'car/summary'})
-			.$promise.then(function(cars) {
-				_.forEach(cars, function(item){
-					xtmotorsAPIService.get({section:'ImportRecords/' + item.carId})
-					.$promise.then(function(car) {
-						//console.log(car);
-						xtmotorsAPIService.get({section:'Imports/' + car.batchId})
-						.$promise.then(function(batch) {
-							var date = getMonthName(batch, 'createTime');
-							//console.log(date);
-							addToDates($scope.importDates, date, batch);
-							count++;
-							if(count === cars.length){
-								getCountNumber(importTemp, $scope.importDates, $scope.importData);
-							}
-							$scope.isImportSummaryLoading = false;
-							$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
-						});
-					});
+			xtmotorsAPIService.query({section:'ImportRecords'})
+			.$promise.then(function(importRecords) {
+				_.forEach(importRecords, function(item){
+					xtmotorsAPIService.get({section:'Imports/' + item.batchId})
+					.$promise.then(function(batch) {
+						var date = getMonthName(batch, 'eta');
+						addToDates($scope.importDates, date, batch);
+						count++;
+						if(count === importRecords.length){
+							getCountNumber(importTemp, $scope.importDates, $scope.importData);
+						}
+						$scope.isImportSummaryLoading = false;
+						$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+					})
 				})
 			});
 		}
