@@ -11,7 +11,7 @@
                 <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
                 <div class="md-list-item-text" layout="column">
                   <h3 flex>{{::record.projectName}}&nbsp;{{::record.projectCategory}}</h3>
-                  <h4 flex><b>{{::record.description}}</h4>               
+                  <h4 flex>{{::record.description}}</h4>               
                   <h4 flex>{{::record.total | currency}}</h4>
                   <h4 flex>{{record.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}</h4>
                 </div>         
