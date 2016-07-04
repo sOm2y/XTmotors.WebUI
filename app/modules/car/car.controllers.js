@@ -44,9 +44,9 @@ angular.module('car.controllers',[])
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
         $rootScope.isLoading = false;
-        // _.forEach(cars, function(car){ 
-        //   $scope.getCarImportRecord(car);
-        // })
+        _.forEach(cars, function(car){ 
+          $scope.getCarImportRecord(car);
+        })
         //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
@@ -155,7 +155,9 @@ angular.module('car.controllers',[])
         $scope.importSummary = res;
         $scope.getCarBatch(car, res.batchId);
       },function(error){
-        $rootScope.showError(error);
+        //console.log("no import info " + car.carId);
+        car.arriveTime = "HAS NOT BEEN FINALIZED";
+        //$rootScope.showError(error);
       });
     };
 

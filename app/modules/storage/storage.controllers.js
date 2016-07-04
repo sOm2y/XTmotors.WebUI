@@ -28,7 +28,7 @@ angular.module('storage.controllers',[])
 	        $scope.importSummary = res;
 	        $scope.getCarBatch(car, res.batchId);
 	      },function(error){
-	        $rootScope.showError(error);
+	        car.arriveTime = "HAS NOT BEEN FINALIZED";
 	      });
 	    };
 
@@ -43,9 +43,9 @@ angular.module('storage.controllers',[])
 				$scope.selected = [];
 				$rootScope.isLoading = false;
 
-				// _.forEach(itemList, function(car){ 
-    //       			$scope.getCarImportRecord(car);
-    //     		})
+				_.forEach(itemList, function(car){ 
+          			$scope.getCarImportRecord(car);
+        		})
 
 				angular.forEach(itemList, function(item,key){
 					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold' || item.carStatus == 'Reserved'){
