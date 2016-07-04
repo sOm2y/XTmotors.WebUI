@@ -129,6 +129,7 @@ angular.module('consignment.controllers',[])
 			xtmotorsAPIService.save({section:'Imports'}, batch)
 			.$promise.then(function(res){
 				$scope.successToast("New batch saved.");
+				$rootScope.newBatch = false;
 			},function(error){
             	$scope.showError(error);
         	});
