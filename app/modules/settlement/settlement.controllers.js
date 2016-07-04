@@ -8,10 +8,16 @@
  * settlement controller of the application.
  */
 angular.module('settlement.controllers',[])
-	.controller('SettlementCtrl', ['$rootScope', '$scope','xtmotorsAPIService', function ($rootScope,$scope,xtmotorsAPIService) {
+	.controller('SettlementCtrl', ['$rootScope', '$scope','xtmotorsAPIService', '$translate','$translatePartialLoader',function ($rootScope,$scope,xtmotorsAPIService,$translate,$translatePartialLoader) {
+		$translatePartialLoader.addPart('settlement');
+		// $translatePartialLoader.addPart('errorMessage');
+    	$translate.refresh();
 		$scope.settlement = 'settlement';
 		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
 		$scope.series = ['Series A'];
+		$scope.isCarSummaryLoading = true;
+		$scope.isVehicleModelLoading = true;
+		$scope.isImportSummaryLoading = true;
 		
 		var contractTemp = [];
 		var importTemp = [];
@@ -50,23 +56,20 @@ angular.module('settlement.controllers',[])
 
 		var count = 0;
 		function getImports(){
-			xtmotorsAPIService.query({section:'car/summary'})
-			.$promise.then(function(cars) {
-				_.forEach(cars, function(item){
-					xtmotorsAPIService.get({section:'ImportRecords/' + item.carId})
-					.$promise.then(function(car) {
-						//console.log(car);
-						xtmotorsAPIService.get({section:'Imports/' + car.batchId})
-						.$promise.then(function(batch) {
-							var date = getMonthName(batch, 'createTime');
-							//console.log(date);
-							addToDates($scope.importDates, date, batch);
-							count++;
-							if(count === cars.length){
-								getCountNumber(importTemp, $scope.importDates, $scope.importData);
-							}
-						});
-					});
+			xtmotorsAPIService.query({section:'ImportRecords'})
+			.$promise.then(function(importRecords) {
+				_.forEach(importRecords, function(item){
+					xtmotorsAPIService.get({section:'Imports/' + item.batchId})
+					.$promise.then(function(batch) {
+						var date = getMonthName(batch, 'eta');
+						addToDates($scope.importDates, date, batch);
+						count++;
+						if(count === importRecords.length){
+							getCountNumber(importTemp, $scope.importDates, $scope.importData);
+						}
+						$scope.isImportSummaryLoading = false;
+						$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+					})
 				})
 			});
 		}
@@ -80,6 +83,8 @@ angular.module('settlement.controllers',[])
 					addToDates($scope.contractDates, date, contract);
 				})
 				getCountNumber(contractTemp, $scope.contractDates, $scope.contractData);
+				$scope.isCarSummaryLoading = false;
+				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			},function(error){
 
 			});
@@ -103,6 +108,8 @@ angular.module('settlement.controllers',[])
 					})
 					$scope.modelData.push(count);
 				})
+				$scope.isVehicleModelLoading = false;
+				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			});
 		}
 

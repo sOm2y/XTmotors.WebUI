@@ -29,5 +29,19 @@ angular.module('car.directives', [])
 			restrict: 'E',
 			templateUrl:'modules/car/contractSummary.html'
 		};
-	}]);
+	}])
+
+	.directive('warrantySuffix', function() {
+	    return {
+	        restrict: 'A',
+	        require: 'ngModel',
+	        link: function(scope, element, attrs, controller) {
+	            function addWarrantySuffix(value) {
+	                    return value + ' Months';
+	            }
+	            controller.$formatters.push(addWarrantySuffix);
+	            controller.$parsers.splice(0, 0, addWarrantySuffix);
+	        }
+	    };
+	});
 	

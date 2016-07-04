@@ -1,11 +1,11 @@
 <div>
   <div layout="row">
     <md-card flex="50">
-    <md-subheader class="md-primary">Transportation Details</md-subheader>
+    <md-subheader class="md-primary">{{"consignment_details_transportationDetails_title" | translate}}</md-subheader>
       <md-card-content>
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
-            <label>batchId</label>
+            <label>{{"batchId" | translate}}</label>
             <input required ng-model="batch.batchId" disabled>
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -13,7 +13,7 @@
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>Transportation Expense</label>
+            <label>{{"transportationExpense" | translate}}</label>
             <input required ng-model="batch.transportationExpense">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -21,7 +21,7 @@
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>Transport Company</label>
+            <label>{{"transportCompany" | translate}}</label>
             <input required ng-model="batch.transportCompany">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -37,7 +37,7 @@
       <md-card-content>
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
-            <label>Check Location</label>
+            <label>{{"consignment_details_transportationDetails_checkLocation" | translate}}</label>
             <input required ng-model="batch.checkLocation">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -45,7 +45,7 @@
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>Tota lDue</label>
+            <label>{{"consignment_details_transportationDetails_totalDue" | translate}}</label>
             <input required ng-model="batch.totalDue">
             <div ng-messages="projectForm.description.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
@@ -53,8 +53,8 @@
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
-            <label>ETA</label>
-            <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="ETA" ng-model="batch.createTime" class="md-input">
+            <label>{{"consignment_details_transportationDetails_eta" | translate}}</label>
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="ETA" ng-model="batch.eta" class="md-input">
           </md-input-container>
         </div>
       </md-card-content>
@@ -62,7 +62,7 @@
   </div>
 
   <div>
-    <md-card flex-gt-sm="90" flex-gt-md="70">
+    <md-card flex-gt-sm="90" flex-gt-md="80" ng-hide="newBatch">
       <md-card-content>
          <div layout="row">
           <span flex="90">
@@ -86,13 +86,13 @@
             </md-autocomplete>
           </span>
            <span flex="10">
-             <md-button class="md-raised md-primary" ng-click="saveCarToBatch(carToAdd)">Add</md-button>
+             <md-button class="md-raised md-primary" ng-click="saveCarToBatch(carToAdd)">{{"add" | translate}}</md-button>
            </span>
         </div>
       </md-card-content>
     </md-card>
 
-    <md-card flex-gt-sm="90" flex-gt-md="70" ng-repeat="importRecord in importRecords">
+    <md-card flex-gt-sm="90" flex-gt-md="80" ng-repeat="importRecord in importRecords">
       <md-card-content layout="row" layour-align="space-between center">
         <md-list-item class="md-3-line" flex="80">
           <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
@@ -103,15 +103,15 @@
           </div>
         </md-list-item>
         <md-card-actions layout="column" layout-align="end center" flex="20">
-          <md-button class="md-raised md-primary" ng-click="editImportRecord(importRecord)">View More</md-button>
-          <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">Delete</md-button>
+          <md-button class="md-raised md-primary" ng-click="editImportRecord(importRecord)">{{"viewMore" | translate}}</md-button>
+          <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">{{"delete" | translate}}</md-button>
         </md-card-actions>
       </md-card-content>
     </md-card>
   </div>
   <div layout="row" layout-align="center">
-    <md-button flex="25" class="md-raised" ng-click="backToConsignment()">Cancel</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveBatch(batch)">Save</md-button>
+    <md-button flex="25" class="md-raised" ng-click="backToConsignment()">{{"cancel" | translate}}</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveBatch(batch)">{{"save" | translate}}</md-button>
   </div>
 
 </div>

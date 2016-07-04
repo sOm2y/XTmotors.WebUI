@@ -12,6 +12,26 @@ angular.module('storage.controllers',[])
 
 		$rootScope.isLoading = true;
 
+		$scope.getCarBatch = function(car, batchId){
+	      xtmotorsAPIService.get({section:'Imports/' + batchId})
+	      .$promise.then(function(batch) {   
+	        car.arriveTime = batch.eta;
+	        $rootScope.isLoading = false;
+	      },function(error){
+	        $rootScope.showError(error);
+	      });
+	    };
+
+	    $scope.getCarImportRecord = function(car){
+	      xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId})
+	      .$promise.then(function(res){
+	        $scope.importSummary = res;
+	        $scope.getCarBatch(car, res.batchId);
+	      },function(error){
+	        car.arriveTime = "HAS NOT BEEN FINALIZED";
+	      });
+	    };
+
 		xtmotorsAPIService.query({section:'car/summary'})
   			.$promise.then(function(itemList) {
 
@@ -21,6 +41,11 @@ angular.module('storage.controllers',[])
 				$scope.inStore=[];
 				$scope.onTheWay=[];
 				$scope.selected = [];
+				$rootScope.isLoading = false;
+
+				_.forEach(itemList, function(car){ 
+          			$scope.getCarImportRecord(car);
+        		})
 
 				angular.forEach(itemList, function(item,key){
 					if(item.carStatus == 'For Sale' || item.carStatus == 'Sold' || item.carStatus == 'Reserved'){
@@ -83,7 +108,7 @@ angular.module('storage.controllers',[])
       		}, function(error) {
 
     		}).finally(function(){
-       			$rootScope.isLoading = false;
+       			//$rootScope.isLoading = false;
     		});
 
 		$scope.options = {

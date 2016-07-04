@@ -1,0 +1,18 @@
+{
+  "addNewBatch":"Add New Batch",
+  "batchId":"Batch Id",
+  "transportCompany":"Transport Company",
+  "arriveLocation":"Arrive Location",
+  "shippingExpense":"Shipping Expense",
+  "arriveTime":"Arrive Time",
+  "viewMore":"View More",
+  "delete":"Delete",
+  "consignment_details_transportationDetails_title":"Transportation Details",
+  "consignment_details_transportationDetails_checkLocation":"Check Location",
+  "consignment_details_transportationDetails_totalDue":"Total Due",
+  "consignment_details_transportationDetails_eta":"ETA",
+  "cancel":"Cancel",
+  "save":"Save",
+  "add":"Add",
+  "back":"Back"
+}

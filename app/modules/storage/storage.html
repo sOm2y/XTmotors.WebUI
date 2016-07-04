@@ -1,5 +1,5 @@
 <div>
-  <md-card flex-gt-sm="90" flex-gt-md="100">
+  <md-card>
     <md-card-content>
       <md-subheader class="md-primary">{{"inStore" | translate}}</md-subheader>
       <md-table-container>
@@ -12,17 +12,19 @@
                 <th md-column md-numeric md-order-by="year"><span>{{"year" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="odometer"><span>{{"odometer" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="price"><span>{{"salePrice" | translate}}</span></th>
+                <th md-column md-order-by="arriveTime"><span>{{"arriveTime" | translate}}</span></th>
                 <th md-column md-order-by="carStatus"><span>{{"status" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in inStoreList | orderBy: query.order | limitTo: query.limitForInStore: (query.pageForInStore -1) * query.limitForInStore">
-                <td md-cell><a href="" ng-click="editCar(car)" >{{::car.carId}}</a></md-cell>
+                <td ng-click="editCar(car)" md-cell>{{::car.carId}}</md-cell>
                 <td md-cell>{{::car.makerName}}</md-cell>
                 <td md-cell>{{::car.model}}</td>
                 <td md-cell>{{::car.year}}</td>
                 <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
                 <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell>{{::car.arriveTime | date : "EEEE, dd MMMM yyyy"}}</td>
                 <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)" >{{::car.carStatus}}</span></td>
               </tr>
             </tbody>
@@ -32,7 +34,7 @@
     </md-card-content>
 
   </md-card>
-  <md-card flex-gt-sm="90" flex-gt-md="100">
+  <md-card>
     <md-card-content>
       <md-subheader class="md-primary">{{"onTheWay" | translate}}</md-subheader>
       <md-table-container>
@@ -45,17 +47,19 @@
                 <th md-column md-numeric md-order-by="year"><span>{{"year" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="odometer"><span>{{"odometer" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="price"><span>{{"salePrice" | translate}}</span></th>
+                <th md-column md-order-by="arriveTime"><span>{{"arriveTime" | translate}}</span></th>
                 <th md-column md-order-by="carStatus"><span>{{"status" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row md-select="car" md-on-select md-auto-select="options.autoSelect" ng-repeat="car in onTheWayList | orderBy: query.order | limitTo: query.limitForOnTheWay : (queryC.pageForOnTheWay -1) * queryC.limitForOnTheWay">
-                <td md-cell><a href="" ng-click="editCar(car)">{{::car.carId}}</a></md-cell>
+                 <td ng-click="editCar(car)" md-cell>{{::car.carId}}</md-cell>
                 <td md-cell>{{::car.makerName}}</md-cell>
                 <td md-cell>{{::car.model}}</td>
                 <td md-cell>{{::car.year}}</td>
                 <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
                 <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell>{{::car.arriveTime | date : "EEEE, dd MMMM yyyy"}}</td>
                 <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)" >{{::car.carStatus}}</span></td>
               </tr>
             </tbody>

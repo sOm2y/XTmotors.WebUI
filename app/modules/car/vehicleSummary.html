@@ -26,7 +26,8 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
-                    <input name="warranty" ng-model="car.warranty">
+                    <!-- warranty-Suffix -->
+                    <input name="warranty" required ng-model="car.warranty">
                     <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
@@ -52,13 +53,13 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-                  <md-input-container flex="50" class="md-block">
+                 <!--  <md-input-container flex="50" class="md-block">
                     <label>Body Type</label>
                     <input name="bodyType" required ng-model="vehicleModel.bodyType">
                     <div ng-messages="carSummary.bodyType.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container>
+                  </md-input-container> -->
                   
                   <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_paymentStatus" | translate}}</label>
@@ -102,10 +103,17 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-                   <md-input-container flex="50" class="md-block">
+                   <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_price" | translate}}</label>
                     <input name="price" required ng-model="car.price">
                     <div ng-messages="carSummary.price.$error">
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                    </div>
+                  </md-input-container> -->
+                  <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_feature_total" | translate}}</label>
+                    <input name="total" required ng-model="car.total">
+                    <div ng-messages="carSummary.total.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
@@ -116,19 +124,14 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
-                   <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_feature_total" | translate}}</label>
-                    <input name="total" required ng-model="car.total">
-                    <div ng-messages="carSummary.total.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
-                  </md-input-container>
-                   <md-input-container flex="50" class="md-block">
+                  <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_currency" | translate}}</label>
-                    <input name="currency" required ng-model="car.currency">
-                    <div ng-messages="carSummary.currency.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
+                     <md-select ng-model="selectedcarCurrency" ng-change="currencyChanged(selectedcarCurrency)">
+                        <md-optgroup label="Currency">
+                        <md-option ng-repeat="item in carCurrency" value="{{item}}">
+                           {{item}}
+                        </md-option>
+                     </md-select>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_carStatus" | translate}}</label>
@@ -150,7 +153,7 @@
                   </md-input-container> -->
 
                   <!-- Textarea for description. I prefer this one-->
-                  <md-input-container flex="100" class="md-block">
+                  <md-input-container flex="100" class="md-block carDescription">
                     <label>{{"summary_feature_description" | translate}}</label>
                     <textarea ng-model="car.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
                   </md-input-container>
@@ -264,6 +267,15 @@
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_vehicleInfo_bodyType" | translate}}</label>
+                     <md-select ng-disabled="!newVehicleModel" ng-model="selectedcarBodyType" ng-change="bodyTypeChanged(selectedcarBodyType)">
+                        <md-optgroup label="Body Type">
+                        <md-option ng-repeat="item in carBodyType" value="{{item}}">
+                           {{item}}
+                        </md-option>
+                     </md-select>
+                  </md-input-container>
+                  <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_transmission" | translate}}</label>
                     <input name="transmission" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.transmission">
                     <div ng-messages="vehicleInfo.transmission.$error">
@@ -299,5 +311,31 @@
               </md-card-content>
             </md-card>
             </div>
+            <!-- <md-card flex="100" ng-show="newCar">
+              <md-subheader class="md-primary">Batch Info</md-subheader>
+              <md-card-content>
+                 <div layout="row">
+                  <span flex="80">
+                    <md-autocomplete
+                      ng-disabled=" !(vehicleInfo.$valid)"
+                      md-selected-item="selectedImport"
+                      md-search-text="importSearchText"
+                      md-items="import in imports | filter:importSearchText"
+                      md-selected-item-change="selectedImportChange(selectedImport)"
+                      md-item-text="'Company: '+import.transportCompany+', Batch ID: '+import.batchId"
+                      md-min-length="0"
+                      md-max-length="10"
+                      placeholder="Enter batch Id to search" style="color:#333;">
+                      <md-item-template>
+                        <span md-highlight-text="importSearchText">{{'Company: '+import.transportCompany+', Batch ID: '+import.batchId}}</span>
+                      </md-item-template>
+                    </md-autocomplete>
+                  </span>
+                   <span flex="20">
+                     <md-button class="md-raised md-primary" ng-click="createBatch()" ng-disabled="!(vehicleInfo.$valid)">New batch</md-button>
+                   </span>
+                </div>
+              </md-card-content>
+            </md-card> -->
           </div>
       </md-tab>

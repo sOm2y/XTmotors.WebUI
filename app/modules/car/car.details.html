@@ -5,18 +5,12 @@
       <!-- <import-summary></import-summary> -->
       <maintenance-record-list></maintenance-record-list>
       <!-- <contract-summary></contract-summary> -->
-      <md-tab label="Upload car photos">
+      <md-tab label='{{"tab_upload_car_photos" | translate}}'>
         <md-content class="md-padding">
         <!-- Upload your car photos -->
-          <h4>Upload Car Photos</h4>
-          <ul>
-              <li ng-repeat="image in images">
-                  {{image.photoName}}
-                  <img ng-src="{{image.imageUrl}}" width="300">
-              </li>
-          </ul>
-
-          <button ngf-select="uploadFiles($files)" ngf-multiple="true">Select Files</button>
+          <h4>{{"title_upload_car_photos" | translate}}</h4>
+          <br>
+          <button ngf-select="uploadFiles($files)" ngf-multiple="true">{{"selectImage" | translate}}</button>
           <br>
           <div layout="row" layout-sm="column" layout-align="space-around" ng-if="uploading">
             <md-progress-circular md-mode="determinate" value="{{progress}}"></md-progress-circular>
@@ -24,13 +18,23 @@
               <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
             </span>
           </div>
-          <br>Files:
-          <ul>
+          <br>Images:
+
+          <table>
+              <tr ng-repeat="image in images" layout-align="space-around center">
+                  <td>{{image.photoName}}</td>
+                  <td><img ng-src="{{image.imageUrl}}" width="300"></td>
+                  <td>
+                    <md-button class="md-raised md-primary" ng-click="deleteImage(image.imageId)">{{"deleteImage" | translate}}</md-button>
+                  </td>
+              </tr>
+          </table>
+          <!-- <ul>
               <li ng-repeat="f in files" style="font:smaller">
                   {{f.name}}
                   <img ngf-thumbnail="f || '/thumb.jpg'" width="300">
               </li>
-          </ul>
+          </ul> -->
 
         </md-content>
       </md-tab>

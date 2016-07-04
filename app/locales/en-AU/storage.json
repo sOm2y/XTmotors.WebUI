@@ -5,7 +5,8 @@
 	"year":"Year",
 	"odometer":"Odometer",
 	"salePrice":"Sale Price",
+	"arriveTime":"Arrive Time",
 	"status":"Vehicle Status",
-	"inStore":"TEST",
+	"inStore":"In Store",
 	"onTheWay":"On The Way"
 }

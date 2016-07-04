@@ -28,20 +28,20 @@
  -->
  <div ng-hide="$state.current.name === 'sales.details'" ng-cloak>
   <div layout="row" layout-align="center">
-    <md-button flex="25" class="md-raised md-primary" ng-click="createNewContract()">Add New Sales</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="createNewContract()">{{"addNewSales" | translate}}</md-button>
   </div>
-  <md-card flex-gt-sm="90" flex-gt-md="100" >
+  <md-card>
     <md-card-content>
         <md-table-container>
           <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder>
              <tr md-row>
-                <th md-column md-order-by="batchId"><span>Car ID</span></th>
-                <th md-column md-order-by="customerId"><span>Customer ID</span></th>
-                <th md-column md-order-by="deposite"><span>Deposite</span></th>
-                <th md-column md-order-by="total" md-desc><span>Total Price</span></th>
-                <th md-column md-order-by="paymentStatus" md-desc><span>Payment Status</span></th>
-                <th md-column md-numeric md-order-by="contractDate"><span>Date</span></th>
+                <th md-column md-order-by="batchId"><span>{{"carId" | translate}}</span></th>
+                <th md-column md-order-by="customerId"><span>{{"customerID" | translate}}</span></th>
+                <th md-column md-order-by="deposite"><span>{{"deposite" | translate}}</span></th>
+                <th md-column md-order-by="total" md-desc><span>{{"totalPrice" | translate}}</span></th>
+                <th md-column md-order-by="paymentStatus" md-desc><span>{{"paymentStatus" | translate}}</span></th>
+                <th md-column md-numeric md-order-by="contractDate"><span>{{"Date" | translate}}</span></th>
               </tr>
             </thead>
             <tbody md-body>

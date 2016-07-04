@@ -8,12 +8,17 @@
  * consignment controller of the application.
  */
 angular.module('sales.controllers',[])
-	.controller('SalesCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element',
-    function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element) {
+	.controller('SalesCtrl', ['$rootScope','$scope','xtmotorsAPIService','$state', '$mdToast', '$element','$translate','$translatePartialLoader',
+    function ($rootScope,$scope,xtmotorsAPIService,$state,$mdToast,$element,$translate,$translatePartialLoader) {
 
+    $rootScope.isLoading = true;
+    $translatePartialLoader.addPart('sales');
+    $translatePartialLoader.addPart('errorMessage');
+    $translate.refresh();
 		xtmotorsAPIService.query({ section:'contracts/'})
 		.$promise.then(function(contracts){
 			$scope.contracts = contracts;
+      $rootScope.isLoading = false;
 		},function(error){
       $scope.showError(error);
     });
@@ -39,6 +44,8 @@ angular.module('sales.controllers',[])
       $scope.showError(error);
     });
 
+    $rootScope.salesCurrency = ["NZD", "JPY", "CNY"];
+
     $scope.options = {
       autoSelect: true,
       boundaryLinks: false,
@@ -49,8 +56,8 @@ angular.module('sales.controllers',[])
 
     $scope.query = {
       order: 'carId',
-      limitForSales: 15,
-      pageForSales: 1
+      limit: 15,
+      page: 1
     };
 
     $scope.createNewContract = function(){
@@ -88,6 +95,7 @@ angular.module('sales.controllers',[])
 
       if($rootScope.newContact){
         $scope.contract = {};
+        $scope.selectedCurrency = $scope.contract.currency;
       }else{
         getContract();
       }
@@ -118,10 +126,17 @@ angular.module('sales.controllers',[])
         }   
       };
 
+      $scope.currencyChanged = function(selectedCurrency){
+        if(selectedCurrency !== null){
+          $scope.contract.currency = selectedCurrency;
+        }
+      };
+
       function getContract(){
         xtmotorsAPIService.get({section:'Contracts/'+$stateParams.carId})
         .$promise.then(function(contract){
           $scope.contract = contract;
+          $scope.selectedCurrency = $scope.contract.currency;
         },function(error){
           $scope.showError(error);
         });

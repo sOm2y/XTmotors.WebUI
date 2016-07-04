@@ -1,4 +1,4 @@
-
+<div>
   <md-card  ng-hide="$state.current.name === 'car.details'">
     <md-card-content>
         <md-table-container>
@@ -11,6 +11,7 @@
                 <th md-column md-numeric md-order-by="year"><span>{{"year" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="odometer"><span>{{"odometer" | translate}}</span></th>
                 <th md-column md-numeric md-order-by="price"><span>{{"salePrice" | translate}}</span></th>
+                <th md-column md-order-by="arriveTime"><span>{{"arriveTime" | translate}}</span></th>
                 <th md-column md-order-by="carStatus"><span>{{"status" | translate}}</span></th>
               </tr>
             </thead>
@@ -22,6 +23,7 @@
                 <td md-cell>{{::car.year}}</td>
                 <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
                 <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell>{{::car.arriveTime | date : "EEEE, dd MMMM yyyy"}}</td>
                 <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)">{{::car.carStatus}}</span></td>
               </tr>
             </tbody>
@@ -33,4 +35,5 @@
     </md-card-content>
   </md-card>
 <div class=""  ui-view="car-details-view">
+</div>
 </div>
