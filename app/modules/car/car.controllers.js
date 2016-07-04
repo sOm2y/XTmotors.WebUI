@@ -435,7 +435,13 @@ angular.module('car.controllers',[])
       },function(error){
         $rootScope.showError(error);
       });
-    }
+    };
+
+    $scope.maintenanceCurrencyChanged = function(selectedMaintenanceCurrency){
+      if(selectedMaintenanceCurrency !== null){
+        $scope.maintenanceRecord.currency = selectedMaintenanceCurrency;
+      }
+    };
 
     $scope.addMaintenanceRecord = function(){
         $scope.showMaintenanceReordDetails = true;
@@ -443,6 +449,7 @@ angular.module('car.controllers',[])
         $scope.maintenanceRecord = {
           carId: $scope.car.carId
         };
+        $scope.selectedMaintenanceCurrency = $scope.maintenanceRecord.currency;
     };
 
     $scope.backToMaintenanceRecordList = function(){
@@ -455,6 +462,7 @@ angular.module('car.controllers',[])
       if(!_.isUndefined(record)){
         $scope.newMaintenanceRecord = false;
         $scope.maintenanceRecord = record;
+        $scope.selectedMaintenanceCurrency = $scope.maintenanceRecord.currency;
         $scope.showMaintenanceReordDetails = true;
       }
     };

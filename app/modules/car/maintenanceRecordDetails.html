@@ -8,12 +8,21 @@
       </div>
     </md-input-container>
     <md-input-container flex="50" class="md-block">
+      <label>{{"maintenance_record_currency" | translate}}</label>
+       <md-select ng-model="selectedMaintenanceCurrency" ng-change="maintenanceCurrencyChanged(selectedMaintenanceCurrency)">
+          <md-optgroup label="Currency">
+          <md-option ng-repeat="item in carCurrency" value="{{item}}">
+             {{item}}
+          </md-option>
+       </md-select>
+    </md-input-container>
+    <!-- <md-input-container flex="50" class="md-block">
     <label>{{"maintenance_record_currency" | translate}}</label>
     <input name="currency" required ng-model="maintenanceRecord.currency">
     <div ng-messages="maintanceSummary.currency.$error">
       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
     </div>
-    </md-input-container>
+    </md-input-container> -->
 </div>
 
 <div layout="row">

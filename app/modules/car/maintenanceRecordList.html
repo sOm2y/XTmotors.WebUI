@@ -10,10 +10,10 @@
               <md-list-item class="md-3-line">
                 <md-icon class="md-avatar" md-svg-icon="avatars:svg-1"></md-icon>
                 <div class="md-list-item-text" layout="column">
-                  <h3 flex><b>Project Name:</b> {{::record.projectName}}&nbsp;{{::record.projectCategory}}</h3>
-                  <h4 flex><b>Description:</b> {{::record.description}}</h4>               
-                  <h4 flex><b>Total price:</b> {{::record.total | currency}}</h4>
-                  <h4 flex><b>Payment Status:</b> {{record.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}</h4>
+                  <h3 flex>{{::record.projectName}}&nbsp;{{::record.projectCategory}}</h3>
+                  <h4 flex><b>{{::record.description}}</h4>               
+                  <h4 flex>{{::record.total | currency}}</h4>
+                  <h4 flex>{{record.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}}</h4>
                 </div>         
               <md-button class="md-secondary" ng-click="editMaintenanceRecord(record)">{{"maintenance_record_editMaintenanceRecord" | translate}}</md-button>
             </md-list-item>

@@ -44,6 +44,8 @@ angular.module('sales.controllers',[])
       $scope.showError(error);
     });
 
+    $rootScope.salesCurrency = ["NZD", "JPY", "CNY"];
+
     $scope.options = {
       autoSelect: true,
       boundaryLinks: false,
@@ -93,6 +95,7 @@ angular.module('sales.controllers',[])
 
       if($rootScope.newContact){
         $scope.contract = {};
+        $scope.selectedCurrency = $scope.contract.currency;
       }else{
         getContract();
       }
@@ -123,10 +126,17 @@ angular.module('sales.controllers',[])
         }   
       };
 
+      $scope.currencyChanged = function(selectedCurrency){
+        if(selectedCurrency !== null){
+          $scope.contract.currency = selectedCurrency;
+        }
+      };
+
       function getContract(){
         xtmotorsAPIService.get({section:'Contracts/'+$stateParams.carId})
         .$promise.then(function(contract){
           $scope.contract = contract;
+          $scope.selectedCurrency = $scope.contract.currency;
         },function(error){
           $scope.showError(error);
         });
