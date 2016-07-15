@@ -260,8 +260,6 @@ angular.module('car.controllers',[])
     $scope.uploading = false;
 
     if($rootScope.newCar){
-      console.log($rootScope.isFromStorage);
-
       $scope.car = {};
       $scope.car.carId = $stateParams.carId;
       $scope.getImportSummary();
