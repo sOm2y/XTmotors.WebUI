@@ -60,6 +60,7 @@ angular.module('storage.controllers',[])
 
         $scope.editCar = function(car){
           $state.go('car.details',{carId: car.carId}, {reload: true});
+          $rootScope.isFromStorage = true;
         };
 
 

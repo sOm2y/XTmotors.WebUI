@@ -191,6 +191,7 @@ angular.module('consignment.controllers',[])
 			// getCar(importRecord.carId);
 			// $rootScope.editCar($scope.car);
 			$state.go('car.details',{carId: importRecord.carId}, {reload: true});
+			$rootScope.isFromConsignment = true;
 		};
 
 		$scope.saveBatch = function(batch){

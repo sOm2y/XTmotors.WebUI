@@ -193,6 +193,16 @@ angular.module('car.controllers',[])
       $rootScope.isCarEdited = false;
     };
 
+    $scope.backToStorgaePage = function(){
+      $state.go('storage');
+      $rootScope.isFromStorage = false;
+    };
+
+    $scope.backToConsigmentPage = function(){
+      $state.go('consignment.details',{batchId:$scope.importSummary.batchId});
+      $rootScope.isFromConsignment = false;
+    };
+
     $scope.getVehicleModelList();
     $scope.getCarSummary();
 
@@ -245,6 +255,8 @@ angular.module('car.controllers',[])
     $scope.uploading = false;
 
     if($rootScope.newCar){
+      console.log($rootScope.isFromStorage);
+
       $scope.car = {};
       $scope.car.carId = $stateParams.carId;
       $scope.getImportSummary();
