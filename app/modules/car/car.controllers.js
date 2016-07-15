@@ -199,8 +199,13 @@ angular.module('car.controllers',[])
     };
 
     $scope.backToConsigmentPage = function(){
-      $state.go('consignment.details',{batchId:$scope.importSummary.batchId});
-      $rootScope.isFromConsignment = false;
+      xtmotorsAPIService.get({ section:'ImportRecords/'+$scope.car.carId})
+      .$promise.then(function(res){
+        $state.go('consignment.details',{batchId:res.batchId});
+        $rootScope.isFromConsignment = false;
+      },function(error){
+        $rootScope.showError(error);
+      });
     };
 
     $scope.getVehicleModelList();
@@ -262,11 +267,7 @@ angular.module('car.controllers',[])
       $scope.getImportSummary();
       //$scope.car.vehicleModelId = '';
     }else{
-      if($scope.isCarEdited){
-        $scope.isCarEdited = false;
-      }else{
-        $scope.getCarById($stateParams.carId);
-      }
+      $scope.getCarById($stateParams.carId);
     }
 
     $scope.saveCar = function(){
