@@ -22,7 +22,7 @@
                 <td md-cell>{{::car.model}}</td>
                 <td md-cell>{{::car.year}}</td>
                 <td md-cell>{{::car.odometer| number }}&nbsp;Km</td>
-                <td md-cell>{{::car.price | currency}}</td>
+                <td md-cell>{{::car.total | currency}}</td>
                 <td md-cell>{{::car.arriveTime | date : "EEEE, dd MMMM yyyy"}}</td>
                 <td md-cell><span class="label" ng-class="checkCarStatusColor(car.carStatus)">{{::car.carStatus}}</span></td>
               </tr>
