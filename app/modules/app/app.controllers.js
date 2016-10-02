@@ -186,8 +186,13 @@ function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localSto
 			$modalInstance.close(user);
 	};
 
+  $scope.email = "zhangysd@hotmail.com";
+  $scope.password = "ac,bD,12";
+
    $scope.attemptLogin = function (email, passWord) {
-		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
+      
+		  var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
+      console.log(data);
 		//  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
 			xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
 					$rootScope.setUserAuth(res);

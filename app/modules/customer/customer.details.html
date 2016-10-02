@@ -89,8 +89,16 @@
     <md-subheader class="md-primary">{{"tab_address_info" | translate}}</md-subheader>
       <md-card-content layout="row" layout-wrap>
         <md-input-container flex="50" class="md-block">
-          <label>{{"tab_address_street" | translate}}</label>
-          <input type="text" g-places-autocomplete ng-model="customer.street" />
+          <label>Street Number</label>
+          <input type="text" g-places-autocomplete ng-model="customer.streetNum" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Street Name</label>
+          <input type="text" g-places-autocomplete ng-model="customer.route" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Suburb</label>
+          <input type="text" g-places-autocomplete ng-model="customer.suburb" />
         </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"tab_address_city" | translate}}</label>
@@ -104,6 +112,10 @@
           <label>{{"tab_address_country" | translate}}</label>
           <input type="text" ng-model="customer.country" />
         </md-input-container>
+        <!-- <md-input-container flex="50" class="md-block">
+          <label>{{"tab_address_street" | translate}}</label>
+          <input type="text" g-places-autocomplete ng-model="customer.street" />
+        </md-input-container> -->
         
       </md-card-content>
   </md-card>
