@@ -27,11 +27,16 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/car/car.details.html',
-    "<div ng-cloak> <!-- <md-content> --> <md-tabs md-dynamic-height md-border-bottom md-selected=\"selectedTab\"> <vehicle-summary></vehicle-summary> <!-- <import-summary></import-summary> --> <maintenance-record-list></maintenance-record-list> <!-- <contract-summary></contract-summary> --> <md-tab label=\"{{&quot;tab_upload_car_photos&quot; | translate}}\"> <md-content class=\"md-padding\"> <!-- Upload your car photos --> <h4>{{\"title_upload_car_photos\" | translate}}</h4> <br> <button ngf-select=\"uploadFiles($files)\" ngf-multiple=\"true\">{{\"selectImage\" | translate}}</button> <br> <div layout=\"row\" layout-sm=\"column\" layout-align=\"space-around\" ng-if=\"uploading\"> <md-progress-circular md-mode=\"determinate\" value=\"{{progress}}\"></md-progress-circular> <span class=\"progress\" ng-show=\"progress >= 0\"> <div style=\"width:{{progress}}%\" ng-bind=\"progress + '%'\"></div> </span> </div> <br>Images: <table> <tr ng-repeat=\"image in images\" layout-align=\"space-around center\"> <td>{{image.photoName}}</td> <td><img ng-src=\"{{image.imageUrl}}\" width=\"300\"></td> <td> <md-button class=\"md-raised md-primary\" ng-click=\"deleteImage(image.imageId)\">{{\"deleteImage\" | translate}}</md-button> </td> </tr> </table> <!-- <ul>\n" +
-    "              <li ng-repeat=\"f in files\" style=\"font:smaller\">\n" +
-    "                  {{f.name}}\n" +
-    "                  <img ngf-thumbnail=\"f || '/thumb.jpg'\" width=\"300\">\n" +
-    "              </li>\n" +
+    "<div ng-cloak> <!-- <md-content> --> <md-tabs md-dynamic-height md-border-bottom md-selected=\"selectedTab\"> <vehicle-summary></vehicle-summary> <!-- <import-summary></import-summary> --> <maintenance-record-list></maintenance-record-list> <!-- <contract-summary></contract-summary> --> <md-tab label=\"{{&quot;tab_upload_car_photos&quot; | translate}}\"> <md-content class=\"md-padding\"> <!-- Upload your car photos --> <h4>{{\"title_upload_car_photos\" | translate}}</h4> <br> <button ngf-select=\"uploadFiles($files)\" ngf-multiple=\"true\">{{\"selectImage\" | translate}}</button> <br> <div layout=\"row\" layout-sm=\"column\" layout-align=\"space-around\" ng-if=\"uploading\"> <md-progress-circular md-mode=\"determinate\" value=\"{{progress}}\"></md-progress-circular> <span class=\"progress\" ng-show=\"progress >= 0\"> <div style=\"width:{{progress}}%\" ng-bind=\"progress + '%'\"></div> </span> </div> <br>Images: <table> <tr ng-repeat=\"image in images\" layout-align=\"space-around center\"> <td>{{image.photoName}}</td> <td><img ng-src=\"{{image.imageUrl}}\" width=\"300\"></td> <td> <md-button class=\"md-raised md-primary\" ng-click=\"deleteImage(image.imageId)\">{{\"deleteImage\" | translate}}</md-button> </td> </tr> </table> <!-- <ul>\r" +
+    "\n" +
+    "              <li ng-repeat=\"f in files\" style=\"font:smaller\">\r" +
+    "\n" +
+    "                  {{f.name}}\r" +
+    "\n" +
+    "                  <img ngf-thumbnail=\"f || '/thumb.jpg'\" width=\"300\">\r" +
+    "\n" +
+    "              </li>\r" +
+    "\n" +
     "          </ul> --> </md-content> </md-tab> </md-tabs> <!-- </md-content> --> </div> <div layout=\"row\" layout-align=\"center center\" ng-hide=\"!(selectedTab == 0)\" ng-if=\"!showMaintenanceReordDetails\"> <md-button flex=\"25\" ng-hide=\"isFromStorage || isFromConsignment\" class=\"md-raised\" ng-click=\"backToCar()\">{{\"cancel\" | translate}}</md-button> <md-button flex=\"25\" ng-show=\"isFromStorage\" class=\"md-raised\" ng-click=\"backToStorgaePage()\">Back to Storage</md-button> <md-button flex=\"25\" ng-show=\"isFromConsignment\" class=\"md-raised\" ng-click=\"backToConsigmentPage()\">Back to Consigment</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-disabled=\" !(vehicleInfo.$valid)\" ng-click=\"saveCar()\">{{\"save\" | translate}}</md-button> </div>"
   );
 
@@ -57,20 +62,34 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/car/maintenanceRecordDetails.html',
-    "<form name=\"maintanceSummary\"> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_carId\" | translate}}</label> <input name=\"contractNum\" required disabled ng-model=\"maintenanceRecord.carId\" ng-readonly=\"maintenanceRecord.carId\"> <div ng-messages=\"maintanceSummary.contractNum.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_currency\" | translate}}</label> <md-select ng-model=\"selectedMaintenanceCurrency\" ng-change=\"maintenanceCurrencyChanged(selectedMaintenanceCurrency)\"> <md-optgroup label=\"Currency\"> <md-option ng-repeat=\"item in carCurrency\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "    <label>{{\"maintenance_record_currency\" | translate}}</label>\n" +
-    "    <input name=\"currency\" required ng-model=\"maintenanceRecord.currency\">\n" +
-    "    <div ng-messages=\"maintanceSummary.currency.$error\">\n" +
-    "      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "    </div>\n" +
-    "    </md-input-container> --> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_projectCategory\" | translate}}</label> <input name=\"deposite\" required ng-model=\"maintenanceRecord.projectCategory\"> <div ng-messages=\"maintanceSummary.deposite.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_projectName\" | translate}}</label> <input name=\"projectName\" required ng-model=\"maintenanceRecord.projectName\"> <div ng-messages=\"maintanceSummary.projectName.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_address_street\" | translate}}</label> <input name=\"street\" ng-model=\"maintenanceRecord.street\"> <div ng-messages=\"maintanceSummary.street.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_address_city\" | translate}}</label> <input name=\"city\" ng-model=\"maintenanceRecord.city\"> <div ng-messages=\"maintanceSummary.city.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_totalPrice\" | translate}}</label> <input name=\"balance\" ng-model=\"maintenanceRecord.total\"> <div ng-messages=\"maintanceSummary.balance.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"100\" class=\"md-block\"> <label>{{\"maintenance_record_description\" | translate}}</label> <textarea ng-model=\"maintenanceRecord.description\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus></textarea> </md-input-container> <!-- <md-input-container flex=\"100\" class=\"md-block\">\n" +
-    "    <label>{{\"maintenance_record_description\" | translate}}</label>\n" +
-    "    <input name=\"description\" ng-model=\"maintenanceRecord.description\">\n" +
-    "    <div ng-messages=\"maintanceSummary.description.$error\">\n" +
-    "      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "    </div>\n" +
-    "    </md-input-container>  --> </div> </form>{{\"maintenance_record_paymentStatus\" | translate}} &nbsp; <md-checkbox flex=\"50\" class=\"md-block\" ng-model=\"maintenanceRecord.paymentStatus\" aria-label=\"contract\"> {{maintenanceRecord.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}} </md-checkbox> <div layout=\"row\" layout-align=\"center center\"> <!-- <md-button flex=\"25\" class=\"md-raised\" ng-click=\"cancelToMaintenanceRecordList()\" ng-hide=\"saveStatus()\">{{\"maintenance_record_cancelMaintenanceRecord\" | translate}}</md-button> --> <md-button flex=\"25\" class=\"md-raised\" ng-click=\"backToMaintenanceRecordList()\">{{\"maintenance_record_backMaintenanceRecord\" | translate}}</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-disabled=\"!maintanceSummary.$valid\" ng-click=\"saveMaintenance(maintenanceRecord)\">{{\"maintenance_record_saveMaintenanceRecord\" | translate}}</md-button> <!-- <div ng-messages=\"maintanceSummary.$error\" class=\"errorMessage\">\n" +
-    "      <div ng-message=\"required\">{{\"requiredFieldValidationErrorMessage\" | translate}}.</div>\n" +
+    "<form name=\"maintanceSummary\"> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_carId\" | translate}}</label> <input name=\"contractNum\" required disabled ng-model=\"maintenanceRecord.carId\" ng-readonly=\"maintenanceRecord.carId\"> <div ng-messages=\"maintanceSummary.contractNum.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_currency\" | translate}}</label> <md-select ng-model=\"selectedMaintenanceCurrency\" ng-change=\"maintenanceCurrencyChanged(selectedMaintenanceCurrency)\"> <md-optgroup label=\"Currency\"> <md-option ng-repeat=\"item in carCurrency\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "    <label>{{\"maintenance_record_currency\" | translate}}</label>\r" +
+    "\n" +
+    "    <input name=\"currency\" required ng-model=\"maintenanceRecord.currency\">\r" +
+    "\n" +
+    "    <div ng-messages=\"maintanceSummary.currency.$error\">\r" +
+    "\n" +
+    "      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    </md-input-container> --> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_projectCategory\" | translate}}</label> <input name=\"deposite\" required ng-model=\"maintenanceRecord.projectCategory\"> <div ng-messages=\"maintanceSummary.deposite.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_projectName\" | translate}}</label> <input name=\"projectName\" required ng-model=\"maintenanceRecord.projectName\"> <div ng-messages=\"maintanceSummary.projectName.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_address_street\" | translate}}</label> <input name=\"street\" ng-model=\"maintenanceRecord.street\"> <div ng-messages=\"maintanceSummary.street.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_address_city\" | translate}}</label> <input name=\"city\" ng-model=\"maintenanceRecord.city\"> <div ng-messages=\"maintanceSummary.city.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"maintenance_record_totalPrice\" | translate}}</label> <input name=\"balance\" ng-model=\"maintenanceRecord.total\"> <div ng-messages=\"maintanceSummary.balance.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> </div> <div layout=\"row\"> <md-input-container flex=\"100\" class=\"md-block\"> <label>{{\"maintenance_record_description\" | translate}}</label> <textarea ng-model=\"maintenanceRecord.description\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus></textarea> </md-input-container> <!-- <md-input-container flex=\"100\" class=\"md-block\">\r" +
+    "\n" +
+    "    <label>{{\"maintenance_record_description\" | translate}}</label>\r" +
+    "\n" +
+    "    <input name=\"description\" ng-model=\"maintenanceRecord.description\">\r" +
+    "\n" +
+    "    <div ng-messages=\"maintanceSummary.description.$error\">\r" +
+    "\n" +
+    "      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    </md-input-container>  --> </div> </form>{{\"maintenance_record_paymentStatus\" | translate}} &nbsp; <md-checkbox flex=\"50\" class=\"md-block\" ng-model=\"maintenanceRecord.paymentStatus\" aria-label=\"contract\"> {{maintenanceRecord.paymentStatus?('payment_paid' | translate):('payment_unpaid' | translate)}} </md-checkbox> <div layout=\"row\" layout-align=\"center center\"> <!-- <md-button flex=\"25\" class=\"md-raised\" ng-click=\"cancelToMaintenanceRecordList()\" ng-hide=\"saveStatus()\">{{\"maintenance_record_cancelMaintenanceRecord\" | translate}}</md-button> --> <md-button flex=\"25\" class=\"md-raised\" ng-click=\"backToMaintenanceRecordList()\">{{\"maintenance_record_backMaintenanceRecord\" | translate}}</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-disabled=\"!maintanceSummary.$valid\" ng-click=\"saveMaintenance(maintenanceRecord)\">{{\"maintenance_record_saveMaintenanceRecord\" | translate}}</md-button> <!-- <div ng-messages=\"maintanceSummary.$error\" class=\"errorMessage\">\r" +
+    "\n" +
+    "      <div ng-message=\"required\">{{\"requiredFieldValidationErrorMessage\" | translate}}.</div>\r" +
+    "\n" +
     "  </div> --> </div>"
   );
 
@@ -81,116 +100,226 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/car/vehicleSummary.html',
-    "<md-tab label=\"{{'tab_vehicle_summary' | translate}}\"> <div layout=\"column\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"summary_feature_title\" | translate}}</md-subheader> <md-card-content> <form layout=\"row\" layout-wrap name=\"carSummary\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carId\" | translate}}</label> <input name=\"carId\" disabled ng-model=\"car.carId\"> <div ng-messages=\"carSummary.carId.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_wofTime\" | translate}}</label>\n" +
-    "                    <input time=\"false\" date=\"true\" mdc-datetime-picker=\"\" type=\"text\" id=\"wofTime\" placeholder=\"Date\" ng-model=\"car.wofTime\" class=\" md-input\">\n" +
-    "                  </md-input-container> --> <md-input-container class=\"eae-form-input-required md-input-has-placeholder flex md-input-has-value\" flex=\"\"> <label>{{\"summary_feature_wofTime\" | translate}}</label> <input ng-model=\"car.wofTime\" name=\"wofTime\" minlength=\"8\" maxlength=\"10\" placeholder=\"DD/MM/YYYY\" ng-pattern=\"/(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d/\"> <div ng-messages=\"carSummary.wofTime.$error\" ng-show=\"carSummary.wofTime.$invalid\"> Please enter a valid date. </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_registerationNum\" | translate}}</label> <input name=\"registerationNum\" ng-model=\"car.registerationNum\"> <div ng-messages=\"carSummary.registerationNum.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_warranty\" | translate}}</label> <!-- warranty-Suffix --> <input name=\"warranty\" ng-model=\"car.warranty\"> <div ng-messages=\"carSummary.warranty.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_odometer\" | translate}}</label> <input name=\"odometer\" ng-model=\"car.odometer\"> <div ng-messages=\"carSummary.odometer.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_color\" | translate}}</label> <input name=\"color\" ng-model=\"car.color\"> <div ng-messages=\"carSummary.color.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_vin\" | translate}}</label> <input name=\"vin\" ng-model=\"car.vin\"> <div ng-messages=\"carSummary.vin.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!--  <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>Body Type</label>\n" +
-    "                    <input name=\"bodyType\" required ng-model=\"vehicleModel.bodyType\">\n" +
-    "                    <div ng-messages=\"carSummary.bodyType.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_paymentStatus\" | translate}}</label>\n" +
-    "                    <input name=\"paymentStatus\" required ng-model=\"car.paymentStatus\">\n" +
-    "                    <div ng-messages=\"carSummary.paymentStatus.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_length\" | translate}}</label>\n" +
-    "                    <input name=\"length\" required ng-model=\"car.length\">\n" +
-    "                    <div ng-messages=\"carSummary.length.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container>\n" +
-    "                  <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_width\" | translate}}</label>\n" +
-    "                    <input name=\"width\" required ng-model=\"car.width\">\n" +
-    "                    <div ng-messages=\"carSummary.width.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container>\n" +
-    "                  <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_height\" | translate}}</label>\n" +
-    "                    <input name=\"height\" required ng-model=\"car.height\">\n" +
-    "                    <div ng-messages=\"carSummary.height.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_carStatus\" | translate}}</label>\n" +
-    "                    <input name=\"carStatus\" required ng-model=\"car.carStatus\">\n" +
-    "                    <div ng-messages=\"carSummary.carStatus.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carComment\" | translate}}</label> <input name=\"carComment\" ng-model=\"car.carComment\"> <div ng-messages=\"carSummary.carComment.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_price\" | translate}}</label>\n" +
-    "                    <input name=\"price\" required ng-model=\"car.price\">\n" +
-    "                    <div ng-messages=\"carSummary.price.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_total\" | translate}}</label> <input name=\"total\" ng-model=\"car.total\"> <div ng-messages=\"carSummary.total.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_gst\" | translate}}</label> <input name=\"gst\" ng-model=\"car.gst\"> <div ng-messages=\"carSummary.gst.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_currency\" | translate}}</label> <md-select ng-model=\"selectedcarCurrency\" ng-change=\"currencyChanged(selectedcarCurrency)\"> <md-optgroup label=\"Currency\"> <md-option ng-repeat=\"item in carCurrency\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carStatus\" | translate}}</label> <md-select ng-model=\"selectedcarStatus\" ng-change=\"statusChanged(selectedcarStatus)\"> <md-optgroup label=\"Car Status\"> <md-option ng-repeat=\"item in carStatusList\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <!-- Input for description\n" +
-    "                  <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_description\" | translate}}</label>\n" +
-    "                    <input name=\"carDescription\" required ng-model=\"car.description\">\n" +
-    "                    <div ng-messages=\"carSummary.carDescription.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <!-- Textarea for description. I prefer this one--> <md-input-container flex=\"100\" class=\"md-block carDescription\"> <label>{{\"summary_feature_description\" | translate}}</label> <textarea ng-model=\"car.description\" md-maxlength=\"150\" rows=\"5\" md-select-on-focus></textarea> </md-input-container> <!-- Text angular for description. Cannot show binded ng-model when refresh the page. \n" +
-    "                  <md-input-container flex=\"100\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_feature_description\" | translate}}</label>\n" +
-    "                    <text-angular flex=\"100\" ng-model=\"car.description\" ta-toolbar=\"[]\">\n" +
-    "                    </text-angular>\n" +
-    "                  </md-input-container> --> <div class=\"checkBox\" flex=\"100\" style=\"margin-top:0\"> {{\"maintenance_record_paymentStatus\" | translate}} &nbsp; <md-checkbox class=\"md-block\" ng-model=\"car.paymentStatus\" aria-label=\"paymentStatus\"> {{car.paymentStatus ?'Paid':'Unpaid'}} </md-checkbox> </div> </form> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"summary_vehicleInfo_title\" | translate}}</md-subheader> <md-card-content> <form layout=\"row\" layout-wrap name=\"vehicleInfo\"> <div flex=\"100\" class=\"searchBar\" ng-if=\"isVehicleModelListLoaded\" layout=\"row\"> <span flex=\"70\"> <md-autocomplete md-selected-item=\"selectVehicle\" md-search-text=\"modelSearchText\" md-selected-item-change=\"selectedItemChange(selectVehicle)\" md-items=\"item in vehicleModelList | filter:modelSearchText\" md-item-text=\"item.makerName+' '+item.model+' '+item.year\" md-min-length=\"0\" md-max-length=\"10\" placeholder=\"{{'summary_vehicleInfo_searchText' | translate }}\" style=\"color:#333\"> <md-item-template> <span md-highlight-text=\"modelSearchText\">{{item.makerName+' '+item.model+' '+item.year}} </span> </md-item-template> </md-autocomplete> </span> <span flex=\"30\"> <md-button class=\"md-raised md-primary add-model-button\" ng-click=\"createNewVehicleModel()\">Add New Model</md-button> </span> </div> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_makerName\" | translate}}</label> <input name=\"makerName\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.makerName\"> <div ng-messages=\"vehicleInfo.makerName.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_model\" | translate}}</label> <input name=\"model\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.model\"> <div ng-messages=\"vehicleInfo.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_year\" | translate}}</label> <input name=\"year\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.year\"> <div ng-messages=\"vehicleInfo.year.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_engine\" | translate}}</label> <input name=\"engine\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.engine\"> <div ng-messages=\"vehicleInfo.engine.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_fuel\" | translate}}</label> <input name=\"fuel\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuel\"> <div ng-messages=\"vehicleInfo.fuel.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_vehicleInfo_fuelEconomyCity\" | translate}}</label>\n" +
-    "                    <input name=\"fuelEconomyCity\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyCity\">\n" +
-    "                    <div ng-messages=\"vehicleInfo.fuelEconomyCity.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container>\n" +
-    "                   <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_vehicleInfo_fuelEconomyHwy\" | translate}}</label>\n" +
-    "                    <input name=\"fuelEconomyHwy\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyHwy\">\n" +
-    "                    <div ng-messages=\"vehicleInfo.fuelEconomyHwy.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container>\n" +
-    "                   <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_vehicleInfo_fuelEconomyMixed\" | translate}}</label>\n" +
-    "                    <input name=\"fuelEconomyMixed\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyMixed\">\n" +
-    "                    <div ng-messages=\"vehicleInfo.fuelEconomyMixed.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_origin\" | translate}}</label> <input name=\"origin\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.origin\"> <div ng-messages=\"vehicleInfo.origin.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_bodyType\" | translate}}</label> <md-select ng-disabled=\"!newVehicleModel\" ng-model=\"selectedcarBodyType\" ng-change=\"bodyTypeChanged(selectedcarBodyType)\"> <md-optgroup label=\"Body Type\"> <md-option ng-repeat=\"item in carBodyType\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_transmission\" | translate}}</label> <input name=\"transmission\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.transmission\"> <div ng-messages=\"vehicleInfo.transmission.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_seats\" | translate}}</label> <input name=\"seats\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.seats\"> <div ng-messages=\"vehicleInfo.seats.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_doors\" | translate}}</label> <input name=\"doors\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.doors\"> <div ng-messages=\"vehicleInfo.doors.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                    <label>{{\"summary_vehicleInfo_weight\" | translate}}</label>\n" +
-    "                    <input name=\"weight\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.weight\">\n" +
-    "                    <div ng-messages=\"vehicleInfo.weight.$error\">\n" +
-    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                    </div>\n" +
-    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_driveTrain\" | translate}}</label> <input name=\"driveTrain\" ng-disabled=\"!newVehicleModel\" ng-model=\"vehicleModel.driveTrain\"> </md-input-container> </form> </md-card-content> </md-card> </div> <!-- <md-card flex=\"100\" ng-show=\"newCar\">\n" +
-    "              <md-subheader class=\"md-primary\">Batch Info</md-subheader>\n" +
-    "              <md-card-content>\n" +
-    "                 <div layout=\"row\">\n" +
-    "                  <span flex=\"80\">\n" +
-    "                    <md-autocomplete\n" +
-    "                      ng-disabled=\" !(vehicleInfo.$valid)\"\n" +
-    "                      md-selected-item=\"selectedImport\"\n" +
-    "                      md-search-text=\"importSearchText\"\n" +
-    "                      md-items=\"import in imports | filter:importSearchText\"\n" +
-    "                      md-selected-item-change=\"selectedImportChange(selectedImport)\"\n" +
-    "                      md-item-text=\"'Company: '+import.transportCompany+', Batch ID: '+import.batchId\"\n" +
-    "                      md-min-length=\"0\"\n" +
-    "                      md-max-length=\"10\"\n" +
-    "                      placeholder=\"Enter batch Id to search\" style=\"color:#333;\">\n" +
-    "                      <md-item-template>\n" +
-    "                        <span md-highlight-text=\"importSearchText\">{{'Company: '+import.transportCompany+', Batch ID: '+import.batchId}}</span>\n" +
-    "                      </md-item-template>\n" +
-    "                    </md-autocomplete>\n" +
-    "                  </span>\n" +
-    "                   <span flex=\"20\">\n" +
-    "                     <md-button class=\"md-raised md-primary\" ng-click=\"createBatch()\" ng-disabled=\"!(vehicleInfo.$valid)\">New batch</md-button>\n" +
-    "                   </span>\n" +
-    "                </div>\n" +
-    "              </md-card-content>\n" +
+    "<md-tab label=\"{{'tab_vehicle_summary' | translate}}\"> <div layout=\"column\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"summary_feature_title\" | translate}}</md-subheader> <md-card-content> <form layout=\"row\" layout-wrap name=\"carSummary\"> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carId\" | translate}}</label> <input name=\"carId\" disabled ng-model=\"car.carId\"> <div ng-messages=\"carSummary.carId.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_wofTime\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input time=\"false\" date=\"true\" mdc-datetime-picker=\"\" type=\"text\" id=\"wofTime\" placeholder=\"Date\" ng-model=\"car.wofTime\" class=\" md-input\">\r" +
+    "\n" +
+    "                  </md-input-container> --> <md-input-container class=\"eae-form-input-required md-input-has-placeholder flex md-input-has-value\" flex=\"\"> <label>{{\"summary_feature_wofTime\" | translate}}</label> <input ng-model=\"car.wofTime\" required name=\"wofTime\" minlength=\"8\" maxlength=\"10\" placeholder=\"MM/DD/YYYY\" ng-pattern=\"/(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d/\"> <div ng-messages=\"carSummary.wofTime.$error\" ng-show=\"carSummary.wofTime.$invalid\"> Please enter a valid date (MM/DD/YYYY). </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_registerationNum\" | translate}}</label> <input name=\"registerationNum\" required md-maxlength=\"50\" ng-model=\"car.registerationNum\"> <div ng-messages=\"carSummary.registerationNum.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">The Registeration Number must be less than 50 characters long.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_warranty\" | translate}}</label> <!-- warranty-Suffix --> <input name=\"warranty\" type=\"number\" required ng-model=\"car.warranty\"> <div ng-messages=\"carSummary.warranty.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_odometer\" | translate}}</label> <input name=\"odometer\" type=\"number\" required ng-model=\"car.odometer\"> <div ng-messages=\"carSummary.odometer.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_color\" | translate}}</label> <input name=\"color\" required md-maxlength=\"20\" ng-model=\"car.color\"> <div ng-messages=\"carSummary.color.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">Color must be less than 20 characters long.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_vin\" | translate}}</label> <input name=\"vin\" required md-maxlength=\"50\" ng-model=\"car.vin\"> <div ng-messages=\"carSummary.vin.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">Vin number must be less than 50 characters long.</div> </div> </md-input-container> <!--  <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>Body Type</label>\r" +
+    "\n" +
+    "                    <input name=\"bodyType\" required ng-model=\"vehicleModel.bodyType\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.bodyType.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_paymentStatus\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"paymentStatus\" required ng-model=\"car.paymentStatus\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.paymentStatus.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_length\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"length\" required ng-model=\"car.length\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.length.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container>\r" +
+    "\n" +
+    "                  <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_width\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"width\" required ng-model=\"car.width\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.width.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container>\r" +
+    "\n" +
+    "                  <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_height\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"height\" required ng-model=\"car.height\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.height.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_carStatus\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"carStatus\" required ng-model=\"car.carStatus\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.carStatus.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carComment\" | translate}} (Optional)</label> <input name=\"carComment\" ng-model=\"car.carComment\"> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_price\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"price\" required ng-model=\"car.price\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.price.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_total\" | translate}}</label> <input name=\"total\" type=\"number\" required ng-model=\"car.total\"> <div ng-messages=\"carSummary.total.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_gst\" | translate}}</label> <input name=\"gst\" type=\"number\" required ng-model=\"car.gst\"> <div ng-messages=\"carSummary.gst.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_currency\" | translate}}</label> <md-select ng-model=\"selectedcarCurrency\" ng-change=\"currencyChanged(selectedcarCurrency)\"> <md-optgroup label=\"Currency\"> <md-option ng-repeat=\"item in carCurrency\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_feature_carStatus\" | translate}}</label> <md-select ng-model=\"selectedcarStatus\" ng-change=\"statusChanged(selectedcarStatus)\"> <md-optgroup label=\"Car Status\"> <md-option ng-repeat=\"item in carStatusList\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <!-- Input for description\r" +
+    "\n" +
+    "                  <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_description\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"carDescription\" required ng-model=\"car.description\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"carSummary.carDescription.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <!-- Textarea for description. I prefer this one--> <md-input-container flex=\"100\" class=\"md-block carDescription\"> <label>{{\"summary_feature_description\" | translate}} (Optional)</label> <textarea ng-model=\"car.description\" rows=\"5\" md-select-on-focus></textarea> </md-input-container> <!-- Text angular for description. Cannot show binded ng-model when refresh the page. \r" +
+    "\n" +
+    "                  <md-input-container flex=\"100\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_feature_description\" | translate}}</label>\r" +
+    "\n" +
+    "                    <text-angular flex=\"100\" ng-model=\"car.description\" ta-toolbar=\"[]\">\r" +
+    "\n" +
+    "                    </text-angular>\r" +
+    "\n" +
+    "                  </md-input-container> --> <div class=\"checkBox\" flex=\"100\" style=\"margin-top:0\"> {{\"maintenance_record_paymentStatus\" | translate}} &nbsp; <md-checkbox class=\"md-block\" ng-model=\"car.paymentStatus\" aria-label=\"paymentStatus\"> {{car.paymentStatus ?'Paid':'Unpaid'}} </md-checkbox> </div> </form> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"summary_vehicleInfo_title\" | translate}}</md-subheader> <md-card-content> <form layout=\"row\" layout-wrap name=\"vehicleInfo\"> <div flex=\"100\" class=\"searchBar\" ng-if=\"isVehicleModelListLoaded\" layout=\"row\"> <span flex=\"70\"> <md-autocomplete md-selected-item=\"selectVehicle\" md-search-text=\"modelSearchText\" md-selected-item-change=\"selectedItemChange(selectVehicle)\" md-items=\"item in vehicleModelList | filter:modelSearchText\" md-item-text=\"item.makerName+' '+item.model+' '+item.year\" md-min-length=\"0\" md-max-length=\"10\" placeholder=\"{{'summary_vehicleInfo_searchText' | translate }}\" style=\"color:#333\"> <md-item-template> <span md-highlight-text=\"modelSearchText\">{{item.makerName+' '+item.model+' '+item.year}} </span> </md-item-template> </md-autocomplete> </span> <span flex=\"30\"> <md-button class=\"md-raised md-primary add-model-button\" ng-click=\"createNewVehicleModel()\">Add New Model</md-button> </span> </div> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_makerName\" | translate}}</label> <input name=\"makerName\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.makerName\"> <div ng-messages=\"vehicleInfo.makerName.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_model\" | translate}}</label> <input name=\"model\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.model\"> <div ng-messages=\"vehicleInfo.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_year\" | translate}}</label> <input name=\"year\" type=\"number\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.year\"> <div ng-messages=\"vehicleInfo.year.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_engine\" | translate}}</label> <input name=\"engine\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.engine\"> <div ng-messages=\"vehicleInfo.engine.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_fuel\" | translate}}</label> <input name=\"fuel\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuel\"> <div ng-messages=\"vehicleInfo.fuel.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_vehicleInfo_fuelEconomyCity\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"fuelEconomyCity\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyCity\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"vehicleInfo.fuelEconomyCity.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container>\r" +
+    "\n" +
+    "                   <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_vehicleInfo_fuelEconomyHwy\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"fuelEconomyHwy\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyHwy\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"vehicleInfo.fuelEconomyHwy.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container>\r" +
+    "\n" +
+    "                   <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_vehicleInfo_fuelEconomyMixed\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"fuelEconomyMixed\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.fuelEconomyMixed\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"vehicleInfo.fuelEconomyMixed.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_origin\" | translate}}</label> <input name=\"origin\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.origin\"> <div ng-messages=\"vehicleInfo.origin.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_bodyType\" | translate}}</label> <md-select ng-disabled=\"!newVehicleModel\" ng-model=\"selectedcarBodyType\" ng-change=\"bodyTypeChanged(selectedcarBodyType)\"> <md-optgroup label=\"Body Type\"> <md-option ng-repeat=\"item in carBodyType\" value=\"{{item}}\"> {{item}} </md-option> </md-optgroup></md-select> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_transmission\" | translate}}</label> <input name=\"transmission\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.transmission\"> <div ng-messages=\"vehicleInfo.transmission.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_seats\" | translate}}</label> <input name=\"seats\" type=\"number\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.seats\"> <div ng-messages=\"vehicleInfo.seats.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_doors\" | translate}}</label> <input name=\"doors\" type=\"number\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.doors\"> <div ng-messages=\"vehicleInfo.doors.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> </div> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                    <label>{{\"summary_vehicleInfo_weight\" | translate}}</label>\r" +
+    "\n" +
+    "                    <input name=\"weight\" ng-disabled=\"!newVehicleModel\" required ng-model=\"vehicleModel.weight\">\r" +
+    "\n" +
+    "                    <div ng-messages=\"vehicleInfo.weight.$error\">\r" +
+    "\n" +
+    "                      <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                  </md-input-container> --> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"summary_vehicleInfo_driveTrain\" | translate}}</label> <input name=\"driveTrain\" ng-disabled=\"!newVehicleModel\" ng-model=\"vehicleModel.driveTrain\"> </md-input-container> </form> </md-card-content> </md-card> </div> <!-- <md-card flex=\"100\" ng-show=\"newCar\">\r" +
+    "\n" +
+    "              <md-subheader class=\"md-primary\">Batch Info</md-subheader>\r" +
+    "\n" +
+    "              <md-card-content>\r" +
+    "\n" +
+    "                 <div layout=\"row\">\r" +
+    "\n" +
+    "                  <span flex=\"80\">\r" +
+    "\n" +
+    "                    <md-autocomplete\r" +
+    "\n" +
+    "                      ng-disabled=\" !(vehicleInfo.$valid)\"\r" +
+    "\n" +
+    "                      md-selected-item=\"selectedImport\"\r" +
+    "\n" +
+    "                      md-search-text=\"importSearchText\"\r" +
+    "\n" +
+    "                      md-items=\"import in imports | filter:importSearchText\"\r" +
+    "\n" +
+    "                      md-selected-item-change=\"selectedImportChange(selectedImport)\"\r" +
+    "\n" +
+    "                      md-item-text=\"'Company: '+import.transportCompany+', Batch ID: '+import.batchId\"\r" +
+    "\n" +
+    "                      md-min-length=\"0\"\r" +
+    "\n" +
+    "                      md-max-length=\"10\"\r" +
+    "\n" +
+    "                      placeholder=\"Enter batch Id to search\" style=\"color:#333;\">\r" +
+    "\n" +
+    "                      <md-item-template>\r" +
+    "\n" +
+    "                        <span md-highlight-text=\"importSearchText\">{{'Company: '+import.transportCompany+', Batch ID: '+import.batchId}}</span>\r" +
+    "\n" +
+    "                      </md-item-template>\r" +
+    "\n" +
+    "                    </md-autocomplete>\r" +
+    "\n" +
+    "                  </span>\r" +
+    "\n" +
+    "                   <span flex=\"20\">\r" +
+    "\n" +
+    "                     <md-button class=\"md-raised md-primary\" ng-click=\"createBatch()\" ng-disabled=\"!(vehicleInfo.$valid)\">New batch</md-button>\r" +
+    "\n" +
+    "                   </span>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "              </md-card-content>\r" +
+    "\n" +
     "            </md-card> --> </div> </md-tab>"
   );
 
@@ -201,40 +330,69 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/consignment/consignment.html',
-    "<!--   <div layout=\"row\">\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Paid Funds</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Unpaid Funds</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "  </div>\n" +
+    "<!--   <div layout=\"row\">\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Paid Funds</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Unpaid Funds</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "  </div>\r" +
+    "\n" +
     " --> <div ng-hide=\"$state.current.name === 'consignment.details'\"> <div layout=\"row\" layout-align=\"center\"> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-click=\"createImport()\">{{\"addNewBatch\" | translate}}</md-button> </div> <md-card> <md-card-content> <md-table-container> <table md-table md-row-select=\"options.rowSelection\" ng-model=\"selected\" md-progress=\"promise\"> <thead md-head md-order=\"query.order\" md-on-reorder> <tr md-row> <th md-column md-order-by=\"batchId\"><span>{{\"batchId\" | translate}}</span></th> <th md-column md-order-by=\"makerName\"><span>{{\"transportCompany\" | translate}}</span></th> <th md-column md-order-by=\"model\" md-desc><span>{{\"arriveLocation\" | translate}}</span></th> <th md-column md-order-by=\"model\" md-desc><span>{{\"shippingExpense\" | translate}}</span></th> <th md-column md-numeric md-order-by=\"year\"><span>{{\"arriveTime\" | translate}}</span></th> </tr> </thead> <tbody md-body> <tr ng-click=\"editImport(import)\" md-row md-select=\"import\" md-on-select ng-repeat=\"import in imports | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit\"> <td md-cell>{{::import.batchId}} </td><td md-cell>{{::import.transportCompany}} </td><td md-cell>{{::import.checkLocation}}</td> <td md-cell>{{::import.transportationExpense | currency}}</td> <td md-cell>{{::import.eta | amDateFormat:'dddd , Do MMMM YYYY'}}</td> </tr> </tbody> </table> </md-table-container> <md-table-pagination md-limit=\"query.limit\" md-page=\"query.page\" md-total=\"{{imports.length}}\" md-page-select=\"options.pageSelector\" md-boundary-links=\"options.boundaryLinks\" md-on-paginate></md-table-pagination> </md-card-content> </md-card> </div> <div layout=\"column\" ui-view=\"consignment-details-view\"> </div>"
   );
 
 
   $templateCache.put('modules/customer/customer.details.html',
-    "<div layout=\"column\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_customer_details_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_customerId\" | translate}}</label> <input required ng-model=\"customer.customerId\" ng-disabled=\"!newCustomer\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_title\" | translate}}</label> <input required ng-model=\"customer.title\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_firstName\" | translate}}</label> <input required ng-model=\"customer.firstName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_lastName\" | translate}}</label> <input required ng-model=\"customer.lastName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_mobile\" | translate}}</label> <input required ng-model=\"customer.mobile\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_emailAddress\" | translate}}</label> <input required ng-model=\"customer.emailAddress\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\"></md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_occupation\" | translate}}</label> <input required ng-model=\"customer.occupation\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_driverLicense\" | translate}}</label> <input required ng-model=\"customer.driveLicense\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_dob\" | translate}}</label> <input time=\"false\" date=\"true\" mdc-datetime-picker=\"\" type=\"text\" id=\"dob\" placeholder=\"DOB\" ng-model=\"customer.dob\" class=\"md-input\"> </md-input-container> </div> </md-card-content> </md-card> </div> <md-card flex=\"100\"> <md-subheader class=\"md-primary\">{{\"tab_address_info\" | translate}}</md-subheader> <md-card-content layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>Street Number</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.streetNum\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Street Name</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.route\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Suburb</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.suburb\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_city\" | translate}}</label> <input type=\"text\" ng-model=\"customer.city\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_state\" | translate}}</label> <input type=\"text\" ng-model=\"customer.state\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_country\" | translate}}</label> <input type=\"text\" ng-model=\"customer.country\"> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "          <label>{{\"tab_address_street\" | translate}}</label>\n" +
-    "          <input type=\"text\" g-places-autocomplete ng-model=\"customer.street\" />\n" +
+    "<div layout=\"column\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_customer_details_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_customerId\" | translate}}</label> <input required ng-model=\"customer.customerId\" ng-disabled=\"!newCustomer\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_title\" | translate}}</label> <input required ng-model=\"customer.title\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_firstName\" | translate}}</label> <input required ng-model=\"customer.firstName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_lastName\" | translate}}</label> <input required ng-model=\"customer.lastName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_mobile\" | translate}}</label> <input required ng-model=\"customer.mobile\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_emailAddress\" | translate}}</label> <input required ng-model=\"customer.emailAddress\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\"></md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_occupation\" | translate}}</label> <input required ng-model=\"customer.occupation\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_driverLicense\" | translate}}</label> <input required ng-model=\"customer.driveLicense\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_customer_details_dob\" | translate}}</label> <input time=\"false\" date=\"true\" mdc-datetime-picker=\"\" type=\"text\" id=\"dob\" placeholder=\"DOB\" ng-model=\"customer.dob\" class=\"md-input\"> </md-input-container> </div> </md-card-content> </md-card> </div> <md-card flex=\"100\"> <md-subheader class=\"md-primary\">{{\"tab_address_info\" | translate}}</md-subheader> <md-card-content layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>Street Number</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.streetNum\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Street Name</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.route\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Suburb</label> <input type=\"text\" g-places-autocomplete ng-model=\"customer.suburb\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_city\" | translate}}</label> <input type=\"text\" ng-model=\"customer.city\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_state\" | translate}}</label> <input type=\"text\" ng-model=\"customer.state\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_country\" | translate}}</label> <input type=\"text\" ng-model=\"customer.country\"> </md-input-container> <!-- <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "          <label>{{\"tab_address_street\" | translate}}</label>\r" +
+    "\n" +
+    "          <input type=\"text\" g-places-autocomplete ng-model=\"customer.street\" />\r" +
+    "\n" +
     "        </md-input-container> --> </md-card-content> </md-card> <div layout=\"row\" layout-align=\"center\"> <md-button flex=\"25\" class=\"md-raised\" ng-click=\"backToCustomer()\">{{\"customer_details_cancel\" | translate}}</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-click=\"saveCustomer(customer)\">{{\"customer_details_save\" | translate}}</md-button> </div> </div>"
   );
 
@@ -245,45 +403,84 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/employee/employee.details.html',
-    "<div layout=\"column\"> <md-tabs md-dynamic-height md-border-bottom md-selected=\"selectedTab\"> <md-tab label=\"Employee Details\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_employee_details_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_employeeId\" | translate}}</label> <input required ng-model=\"employee.employeeId\" ng-disabled=\"!newEmployee\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_title\" | translate}}</label> <input required ng-model=\"employee.title\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_firstName\" | translate}}</label> <input required ng-model=\"employee.firstName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_lastName\" | translate}}</label> <input required ng-model=\"employee.lastName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_mobile\" | translate}}</label> <input required ng-model=\"employee.mobile\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_emailAddress\" | translate}}</label> <input required ng-model=\"employee.emailAddress\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_vehicle_model_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_vehicle_model_irdNumber\" | translate}}</label> <input required ng-model=\"employee.irdNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_vehicle_model_discount\" | translate}} (Number between 0-1)</label> <input required ng-model=\"employee.discount\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Passport Number</label> <input required ng-model=\"employee.passportNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Identity Number</label> <input required ng-model=\"employee.identityNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> </div> <md-card flex=\"100\"> <md-subheader class=\"md-primary\">{{\"tab_address_info\" | translate}}</md-subheader> <md-card-content layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_street\" | translate}}</label> <input type=\"text\" g-places-autocomplete ng-model=\"employee.street\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_city\" | translate}}</label> <input type=\"text\" ng-model=\"employee.city\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_state\" | translate}}</label> <input type=\"text\" ng-model=\"employee.state\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_country\" | translate}}</label> <input type=\"text\" ng-model=\"employee.country\"> </md-input-container> </md-card-content> </md-card> <div layout=\"row\" layout-align=\"center\"> <md-button flex=\"25\" class=\"md-raised\" ng-click=\"backToEmployee()\">{{\"employee_details_cancel\" | translate}}</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-click=\"saveEmployee(employee)\">{{\"employee_details_save\" | translate}}</md-button> </div> </md-tab> <!-- <md-tab label=\"Salary Details\">\n" +
-    "        <md-card flex=\"100\">\n" +
-    "          <md-card-content>\n" +
-    "            <div layout=\"row\" layout-wrap>\n" +
-    "              <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                <label>Hour Rate</label>\n" +
-    "                <input required ng-model=\"employeeSalary.hourRate\">\n" +
-    "                <div ng-messages=\"projectForm.description.$error\">\n" +
-    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\n" +
-    "                </div>\n" +
-    "              </md-input-container>\n" +
-    "              <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                <label>Work Date</label>\n" +
-    "                <input required ng-model=\"employeeSalary.workDate\">\n" +
-    "                <div ng-messages=\"projectForm.description.$error\">\n" +
-    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\n" +
-    "                </div>\n" +
-    "              </md-input-container>\n" +
-    "              <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                <label>Work Hours</label>\n" +
-    "                <input required ng-model=\"employeeSalary.workHours\">\n" +
-    "                <div ng-messages=\"projectForm.description.$error\">\n" +
-    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\n" +
-    "                </div>\n" +
-    "              </md-input-container>\n" +
-    "              <md-input-container flex=\"50\" class=\"md-block\">\n" +
-    "                <label>Total</label>\n" +
-    "                <input required ng-model=\"employeeSalary.total\">\n" +
-    "                <div ng-messages=\"projectForm.description.$error\">\n" +
-    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\n" +
-    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\n" +
-    "                </div>\n" +
-    "              </md-input-container>\n" +
-    "            </div>\n" +
-    "          </md-card-content>\n" +
-    "        </md-card>\n" +
+    "<div layout=\"column\"> <md-tabs md-dynamic-height md-border-bottom md-selected=\"selectedTab\"> <md-tab label=\"Employee Details\"> <div layout=\"row\"> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_employee_details_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_employeeId\" | translate}}</label> <input required ng-model=\"employee.employeeId\" ng-disabled=\"!newEmployee\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_title\" | translate}}</label> <input required ng-model=\"employee.title\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_firstName\" | translate}}</label> <input required ng-model=\"employee.firstName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_lastName\" | translate}}</label> <input required ng-model=\"employee.lastName\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_mobile\" | translate}}</label> <input required ng-model=\"employee.mobile\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_employee_details_emailAddress\" | translate}}</label> <input required ng-model=\"employee.emailAddress\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> <md-card flex=\"50\"> <md-subheader class=\"md-primary\">{{\"tab_vehicle_model_info\" | translate}}</md-subheader> <md-card-content> <div layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_vehicle_model_irdNumber\" | translate}}</label> <input required ng-model=\"employee.irdNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_vehicle_model_discount\" | translate}} (Number between 0-1)</label> <input required ng-model=\"employee.discount\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Passport Number</label> <input required ng-model=\"employee.passportNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>Identity Number</label> <input required ng-model=\"employee.identityNumber\"> <div ng-messages=\"projectForm.description.$error\"> <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div> <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div> </div> </md-input-container> </div> </md-card-content> </md-card> </div> <md-card flex=\"100\"> <md-subheader class=\"md-primary\">{{\"tab_address_info\" | translate}}</md-subheader> <md-card-content layout=\"row\" layout-wrap> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_street\" | translate}}</label> <input type=\"text\" g-places-autocomplete ng-model=\"employee.street\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_city\" | translate}}</label> <input type=\"text\" ng-model=\"employee.city\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_state\" | translate}}</label> <input type=\"text\" ng-model=\"employee.state\"> </md-input-container> <md-input-container flex=\"50\" class=\"md-block\"> <label>{{\"tab_address_country\" | translate}}</label> <input type=\"text\" ng-model=\"employee.country\"> </md-input-container> </md-card-content> </md-card> <div layout=\"row\" layout-align=\"center\"> <md-button flex=\"25\" class=\"md-raised\" ng-click=\"backToEmployee()\">{{\"employee_details_cancel\" | translate}}</md-button> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-click=\"saveEmployee(employee)\">{{\"employee_details_save\" | translate}}</md-button> </div> </md-tab> <!-- <md-tab label=\"Salary Details\">\r" +
+    "\n" +
+    "        <md-card flex=\"100\">\r" +
+    "\n" +
+    "          <md-card-content>\r" +
+    "\n" +
+    "            <div layout=\"row\" layout-wrap>\r" +
+    "\n" +
+    "              <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                <label>Hour Rate</label>\r" +
+    "\n" +
+    "                <input required ng-model=\"employeeSalary.hourRate\">\r" +
+    "\n" +
+    "                <div ng-messages=\"projectForm.description.$error\">\r" +
+    "\n" +
+    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "              </md-input-container>\r" +
+    "\n" +
+    "              <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                <label>Work Date</label>\r" +
+    "\n" +
+    "                <input required ng-model=\"employeeSalary.workDate\">\r" +
+    "\n" +
+    "                <div ng-messages=\"projectForm.description.$error\">\r" +
+    "\n" +
+    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "              </md-input-container>\r" +
+    "\n" +
+    "              <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                <label>Work Hours</label>\r" +
+    "\n" +
+    "                <input required ng-model=\"employeeSalary.workHours\">\r" +
+    "\n" +
+    "                <div ng-messages=\"projectForm.description.$error\">\r" +
+    "\n" +
+    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "              </md-input-container>\r" +
+    "\n" +
+    "              <md-input-container flex=\"50\" class=\"md-block\">\r" +
+    "\n" +
+    "                <label>Total</label>\r" +
+    "\n" +
+    "                <input required ng-model=\"employeeSalary.total\">\r" +
+    "\n" +
+    "                <div ng-messages=\"projectForm.description.$error\">\r" +
+    "\n" +
+    "                  <div ng-message=\"required\">{{\"requiredFieldError\" | translate}}.</div>\r" +
+    "\n" +
+    "                  <div ng-message=\"md-maxlength\">{{\"maxLength30Error\" | translate}}.</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "              </md-input-container>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "          </md-card-content>\r" +
+    "\n" +
+    "        </md-card>\r" +
+    "\n" +
     "    </md-tab> --> </md-tabs> </div>"
   );
 
@@ -299,32 +496,58 @@ angular.module('xtmotorwebuiApp').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('modules/sales/sales.html',
-    "<!--   <div layout=\"row\">\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Paid Funds</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Unpaid Funds</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "    <md-card flex>\n" +
-    "      <md-card-content>\n" +
-    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\n" +
-    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\n" +
-    "      </md-card-content>\n" +
-    "    </md-card>\n" +
-    "  </div>\n" +
+    "<!--   <div layout=\"row\">\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Paid Funds</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Unpaid Funds</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "    <md-card flex>\r" +
+    "\n" +
+    "      <md-card-content>\r" +
+    "\n" +
+    "        <p class=\"md-display-2 font-weight-100 margin-top-10 margin-bottom-0 ng-scope ng-isolate-scope\" count-to=\"{{countToPaid}}\" value=\"{{countFromPaid}}\" duration=\"1.5\" decimals=\"0\" options=\"{ prefix: '$' }\"></p>\r" +
+    "\n" +
+    "        <p class=\"md-body-2 opacity-60 margin-top-0 margin-bottom-10 ng-scope\" translate=\"\">Total Sales</p>\r" +
+    "\n" +
+    "      </md-card-content>\r" +
+    "\n" +
+    "    </md-card>\r" +
+    "\n" +
+    "  </div>\r" +
+    "\n" +
     " --> <div ng-hide=\"$state.current.name === 'sales.details'\" ng-cloak> <div layout=\"row\" layout-align=\"center\"> <md-button flex=\"25\" class=\"md-raised md-primary\" ng-click=\"createNewContract()\">{{\"addNewSales\" | translate}}</md-button> </div> <md-card> <md-card-content> <md-table-container> <table md-table md-row-select=\"options.rowSelection\" ng-model=\"selected\" md-progress=\"promise\"> <thead md-head md-order=\"query.order\" md-on-reorder> <tr md-row> <th md-column md-order-by=\"batchId\"><span>{{\"carId\" | translate}}</span></th> <th md-column md-order-by=\"customerId\"><span>{{\"customerID\" | translate}}</span></th> <th md-column md-order-by=\"deposite\"><span>{{\"deposite\" | translate}}</span></th> <th md-column md-order-by=\"total\" md-desc><span>{{\"totalPrice\" | translate}}</span></th> <th md-column md-order-by=\"paymentStatus\" md-desc><span>{{\"paymentStatus\" | translate}}</span></th> <th md-column md-numeric md-order-by=\"contractDate\"><span>{{\"Date\" | translate}}</span></th> </tr> </thead> <tbody md-body> <tr ng-click=\"editContact(contract)\" md-row md-select=\"contract\" md-on-select ng-repeat=\"contract in contracts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit\"> <td md-cell>{{::contract.carId}} </td><td md-cell>{{::contract.customerId}} </td><td md-cell>{{::contract.deposite | currency}}</td> <td md-cell>{{::contract.total | currency}}</td> <td md-cell>{{contract.paymentStatus?'Paid':'Unpaid'}}</td> <td md-cell>{{::contract.contractDate | amDateFormat:'dddd , Do MMMM YYYY'}}</td> </tr> </tbody> </table> </md-table-container> <md-table-pagination md-limit=\"query.limit\" md-page=\"query.page\" md-total=\"{{contracts.length}}\" md-page-select=\"options.pageSelector\" md-boundary-links=\"options.boundaryLinks\" md-on-paginate></md-table-pagination> </md-card-content> </md-card> </div> <div layout=\"column\" ui-view=\"sales-details-view\"> </div>"
   );
 
