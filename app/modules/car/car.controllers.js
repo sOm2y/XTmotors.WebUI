@@ -115,12 +115,16 @@ angular.module('car.controllers',[])
         //$scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
-        //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
+        $scope.car.wofTime = $scope.changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
       },function(error){
         $rootScope.showError(error);
       });
+    };
+
+    $scope.changeDateFormat = function(time){
+      return new Date(moment(time));
     };
 
     $scope.getCarMaintenanceList = function(carId){

@@ -60,6 +60,12 @@ angular
     });
        $translateProvider.preferredLanguage('en-AU');
     }])
+
+  .config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date) {
+       return moment(date).format('DD/MM/YYYY');
+    };
+  })
   .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('appSetting', {
