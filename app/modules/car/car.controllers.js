@@ -44,9 +44,11 @@ angular.module('car.controllers',[])
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
         $rootScope.isLoading = false;
-        _.forEach(cars, function(car){ 
-          $scope.getCarImportRecord(car);
-        })
+
+        //Disabled until add settlement tab in car summary page
+        // _.forEach(cars, function(car){ 
+        //   $scope.getCarImportRecord(car);
+        // })
         //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);

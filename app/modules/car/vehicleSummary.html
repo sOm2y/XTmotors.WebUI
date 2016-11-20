@@ -13,17 +13,17 @@
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_feature_wofTime" | translate}}</label>
-                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="wofTime" placeholder="Date" ng-model="car.wofTime" class=" md-input">
-                  </md-input-container>
-
-                  <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_registerationNum" | translate}}</label>
                     <input name="registerationNum" required ng-model="car.registerationNum">
                     <div ng-messages="carSummary.registerationNum.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
+                  <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_feature_wofTime" | translate}}</label>
+                    <md-datepicker ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar"></md-datepicker>
+                  </md-input-container>
+
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
                     <!-- warranty-Suffix -->

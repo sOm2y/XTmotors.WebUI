@@ -25,3 +25,8 @@ button.home--button-add{
 md-table-pagination{
 	margin-right: 55px;
 }
+
+/* Full width datepicker */
+.md-datepicker-input-container{
+  width: 100% !important;
+}
