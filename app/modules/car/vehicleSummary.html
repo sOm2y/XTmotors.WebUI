@@ -22,9 +22,10 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_wofTime" | translate}}</label>
-                    <md-datepicker required ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar"></md-datepicker>
+                    <md-datepicker required ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
                     <div ng-messages="carSummary.wofTime.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="mindate">Date is too early.</div>
                     </div>
                   </md-input-container>
 
@@ -105,10 +106,6 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> -->
-                   <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_feature_carComment" | translate}}</label>
-                    <input name="carComment" ng-model="car.carComment">
-                  </md-input-container>
                    <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_price" | translate}}</label>
                     <input name="price" required ng-model="car.price">
@@ -125,14 +122,14 @@
                       <div ng-message="max">Price must between 0 to 9,999,999,999</div>
                     </div>
                   </md-input-container>
-                   <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_feature_gst" | translate}}</label>
-                    <input name="gst" required ng-model="car.gst" type="number" min="0" max="9999999999.99">
-                    <div ng-messages="carSummary.gst.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      <div ng-message="min">GST must between 0 to 9,999,999,999</div>
-                      <div ng-message="max">GST must between 0 to 9,999,999,999</div>
-                    </div>
+                  <md-input-container flex="50" class="md-block">
+                  <label>{{"summary_feature_gst" | translate}}</label>
+                  <input name="gst" required ng-model="car.gst" type="number" min="0" max="9999999999.99">
+                  <div ng-messages="carSummary.gst.$error">
+                    <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                    <div ng-message="min">GST must between 0 to 9,999,999,999</div>
+                    <div ng-message="max">GST must between 0 to 9,999,999,999</div>
+                  </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_currency" | translate}}</label>
@@ -158,6 +155,10 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
+                   <!-- <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_feature_carComment" | translate}}</label>
+                    <input name="carComment" ng-model="car.carComment">
+                  </md-input-container> -->
                   
                   <!-- Input for description
                   <md-input-container flex="50" class="md-block">
@@ -221,40 +222,68 @@
 
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_makerName" | translate}}</label>
-                    <input name="makerName" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.makerName">
+                    <input name="makerName" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.makerName" md-maxlength="120" minlength="2">
                     <div ng-messages="vehicleInfo.makerName.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
+                      <div ng-message="minlength">Maker name must be between 2 and 120 characters.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_model" | translate}}</label>
-                    <input name="model" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.model">
-                    <div ng-messages="vehicleInfo.description.$error">
+                    <input name="model" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.model" md-maxlength="120" minlength="2">
+                    <div ng-messages="vehicleInfo.model.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
+                      <div ng-message="minlength">Maker name must be between 2 and 120 characters.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_year" | translate}}</label>
-                    <input name="year" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.year">
+                    <input name="year" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.year" ng-pattern="/^\d{4}$/">
                     <div ng-messages="vehicleInfo.year.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="pattern" class="my-message">That doesn't look like a valid year.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_engine" | translate}}</label>
-                    <input name="engine" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.engine">
+                    <input name="engine" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.engine" md-maxlength="120" minlength="2">
                     <div ng-messages="vehicleInfo.engine.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="md-maxlength">Engine must be between 2 and 120 characters.</div>
+                      <div ng-message="minlength">Engine must be between 2 and 120 characters.</div>
                     </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuel" | translate}}</label>
-                    <input name="fuel" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuel">
+                    <input name="fuel" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuel" md-maxlength="50">
                     <div ng-messages="vehicleInfo.fuel.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="md-maxlength">Fuel must be less than 120 characters.</div>
                     </div>
                   </md-input-container>
-                   <md-input-container flex="50" class="md-block">
+                  <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_vehicleInfo_seats" | translate}}</label>
+                    <input name="seats" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.seats" type="number" min="1" max="100" ng-pattern="/^[1-9][0-9]*$/">
+                    <div ng-messages="vehicleInfo.seats.$error">
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="min">Seats must be between 1 and 100.</div>
+                      <div ng-message="max">Seats must be between 1 and 100.</div>
+                      <div ng-message="pattern">Seats must be Integer.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container flex="50" class="md-block">
+                    <label>{{"summary_vehicleInfo_doors" | translate}}</label>
+                    <input name="doors" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.doors" type="number" min="1" max="10" ng-pattern="/^[1-9][0-9]*$/">
+                    <div ng-messages="vehicleInfo.doors.$error">
+                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                      <div ng-message="min">Doors must be between 1 and 10.</div>
+                      <div ng-message="max">Doors must be between 1 and 10.</div>
+                      <div ng-message="pattern">Seats must be Integer.</div>
+                    </div>
+                  </md-input-container>
+                   <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuelEconomyCity" | translate}}</label>
                     <input name="fuelEconomyCity" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuelEconomyCity">
                     <div ng-messages="vehicleInfo.fuelEconomyCity.$error">
@@ -274,13 +303,13 @@
                     <div ng-messages="vehicleInfo.fuelEconomyMixed.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container>
+                  </md-input-container> -->
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_origin" | translate}}</label>
-                    <input name="origin" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.origin">
-                    <div ng-messages="vehicleInfo.origin.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
+                    <input name="origin" ng-disabled="!newVehicleModel" ng-model="vehicleModel.origin">
+                    <!-- <div ng-messages="vehicleInfo.origin.$error"> -->
+                      <!-- <div ng-message="required">{{"requiredFieldError" | translate}}.</div> -->
+                    <!-- </div> -->
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_bodyType" | translate}}</label>
@@ -293,31 +322,17 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_transmission" | translate}}</label>
-                    <input name="transmission" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.transmission">
-                    <div ng-messages="vehicleInfo.transmission.$error">
+                    <input name="transmission" ng-disabled="!newVehicleModel" ng-model="vehicleModel.transmission">
+                    <!-- <div ng-messages="vehicleInfo.transmission.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
-                  </md-input-container>
-                  <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_vehicleInfo_seats" | translate}}</label>
-                    <input name="seats" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.seats">
-                    <div ng-messages="vehicleInfo.seats.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
-                  </md-input-container>
-                  <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_vehicleInfo_doors" | translate}}</label>
-                    <input name="doors" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.doors">
-                    <div ng-messages="vehicleInfo.doors.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
-                  </md-input-container>
+ -->                  </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_weight" | translate}}</label>
-                    <input name="weight" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.weight">
-                    <div ng-messages="vehicleInfo.weight.$error">
+                    <input name="weight" ng-disabled="!newVehicleModel" ng-model="vehicleModel.weight">
+                    <!-- <div ng-messages="vehicleInfo.weight.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div>
+                    </div> -->
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_driveTrain" | translate}}</label>

@@ -260,6 +260,13 @@ angular.module('car.controllers',[])
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
 
+    $scope.myDate = new Date();
+
+    $scope.minDate = new Date(
+      $scope.myDate.getFullYear() - 10,
+      $scope.myDate.getMonth(),
+      $scope.myDate.getDate());
+
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();
     $scope.showMaintenanceReordDetails = false;
