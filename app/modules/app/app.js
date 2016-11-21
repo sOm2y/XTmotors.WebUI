@@ -85,6 +85,14 @@ angular
                 }
             });
     }])
+    .config(['$sceDelegateProvider', function($sceDelegateProvider) {
+      $sceDelegateProvider.resourceUrlWhitelist([
+        // Allow same origin resource loads.
+        'self',
+        // Allow loading from our assets domain.  Notice the difference between * and **.
+        'https://raw.githubusercontent.com/angular/**'
+      ]);
+    }])  
     .config(['$mdThemingProvider','$mdIconProvider',function($mdThemingProvider,$mdIconProvider) {
       var customBlueMap =     $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',
@@ -121,7 +129,7 @@ angular
       .iconSet('toggle', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-toggle.svg', 24)
 
       // Illustrated user icons used in the docs https://material.angularjs.org/latest/#/demo/material.components.gridList
-      // .iconSet('avatars', 'https://raw.githubusercontent.com/angular/material/master/docs/app/icons/avatar-icons.svg', 24)
+      .iconSet('avatars', 'https://raw.githubusercontent.com/angular/material/master/docs/app/icons/avatar-icons.svg', 24)
       .defaultIconSet('https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24);
 
   }])

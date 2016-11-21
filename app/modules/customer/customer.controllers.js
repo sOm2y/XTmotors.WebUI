@@ -109,17 +109,25 @@ angular.module('customer.controllers',[])
 	        };
 
 	      $scope.$on('g-places-autocomplete:select', function (event, param) {
+	      		$scope.customer.streetNum = null;
+	      		$scope.customer.route = null;
 				$scope.customer.street = null;
+				$scope.customer.suburb = null;
 				$scope.customer.city = null;
 				$scope.customer.state = null;
 				$scope.customer.country = null;
+
 				(param.address_components).forEach(function(value) {
 					switch(value.types[0]){
 						case "street_number":
-	        				$scope.customer.street = value.long_name;
+	        				$scope.customer.streetNum = value.long_name;
 	        				break;
 	    				case "route":
-	    					$scope.customer.street += " " + value.long_name;
+	    					$scope.customer.route = value.long_name;
+	    					$scope.customer.street = $scope.customer.streetNum + " " + $scope.customer.route;
+	        				break;
+	        			case "sublocality_level_1":
+	        				$scope.customer.suburb = value.long_name;
 	        				break;
 	        			case "locality":
 	        				$scope.customer.city = value.long_name;
