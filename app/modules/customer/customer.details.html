@@ -7,7 +7,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_customerId" | translate}}</label>
-            <input required ng-model="customer.customerId" name="customerId" ng-disabled="!newCustomer">
+            <input required ng-model="customer.customerId" name="customerId">
             <div ng-messages="customerSummary.customerId.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
             </div>
