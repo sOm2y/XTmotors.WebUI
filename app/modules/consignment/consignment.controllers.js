@@ -71,7 +71,7 @@ angular.module('consignment.controllers',[])
 
 		$scope.showError = function(error){
         	$mdToast.show({
-                template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+                template: '<md-toast class="md-toast md-toast-500' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
                 position: 'top right',
                 hideDelay: 5000,
                 parent: $element

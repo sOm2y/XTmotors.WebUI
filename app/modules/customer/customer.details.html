@@ -45,7 +45,7 @@
            <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_emailAddress" | translate}}</label>
             <input required ng-model="customer.emailAddress" name="emailAddress" ng-pattern="/^.+@.+\..+$/">
-            <div ng-messages="customerSummary.emailAddress.$error">
+            <div ng-messages="customerSummary.emailAddress.$error"> 
               <div ng-message-exp="['required', 'pattern']">
                 Please enter an valid e-mail address.
               </div>
@@ -118,7 +118,9 @@
   </md-card>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToCustomer()">{{"customer_details_cancel" | translate}}</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" ng-disabled=" !(customerDetail.$valid && customerSummary.$valid)">{{"customer_details_save" | translate}}</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" >{{"customer_details_save" | translate}}</md-button>
+    <!-- <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" ng-disabled=" !(customerDetail.$valid && customerSummary.$valid)">{{"customer_details_save" | translate}}</md-button> -->
+    <!-- <md-button flex="25" class="md-raised md-warn" ng-show=" !(customerDetail.$valid && customerSummary.$valid)">{{customerSummary.$error}}</md-button> -->
   </div>
  
 </div>

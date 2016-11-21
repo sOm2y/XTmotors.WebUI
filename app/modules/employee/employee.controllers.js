@@ -22,7 +22,16 @@ angular.module('employee.controllers',[])
 
 		$rootScope.showError = function(error){
 			$mdToast.show({
-				template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+				template: '<md-toast class="md-toast md-toast-500' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+				position: 'top right',
+				hideDelay: 5000,
+				parent: $element
+			});
+		};
+
+		$rootScope.showErrorMessage = function(message){
+			$mdToast.show({
+				template: '<md-toast class="md-toast md-toast-500"><span flex>' + message  + '</span></md-toast>',
 				position: 'top right',
 				hideDelay: 5000,
 				parent: $element
@@ -131,11 +140,19 @@ angular.module('employee.controllers',[])
 		};
 		
 		$scope.saveEmployee= function(employee){
-	       	if($rootScope.newEmployee){
-	       		$scope.saveNewEmployee(employee);
+			$scope.employeeSummary.$setSubmitted();
+			$scope.employeeDetail.$setSubmitted();
+
+			if(($scope.employeeDetail.$invalid || $scope.employeeSummary.$invalid)){
+				$rootScope.showErrorMessage("Invalid fields, Please check again!");
 			}else{
-		      	$scope.updateEmployee(employee);
-		    }
+				if($rootScope.newEmployee){
+		       		$scope.saveNewEmployee(employee);
+				}else{
+			      	$scope.updateEmployee(employee);
+			    }
+			}
+	       	
 	    };
 
         $scope.$on('g-places-autocomplete:select', function (event, param) {

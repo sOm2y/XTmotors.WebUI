@@ -57,7 +57,16 @@ angular.module('car.controllers',[])
 
     $rootScope.showError = function(error){
       $mdToast.show({
-        template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+        template: '<md-toast class="md-toast md-toast-500' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+        position: 'top right',
+        hideDelay: 5000,
+        parent: $element
+      });
+    };
+
+    $rootScope.showErrorMessage = function(message){
+      $mdToast.show({
+        template: '<md-toast class="md-toast md-toast-500"><span flex>' + message  + '</span></md-toast>',
         position: 'top right',
         hideDelay: 5000,
         parent: $element
@@ -282,7 +291,15 @@ angular.module('car.controllers',[])
     }
 
     $scope.saveCar = function(){
-      $scope.checkModelStatus();
+      $scope.carSummary.$setSubmitted();
+      $scope.vehicleInfo.$setSubmitted();
+
+      if(($scope.carSummary.$invalid || $scope.vehicleInfo.$invalid)){
+        $rootScope.showErrorMessage("Invalid fields, Please check again!");
+      }else{
+        $scope.checkModelStatus();
+      }   
+      
     };
 
     $scope.statusChanged = function(selectedcarStatus){

@@ -21,7 +21,16 @@ angular.module('customer.controllers',[])
 
 		$rootScope.showError = function(error){
 			$mdToast.show({
-				template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+				template: '<md-toast class="md-toast md-toast-500' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+				position: 'top right',
+				hideDelay: 5000,
+				parent: $element
+			});
+		};
+
+		$rootScope.showErrorMessage = function(message){
+			$mdToast.show({
+				template: '<md-toast class="md-toast md-toast-500"><span flex>' + message  + '</span></md-toast>',
 				position: 'top right',
 				hideDelay: 5000,
 				parent: $element
@@ -108,7 +117,7 @@ angular.module('customer.controllers',[])
 				.$promise.then(function(res){
 					$scope.customer = res;
 					$scope.customer.dob = $scope.changeDateFormat($scope.customer.dob);
-					$state.go('customer.details',{customerId: $scope.customer.customerId});
+					$state.go('customer.details',{customerId: customerId});
 				},function(error){
 					$rootScope.showError(error);
 			});
@@ -131,11 +140,18 @@ angular.module('customer.controllers',[])
 		};
 		
 		$scope.saveCustomer= function(customer){
-	       	if($rootScope.newCustomer){
-	       		$scope.saveNewCustomer(customer);
+			$scope.customerSummary.$setSubmitted();
+			$scope.customerDetail.$setSubmitted();
+
+			if(($scope.customerDetail.$invalid || $scope.customerSummary.$invalid)){
+				$rootScope.showErrorMessage("Invalid fields, Please check again!");
 			}else{
-		      	$scope.updateCustomer(customer);
-		    }
+				if($rootScope.newCustomer){
+		       		$scope.saveNewCustomer(customer);
+				}else{
+			      	$scope.updateCustomer(customer);
+			    }
+			} 	
 	    };
 
         $scope.$on('g-places-autocomplete:select', function (event, param) {
