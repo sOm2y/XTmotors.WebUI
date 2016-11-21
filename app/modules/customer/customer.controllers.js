@@ -17,9 +17,6 @@ angular.module('customer.controllers',[])
 
 
         $scope.totalPages = 10;
-        $scope.pagination = {
-            currentPage:  1
-        };
         $scope.customersPerPage  = 10;
 
 		$rootScope.showError = function(error){
@@ -46,7 +43,12 @@ angular.module('customer.controllers',[])
 				$rootScope.customers = customers;
 				$scope.totalCustomers = $scope.customers.length;
 		        $scope.paginatedCustomers = $scope.customers.slice(0, $scope.customersPerPage);
-
+		        if($scope.pagination === undefined){	
+			        $scope.pagination = {
+			            currentPage:  1
+			        };
+		        }
+		        $scope.pageChanged($scope.pagination.currentPage);
 			},function(error){
 				$rootScope.showError(error);
 			})
@@ -55,13 +57,13 @@ angular.module('customer.controllers',[])
 		  	});
 		};
 
-		$scope.pageChanged = function(){
-			// $scope.currentPage = 1;
-			var begin = (($scope.pagination.currentPage - 1) * $scope.customersPerPage),
+		$scope.pageChanged = function(currentPage){
+			var begin = ((currentPage - 1) * $scope.customersPerPage),
 				end   = begin + $scope.customersPerPage;
 
 			$scope.paginatedCustomers = $scope.customers.slice(begin, end);
         };
+		
 
 		$scope.changeDateFormat = function(time){
 	      	return new Date(moment(time));
@@ -117,7 +119,6 @@ angular.module('customer.controllers',[])
 
 	.controller('CustomerDetailsCtrl', ['$rootScope','$scope', '$state', '$stateParams', function ($rootScope, $scope, $state, $stateParams) {
 		if($rootScope.newCustomer){
-			$rootScope.newCustomer = true;
 			$scope.customer = {};
 		}else{
 	      	$scope.getCustomerById($stateParams.customerId);
@@ -125,9 +126,8 @@ angular.module('customer.controllers',[])
 
 		$scope.backToCustomer = function(){
 			// xtmotorsCRUDService.cancelEdit($scope);
-			$scope.getAllCustomers();
-			$scope.pagination.currentPage = 1;
 			$state.go('customer');
+			$scope.getAllCustomers();
 		};
 		
 		$scope.saveCustomer= function(customer){
