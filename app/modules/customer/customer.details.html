@@ -7,7 +7,7 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_customerId" | translate}}</label>
-            <input required ng-model="customer.customerId" name="customerId">
+            <input required ng-model="customer.customerId" name="customerId" type="number" ng-disabled="!newCustomer">
             <div ng-messages="customerSummary.customerId.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
             </div>
@@ -78,7 +78,7 @@
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_dob" | translate}}</label>
-            <md-datepicker required ng-model="customer.dob" name="customerDOB" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
+            <md-datepicker required ng-model="customer.dob" name="customerDOB" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
             <div ng-messages="customerDetail.customerDOB.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
               <div ng-message="mindate">Really?</div>
