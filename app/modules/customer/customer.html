@@ -13,7 +13,7 @@
   </md-card>
    <div layout="row" layout-align="center">
       <pagination
-        ng-change="pageChanged()"
+        ng-change="pageChanged(pagination.currentPage)"
         total-items="totalCustomers" 
         items-per-page="customersPerPage" 
         ng-model="pagination.currentPage" 

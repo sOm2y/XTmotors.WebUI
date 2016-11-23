@@ -44,9 +44,11 @@ angular.module('car.controllers',[])
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
         $rootScope.isLoading = false;
-        _.forEach(cars, function(car){ 
-          $scope.getCarImportRecord(car);
-        })
+
+        //Disabled until add settlement tab in car summary page
+        // _.forEach(cars, function(car){ 
+        //   $scope.getCarImportRecord(car);
+        // })
         //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
@@ -55,7 +57,16 @@ angular.module('car.controllers',[])
 
     $rootScope.showError = function(error){
       $mdToast.show({
-        template: '<md-toast class="md-toast md-toast-' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+        template: '<md-toast class="md-toast md-toast-500' +error.status+ '"><span flex>' + error.statusText + '</span></md-toast>',
+        position: 'top right',
+        hideDelay: 5000,
+        parent: $element
+      });
+    };
+
+    $rootScope.showErrorMessage = function(message){
+      $mdToast.show({
+        template: '<md-toast class="md-toast md-toast-500"><span flex>' + message  + '</span></md-toast>',
         position: 'top right',
         hideDelay: 5000,
         parent: $element
@@ -113,12 +124,16 @@ angular.module('car.controllers',[])
         //$scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
-        //$scope.car.wofTime = changeDateFormat($scope.car.wofTime);
+        $scope.car.wofTime = $scope.changeDateFormat($scope.car.wofTime);
         $scope.getCarMaintenanceList(carId);
         $state.go('car.details',{carId: carId});
       },function(error){
         $rootScope.showError(error);
       });
+    };
+
+    $scope.changeDateFormat = function(time){
+      return new Date(moment(time));
     };
 
     $scope.getCarMaintenanceList = function(carId){
@@ -254,6 +269,13 @@ angular.module('car.controllers',[])
   .controller('CarDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$q','$translate','$translatePartialLoader','$stateParams', '$mdDialog','Upload','$timeout','$mdToast','$element',
     function ($rootScope,$scope,xtmotorsAPIService, $q,$translate, $translatePartialLoader,$stateParams,$mdDialog,Upload,$timeout,$mdToast,$element) {
 
+    $scope.myDate = new Date();
+
+    $scope.minDate = new Date(
+      $scope.myDate.getFullYear() - 10,
+      $scope.myDate.getMonth(),
+      $scope.myDate.getDate());
+
     $translatePartialLoader.addPart('carDetails');
     $translate.refresh();
     $scope.showMaintenanceReordDetails = false;
@@ -269,7 +291,15 @@ angular.module('car.controllers',[])
     }
 
     $scope.saveCar = function(){
-      $scope.checkModelStatus();
+      $scope.carSummary.$setSubmitted();
+      $scope.vehicleInfo.$setSubmitted();
+
+      if(($scope.carSummary.$invalid || $scope.vehicleInfo.$invalid)){
+        $rootScope.showErrorMessage("Invalid fields, Please check again!");
+      }else{
+        $scope.checkModelStatus();
+      }   
+      
     };
 
     $scope.statusChanged = function(selectedcarStatus){

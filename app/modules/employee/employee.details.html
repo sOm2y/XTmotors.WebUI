@@ -5,93 +5,94 @@
         <md-card flex="50">
         <md-subheader class="md-primary">{{"tab_employee_details_info" | translate}}</md-subheader>
           <md-card-content>
+            <form layout="row" layout-wrap name="employeeSummary">
             <div layout="row" layout-wrap>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_employeeId" | translate}}</label>
-                <input required ng-model="employee.employeeId" ng-disabled="!newEmployee">
-                <div ng-messages="projectForm.description.$error">
+                <input required ng-model="employee.employeeId" name="employeeId" type="number" ng-disabled="!newEmployee">
+                <div ng-messages="employeeSummary.employeeId.$error">
                   <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_title" | translate}}</label>
-                <input required ng-model="employee.title">
-                <div ng-messages="projectForm.description.$error">
+                <input required ng-model="employee.title" name="title">
+                <div ng-messages="employeeSummary.title.$error">
                   <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_firstName" | translate}}</label>
-                <input required ng-model="employee.firstName">
-                <div ng-messages="projectForm.description.$error">
+                <input required ng-model="employee.firstName" name="firstName" md-maxlength="120" minlength="2">
+                <div ng-messages="employeeSummary.firstName.$error">
                   <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                  <div ng-message="md-maxlength">First Name must be between 2 and 120 characters.</div>
+                  <div ng-message="minlength">First Name must be between 2 and 120 characters.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_lastName" | translate}}</label>
-                <input required ng-model="employee.lastName">
-                <div ng-messages="projectForm.description.$error">
+                <input required ng-model="employee.lastName" name="lastName" md-maxlength="120" minlength="2">
+                <div ng-messages="employeeSummary.lastName.$error">
                   <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                  <div ng-message="md-maxlength">Last Name must be between 2 and 120 characters.</div>
+                  <div ng-message="minlength">Last Name must be between 2 and 120 characters.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_mobile" | translate}}</label>
-                <input required ng-model="employee.mobile">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                <input required ng-model="employee.mobile" name="mobile" ng-pattern="/^[0-9|-]*$/">
+                <div ng-messages="employeeSummary.mobile.$error">
+                  <div ng-message-exp="['required', 'pattern']">
+                    Please enter an valid phone number. (Numbers only)
+                  </div>
                 </div>
               </md-input-container>
                <md-input-container flex="50" class="md-block">
                 <label>{{"tab_employee_details_emailAddress" | translate}}</label>
-                <input required ng-model="employee.emailAddress">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                <input required ng-model="employee.emailAddress" name="emailAddress" ng-pattern="/^.+@.+\..+$/">
+                <div ng-messages="employeeSummary.emailAddress.$error">
+                  <div ng-message-exp="['required', 'pattern']">
+                    Please enter an valid e-mail address.
+                  </div>
                 </div>
               </md-input-container>
-
             </div>
+          </form>
           </md-card-content>
         </md-card>
 
         <md-card flex="50">
         <md-subheader class="md-primary">{{"tab_vehicle_model_info" | translate}}</md-subheader>
           <md-card-content>
+          <form layout="row" layout-wrap name="employeeDetail">
             <div layout="row" layout-wrap>
               <md-input-container flex="50" class="md-block">
                 <label>{{"tab_vehicle_model_irdNumber" | translate}}</label>
-                <input required ng-model="employee.irdNumber">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                <input ng-model="employee.irdNumber" name="irdNumber" md-maxlength="50">
+                <div ng-messages="employeeDetail.irdNumber.$error">
+                  <div ng-message="md-maxlength">IRD Number must be less than 50 characters.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
-                <label>{{"tab_vehicle_model_discount" | translate}} (Number between 0-1)</label>
-                <input required ng-model="employee.discount">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                <label>{{"tab_vehicle_model_discount" | translate}} (0-1)</label>
+                <input ng-model="employee.discount" name="discount" type="number" min="0" max="1">
+                <div ng-messages="employeeDetail.discount.$error">
+                  <div ng-message="min">Discount must between 0 to 99.99</div>
+                  <div ng-message="max">Discount must between 0 to 99.99</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>Passport Number</label>
-                <input required ng-model="employee.passportNumber">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                  <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+                <input ng-model="employee.passportNumber" name="passportNumber" md-maxlength="50">
+                <div ng-messages="employeeDetail.passportNumber.$error">
+                  <div ng-message="md-maxlength">Passport Number must be less than 50 characters.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>Identity Number</label>
-                <input required ng-model="employee.identityNumber">
-                <div ng-messages="projectForm.description.$error">
-                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+                <input ng-model="employee.identityNumber" name="identityNumber" md-maxlength="50">
+                <div ng-messages="employeeDetail.identityNumber.$error">
                   <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
                 </div>
               </md-input-container>
@@ -107,6 +108,10 @@
             <md-input-container flex="50" class="md-block">
               <label>{{"tab_address_street" | translate}}</label>
               <input type="text" g-places-autocomplete ng-model="employee.street" />
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Suburb</label>
+            <input type="text" ng-model="employee.suburb" />
             </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>{{"tab_address_city" | translate}}</label>

@@ -15,7 +15,7 @@ angular
     'ngCookies',
     'ngResource',
     'ngRoute',
-    // 'ngSanitize',
+    'ngSanitize',
     'ngTouch',
     'jm.i18next',
     'ui.router',
@@ -60,6 +60,12 @@ angular
     });
        $translateProvider.preferredLanguage('en-AU');
     }])
+
+  .config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date) {
+       return moment(date).format('DD/MM/YYYY');
+    };
+  })
   .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('appSetting', {
@@ -79,6 +85,14 @@ angular
                 }
             });
     }])
+    .config(['$sceDelegateProvider', function($sceDelegateProvider) {
+      $sceDelegateProvider.resourceUrlWhitelist([
+        // Allow same origin resource loads.
+        'self',
+        // Allow loading from our assets domain.  Notice the difference between * and **.
+        'https://raw.githubusercontent.com/angular/**'
+      ]);
+    }])  
     .config(['$mdThemingProvider','$mdIconProvider',function($mdThemingProvider,$mdIconProvider) {
       var customBlueMap =     $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',

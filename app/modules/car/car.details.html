@@ -46,5 +46,5 @@
     <md-button flex="25" ng-hide="isFromStorage || isFromConsignment" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
     <md-button flex="25" ng-show="isFromStorage" class="md-raised" ng-click="backToStorgaePage()">Back to Storage</md-button>
     <md-button flex="25" ng-show="isFromConsignment" class="md-raised" ng-click="backToConsigmentPage()">Back to Consigment</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-disabled=" !(vehicleInfo.$valid)" ng-click="saveCar()">{{"save" | translate}}</md-button> 
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar()">{{"save" | translate}}</md-button> 
   </div>

@@ -3,55 +3,55 @@
     <md-card flex="50">
     <md-subheader class="md-primary">{{"tab_customer_details_info" | translate}}</md-subheader>
       <md-card-content>
+        <form layout="row" layout-wrap name="customerSummary">
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_customerId" | translate}}</label>
-            <input required ng-model="customer.customerId" ng-disabled="!newCustomer">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="customer.customerId" name="customerId" type="number" ng-disabled="!newCustomer">
+            <div ng-messages="customerSummary.customerId.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_title" | translate}}</label>
-            <input required ng-model="customer.title">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="customer.title" name="title">
+            <div ng-messages="customerSummary.title.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_firstName" | translate}}</label>
-            <input required ng-model="customer.firstName">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="customer.firstName" name="firstName">
+            <div ng-messages="customerSummary.firstName.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_lastName" | translate}}</label>
-            <input required ng-model="customer.lastName">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="customer.lastName" name="lastName">
+            <div ng-messages="customerSummary.lastName.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_mobile" | translate}}</label>
-            <input required ng-model="customer.mobile">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            <input required ng-model="customer.mobile" name="mobile" ng-pattern="/^[0-9|-]*$/">
+            <div ng-messages="customerSummary.mobile.$error">
+              <div ng-message-exp="['required', 'pattern']">
+                Please enter an valid phone number. (Numbers only)
+              </div>
             </div>
           </md-input-container>
            <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_emailAddress" | translate}}</label>
-            <input required ng-model="customer.emailAddress">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            <input required ng-model="customer.emailAddress" name="emailAddress" ng-pattern="/^.+@.+\..+$/">
+            <div ng-messages="customerSummary.emailAddress.$error"> 
+              <div ng-message-exp="['required', 'pattern']">
+                Please enter an valid e-mail address.
+              </div>
             </div>
           </md-input-container>
+        </form>
         </div>
       </md-card-content>
     </md-card>
@@ -59,27 +59,32 @@
     <md-card flex="50">
     <md-subheader class="md-primary"></md-subheader>
       <md-card-content>
+        <form layout="row" layout-wrap name="customerDetail">
         <div layout="row" layout-wrap>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_occupation" | translate}}</label>
-            <input required ng-model="customer.occupation">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+            <input ng-model="customer.occupation" name="occupation" md-maxlength="100">
+            <div ng-messages="customerDetail.occupation.$error">
+              <div ng-message="md-maxlength">Occupation must be less than 100 characters long.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_driverLicense" | translate}}</label>
-            <input required ng-model="customer.driveLicense">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="customer.driveLicense" name="driveLicense" md-maxlength="50">
+            <div ng-messages="customerDetail.driveLicense.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+              <div ng-message="md-maxlength">Driver License must be less than 50 characters long.</div>
             </div>
           </md-input-container> 
           <md-input-container flex="50" class="md-block">
             <label>{{"tab_customer_details_dob" | translate}}</label>
-            <input time="false" date="true" mdc-datetime-picker="" type="text" id="dob" placeholder="DOB" ng-model="customer.dob" class=" md-input">
+            <md-datepicker required ng-model="customer.dob" name="customerDOB" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
+            <div ng-messages="customerDetail.customerDOB.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              <div ng-message="mindate">Really?</div>
+            </div>
           </md-input-container>
+        </form>
         </div>
       </md-card-content>
     </md-card>
@@ -91,6 +96,10 @@
         <md-input-container flex="50" class="md-block">
           <label>{{"tab_address_street" | translate}}</label>
           <input type="text" g-places-autocomplete ng-model="customer.street" />
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Suburb</label>
+          <input type="text" ng-model="customer.suburb" />
         </md-input-container>
         <md-input-container flex="50" class="md-block">
           <label>{{"tab_address_city" | translate}}</label>
@@ -109,7 +118,9 @@
   </md-card>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToCustomer()">{{"customer_details_cancel" | translate}}</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)">{{"customer_details_save" | translate}}</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" >{{"customer_details_save" | translate}}</md-button>
+    <!-- <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" ng-disabled=" !(customerDetail.$valid && customerSummary.$valid)">{{"customer_details_save" | translate}}</md-button> -->
+    <!-- <md-button flex="25" class="md-raised md-warn" ng-show=" !(customerDetail.$valid && customerSummary.$valid)">{{customerSummary.$error}}</md-button> -->
   </div>
  
 </div>
