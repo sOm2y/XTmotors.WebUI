@@ -61,11 +61,11 @@ angular
        $translateProvider.preferredLanguage('en-AU');
     }])
 
-  .config(function($mdDateLocaleProvider) {
+  .config(['$mdDateLocaleProvider',function($mdDateLocaleProvider) {
     $mdDateLocaleProvider.formatDate = function(date) {
        return moment(date).format('DD/MM/YYYY');
     };
-  })
+  }])
   .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('appSetting', {
@@ -92,7 +92,7 @@ angular
         // Allow loading from our assets domain.  Notice the difference between * and **.
         'https://raw.githubusercontent.com/angular/**'
       ]);
-    }])  
+    }])
     .config(['$mdThemingProvider','$mdIconProvider',function($mdThemingProvider,$mdIconProvider) {
       var customBlueMap =     $mdThemingProvider.extendPalette('light-blue', {
         'contrastDefaultColor': 'light',
