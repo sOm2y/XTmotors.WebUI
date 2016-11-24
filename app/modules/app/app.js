@@ -28,7 +28,6 @@ angular
     'google.places',
     'angularMoment',
     'ngMessages',
-    'ngMaterialDatePicker',
     'azureBlobUpload',
     'ngFileUpload',
     'LocalStorageModule',
@@ -90,7 +89,7 @@ angular
         // Allow same origin resource loads.
         'self',
         // Allow loading from our assets domain.  Notice the difference between * and **.
-        'https://raw.githubusercontent.com/angular/**'
+        'https://raw.githubusercontent.com/angular/material/master/docs/app/icons/avatar-icons.svg'
       ]);
     }])
     .config(['$mdThemingProvider','$mdIconProvider',function($mdThemingProvider,$mdIconProvider) {

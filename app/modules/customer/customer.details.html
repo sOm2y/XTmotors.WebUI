@@ -1,6 +1,7 @@
 <div layout="column">
   <div layout="row">
     <md-card flex="50">
+    {{customer.title}}
     <md-subheader class="md-primary">{{"tab_customer_details_info" | translate}}</md-subheader>
       <md-card-content>
         <form layout="row" layout-wrap name="customerSummary">
@@ -51,8 +52,8 @@
               </div>
             </div>
           </md-input-container>
-        </form>
         </div>
+        </form>
       </md-card-content>
     </md-card>
     
@@ -84,8 +85,8 @@
               <div ng-message="mindate">Really?</div>
             </div>
           </md-input-container>
-        </form>
         </div>
+        </form>
       </md-card-content>
     </md-card>
   </div>
