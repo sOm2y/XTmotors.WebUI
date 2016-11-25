@@ -84,38 +84,46 @@
               <div ng-message="mindate">Really?</div>
             </div>
           </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Source From</label>
+            <input ng-model="customer.sourceFrom" name="sourceFrom" md-maxlength="50">
+            <div ng-messages="customerDetail.sourceFrom.$error">
+              <div ng-message="md-maxlength">Source From must be less than 50 characters long.</div>
+            </div>
+          </md-input-container>
         </div>
         </form>
       </md-card-content>
     </md-card>
   </div>
-
-  <md-card flex="100">
-    <md-subheader class="md-primary">{{"tab_address_info" | translate}}</md-subheader>
-      <md-card-content layout="row" layout-wrap>
-        <md-input-container flex="50" class="md-block">
-          <label>{{"tab_address_street" | translate}}</label>
-          <input type="text" g-places-autocomplete ng-model="customer.street" />
-        </md-input-container>
-        <md-input-container flex="50" class="md-block">
-          <label>Suburb</label>
-          <input type="text" ng-model="customer.suburb" />
-        </md-input-container>
-        <md-input-container flex="50" class="md-block">
-          <label>{{"tab_address_city" | translate}}</label>
-          <input type="text" ng-model="customer.city" />
-        </md-input-container>
-        <md-input-container flex="50" class="md-block">
-          <label>{{"tab_address_state" | translate}}</label>
-          <input type="text" ng-model="customer.state" />
-        </md-input-container>
-        <md-input-container flex="50" class="md-block">
-          <label>{{"tab_address_country" | translate}}</label>
-          <input type="text" ng-model="customer.country" />
-        </md-input-container>
-        
-      </md-card-content>
-  </md-card>
+  <div layout="row">
+    <md-card flex="100">
+      <md-subheader class="md-primary">{{"tab_address_info" | translate}}</md-subheader>
+        <md-card-content layout="row" layout-wrap>
+          <md-input-container flex="50" class="md-block">
+            <label>{{"tab_address_street" | translate}}</label>
+            <input type="text" g-places-autocomplete ng-model="customer.street" />
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>Suburb</label>
+            <input type="text" ng-model="customer.suburb" />
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>{{"tab_address_city" | translate}}</label>
+            <input type="text" ng-model="customer.city" />
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>{{"tab_address_state" | translate}}</label>
+            <input type="text" ng-model="customer.state" />
+          </md-input-container>
+          <md-input-container flex="50" class="md-block">
+            <label>{{"tab_address_country" | translate}}</label>
+            <input type="text" ng-model="customer.country" />
+          </md-input-container>
+          
+        </md-card-content>
+    </md-card>
+  </div>
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToCustomer()">{{"customer_details_cancel" | translate}}</md-button>
     <md-button flex="25" class="md-raised md-primary" ng-click="saveCustomer(customer)" >{{"customer_details_save" | translate}}</md-button>

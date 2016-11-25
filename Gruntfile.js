@@ -380,7 +380,7 @@ module.exports = function (grunt) {
         },
         cwd: '<%= yeoman.app %>',
         src: 'modules/{,*/}*.html',
-        dest: 'app/templateCache.js'
+        dest: 'dist/templateCache.js'
       }
     },
 
