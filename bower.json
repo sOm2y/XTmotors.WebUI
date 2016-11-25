@@ -35,8 +35,5 @@
     "angular": "~1.5.0",
     "moment": "~2.12.0",
     "angular-material": "~1.1.0"
-  },
-  "devDependencies": {
-    "livereload-js": "^2.2.1"
   }
 }
