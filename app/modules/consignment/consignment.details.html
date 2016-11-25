@@ -92,7 +92,7 @@
               md-max-length="10"
               placeholder="Enter Vin Number to Search Cars" style="color:#333;">
               <md-item-template>
-                <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+', Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
+                <span md-highlight-text="carSearchText">{{'[Vin number: '+item.vin+'] --- [Model: '+item.makerName+', '+item.model+', '+item.year + '] --- [ID: '+item.carId+"]"}}</span>
               </md-item-template>
               <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
                 <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
