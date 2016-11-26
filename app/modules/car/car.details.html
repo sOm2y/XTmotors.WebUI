@@ -5,7 +5,7 @@
       <!-- <import-summary></import-summary> -->
       <maintenance-record-list></maintenance-record-list>
       <!-- <contract-summary></contract-summary> -->
-      <md-tab label='{{"tab_upload_car_photos" | translate}}'>
+      <md-tab label='{{"tab_upload_car_photos" | translate}}' ng-disabled="newCar || newVehicleModel">
         <md-content class="md-padding">
         <!-- Upload your car photos -->
           <h4>{{"title_upload_car_photos" | translate}}</h4>

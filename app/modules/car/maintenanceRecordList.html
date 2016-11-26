@@ -1,4 +1,4 @@
-<md-tab label="{{'tab_maintenance_record' | translate}}">
+<md-tab label="{{'tab_maintenance_record' | translate}}" ng-disabled="newCar || newVehicleModel">
   <md-content class="md-padding">
    <div layout="row" layout-align="center" ng-if="!showMaintenanceReordDetails">
     <md-button flex="25" class="md-raised md-primary" ng-click="addMaintenanceRecord()">{{"maintenance_record_addMaintenanceRecord" | translate}}</md-button>

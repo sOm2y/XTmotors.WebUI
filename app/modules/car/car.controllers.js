@@ -206,6 +206,7 @@ angular.module('car.controllers',[])
       $scope.getCarSummary();
       $rootScope.newCar = false;
       $rootScope.isCarEdited = false;
+      $rootScope.newVehicleModel = false;
     };
 
     $scope.backToStorgaePage = function(){
@@ -374,7 +375,14 @@ angular.module('car.controllers',[])
     };
 
     $scope.createNewVehicleModel = function(){
+      $rootScope.idEditable = true;
       $rootScope.newVehicleModel = true;
+      $scope.vehicleModel = {};
+    };
+
+    $scope.editVehicleModel = function(){
+      $rootScope.isEditable = true;
+      $rootScope.newVehicleModel = false;
     };
 
     $scope.checkCarStatus = function(){
@@ -398,11 +406,13 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.save({ section:'VehicleModels/'},$scope.vehicleModel)
       .$promise.then(function(res){
         $rootScope.newVehicleModel = false;
+        $rootScope.isEditable = false;
         $scope.car.vehicleModelId = res.vehicleModelId;
         $scope.getVehicleModelList();
         $scope.checkCarStatus();
       },function(error){
         $rootScope.newVehicleModel = true;
+        $rootScope.isEditable = true;
         $rootScope.showError(error);
       });
     };
@@ -412,6 +422,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $scope.car.vehicleModelId = res.vehicleModelId;
         $scope.checkCarStatus();
+        $rootScope.isEditable = false;
       },function(error){
         $rootScope.showError(error);
       });
