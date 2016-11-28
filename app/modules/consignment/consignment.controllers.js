@@ -95,8 +95,19 @@ angular.module('consignment.controllers',[])
 	.controller('ConsignmentDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$stateParams', '$state',
 		function ($rootScope,$scope,xtmotorsAPIService,$stateParams,$state) {
 			if($rootScope.newBatch){
-				$scope.batch = {};
-				$scope.batch.batchId = $stateParams.batchId;
+				$scope.batch = {
+			        "batchId": $stateParams.batchId,
+			        "transportCompany": null,
+			        "checkLocation": null,
+			        "transportationExpense": 0,
+			        "eta": new Date(),
+			        "createTime": new Date(),
+			        "totalDue": 0.0,
+			        "fob": null,
+			        "invoiceTotal": null,
+			        "invoiceDate": new Date(),
+			        "consignmentFrom": null
+			      }
 			}else{
 				getBatchRecords();
 				getImportRecord();

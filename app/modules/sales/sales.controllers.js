@@ -69,6 +69,10 @@ angular.module('sales.controllers',[])
       });
     };
 
+    $scope.changeDateFormat = function(time){
+      return new Date(moment(time));
+    };
+
     $scope.createNewContract = function(){
       $rootScope.newContact = true;
       $state.go('sales.details', {}, {reload: true});
@@ -162,6 +166,7 @@ angular.module('sales.controllers',[])
         .$promise.then(function(contract){
           $scope.contract = contract;
           $scope.selectedCurrency = $scope.contract.currency;
+          $scope.contract.contractDate = $scope.changeDateFormat($scope.contract.contractDate);
         },function(error){
           $scope.showError(error);
         });
