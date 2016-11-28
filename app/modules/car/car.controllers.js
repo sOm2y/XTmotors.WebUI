@@ -207,11 +207,16 @@ angular.module('car.controllers',[])
       $rootScope.newCar = false;
       $rootScope.isCarEdited = false;
       $rootScope.newVehicleModel = false;
+      $rootScope.isEditable = false;
     };
 
     $scope.backToStorgaePage = function(){
       $state.go('storage');
       $rootScope.isFromStorage = false;
+      $rootScope.newCar = false;
+      $rootScope.isCarEdited = false;
+      $rootScope.newVehicleModel = false;
+      $rootScope.isEditable = false;
     };
 
     $scope.backToConsigmentPage = function(){
@@ -283,8 +288,27 @@ angular.module('car.controllers',[])
     $scope.uploading = false;
 
     if($rootScope.newCar){
-      $scope.car = {};
-      $scope.car.carId = $stateParams.carId;
+      $scope.car = {
+        "carId": $stateParams.carId,
+        "vehicleModelId": null,
+        "wofTime": new Date(),
+        "registerationNum": null,
+        "warranty": 0,
+        "odometer": 0,
+        "color": null,
+        "vin": null,
+        "length": 0,
+        "width": 0,
+        "height": 0,
+        "carStatus": null,
+        "carComment": null,
+        "price": 0,
+        "gst": 0,
+        "total": 0,
+        "paymentStatus": false,
+        "currency": null,
+        "description": null
+      };
       $scope.getImportSummary();
       //$scope.car.vehicleModelId = '';
     }else{
@@ -325,6 +349,7 @@ angular.module('car.controllers',[])
       if(selectVehicle !== null){
         $scope.vehicleModel = selectVehicle;
         $rootScope.newVehicleModel = false;
+        $rootScope.isEditable = false;
       }
     };
 
@@ -353,7 +378,15 @@ angular.module('car.controllers',[])
       $scope.batch = {
         "batchId": $scope.imports.length+1,
         "transportCompany": "string",
-        "checkLocation": "string"
+        "checkLocation": "string",
+        "transportationExpense": 0,
+        "eta": new Date(),
+        "createTime": new Date(),
+        "totalDue": 0,
+        "fob": "string",
+        "invoiceTotal": "string",
+        "invoiceDate": new Date(),
+        "consignmentFrom": "string"
       }
       xtmotorsAPIService.save({section:'Imports'}, $scope.batch)
       .$promise.then(function(res){
@@ -375,9 +408,26 @@ angular.module('car.controllers',[])
     };
 
     $scope.createNewVehicleModel = function(){
-      $rootScope.idEditable = true;
+      $rootScope.isEditable = true;
       $rootScope.newVehicleModel = true;
-      $scope.vehicleModel = {};
+      $scope.vehicleModel = {
+        "makerName": null,
+        "model": null,
+        "year": 2016,
+        "engine": null,
+        "fuel": "",
+        "fuelEconomyCity": null,
+        "fuelEconomyHwy": null,
+        "fuelEconomyMixed": null,
+        "origin": "",
+        "transmission": "",
+        "seats": 4,
+        "doors": 4,
+        "driveTrain": "",
+        "weight": 0,
+        "description": null,
+        "bodyType": "string"
+      }
     };
 
     $scope.editVehicleModel = function(){
