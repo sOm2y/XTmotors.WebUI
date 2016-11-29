@@ -1,103 +1,119 @@
-      <md-tab label="{{'tab_import_summary' | translate}}" ng-disabled="newCar || newVehicleModel">
-        <md-content class="md-padding"> 
-        <form name="importInfo">
-          <div layout="column">
-            <div layout="row">
-            <md-card flex="100">
-                <md-card-content>
-                  <div layout="row" layout-wrap>
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_transportationExpense" | translate}}</label>
-                      <input name="transportationExpense" required ng-model="importSummary.transportationExpense">
-                      <div ng-messages="importInfo.transportationExpense.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}</div>
-                      </div>
-                    </md-input-container>
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_transportCompany" | translate}}</label>
-                      <input name="transportCompany" required ng-model="importSummary.transportCompany">
-                      <div ng-messages="importInfo.transportCompany.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container>
+<md-tab label="{{'tab_import_summary' | translate}}" ng-disabled="newCar || newVehicleModel">
+  <div>
 
-                    <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_import_eta" | translate}}</label>
-                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="eta"
-                        ng-model="importSummary.eta" class=" md-input">
-                    </md-input-container>
 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_checkLocation" | translate}}</label>
-                      <input name="checkLocation" required ng-model="importSummary.checkLocation">
-                      <div ng-messages="importInfo.checkLocation.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container>
+    <md-card flex-gt-sm="100" flex-gt-md="80">
+      <md-card-content>
+         <div layout="row" ng-if="isImportSummaryLoaded">
+          <span flex="80">
+            <md-autocomplete
+              md-selected-item="selectedImport"
+              md-search-text="importSearchText"
+              md-items="item in imports | filter:importSearchText"
+              md-selected-item-change="selectedImportChange(selectedImport)"
+              md-item-text="item.transportCompany"
+              md-min-length="0"
+              md-max-length="10"
+              placeholder="Enter Batch ID to search or Add a new Import" style="color:#333;">
+              <md-item-template>
+                <span md-highlight-text="importSearchText">{{'batchId: '+item.batchId +', Transport Company: ' + item.transportCompany}}</span>
+              </md-item-template>
+            </md-autocomplete>
+          </span>
+           <span flex="20">
+             <md-button class="md-raised md-primary" ng-click="createBatch()">Add Import</md-button>
+           </span>
+        </div>
+      </md-card-content>
+    </md-card>
 
-                    <md-input-container flex="50" class="md-block">
-                    <label>{{"summary_import_createTime" | translate}}</label>
-                    <input time="false" date="true" mdc-datetime-picker="" type="text" id="creatTime" placeholder="Date" ng-model="importSummary.createTime" class=" md-input">
-                    </md-input-container>
 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_totalDue" | translate}}</label>
-                      <input name="totalDue" required ng-model="importSummary.totalDue">
-                      <div ng-messages="importInfo.totalDue.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container> 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_quantity" | translate}}</label>
-                      <input name="quantity" required ng-model="importRecord.quantity">
-                      <div ng-messages="importInfo.quantity.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container> 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_amount" | translate}}</label>
-                      <input name="amount" required ng-model="importRecord.amount">
-                      <div ng-messages="importInfo.amount.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container> 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_gst" | translate}}</label>
-                      <input name="gst" required ng-model="importRecord.gst">
-                      <div ng-messages="importInfo.gst.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container>
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_total" | translate}}</label>
-                      <input name="total" required ng-model="importRecord.total">
-                      <div ng-messages="importInfo.total.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container>
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_paymentStatus" | translate}}</label>
-                      <input name="paymentStatus" required ng-model="importRecord.paymentStatus">
-                      <div ng-messages="importInfo.paymentStatus.$error">
-                        <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      </div>
-                    </md-input-container> 
-                    <md-input-container flex="50" class="md-block">
-                      <label>{{"summary_import_currency" | translate}}</label>
-                      <input name="currency" ng-model="importRecord.currency">
-                    </md-input-container>
-                    <md-input-container flex="100" class="md-block">
-                      <label>{{"summary_import_description" | translate}}</label>
-                      <input md-maxlength="100" name="description" ng-model="importRecord.description">
-                      <div ng-messages="importInfo.description.$error">
-                        <div ng-message="md-maxlength">{{"maxLength100Error" | translate}}.</div>
-                      </div>
-                    </md-input-container>
-                  </div>
-                </md-card-content>
-              </md-card>
-            </div>
+
+  <form layout-wrap name="consignmentSummary">
+    <div layout="row">
+      <md-card flex="50">
+      <md-subheader class="md-primary">Import Details</md-subheader>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-input-container flex="50" class="md-block">
+              <label>{{"batchId" | translate}}</label>
+              <input required ng-model="batch.batchId" disabled name="batchId">
+              <div ng-messages="consignmentSummary.batchId.$error">
+                <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Transportation Expense</label>
+              <input ng-model="batch.transportationExpense" disabled type="number" name="transportationExpense">
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Transport Company</label>
+              <input ng-model="batch.transportCompany" disabled name="transportCompany" md-maxlength="200">
+              <div ng-messages="consignmentSummary.transportCompany.$error">
+                <div ng-message="md-maxlength">Transport Company must be less than 200 characters long.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>ETA</label>
+              <md-datepicker ng-model="batch.eta" name="eta" disabled md-hide-icons="calendar"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Invoice Total</label>
+              <input ng-model="batch.invoiceTotal" disabled name="invoiceTotal" md-maxlength="200">
+              <div ng-messages="consignmentSummary.invoiceTotal.$error">
+                <div ng-message="md-maxlength">Invoice Total must be less than 200 characters long.</div>
+              </div>
+            </md-input-container> 
+            <md-input-container flex="50" class="md-block">
+              <label>Invoice Date</label>
+              <md-datepicker ng-model="batch.invoiceDate" disabled name="invoiceDate" md-hide-icons="calendar"></md-datepicker>
+            </md-input-container>
           </div>
-        </form>
-        </md-content>
-      </md-tab>
+        </md-card-content>
+      </md-card>
+
+      <md-card flex="50">
+        <md-subheader class="md-primary"> &nbsp;</md-subheader>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="50" class="md-block">
+                <label>Consignment From</label>
+                <input ng-model="batch.consignmentFrom" disabled name="consignmentFrom" md-maxlength="200">
+                <div ng-messages="consignmentSummary.consignmentFrom.$error">
+                  <div ng-message="md-maxlength">Consignment From must be less than 200 characters long.</div>
+                </div>
+              </md-input-container> 
+              <md-input-container flex="50" class="md-block">
+                <label>Check Location</label>
+                <input ng-model="batch.checkLocation" disabled name="checkLocation" md-maxlength="200">
+                <div ng-messages="consignmentSummary.checkLocation.$error">
+                  <div ng-message="md-maxlength">Check Location must be less than 200 characters long.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="50" class="md-block">
+                <label>FOB</label>
+                <input ng-model="batch.fOB" name="fOB" disabled md-maxlength="200">
+                <div ng-messages="consignmentSummary.fOB.$error">
+                  <div ng-message="md-maxlength">FOB must be less than 200 characters long.</div>
+                </div>
+              </md-input-container> 
+              <md-input-container flex="50" class="md-block">
+                <label>{{"consignment_details_transportationDetails_totalDue" | translate}}</label>
+                <input ng-model="batch.totalDue" name="totalDue" disabled type="number">
+              </md-input-container>  
+            </div>
+          </md-card-content>
+        </md-card>
+    </div>
+  </form>
+
+  <div layout="row" layout-align="center">
+    <md-button flex="25" ng-hide="isFromStorage || isFromConsignment" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
+    <md-button flex="25" ng-show="isFromStorage" class="md-raised" ng-click="backToStorgaePage()">Back to Storage</md-button>
+    <md-button flex="25" ng-show="isFromConsignment" class="md-raised" ng-click="backToConsigmentPage()">Back to Consigment</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCarImportRecord()">{{"save" | translate}}</md-button>
+  </div>
+
+</div>
+
+</md-tab>

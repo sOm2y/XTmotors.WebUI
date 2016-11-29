@@ -121,6 +121,7 @@ angular.module('car.controllers',[])
         $scope.car = res;
         $scope.getModelById(res.vehicleModelId);
         $scope.getCarImages(res.carId);
+        $scope.getCarImportRecord(res);
         //$scope.getImportSummary();
         $scope.selectedcarStatus = $scope.car.carStatus;
         $scope.selectedcarCurrency = $scope.car.currency;
@@ -148,7 +149,10 @@ angular.module('car.controllers',[])
     $scope.getCarBatch = function(car, batchId){
       xtmotorsAPIService.get({section:'Imports/' + batchId})
       .$promise.then(function(batch) {   
-        car.arriveTime = batch.eta;
+        $scope.batch = batch;
+        $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
+        $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
+        $scope.car.arriveTime = batch.eta;
         $rootScope.isLoading = false;
       },function(error){
         $rootScope.showError(error);
@@ -159,7 +163,9 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.query({section:'Imports/'})
       .$promise.then(function(imports){
         $scope.imports = imports;
+        $scope.isImportSummaryLoaded = true;
       },function(error){
+        $scope.isImportSummaryLoaded = false;
         $scope.showError(error);
       });
     };
@@ -231,6 +237,7 @@ angular.module('car.controllers',[])
 
     $scope.getVehicleModelList();
     $scope.getCarSummary();
+    $scope.getImportSummary();
 
     // function updateContract(contract){
     //   xtmotorsAPIService.update({ section:'Contracts/'+contract.carId}, contract)
@@ -309,7 +316,7 @@ angular.module('car.controllers',[])
         "currency": null,
         "description": null
       };
-      $scope.getImportSummary();
+      // $scope.getImportSummary();
       //$scope.car.vehicleModelId = '';
     }else{
       $scope.getCarById($stateParams.carId);
@@ -355,14 +362,26 @@ angular.module('car.controllers',[])
 
     $scope.selectedImportChange = function(selectImport){
       if(selectImport !== null){
-        $scope.creatImportCarRecrod(selectImport.batchId);
+        $scope.batch = selectImport;
+        $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
+        $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
       }
     };
 
-    $scope.creatImportCarRecrod = function(batchId){
+    $scope.saveCarImportRecord = function(){
+      $scope.creatImportCarRecrod();
+      $scope.saveImportRecord($scope.importCarRecord);
+      // if($scope.newImportRecord){
+      //   $scope.saveImportRecord($scope.importCarRecord);
+      // }else{
+      //   $scope.updateImportRecord($scope.importCarRecord);
+      // }
+    }
+
+    $scope.creatImportCarRecrod = function(){
       $scope.importCarRecord = {
         "carId": $scope.car.carId,
-        "batchId": batchId,
+        "batchId": $scope.batch.batchId,
         "quantity": 1,
         "amount": 1,
         "gst": $scope.car.gst,
@@ -371,39 +390,54 @@ angular.module('car.controllers',[])
         "currency": $scope.car.currency,
         "description": $scope.car.description
       }
-      //$scope.saveImportRecord($scope.importCarRecord);
     };
 
     $scope.createBatch = function(){
+      $scope.newImportRecord = true;
       $scope.batch = {
         "batchId": $scope.imports.length+1,
-        "transportCompany": "string",
-        "checkLocation": "string",
+        "transportCompany": "",
+        "checkLocation": "",
         "transportationExpense": 0,
         "eta": new Date(),
         "createTime": new Date(),
         "totalDue": 0,
         "fob": "string",
-        "invoiceTotal": "string",
+        "invoiceTotal": "",
         "invoiceDate": new Date(),
-        "consignmentFrom": "string"
+        "consignmentFrom": ""
       }
+      $scope.saveNewBatch();
+      
+      
+      //console.log($scope.importCarRecord);
+    };
+
+    $scope.saveNewBatch = function(){
       xtmotorsAPIService.save({section:'Imports'}, $scope.batch)
       .$promise.then(function(res){
-        $scope.successToast('New batch is created');
-        $scope.creatImportCarRecrod($scope.batch.batchId);
+        $scope.successToast("New Import created, please go to Consigment page to edit details.");
       },function(error){
         $scope.showError(error);
       });
-      
-      //console.log($scope.importCarRecord);
+    }
+
+    $scope.updateImportRecord = function(importCarRecord){
+      xtmotorsAPIService.update({section:'ImportRecords/'+ $scope.car.carId}, importCarRecord)
+      .$promise.then(function(res){
+        $scope.successToast("Import Record updated.");
+      },function(error){
+        $rootScope.showError(error);
+      });
     };
 
     $scope.saveImportRecord = function(importCarRecord){
       xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
       .$promise.then(function(res){
+        $scope.newImportRecord = false;
+        $scope.successToast("New Import Record saved.");
       },function(error){
-        $scope.showError(error);
+        $scope.updateImportRecord(importCarRecord);
       });
     };
 
@@ -421,8 +455,8 @@ angular.module('car.controllers',[])
         "fuelEconomyMixed": null,
         "origin": "",
         "transmission": "",
-        "seats": 4,
-        "doors": 4,
+        "seats": 0,
+        "doors": 0,
         "driveTrain": "",
         "weight": 0,
         "description": null,
@@ -483,6 +517,7 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $rootScope.newCar = false;
         $scope.successToast("New car saved.");
+        $scope.selectedTab = 1;
         //$scope.saveImportRecord($scope.importCarRecord);
         $scope.getCarSummary();
       },function(error){
@@ -495,6 +530,7 @@ angular.module('car.controllers',[])
       xtmotorsAPIService.update({section:'car/'+$scope.car.carId}, $scope.car)
       .$promise.then(function(res){
         $scope.successToast("Update was successful.");
+        $scope.selectedTab = 1;
       },function(error){
         $rootScope.showError(error);
       });
