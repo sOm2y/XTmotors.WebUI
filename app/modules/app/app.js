@@ -60,10 +60,21 @@ angular
        $translateProvider.preferredLanguage('en-AU');
     }])
 
+
+  
+
   .config(['$mdDateLocaleProvider',function($mdDateLocaleProvider) {
     $mdDateLocaleProvider.formatDate = function(date) {
-       return moment(date).format('DD/MM/YYYY');
+      return date ? moment(date).format('DD/MM/YYYY') : '';
     };
+    
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+      var m = moment(dateString, 'DD/MM/YYYY', true);
+      return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+    // $mdDateLocaleProvider.formatDate = function(date) {
+    //    return moment(date).format('DD/MM/YYYY');
+    // };
   }])
   .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
