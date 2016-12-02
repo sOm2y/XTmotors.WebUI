@@ -214,6 +214,7 @@ angular.module('car.controllers',[])
       $rootScope.isCarEdited = false;
       $rootScope.newVehicleModel = false;
       $rootScope.isEditable = false;
+      $scope.newImport = false;
     };
 
     $scope.backToStorgaePage = function(){
@@ -223,6 +224,7 @@ angular.module('car.controllers',[])
       $rootScope.isCarEdited = false;
       $rootScope.newVehicleModel = false;
       $rootScope.isEditable = false;
+      $scope.newImport = false;
     };
 
     $scope.backToConsigmentPage = function(){
@@ -230,6 +232,11 @@ angular.module('car.controllers',[])
       .$promise.then(function(res){
         $state.go('consignment.details',{batchId:res.batchId});
         $rootScope.isFromConsignment = false;
+        $rootScope.newCar = false;
+        $rootScope.isCarEdited = false;
+        $rootScope.newVehicleModel = false;
+        $rootScope.isEditable = false;
+        $scope.newImport = false;
       },function(error){
         $rootScope.showError(error);
       });
@@ -322,16 +329,42 @@ angular.module('car.controllers',[])
       $scope.getCarById($stateParams.carId);
     }
 
-    $scope.saveCar = function(){
+    $scope.goToImportPage = function(){
       $scope.carSummary.$setSubmitted();
       $scope.vehicleInfo.$setSubmitted();
 
       if(($scope.carSummary.$invalid || $scope.vehicleInfo.$invalid)){
         $rootScope.showErrorMessage("Invalid fields, Please check again!");
       }else{
-        $scope.checkModelStatus();
-      }   
-      
+        $scope.selectedTab = 1;
+      } 
+    };
+
+    $scope.checkBatchStatus = function(){
+      if($scope.newImport){
+        $scope.saveNewBatch();
+      }
+    };
+
+    $scope.saveCar = function(){
+        $scope.consignmentSummary.$setSubmitted();
+
+        if($scope.consignmentSummary.$invalid){
+          $rootScope.showErrorMessage("Invalid fields, Please check again!");
+        }else{
+          $scope.checkBatchStatus();
+          $scope.checkModelStatus();
+        }  
+    };
+
+    $scope.saveCarImportRecord = function(){
+      $scope.creatImportCarRecrod();
+
+      if($scope.newCar){
+        $scope.saveImportRecord($scope.importCarRecord);
+      }else{
+        $scope.updateImportRecord($scope.importCarRecord);
+      }
     };
 
     $scope.statusChanged = function(selectedcarStatus){
@@ -362,21 +395,12 @@ angular.module('car.controllers',[])
 
     $scope.selectedImportChange = function(selectImport){
       if(selectImport !== null){
+        $scope.newImport = false;
         $scope.batch = selectImport;
         $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
         $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
       }
     };
-
-    $scope.saveCarImportRecord = function(){
-      $scope.creatImportCarRecrod();
-      $scope.saveImportRecord($scope.importCarRecord);
-      // if($scope.newImportRecord){
-      //   $scope.saveImportRecord($scope.importCarRecord);
-      // }else{
-      //   $scope.updateImportRecord($scope.importCarRecord);
-      // }
-    }
 
     $scope.creatImportCarRecrod = function(){
       $scope.importCarRecord = {
@@ -393,7 +417,8 @@ angular.module('car.controllers',[])
     };
 
     $scope.createBatch = function(){
-      $scope.newImportRecord = true;
+      $scope.newImport = true;
+      // $scope.newImportRecord = true;
       $scope.batch = {
         "batchId": $scope.imports.length+1,
         "transportCompany": "",
@@ -407,17 +432,17 @@ angular.module('car.controllers',[])
         "invoiceDate": new Date(),
         "consignmentFrom": ""
       }
-      $scope.saveNewBatch();
-      
-      
+      // $scope.saveNewBatch();
       //console.log($scope.importCarRecord);
     };
 
     $scope.saveNewBatch = function(){
       xtmotorsAPIService.save({section:'Imports'}, $scope.batch)
       .$promise.then(function(res){
+        $scope.newImport = false;
         $scope.successToast("New Import created, please go to Consigment page to edit details.");
       },function(error){
+        $scope.newImport = true;
         $scope.showError(error);
       });
     }
@@ -425,7 +450,7 @@ angular.module('car.controllers',[])
     $scope.updateImportRecord = function(importCarRecord){
       xtmotorsAPIService.update({section:'ImportRecords/'+ $scope.car.carId}, importCarRecord)
       .$promise.then(function(res){
-        $scope.successToast("Import Record updated.");
+        $scope.successToast("Update was successful.");
       },function(error){
         $rootScope.showError(error);
       });
@@ -434,10 +459,11 @@ angular.module('car.controllers',[])
     $scope.saveImportRecord = function(importCarRecord){
       xtmotorsAPIService.save({section:'ImportRecords'}, importCarRecord)
       .$promise.then(function(res){
-        $scope.newImportRecord = false;
-        $scope.successToast("New Import Record saved.");
+        // $scope.newImportRecord = false;
+        $rootScope.newCar = false;
+        $scope.successToast("New car saved.");
       },function(error){
-        $scope.updateImportRecord(importCarRecord);
+        $rootScope.showError(error);
       });
     };
 
@@ -515,9 +541,8 @@ angular.module('car.controllers',[])
     $scope.saveCarRecord = function(){
       xtmotorsAPIService.save({section:'car/'}, $scope.car)
       .$promise.then(function(res){
-        $rootScope.newCar = false;
-        $scope.successToast("New car saved.");
-        $scope.selectedTab = 1;
+        $scope.saveCarImportRecord();
+        // $scope.successToast("New car saved.");
         //$scope.saveImportRecord($scope.importCarRecord);
         $scope.getCarSummary();
       },function(error){
@@ -529,8 +554,8 @@ angular.module('car.controllers',[])
     $scope.updateCarRecord = function(){
       xtmotorsAPIService.update({section:'car/'+$scope.car.carId}, $scope.car)
       .$promise.then(function(res){
-        $scope.successToast("Update was successful.");
-        $scope.selectedTab = 1;
+        // $scope.successToast("Update was successful.");
+        $scope.saveCarImportRecord();
       },function(error){
         $rootScope.showError(error);
       });

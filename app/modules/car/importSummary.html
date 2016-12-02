@@ -1,4 +1,4 @@
-<md-tab label="{{'tab_import_summary' | translate}}" ng-disabled="newCar || newVehicleModel">
+<md-tab label="{{'tab_import_summary' | translate}}">
   <div>
 
 
@@ -14,7 +14,7 @@
               md-item-text="item.transportCompany"
               md-min-length="0"
               md-max-length="10"
-              placeholder="Enter Batch ID to search or Add a new Import" style="color:#333;">
+              placeholder="Please select an existing Import or Add a new Import" style="color:#333;">
               <md-item-template>
                 <span md-highlight-text="importSearchText">{{'batchId: '+item.batchId +', Transport Company: ' + item.transportCompany}}</span>
               </md-item-template>
@@ -44,29 +44,29 @@
             </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>Transportation Expense</label>
-              <input ng-model="batch.transportationExpense" disabled type="number" name="transportationExpense">
+              <input ng-model="batch.transportationExpense" ng-disabled="!newImport" type="number" name="transportationExpense">
             </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>Transport Company</label>
-              <input ng-model="batch.transportCompany" disabled name="transportCompany" md-maxlength="200">
+              <input ng-model="batch.transportCompany" ng-disabled="!newImport" name="transportCompany" md-maxlength="200">
               <div ng-messages="consignmentSummary.transportCompany.$error">
                 <div ng-message="md-maxlength">Transport Company must be less than 200 characters long.</div>
               </div>
             </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>ETA</label>
-              <md-datepicker ng-model="batch.eta" name="eta" disabled md-hide-icons="calendar"></md-datepicker>
+              <md-datepicker ng-model="batch.eta" name="eta" ng-disabled="!newImport" md-hide-icons="calendar"></md-datepicker>
             </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>Invoice Total</label>
-              <input ng-model="batch.invoiceTotal" disabled name="invoiceTotal" md-maxlength="200">
+              <input ng-model="batch.invoiceTotal" ng-disabled="!newImport" name="invoiceTotal" md-maxlength="200">
               <div ng-messages="consignmentSummary.invoiceTotal.$error">
                 <div ng-message="md-maxlength">Invoice Total must be less than 200 characters long.</div>
               </div>
             </md-input-container> 
             <md-input-container flex="50" class="md-block">
               <label>Invoice Date</label>
-              <md-datepicker ng-model="batch.invoiceDate" disabled name="invoiceDate" md-hide-icons="calendar"></md-datepicker>
+              <md-datepicker ng-model="batch.invoiceDate" ng-disabled="!newImport" name="invoiceDate" md-hide-icons="calendar"></md-datepicker>
             </md-input-container>
           </div>
         </md-card-content>
@@ -78,21 +78,21 @@
             <div layout="row" layout-wrap>
               <md-input-container flex="50" class="md-block">
                 <label>Consignment From</label>
-                <input ng-model="batch.consignmentFrom" disabled name="consignmentFrom" md-maxlength="200">
+                <input ng-model="batch.consignmentFrom" ng-disabled="!newImport" name="consignmentFrom" md-maxlength="200">
                 <div ng-messages="consignmentSummary.consignmentFrom.$error">
                   <div ng-message="md-maxlength">Consignment From must be less than 200 characters long.</div>
                 </div>
               </md-input-container> 
               <md-input-container flex="50" class="md-block">
                 <label>Check Location</label>
-                <input ng-model="batch.checkLocation" disabled name="checkLocation" md-maxlength="200">
+                <input ng-model="batch.checkLocation" ng-disabled="!newImport" name="checkLocation" md-maxlength="200">
                 <div ng-messages="consignmentSummary.checkLocation.$error">
                   <div ng-message="md-maxlength">Check Location must be less than 200 characters long.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>FOB</label>
-                <input ng-model="batch.fOB" name="fOB" disabled md-maxlength="200">
+                <input ng-model="batch.fOB" name="fOB" ng-disabled="!newImport" md-maxlength="200">
                 <div ng-messages="consignmentSummary.fOB.$error">
                   <div ng-message="md-maxlength">FOB must be less than 200 characters long.</div>
                 </div>
@@ -111,7 +111,7 @@
     <md-button flex="25" ng-hide="isFromStorage || isFromConsignment" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
     <md-button flex="25" ng-show="isFromStorage" class="md-raised" ng-click="backToStorgaePage()">Back to Storage</md-button>
     <md-button flex="25" ng-show="isFromConsignment" class="md-raised" ng-click="backToConsigmentPage()">Back to Consigment</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCarImportRecord()">{{"save" | translate}}</md-button>
+    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar()">{{"save" | translate}}</md-button>
   </div>
 
 </div>
