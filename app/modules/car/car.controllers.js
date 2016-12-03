@@ -300,6 +300,7 @@ angular.module('car.controllers',[])
     $translate.refresh();
     $scope.showMaintenanceReordDetails = false;
     $scope.uploading = false;
+    $scope.hideImportTab = true;
 
     if($rootScope.newCar){
       $scope.car = {
@@ -329,6 +330,15 @@ angular.module('car.controllers',[])
       $scope.getCarById($stateParams.carId);
     }
 
+    $scope.checkImportStatus = function(){
+      if($rootScope.newCar == true){
+        if($scope.hideImportTab == true){
+          return true;
+        }
+      }
+      return false;
+    }
+
     $scope.goToImportPage = function(){
       $scope.carSummary.$setSubmitted();
       $scope.vehicleInfo.$setSubmitted();
@@ -337,6 +347,7 @@ angular.module('car.controllers',[])
         $rootScope.showErrorMessage("Invalid fields, Please check again!");
       }else{
         $scope.selectedTab = 1;
+        $scope.hideImportTab = false;
       } 
     };
 

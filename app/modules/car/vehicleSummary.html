@@ -224,7 +224,7 @@
                   
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_makerName" | translate}}</label>
-                    <input name="makerName" ng-disabled="!isEditable" required ng-model="vehicleModel.makerName" md-maxlength="120" minlength="2">
+                    <input name="makerName" ng-disabled="!isEditable" required ng-model="vehicleModel.makerName" md-maxlength="120" minlength="2" capitalize>
                     <div ng-messages="vehicleInfo.makerName.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
@@ -233,7 +233,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_model" | translate}}</label>
-                    <input name="model" ng-disabled="!isEditable" required ng-model="vehicleModel.model" md-maxlength="120" minlength="2">
+                    <input name="model" ng-disabled="!isEditable" required ng-model="vehicleModel.model" md-maxlength="120" minlength="2" capitalize>
                     <div ng-messages="vehicleInfo.model.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
