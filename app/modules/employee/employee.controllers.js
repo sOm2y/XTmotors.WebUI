@@ -129,7 +129,18 @@ angular.module('employee.controllers',[])
 	}])
 	.controller('EmployeeDetailsCtrl', ['$rootScope','$scope','$state','$stateParams', function ($rootScope,$scope,$state,$stateParams) {
 		if($rootScope.newEmployee){
-			$scope.employee = {};
+			$scope.employee = {
+			  "occupation": "string",
+			  "passportNumber": "Passport Number",
+			  "identityNumber": "IRD Number",
+			  "irdNumber": "",
+			  "responsibleFor": "string",
+			  "discount": 0,
+			  "emailAddress": "",
+			  "mobile": "",
+			  "phone": "",
+			  "fax": "string",
+			};
 		}else{
 	      	$scope.getEmployeeById($stateParams.employeeId);
 	    }

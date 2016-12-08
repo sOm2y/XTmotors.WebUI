@@ -46,10 +46,10 @@ angular.module('car.controllers',[])
         $rootScope.isLoading = false;
 
         //Disabled until add settlement tab in car summary page
-        // _.forEach(cars, function(car){ 
-        //   $scope.getCarImportRecord(car);
-        // })
-        //$scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
+        _.forEach(cars, function(car){ 
+          $scope.getCarImportRecord(car);
+        })
+        // $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
       });
@@ -148,11 +148,11 @@ angular.module('car.controllers',[])
 
     $scope.getCarBatch = function(car, batchId){
       xtmotorsAPIService.get({section:'Imports/' + batchId})
-      .$promise.then(function(batch) {   
+      .$promise.then(function(batch) {  
         $scope.batch = batch;
         $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
         $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
-        $scope.car.arriveTime = batch.eta;
+        car.arriveTime = $scope.batch.eta;
         $rootScope.isLoading = false;
       },function(error){
         $rootScope.showError(error);
@@ -178,7 +178,7 @@ angular.module('car.controllers',[])
       },function(error){
         //console.log("no import info " + car.carId);
         car.arriveTime = "HAS NOT BEEN FINALIZED";
-        //$rootScope.showError(error);
+        $rootScope.showErrorMessage("Please add Batch for the car, CarID: "+car.carId);
       });
     };
 
