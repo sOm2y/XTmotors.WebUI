@@ -18,6 +18,8 @@ angular.module('settlement.controllers',[])
 		$scope.isCarSummaryLoading = true;
 		$scope.isVehicleModelLoading = true;
 		$scope.isImportSummaryLoading = true;
+
+		$scope.modelClicked = false;
 		
 		var contractTemp = [];
 		var importTemp = [];
@@ -26,7 +28,16 @@ angular.module('settlement.controllers',[])
 		$scope.importData = [];
 
 		$scope.modelLabels = [];
+		$scope.modelList = [];
 		$scope.modelData = [];
+
+		// $scope.modelClickedLabelsUniq = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+  // 		$scope.modelClickedData = [300, 500, 100];
+
+		// // $scope.modelClickedLabelsUniq = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+		// $scope.modelClickedLabels = [];
+		// // $scope.modelClickedData = [65, 59, 80, 81, 56, 55, 40];
+
 
 		function Dates(){
 			this.January = [];
@@ -47,12 +58,63 @@ angular.module('settlement.controllers',[])
 		$scope.importDates = new Dates();
 
 		drawGraphs();
+		
 
 		function drawGraphs(){
 			getContracts();
 			getImports();
 			getVehicleModels();
 		}
+
+		//#region Display car model when click marker name in pie chart
+		$scope.modelChartClick = function(points, evt){
+			if(points.length !== 0){
+				$scope.modelClicked = true;
+				$scope.modelClickedLabelsUniq = [];
+				$scope.modelClickedData = [[]];
+				$scope.modelClickedLabels = [];
+
+				var $chart;
+				$scope.$on("create", function (event, chart) {
+					if (typeof $chart !== "undefined") {
+						$chart.destroy();
+					}
+					$chart = chart;
+				});
+
+				var lableName = points[0].label;
+
+				$scope.modelsClicked = _.filter($scope.modelList, function(o) { 
+					return (o.maker == lableName);
+					// return !o.active; 
+				});
+
+				_.forEach($scope.modelsClicked, function(item){
+					$scope.modelClickedLabels.push(item.model);
+				})
+
+
+				$scope.modelClickedLabelsUniq = _.uniq($scope.modelClickedLabels);
+
+				// console.log($scope.modelClickedLabelsUniq);
+				_.forEach($scope.modelClickedLabelsUniq, function(item){
+					// console.log(item);
+					var count = 0;
+					_.forEach($scope.modelClickedLabels, function(model){
+						if(model === item){
+								count++;
+						}	
+					})
+					$scope.modelClickedData[0].push(count);
+					
+				})
+				// console.log($scope.modelClickedData);
+			}
+			
+
+		};
+
+		//endregion
 
 		var count = 0;
 		function getImports(){
@@ -95,11 +157,12 @@ angular.module('settlement.controllers',[])
 			.$promise.then(function(cars) {
 				
 				_.forEach(cars, function(item){
+					$scope.modelList.push({"maker": item.makerName, "model": item.model});
 					$scope.modelLabels.push(item.makerName);
 				})
 				
-				$scope.modelLabels = _.uniq($scope.modelLabels);
-				_.forEach($scope.modelLabels, function(item){
+				$scope.modelLabelsUniq = _.uniq($scope.modelLabels);
+				_.forEach($scope.modelLabelsUniq, function(item){
 					var count = 0;
 					_.forEach(cars, function(car){
 						if(car.makerName === item){

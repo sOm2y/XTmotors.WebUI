@@ -1,5 +1,24 @@
 
 <div class="panel panel-default">
+	<div class="panel-heading"><b>{{"vehicleModelsSummary" | translate}}</b></div>
+	<div class="panel-body" layout="row" layout-sm="column" layout-xs="column">
+		<div flex="55" flex-xs="100" flex-sm="80">
+			<canvas id="pie" class="chart chart-pie" chart-data="modelData" chart-labels="modelLabelsUniq" chart-click="modelChartClick">
+			</canvas>
+		</div>
+		<div class="panel panel-default" ng-show="modelClicked" flex="45" flex-xs="100" flex-sm="80">
+			<div class="panel-heading"><b>Selected Model Distribution</b></div>
+			<div class="panel-body">
+				<canvas id="modelChart" class="chart chart-bar" chart-data="modelClickedData" chart-labels="modelClickedLabelsUniq">
+				</canvas>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="panel panel-default">
 	<div class="panel-heading"><b>{{"salesSummary" | translate}}</b></div>
 	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
 		<canvas id="bar" class="chart chart-bar" chart-data="contractData" chart-labels="labels">
@@ -10,13 +29,6 @@
 	<div class="panel-heading"><b>{{"importsSummary" | translate}}</b></div>
 	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
 		<canvas id="line" class="chart chart-line" chart-data="importData" chart-labels="labels">
-		</canvas>
-	</div>
-</div>
-<div class="panel panel-default">
-	<div class="panel-heading"><b>{{"vehicleModelsSummary" | translate}}</b></div>
-	<div class="panel-body" flex-xs="100" flex-sm="80" flex-gt-sm="60">
-		<canvas id="pie" class="chart chart-pie" chart-data="modelData" chart-labels="modelLabels">
 		</canvas>
 	</div>
 </div>

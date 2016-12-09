@@ -14,7 +14,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_registerationNum" | translate}}</label>
-                    <input name="registerationNum" required ng-model="car.registerationNum" md-maxlength="50">
+                    <input name="registerationNum" ng-model="car.registerationNum" md-maxlength="50">
                     <div ng-messages="carSummary.registerationNum.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Registeration Number must be less than 50 characters long.</div>
@@ -22,7 +22,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_wofTime" | translate}}</label>
-                    <md-datepicker required ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
+                    <md-datepicker ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
                     <div ng-messages="carSummary.wofTime.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="mindate">Date is too early.</div>
@@ -32,7 +32,7 @@
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
                     <!-- warranty-Suffix -->
-                    <input name="warranty" required ng-model="car.warranty" type="number" min="0" max="99.99">
+                    <input name="warranty" ng-model="car.warranty" type="number" min="0" max="99.99">
                     <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="min">Warranty must between 0 to 99.99</div>
@@ -325,17 +325,17 @@
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
  -->                  </md-input-container>
-                  <md-input-container flex="50" class="md-block">
+                  <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_weight" | translate}}</label>
                     <input name="weight" ng-disabled="!isEditable" ng-model="vehicleModel.weight">
-                    <!-- <div ng-messages="vehicleInfo.weight.$error">
+                    <div ng-messages="vehicleInfo.weight.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div> -->
+                    </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_driveTrain" | translate}}</label>
                     <input name="driveTrain" ng-disabled="!isEditable" ng-model="vehicleModel.driveTrain">
-                  </md-input-container>
+                  </md-input-container> -->
                 </form>
               </md-card-content>
             </md-card>
