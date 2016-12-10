@@ -20,6 +20,20 @@ angular.module('settlement.controllers',[])
 		$scope.isImportSummaryLoading = true;
 
 		$scope.modelClicked = false;
+
+		$scope.options = {
+	      autoSelect: true,
+	      boundaryLinks: false,
+	      largeEditDialog: false,
+	      pageSelector: false,
+	      rowSelection: false
+	    };
+
+	    $scope.query = {
+	      order: 'dayDiff',
+	      limit: 10,
+	      page: 1
+	    };
 		
 		var contractTemp = [];
 		var importTemp = [];
@@ -30,6 +44,8 @@ angular.module('settlement.controllers',[])
 		$scope.modelLabels = [];
 		$scope.modelList = [];
 		$scope.modelData = [];
+
+		$scope.contractReports = [];
 
 		function Dates(){
 			this.January = [];
@@ -134,19 +150,51 @@ angular.module('settlement.controllers',[])
 		}
 
 		function getContracts(){
+			var iteration = 0;
 			xtmotorsAPIService.query({section:'contracts'})
 			.$promise.then(function(contracts){
 				$scope.contracts = contracts;
 				_.forEach(contracts, function(contract){
 					var date = getMonthName(contract, 'contractDate');
 					addToDates($scope.contractDates, date, contract);
+
+					xtmotorsAPIService.get({section:'ImportRecords/' + contract.carId})
+					.$promise.then(function(importRecord) {
+						xtmotorsAPIService.get({section:'Imports/' + importRecord.batchId})
+						.$promise.then(function(batch) {
+							xtmotorsAPIService.get({section:'Car/CarBriefView/' + contract.carId})
+							.$promise.then(function(car) {
+								iteration++;
+								// console.log(car.maker + car.model);
+								// console.log("contractDate: " + contract.contractDate + ", ETA: " + batch.eta);
+								contract.contractDate = $scope.changeDateFormat(contract.contractDate);
+								batch.eta = $scope.changeDateFormat(batch.eta);
+								var timeDiff = Math.abs(contract.contractDate.getTime() - batch.eta.getTime());
+								var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+								// console.log(dayDiff);
+								var contractReport = {
+									"carId": contract.carId,
+									"maker": car.maker,
+									"model": car.model,
+									"importDate": batch.eta,
+									"contractDate": contract.contractDate,
+									"dayDiff": dayDiff
+								}
+								$scope.contractReports.push(contractReport);
+								if(iteration == contracts.length){
+									$scope.contractReports = _.sortBy($scope.contractReports, 'dayDiff');
+									$scope.isCarSummaryLoading = false;
+									$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+								}
+							})
+						})
+					})
 				})
 				getCountNumber(contractTemp, $scope.contractDates, $scope.contractData);
 			},function(error){
 
 			});
-			$scope.isCarSummaryLoading = false;
-			$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+			
 		}
 
 		function getVehicleModels(){
@@ -226,6 +274,10 @@ angular.module('settlement.controllers',[])
 			var date = moment(item[description]).format('MMMM');
 			return date;
 		}
+
+		$scope.changeDateFormat = function(time){
+	      return new Date(moment(time));
+	    };
 		
 		$scope.colours=[{
 			fillColor: 'rgba(255, 255, 255, 0.8)',
