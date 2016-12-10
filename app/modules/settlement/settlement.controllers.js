@@ -31,14 +31,6 @@ angular.module('settlement.controllers',[])
 		$scope.modelList = [];
 		$scope.modelData = [];
 
-		// $scope.modelClickedLabelsUniq = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-  // 		$scope.modelClickedData = [300, 500, 100];
-
-		// // $scope.modelClickedLabelsUniq = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-		// $scope.modelClickedLabels = [];
-		// // $scope.modelClickedData = [65, 59, 80, 81, 56, 55, 40];
-
-
 		function Dates(){
 			this.January = [];
 			this.February = [];
@@ -118,6 +110,7 @@ angular.module('settlement.controllers',[])
 
 		var count = 0;
 		function getImports(){
+			var iteration = 0;
 			xtmotorsAPIService.query({section:'ImportRecords'})
 			.$promise.then(function(importRecords) {
 				_.forEach(importRecords, function(item){
@@ -126,14 +119,18 @@ angular.module('settlement.controllers',[])
 						var date = getMonthName(batch, 'eta');
 						addToDates($scope.importDates, date, batch);
 						count++;
+						iteration++;
 						if(count === importRecords.length){
 							getCountNumber(importTemp, $scope.importDates, $scope.importData);
 						}
-						$scope.isImportSummaryLoading = false;
-						$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+						if(iteration == importRecords.length){
+							$scope.isImportSummaryLoading = false;
+							$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
+						}
 					})
 				})
 			});
+			
 		}
 
 		function getContracts(){
@@ -145,17 +142,16 @@ angular.module('settlement.controllers',[])
 					addToDates($scope.contractDates, date, contract);
 				})
 				getCountNumber(contractTemp, $scope.contractDates, $scope.contractData);
-				$scope.isCarSummaryLoading = false;
-				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			},function(error){
 
 			});
+			$scope.isCarSummaryLoading = false;
+			$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 		}
 
 		function getVehicleModels(){
 			xtmotorsAPIService.query({section:'car/summary'})
 			.$promise.then(function(cars) {
-				
 				_.forEach(cars, function(item){
 					$scope.modelList.push({"maker": item.makerName, "model": item.model});
 					$scope.modelLabels.push(item.makerName);
@@ -171,9 +167,9 @@ angular.module('settlement.controllers',[])
 					})
 					$scope.modelData.push(count);
 				})
-				$scope.isVehicleModelLoading = false;
-				$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 			});
+			$scope.isVehicleModelLoading = false;
+			$rootScope.isLoading = $scope.isCarSummaryLoading || $scope.isVehicleModelLoading || $scope.isImportSummaryLoading;
 		}
 
 		function addToDates(dateObj, date, item){
