@@ -1,5 +1,17 @@
+<header layout="row" class="blackBackground" layout-wrap>
+	<div layout="row"  flex="100" layout-padding layout-align="space-between center">
+		<div id="logo">
+			<img src="/images/XTMotors_logo.png">
+		</div>
+		<div class="nav-buttons">
+			<md-button id="nav-button" ng-href="http://lucaszhangdemo.azurewebsites.net/">GO TO WEBSITE</md-button>
+		</div>
+	</div>
+</header>
+
 <div class="container">
 	<div layout="row" layout-wrap>
+
 		<div flex="100" class="login-container">
 			<img width="300" src="images/xtmotors_logo_fixed_2.png" alt="">
 		</div>
@@ -16,7 +28,12 @@
 					<md-button ng-click="attemptLogin(email,password);LoginModalCtrl.cancel()">Login</md-button>
 				</div>
 			</form>
-		<div>
+		</div>
+
+		<div class="alert-message" flex="100">Please use <strong>Login button</strong> to log in. 
+ The User Name and Password has been set to program.</div>
+
 	</div>
 </div>
+
 <div class="version-no">v&nbsp;0.0.1</div>

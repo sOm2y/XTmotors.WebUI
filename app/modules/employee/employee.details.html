@@ -84,15 +84,17 @@
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>Passport Number</label>
-                <input ng-model="employee.passportNumber" name="passportNumber" md-maxlength="50">
+                <input required ng-model="employee.passportNumber" name="passportNumber" md-maxlength="50">
                 <div ng-messages="employeeDetail.passportNumber.$error">
+                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                   <div ng-message="md-maxlength">Passport Number must be less than 50 characters.</div>
                 </div>
               </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>Identity Number</label>
-                <input ng-model="employee.identityNumber" name="identityNumber" md-maxlength="50">
+                <input required ng-model="employee.identityNumber" name="identityNumber" md-maxlength="50">
                 <div ng-messages="employeeDetail.identityNumber.$error">
+                  <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                   <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
                 </div>
               </md-input-container>

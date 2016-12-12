@@ -13,7 +13,7 @@ angular.module('settlement.controllers',[])
 		// $translatePartialLoader.addPart('errorMessage');
     	$translate.refresh();
 		$scope.settlement = 'settlement';
-		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepetember", "October", "November", "December"];
+		$scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		$scope.series = ['Series A'];
 		$scope.isCarSummaryLoading = true;
 		$scope.isVehicleModelLoading = true;
@@ -157,6 +157,7 @@ angular.module('settlement.controllers',[])
 				_.forEach(contracts, function(contract){
 					var date = getMonthName(contract, 'contractDate');
 					addToDates($scope.contractDates, date, contract);
+					console.log(contract);
 
 					xtmotorsAPIService.get({section:'ImportRecords/' + contract.carId})
 					.$promise.then(function(importRecord) {
@@ -246,7 +247,7 @@ angular.module('settlement.controllers',[])
 				case 'August':
 					dateObj.August.push(item);
 					return;
-				case 'Sepetember':
+				case 'September':
 					dateObj.Sepetember.push(item);
 					return;
 				case 'October':

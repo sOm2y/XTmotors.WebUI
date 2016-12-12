@@ -182,31 +182,36 @@ angular.module('app.controllers',[])
 	}])
 .controller('LoginModalCtrl',['$rootScope','$scope','xtmotorsAPIService','$http','$mdDialog','$mdToast','localStorageService','loginModal','$modalInstance','$state',
 function ($rootScope,$scope,xtmotorsAPIService,$http,$mdDialog,$mdToast,localStorageService,loginModal,$modalInstance,$state) {
-	$rootScope.close = function (user) {
-			$modalInstance.close(user);
-	};
+  $rootScope.close = function (user) {
+      $modalInstance.close(user);
+  };
+
+  $scope.email = "zhangysd@hotmail.com";
+  $scope.password = "ac,bD,12";
 
    $scope.attemptLogin = function (email, passWord) {
-		 var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
-		//  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
-			xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
-					$rootScope.setUserAuth(res);
+      
+      var data ="userName=" + email + "&password=" + passWord +"&grant_type=password";
+      // console.log(data);
+    //  $http.defaults.headers.post['Content-Type'] =  'application/x-www-form-urlencoded';
+      xtmotorsAPIService.save({section:'token'},data).$promise.then(function(res){
+          $rootScope.setUserAuth(res);
 
-					if($scope.rememberPassword){
-						localStorageService.set('oauth_token',res);
-					}
+          if($scope.rememberPassword){
+            localStorageService.set('oauth_token',res);
+          }
 
-					var user = {'email':email,'password':passWord};
-					$rootScope.close(user);
-			},function(error){
-				$mdToast.show({
-					template: '<md-toast class="md-toast md-toast-500"><span flex>' + 'Login Failed'  + '</span></md-toast>',
-					position: 'top right',
-					hideDelay: 5000
-				});
-			});
+          var user = {'email':email,'password':passWord};
+          $rootScope.close(user);
+      },function(error){
+        $mdToast.show({
+          template: '<md-toast class="md-toast md-toast-500"><span flex>' + 'Login Failed'  + '</span></md-toast>',
+          position: 'top right',
+          hideDelay: 5000
+        });
+      });
 
-	 };
+   };
 
 }])
 

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('app.services', [])
   .factory('xtmotorsAPIService', ['$resource','$http', function($resource,$http) {
-        var apiUrl = 'http://xtmotorwebapi.azurewebsites.net/api/';
+        var apiUrl = 'http://lucasapi.azurewebsites.net/api/';
         return $resource(apiUrl+':section/:id',{ id: '@_id' },{ 'update': { method: 'PUT' }});
             //   DEFAULT RESOURCE FUNTIONS
             //   'get':    {method:'GET'},

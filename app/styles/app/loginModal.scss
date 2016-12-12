@@ -1,8 +1,37 @@
+.blackBackground{
+  background-color:#000000;
+}
+
+#logo img{
+  width:140px;
+  height:40px;
+  margin-left:75px;
+}
+
+#nav-button{
+  color:#FFFFFF !important;
+  font-size: 18px;
+  font-family: "Share Tech Mono"; 
+  margin-right: 20px;
+}
+
+#nav-button:hover{
+  color:#E3256D !important;
+}
+
 .modal-dialog {
   width: 100% !important;
   height: 100% !important;
   padding: 0;
   margin: 0!important;
+}
+
+.alert-message{
+  margin-top: 20px;
+  font-size: 16px;
+  color: #FFFFFF;
+  padding: 18PX 11PX;
+  background-color: #3f51b5 !important;
 }
 
 .modal-content {
@@ -12,33 +41,33 @@
   background-size: cover;
   text-align: center;
   .version-no{
-  	position: absolute;
-  	bottom: 15px;
-  	right: 25px;
-  	color: white;
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    color: white;
   }
   .container{
-  	z-index: 3;
-  	padding-top: 12%;
-  	img{
-  		padding-bottom: 50px;
-  	}
-  	#login-form {
+    z-index: 3;
+    padding-top: 7%;
+    img{
+      padding-bottom: 50px;
+    }
+    #login-form {
       margin: 0 auto;
-  		input{
-  			background: rgba(255,255,255,0.4);
-  			height: 50px;
-  			margin-bottom: 20px;
-  			padding-left: 10px;
-  			color: #FFFFFF;
-  			&:focus{
-  				color: white;
-  			}
-  		}
-  		.row.login-options{
-  			padding-left: 15px;
-  			color: white;
-  		}
+      input{
+        background: rgba(255,255,255,0.4);
+        height: 50px;
+        margin-bottom: 20px;
+        padding-left: 10px;
+        color: #FFFFFF;
+        &:focus{
+          color: white;
+        }
+      }
+      .row.login-options{
+        padding-left: 15px;
+        color: white;
+      }
       md-checkbox{
         margin-left: 15px;
         margin-top: 15px;
@@ -59,7 +88,7 @@
         color: #FFFFFF;
         margin: 0 !important;
       }
-  	}
+    }
 
   }
   

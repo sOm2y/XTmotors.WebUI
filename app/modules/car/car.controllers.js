@@ -576,7 +576,7 @@ angular.module('car.controllers',[])
        $scope.files = files;
         if (files && files.length) {
             Upload.upload({
-              url: 'http://xtmotorwebapi.azurewebsites.net/api/images/upload/'+$scope.car.carId,
+              url: 'http://lucasapi.azurewebsites.net/api/images/upload/'+$scope.car.carId,
               data: {
                 file: files
               }
