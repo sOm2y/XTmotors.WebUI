@@ -1,65 +1,81 @@
 <div>
-  <div layout="row">
-    <md-card flex="50">
-    <md-subheader class="md-primary">{{"consignment_details_transportationDetails_title" | translate}}</md-subheader>
-      <md-card-content>
-        <div layout="row" layout-wrap>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"batchId" | translate}}</label>
-            <input required ng-model="batch.batchId" disabled>
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
-            </div>
-          </md-input-container>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"transportationExpense" | translate}}</label>
-            <input required ng-model="batch.transportationExpense">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
-            </div>
-          </md-input-container>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"transportCompany" | translate}}</label>
-            <input required ng-model="batch.transportCompany">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
-            </div>
-          </md-input-container>
-        </div>
-      </md-card-content>
-    </md-card>
+  <form layout-wrap name="consignmentSummary">
+    <div layout="row">
+      <md-card flex="50">
+      <md-subheader class="md-primary">{{"consignment_details_transportationDetails_title" | translate}}</md-subheader>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <md-input-container flex="50" class="md-block">
+              <label>{{"batchId" | translate}}</label>
+              <input required ng-model="batch.batchId" disabled name="batchId">
+              <div ng-messages="consignmentSummary.batchId.$error">
+                <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Transportation Expense</label>
+              <input ng-model="batch.transportationExpense" type="number" name="transportationExpense">
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Transport Company</label>
+              <input ng-model="batch.transportCompany" name="transportCompany" md-maxlength="200">
+              <div ng-messages="consignmentSummary.transportCompany.$error">
+                <div ng-message="md-maxlength">Transport Company must be less than 200 characters long.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>ETA</label>
+              <md-datepicker ng-model="batch.eta" name="eta" md-hide-icons="calendar"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex="50" class="md-block">
+              <label>Invoice Total</label>
+              <input ng-model="batch.invoiceTotal" name="invoiceTotal" md-maxlength="200">
+              <div ng-messages="consignmentSummary.invoiceTotal.$error">
+                <div ng-message="md-maxlength">Invoice Total must be less than 200 characters long.</div>
+              </div>
+            </md-input-container> 
+            <md-input-container flex="50" class="md-block">
+              <label>Invoice Date</label>
+              <md-datepicker ng-model="batch.invoiceDate" name="invoiceDate" md-hide-icons="calendar"></md-datepicker>
+            </md-input-container>
+          </div>
+        </md-card-content>
+      </md-card>
 
-    <md-card flex="50">
-    <md-subheader class="md-primary"> &nbsp;</md-subheader>
-      <md-card-content>
-        <div layout="row" layout-wrap>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"consignment_details_transportationDetails_checkLocation" | translate}}</label>
-            <input required ng-model="batch.checkLocation">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+      <md-card flex="50">
+        <md-subheader class="md-primary"> &nbsp;</md-subheader>
+          <md-card-content>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="50" class="md-block">
+                <label>Consignment From</label>
+                <input ng-model="batch.consignmentFrom" name="consignmentFrom" md-maxlength="200">
+                <div ng-messages="consignmentSummary.consignmentFrom.$error">
+                  <div ng-message="md-maxlength">Consignment From must be less than 200 characters long.</div>
+                </div>
+              </md-input-container> 
+              <md-input-container flex="50" class="md-block">
+                <label>Check Location</label>
+                <input ng-model="batch.checkLocation" name="checkLocation" md-maxlength="200">
+                <div ng-messages="consignmentSummary.checkLocation.$error">
+                  <div ng-message="md-maxlength">Check Location must be less than 200 characters long.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="50" class="md-block">
+                <label>FOB</label>
+                <input ng-model="batch.fOB" name="fOB" md-maxlength="200">
+                <div ng-messages="consignmentSummary.fOB.$error">
+                  <div ng-message="md-maxlength">FOB must be less than 200 characters long.</div>
+                </div>
+              </md-input-container> 
+              <md-input-container flex="50" class="md-block">
+                <label>{{"consignment_details_transportationDetails_totalDue" | translate}}</label>
+                <input ng-model="batch.totalDue" name="totalDue" type="number">
+              </md-input-container>  
             </div>
-          </md-input-container>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"consignment_details_transportationDetails_totalDue" | translate}}</label>
-            <input required ng-model="batch.totalDue">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
-            </div>
-          </md-input-container>
-          <md-input-container flex="50" class="md-block">
-            <label>{{"consignment_details_transportationDetails_eta" | translate}}</label>
-            <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" placeholder="ETA" ng-model="batch.eta" class="md-input">
-          </md-input-container>
-        </div>
-      </md-card-content>
-    </md-card>
-  </div>
+          </md-card-content>
+        </md-card>
+    </div>
+  </form>
 
   <div>
     <md-card flex-gt-sm="90" flex-gt-md="80" ng-hide="newBatch">
@@ -76,7 +92,7 @@
               md-max-length="10"
               placeholder="Enter Vin Number to Search Cars" style="color:#333;">
               <md-item-template>
-                <span md-highlight-text="carSearchText">{{'Vin number: '+item.vin+', Model: '+item.makerName+'  '+item.model+' '+item.year}}</span>
+                <span md-highlight-text="carSearchText">{{'[Vin number: '+item.vin+'] --- [Model: '+item.makerName+', '+item.model+', '+item.year + '] --- [ID: '+item.carId+"]"}}</span>
               </md-item-template>
               <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
                 <div ng-message="required">You <b>must</b> Enter a vehicle ID.</div>
@@ -102,9 +118,9 @@
             <p>Amount: {{::importRecord.amount}}</p> 
           </div>
         </md-list-item>
-        <md-card-actions layout="column" layout-align="end center" flex="20">
+        <md-card-actions layout="column" layout-align="center center" flex="20">
           <md-button class="md-raised md-primary" ng-click="editImportRecord(importRecord)">{{"viewMore" | translate}}</md-button>
-          <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">{{"delete" | translate}}</md-button>
+          <!-- <md-button class="md-raised md-primary" ng-click="deleteImportRecord(importRecord.carId)">{{"delete" | translate}}</md-button> -->
         </md-card-actions>
       </md-card-content>
     </md-card>

@@ -14,7 +14,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_registerationNum" | translate}}</label>
-                    <input name="registerationNum" required ng-model="car.registerationNum" md-maxlength="50">
+                    <input name="registerationNum" ng-model="car.registerationNum" md-maxlength="50">
                     <div ng-messages="carSummary.registerationNum.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Registeration Number must be less than 50 characters long.</div>
@@ -22,7 +22,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_wofTime" | translate}}</label>
-                    <md-datepicker required ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
+                    <md-datepicker ng-model="car.wofTime" name="wofTime" md-placeholder="20/11/2016" md-hide-icons="calendar" md-min-date="minDate"></md-datepicker>
                     <div ng-messages="carSummary.wofTime.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="mindate">Date is too early.</div>
@@ -32,7 +32,7 @@
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_feature_warranty" | translate}}</label>
                     <!-- warranty-Suffix -->
-                    <input name="warranty" required ng-model="car.warranty" type="number" min="0" max="99.99">
+                    <input name="warranty" ng-model="car.warranty" type="number" min="0" max="99.99">
                     <div ng-messages="carSummary.warranty.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="min">Warranty must between 0 to 99.99</div>
@@ -197,7 +197,7 @@
               <md-card-content>
               <form layout="row" layout-wrap name="vehicleInfo">
                   <div flex="100" class="searchBar" ng-if="isVehicleModelListLoaded" layout="row">
-                    <span flex="70">
+                    <span flex="60">
                       <md-autocomplete
                         md-selected-item="selectVehicle"
                         md-search-text="modelSearchText"
@@ -214,15 +214,17 @@
                         </md-item-template>
                       </md-autocomplete>
                     </span>
-                    <span flex="30">
-                      <md-button class="md-raised md-primary add-model-button" ng-click="createNewVehicleModel()">Add New Model</md-button>
+                    <span flex="18">
+                      <md-button class="md-raised md-primary add-model-button" ng-disabled="newVehicleModel" ng-click="editVehicleModel()">Edit</md-button>
+                    </span>
+                    <span flex="18">
+                      <md-button class="md-raised md-primary add-model-button" ng-click="createNewVehicleModel()">Add</md-button>
                     </span>
                   </div>
                   
-
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_makerName" | translate}}</label>
-                    <input name="makerName" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.makerName" md-maxlength="120" minlength="2">
+                    <input name="makerName" ng-disabled="!isEditable" required ng-model="vehicleModel.makerName" md-maxlength="120" minlength="2" capitalize>
                     <div ng-messages="vehicleInfo.makerName.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
@@ -231,7 +233,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_model" | translate}}</label>
-                    <input name="model" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.model" md-maxlength="120" minlength="2">
+                    <input name="model" ng-disabled="!isEditable" required ng-model="vehicleModel.model" md-maxlength="120" minlength="2" capitalize>
                     <div ng-messages="vehicleInfo.model.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Maker name must be between 2 and 120 characters.</div>
@@ -240,7 +242,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_year" | translate}}</label>
-                    <input name="year" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.year" ng-pattern="/^\d{4}$/">
+                    <input name="year" type="number" ng-disabled="!isEditable" required ng-model="vehicleModel.year" ng-pattern="/^\d{4}$/">
                     <div ng-messages="vehicleInfo.year.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="pattern" class="my-message">That doesn't look like a valid year.</div>
@@ -248,7 +250,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_engine" | translate}}</label>
-                    <input name="engine" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.engine" md-maxlength="120" minlength="2">
+                    <input name="engine" ng-disabled="!isEditable" required ng-model="vehicleModel.engine" md-maxlength="120" minlength="2">
                     <div ng-messages="vehicleInfo.engine.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="md-maxlength">Engine must be between 2 and 120 characters.</div>
@@ -257,15 +259,11 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuel" | translate}}</label>
-                    <input name="fuel" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuel" md-maxlength="50">
-                    <div ng-messages="vehicleInfo.fuel.$error">
-                      <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                      <div ng-message="md-maxlength">Fuel must be less than 120 characters.</div>
-                    </div>
+                    <input name="fuel" ng-disabled="!isEditable" ng-model="vehicleModel.fuel">
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_seats" | translate}}</label>
-                    <input name="seats" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.seats" type="number" min="1" max="100" ng-pattern="/^[1-9][0-9]*$/">
+                    <input name="seats" ng-disabled="!isEditable" required ng-model="vehicleModel.seats" type="number" min="1" max="100" ng-pattern="/^[1-9][0-9]*$/">
                     <div ng-messages="vehicleInfo.seats.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="min">Seats must be between 1 and 100.</div>
@@ -275,7 +273,7 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_doors" | translate}}</label>
-                    <input name="doors" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.doors" type="number" min="1" max="10" ng-pattern="/^[1-9][0-9]*$/">
+                    <input name="doors" ng-disabled="!isEditable" required ng-model="vehicleModel.doors" type="number" min="1" max="10" ng-pattern="/^[1-9][0-9]*$/">
                     <div ng-messages="vehicleInfo.doors.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                       <div ng-message="min">Doors must be between 1 and 10.</div>
@@ -285,35 +283,35 @@
                   </md-input-container>
                    <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuelEconomyCity" | translate}}</label>
-                    <input name="fuelEconomyCity" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuelEconomyCity">
+                    <input name="fuelEconomyCity" ng-disabled="!isEditable" required ng-model="vehicleModel.fuelEconomyCity">
                     <div ng-messages="vehicleInfo.fuelEconomyCity.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuelEconomyHwy" | translate}}</label>
-                    <input name="fuelEconomyHwy" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuelEconomyHwy">
+                    <input name="fuelEconomyHwy" ng-disabled="!isEditable" required ng-model="vehicleModel.fuelEconomyHwy">
                     <div ng-messages="vehicleInfo.fuelEconomyHwy.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container>
                    <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_fuelEconomyMixed" | translate}}</label>
-                    <input name="fuelEconomyMixed" ng-disabled="!newVehicleModel" required ng-model="vehicleModel.fuelEconomyMixed">
+                    <input name="fuelEconomyMixed" ng-disabled="!isEditable" required ng-model="vehicleModel.fuelEconomyMixed">
                     <div ng-messages="vehicleInfo.fuelEconomyMixed.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
                   </md-input-container> -->
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_origin" | translate}}</label>
-                    <input name="origin" ng-disabled="!newVehicleModel" ng-model="vehicleModel.origin">
+                    <input name="origin" ng-disabled="!isEditable" ng-model="vehicleModel.origin">
                     <!-- <div ng-messages="vehicleInfo.origin.$error"> -->
                       <!-- <div ng-message="required">{{"requiredFieldError" | translate}}.</div> -->
                     <!-- </div> -->
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_bodyType" | translate}}</label>
-                     <md-select ng-disabled="!newVehicleModel" ng-model="selectedcarBodyType" ng-change="bodyTypeChanged(selectedcarBodyType)">
+                     <md-select ng-disabled="!isEditable" ng-model="selectedcarBodyType" ng-change="bodyTypeChanged(selectedcarBodyType)">
                         <md-optgroup label="Body Type">
                         <md-option ng-repeat="item in carBodyType" value="{{item}}">
                            {{item}}
@@ -322,22 +320,22 @@
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_transmission" | translate}}</label>
-                    <input name="transmission" ng-disabled="!newVehicleModel" ng-model="vehicleModel.transmission">
+                    <input name="transmission" ng-disabled="!isEditable" ng-model="vehicleModel.transmission">
                     <!-- <div ng-messages="vehicleInfo.transmission.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
                     </div>
  -->                  </md-input-container>
-                  <md-input-container flex="50" class="md-block">
+                  <!-- <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_weight" | translate}}</label>
-                    <input name="weight" ng-disabled="!newVehicleModel" ng-model="vehicleModel.weight">
-                    <!-- <div ng-messages="vehicleInfo.weight.$error">
+                    <input name="weight" ng-disabled="!isEditable" ng-model="vehicleModel.weight">
+                    <div ng-messages="vehicleInfo.weight.$error">
                       <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-                    </div> -->
+                    </div>
                   </md-input-container>
                   <md-input-container flex="50" class="md-block">
                     <label>{{"summary_vehicleInfo_driveTrain" | translate}}</label>
-                    <input name="driveTrain" ng-disabled="!newVehicleModel" ng-model="vehicleModel.driveTrain">
-                  </md-input-container>
+                    <input name="driveTrain" ng-disabled="!isEditable" ng-model="vehicleModel.driveTrain">
+                  </md-input-container> -->
                 </form>
               </md-card-content>
             </md-card>

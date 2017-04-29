@@ -60,6 +60,19 @@ angular.module('sales.controllers',[])
       page: 1
     };
 
+    $rootScope.showErrorMessage = function(message){
+      $mdToast.show({
+        template: '<md-toast class="md-toast md-toast-500"><span flex>' + message  + '</span></md-toast>',
+        position: 'top right',
+        hideDelay: 5000,
+        parent: $element
+      });
+    };
+
+    $scope.changeDateFormat = function(time){
+      return new Date(moment(time));
+    };
+
     $scope.createNewContract = function(){
       $rootScope.newContact = true;
       $state.go('sales.details', {}, {reload: true});
@@ -94,18 +107,34 @@ angular.module('sales.controllers',[])
     function ($rootScope,$scope,xtmotorsAPIService,$stateParams,$state) {
 
       if($rootScope.newContact){
-        $scope.contract = {};
-        $scope.selectedCurrency = $scope.contract.currency;
+        $scope.contract = {
+          // "contractNum": null,
+          // "contractDate": new Date(),
+          // "deposite": 0,
+          // "balance": 0,
+          // "price": 0,
+          // "gst": 0,
+          // "total": 0,
+          // "paymentStatus": false,
+          // "currency": null,
+          // "description": null
+        }
+        // $scope.selectedCurrency = $scope.contract.currency;
       }else{
         getContract();
       }
 
       $scope.saveContract = function(contract){
-        if($rootScope.newContact){
-          saveContractRecord();
+        $scope.salesSummary.$setSubmitted();
+        if($scope.salesSummary.$invalid){
+          $rootScope.showErrorMessage("Invalid fields, Please check again!");
         }else{
-          updateContractRecord();
-        } 
+          if($rootScope.newContact){
+            saveContractRecord();
+          }else{
+            updateContractRecord();
+          } 
+        }        
       };
 
       $scope.selectedEmployeeChange = function(selectedEmployee){
@@ -137,6 +166,7 @@ angular.module('sales.controllers',[])
         .$promise.then(function(contract){
           $scope.contract = contract;
           $scope.selectedCurrency = $scope.contract.currency;
+          $scope.contract.contractDate = $scope.changeDateFormat($scope.contract.contractDate);
         },function(error){
           $scope.showError(error);
         });

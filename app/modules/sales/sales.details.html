@@ -1,4 +1,5 @@
 <div layout="column">
+  <form layout-wrap name="salesSummary">
   <div layout="row">
     <md-card flex="50">
     <md-subheader class="md-primary">{{"sales_details_contractDetails" | translate}}</md-subheader>
@@ -6,7 +7,10 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="100" class="md-block contractSearchContainer">
             <label>{{"carId" | translate}}</label>
-            <input required disabled ng-model="contract.carId">
+            <input required disabled ng-model="contract.carId" name="carId">
+            <div ng-messages="salesSummary.carId.$error">
+              <!-- <div ng-message="required">{{"requiredFieldError" | translate}}.</div> -->
+            </div>
           </md-input-container>
           <md-autocomplete
             flex="100"
@@ -21,13 +25,16 @@
             placeholder="Enter Vin number to Search Car"
             class="autoComplete">
             <md-item-template>
-              <span md-highlight-text="carSearchText">{{'Vin number: '+car.vin+', Model: '+car.makerName+'  '+car.model+' '+item.year}}</span>
+              <span md-highlight-text="carSearchText">{{'[Vin number: '+car.vin+'] --- [Model: '+car.makerName+', '+car.model+', '+car.year + '] --- [ID: '+car.carId+"]"}}</span>
             </md-item-template>
           </md-autocomplete>
 
           <md-input-container flex="100" class="md-block contractSearchContainer">
             <label>{{"customerId" | translate}}</label>
-            <input required ng-model="contract.customerId">
+            <input required ng-model="contract.customerId" name="customerId">
+            <div ng-messages="salesSummary.customerId.$error">
+              <!-- <div ng-message="required">{{"requiredFieldError" | translate}}.</div> -->
+            </div>
           </md-input-container>
           <md-autocomplete
             flex="100"
@@ -47,7 +54,10 @@
 
           <md-input-container flex="100" class="md-block contractSearchContainer">
             <label>{{"employeeId" | translate}}</label>
-            <input required ng-model="contract.employeeId">
+            <input required ng-model="contract.employeeId" name="employeeId">
+            <div ng-messages="salesSummary.employeeId.$error">
+              <!-- <div ng-message="required">{{"requiredFieldError" | translate}}.</div> -->
+            </div>
           </md-input-container>
           <md-autocomplete
             flex="100"
@@ -78,40 +88,48 @@
           </div>
           <md-input-container flex="50" class="md-block">
             <label>{{"contractNumber" | translate}}</label>
-            <input required ng-model="contract.contractNum">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="contract.contractNum" name="contractNum" ng-pattern="/^[0-9|-]*$/" md-maxlength="50">
+            <div ng-messages="salesSummary.contractNum.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+              <div ng-message="pattern">Please enter an valid phone number. (Numbers only)</div>
+              <div ng-message="md-maxlength">Contract Number must be less than 100 characters long.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>{{"deposite" | translate}}</label>
-            <input required ng-model="contract.deposite">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="contract.deposite" name="deposite" type="number">
+            <div ng-messages="salesSummary.deposite.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>{{"price" | translate}}</label>
-            <input required ng-model="contract.price">
-            <div ng-messages="projectForm.description.$error">
+            <input required ng-model="contract.price" name="price" type="number" min="0" max="9999999999.99">
+            <div ng-messages="salesSummary.price.$error">
               <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
-              <div ng-message="md-maxlength">{{"maxLength30Error" | translate}}.</div>
+              <div ng-message="min">Warranty must between 0 to 9999999999.99</div>
+              <div ng-message="max">Warranty must between 0 to 9999999999.99</div>
             </div>
           </md-input-container>
           <md-input-container flex="50" class="md-block">
             <label>{{"contractDate" | translate}}</label>
-            <input time="false" date="true" mdc-datetime-picker="" type="text" id="eta" ng-model="contract.contractDate" class="md-input">
+            <md-datepicker required ng-model="contract.contractDate" name="contractDate" md-hide-icons="calendar"></md-datepicker>
+            <div ng-messages="salesSummary.contractDate.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+            </div>
           </md-input-container>
+
           <md-input-container flex="50" class="md-block">
             <label>{{"currency" | translate}}</label>
-             <md-select ng-model="selectedCurrency" ng-change="currencyChanged(selectedCurrency)">
+             <md-select required ng-model="selectedCurrency" ng-change="currencyChanged(selectedCurrency)" name="currency">
                 <md-optgroup label="Currency">
                 <md-option ng-repeat="item in salesCurrency" value="{{item}}">
                    {{item}}
                 </md-option>
              </md-select>
+             <div ng-messages="salesSummary.currency.$error">
+              <div ng-message="required">{{"requiredFieldError" | translate}}.</div>
+            </div>
           </md-input-container>
           <md-input-container flex="100" class="md-block carDescription">
             <label>{{"description" | translate}}</label>
@@ -121,6 +139,7 @@
       </md-card-content>
     </md-card>
   </div>
+  </form>
 
   <div layout="row" layout-align="center">
     <md-button flex="25" class="md-raised" ng-click="backToContract()">{{"cancel" | translate}}</md-button>

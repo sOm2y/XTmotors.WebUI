@@ -52,6 +52,10 @@ angular.module('consignment.controllers',[])
             $scope.showError(error);
         });
 
+        $scope.changeDateFormat = function(time){
+	      return new Date(moment(time));
+	    };
+
 		$scope.createImport = function(){
 			$rootScope.newBatch = true;
 			$state.go('consignment.details', {batchId:$scope.imports.length+1}, {reload: true});
@@ -91,8 +95,19 @@ angular.module('consignment.controllers',[])
 	.controller('ConsignmentDetailsCtrl', ['$rootScope','$scope','xtmotorsAPIService','$stateParams', '$state',
 		function ($rootScope,$scope,xtmotorsAPIService,$stateParams,$state) {
 			if($rootScope.newBatch){
-				$scope.batch = {};
-				$scope.batch.batchId = $stateParams.batchId;
+				$scope.batch = {
+			        "batchId": $stateParams.batchId,
+			        "transportCompany": null,
+			        "checkLocation": null,
+			        "transportationExpense": 0,
+			        "eta": new Date(),
+			        "createTime": new Date(),
+			        "totalDue": 0.0,
+			        "fob": null,
+			        "invoiceTotal": null,
+			        "invoiceDate": new Date(),
+			        "consignmentFrom": null
+			      }
 			}else{
 				getBatchRecords();
 				getImportRecord();
@@ -111,6 +126,8 @@ angular.module('consignment.controllers',[])
 			xtmotorsAPIService.get({section:'Imports/'+$stateParams.batchId})
 			.$promise.then(function(batch){
 				$scope.batch = batch;
+				$scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
+				$scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);
 			},function(error){
             	$scope.showError(error);
         	});

@@ -2,10 +2,10 @@
   <!-- <md-content> -->
     <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTab">
       <vehicle-summary></vehicle-summary>
-      <!-- <import-summary></import-summary> -->
+      <import-summary></import-summary>
       <maintenance-record-list></maintenance-record-list>
       <!-- <contract-summary></contract-summary> -->
-      <md-tab label='{{"tab_upload_car_photos" | translate}}'>
+      <md-tab label='{{"tab_upload_car_photos" | translate}}' ng-disabled="newCar || newVehicleModel">
         <md-content class="md-padding">
         <!-- Upload your car photos -->
           <h4>{{"title_upload_car_photos" | translate}}</h4>
@@ -46,5 +46,5 @@
     <md-button flex="25" ng-hide="isFromStorage || isFromConsignment" class="md-raised" ng-click="backToCar()">{{"cancel" | translate}}</md-button>
     <md-button flex="25" ng-show="isFromStorage" class="md-raised" ng-click="backToStorgaePage()">Back to Storage</md-button>
     <md-button flex="25" ng-show="isFromConsignment" class="md-raised" ng-click="backToConsigmentPage()">Back to Consigment</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="saveCar()">{{"save" | translate}}</md-button> 
+    <md-button flex="25" class="md-raised md-primary" ng-click="goToImportPage()">Next</md-button> 
   </div>
