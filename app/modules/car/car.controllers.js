@@ -39,16 +39,73 @@ angular.module('car.controllers',[])
       page: 1
     };
 
+
+		$scope.getImportRecords = function(){
+			xtmotorsAPIService.query({section:'ImportRecords'})
+			.$promise.then(function(importRecords) {
+					$rootScope.importRecords = importRecords;
+					$rootScope.isLoading = false;
+				},function(error){
+					$rootScope.showError(error);
+			});
+		};
+
+		$scope.getBatchImports = function(){
+			xtmotorsAPIService.query({section:'Imports'})
+			.$promise.then(function(imports) {
+					$rootScope.imports = imports;
+					$rootScope.isLoading = false;
+				},function(error){
+					$rootScope.showError(error);
+			});
+		};
+
+		$scope.getCarBatch = function(car, batchId){
+			$scope.batch = _.find($rootScope.imports,function(importBatch){
+				return batchId == importBatch.batchId
+			});
+			if($scope.batch){
+				$scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
+				$scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);
+				car.arriveTime = $scope.batch.eta;
+			}else{
+				car.arriveTime = "HAS NOT BEEN FINALIZED";
+				$rootScope.showErrorMessage("Please add Batch for the car, CarID: "+car.carId);
+			}
+		};
+
+
+    $scope.getCarImportRecord = function(car){
+			$scope.importSummary = _.find($rootScope.importRecords,function(importRecord){
+				return importRecord.carId == car.carId;
+			});
+
+			if($scope.importSummary){
+				  $scope.getCarBatch(car, $scope.importSummary.batchId);
+			}else{
+				car.arriveTime = "HAS NOT BEEN FINALIZED";
+				$rootScope.showErrorMessage("Please add Batch for the car, CarID: "+car.carId);
+			}
+    };
+
     $scope.getCarSummary = function(){
       xtmotorsAPIService.query({section:'car/summary'})
       .$promise.then(function(cars) {
         $rootScope.cars = cars;
         $rootScope.isLoading = false;
+				$q.all([
+					xtmotorsAPIService.query({section:'ImportRecords'}).$promise,
+					xtmotorsAPIService.query({section:'Imports'}).$promise
+				]).then(function(data){
+					$rootScope.importRecords = data[0];
+					$rootScope.imports = data[1];
+					//Disabled until add settlement tab in car summary page
+					_.forEach(cars, function(car){
+						$scope.getCarImportRecord(car);
+					})
+				});
 
-        //Disabled until add settlement tab in car summary page
-        _.forEach(cars, function(car){ 
-          $scope.getCarImportRecord(car);
-        })
+
         // $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
@@ -146,18 +203,7 @@ angular.module('car.controllers',[])
       });
     };
 
-    $scope.getCarBatch = function(car, batchId){
-      xtmotorsAPIService.get({section:'Imports/' + batchId})
-      .$promise.then(function(batch) {  
-        $scope.batch = batch;
-        $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
-        $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
-        car.arriveTime = $scope.batch.eta;
-        $rootScope.isLoading = false;
-      },function(error){
-        $rootScope.showError(error);
-      });
-    };
+
 
     $scope.getImportSummary = function(){
       xtmotorsAPIService.query({section:'Imports/'})
@@ -167,18 +213,6 @@ angular.module('car.controllers',[])
       },function(error){
         $scope.isImportSummaryLoaded = false;
         $scope.showError(error);
-      });
-    };
-
-    $scope.getCarImportRecord = function(car){
-      xtmotorsAPIService.get({ section:'ImportRecords/'+car.carId})
-      .$promise.then(function(res){
-        $scope.importSummary = res;
-        $scope.getCarBatch(car, res.batchId);
-      },function(error){
-        //console.log("no import info " + car.carId);
-        car.arriveTime = "HAS NOT BEEN FINALIZED";
-        $rootScope.showErrorMessage("Please add Batch for the car, CarID: "+car.carId);
       });
     };
 
@@ -244,7 +278,9 @@ angular.module('car.controllers',[])
 
     $scope.getVehicleModelList();
     $scope.getCarSummary();
-    $scope.getImportSummary();
+		// $scope.getImportRecords();
+		// $scope.getBatchImports();
+    // $scope.getImportSummary();
 
     // function updateContract(contract){
     //   xtmotorsAPIService.update({ section:'Contracts/'+contract.carId}, contract)
@@ -348,7 +384,7 @@ angular.module('car.controllers',[])
       }else{
         $scope.selectedTab = 1;
         $scope.hideImportTab = false;
-      } 
+      }
     };
 
     $scope.checkBatchStatus = function(){
@@ -365,7 +401,7 @@ angular.module('car.controllers',[])
         }else{
           $scope.checkBatchStatus();
           $scope.checkModelStatus();
-        }  
+        }
     };
 
     $scope.saveCarImportRecord = function(){
@@ -409,7 +445,7 @@ angular.module('car.controllers',[])
         $scope.newImport = false;
         $scope.batch = selectImport;
         $scope.batch.eta = $scope.changeDateFormat($scope.batch.eta);
-        $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);  
+        $scope.batch.invoiceDate = $scope.changeDateFormat($scope.batch.invoiceDate);
       }
     };
 
