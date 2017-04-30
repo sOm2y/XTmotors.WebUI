@@ -5,7 +5,7 @@
 
     <md-card flex-gt-sm="100" flex-gt-md="80">
       <md-card-content>
-         <div layout="row" ng-if="isImportSummaryLoaded">
+         <div layout="row" ng-if="isBatchImportsLoaded">
           <span flex="80">
             <md-autocomplete
               md-selected-item="selectedImport"
@@ -64,7 +64,7 @@
               <div ng-messages="consignmentSummary.invoiceTotal.$error">
                 <div ng-message="md-maxlength">Invoice Total must be less than 200 characters long.</div>
               </div>
-            </md-input-container> 
+            </md-input-container>
             <md-input-container flex="50" class="md-block">
               <label>Invoice Date</label>
               <md-datepicker ng-model="batch.invoiceDate" ng-disabled="!newImport" name="invoiceDate" md-hide-icons="calendar"></md-datepicker>
@@ -83,7 +83,7 @@
                 <div ng-messages="consignmentSummary.consignmentFrom.$error">
                   <div ng-message="md-maxlength">Consignment From must be less than 200 characters long.</div>
                 </div>
-              </md-input-container> 
+              </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>Check Location</label>
                 <input ng-model="batch.checkLocation" ng-disabled="!newImport" name="checkLocation" md-maxlength="200">
@@ -97,11 +97,11 @@
                 <div ng-messages="consignmentSummary.fOB.$error">
                   <div ng-message="md-maxlength">FOB must be less than 200 characters long.</div>
                 </div>
-              </md-input-container> 
+              </md-input-container>
               <md-input-container flex="50" class="md-block">
                 <label>{{"consignment_details_transportationDetails_totalDue" | translate}}</label>
                 <input ng-model="batch.totalDue" name="totalDue" disabled type="number">
-              </md-input-container>  
+              </md-input-container>
             </div>
           </md-card-content>
         </md-card>

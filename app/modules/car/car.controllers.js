@@ -39,27 +39,6 @@ angular.module('car.controllers',[])
       page: 1
     };
 
-
-		$scope.getImportRecords = function(){
-			xtmotorsAPIService.query({section:'ImportRecords'})
-			.$promise.then(function(importRecords) {
-					$rootScope.importRecords = importRecords;
-					$rootScope.isLoading = false;
-				},function(error){
-					$rootScope.showError(error);
-			});
-		};
-
-		$scope.getBatchImports = function(){
-			xtmotorsAPIService.query({section:'Imports'})
-			.$promise.then(function(imports) {
-					$rootScope.imports = imports;
-					$rootScope.isLoading = false;
-				},function(error){
-					$rootScope.showError(error);
-			});
-		};
-
 		$scope.getCarBatch = function(car, batchId){
 			$scope.batch = _.find($rootScope.imports,function(importBatch){
 				return batchId == importBatch.batchId
@@ -81,7 +60,7 @@ angular.module('car.controllers',[])
 			});
 
 			if($scope.importSummary){
-				  $scope.getCarBatch(car, $scope.importSummary.batchId);
+				$scope.getCarBatch(car, $scope.importSummary.batchId);
 			}else{
 				car.arriveTime = "HAS NOT BEEN FINALIZED";
 				$rootScope.showErrorMessage("Please add Batch for the car, CarID: "+car.carId);
@@ -102,13 +81,13 @@ angular.module('car.controllers',[])
 					//Disabled until add settlement tab in car summary page
 					_.forEach(cars, function(car){
 						$scope.getCarImportRecord(car);
-					})
+					});
+					$scope.isBatchImportsLoaded = true;
 				});
-
-
         // $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
         $rootScope.showError(error);
+				$scope.isBatchImportsLoaded = false;
       });
     };
 
@@ -203,8 +182,6 @@ angular.module('car.controllers',[])
       });
     };
 
-
-
     $scope.getImportSummary = function(){
       xtmotorsAPIService.query({section:'Imports/'})
       .$promise.then(function(imports){
@@ -278,8 +255,6 @@ angular.module('car.controllers',[])
 
     $scope.getVehicleModelList();
     $scope.getCarSummary();
-		// $scope.getImportRecords();
-		// $scope.getBatchImports();
     // $scope.getImportSummary();
 
     // function updateContract(contract){
