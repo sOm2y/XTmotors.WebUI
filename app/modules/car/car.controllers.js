@@ -74,6 +74,7 @@ angular.module('car.controllers',[])
 			}
 		};
 
+
     $scope.getCarImportRecord = function(car){
 			$scope.importSummary = _.find($rootScope.importRecords,function(importRecord){
 				return importRecord.carId == car.carId;
@@ -103,6 +104,7 @@ angular.module('car.controllers',[])
 						$scope.getCarImportRecord(car);
 					})
 				});
+
 
         // $scope.tableHeaderName = [{title:'id'},{title:'brand'},{title:'model'},{title:'year'},{title:'odometer'},{title:'salePrice'},{title:'status'}];
       },function(error){
